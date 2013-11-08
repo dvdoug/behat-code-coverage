@@ -1,6 +1,6 @@
 # CodeCoverage
 
-Code coverage (Behat) extension and (Symfony 2) bundle.
+Code coverage (Behat) extension.
 
 ## Documentation
 
@@ -8,7 +8,7 @@ Code coverage (Behat) extension and (Symfony 2) bundle.
 
 ## Source
 
-[Github](https://github.com/vipsoft/code-coverage)
+[Github](https://github.com/vipsoft/code-coverage-extension)
 
 ## Copyright
 
