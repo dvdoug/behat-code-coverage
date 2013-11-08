@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="behat.code_coverage.driver.class">VIPSoft\CodeCoverageExtension\Driver\RemoteXdebug</parameter>
+        <parameter key="behat.code_coverage.listener.suite.class">VIPSoft\CodeCoverageExtension\Listener\SuiteListener</parameter>
+        <parameter key="behat.code_coverage.service.report.class">VIPSoft\CodeCoverageExtension\Service\ReportService</parameter>
+
+        <parameter key="behat.code_coverage.config" type="collection">
+            <parameter key="baseUrl">%behat.mink.base_url%</parameter>
+            <parameter key="auth" type="collection">
+                <parameter key="user">%behat.code_coverage.auth.user%</parameter>
+                <parameter key="password">%behat.code_coverage.auth.password%</parameter>
+            </parameter>
+            <parameter key="create" type="collection">
+                <parameter key="method">%behat.code_coverage.create.method%</parameter>
+                <parameter key="path">%behat.code_coverage.create.path%</parameter>
+            </parameter>
+            <parameter key="read" type="collection">
+                <parameter key="method">%behat.code_coverage.read.method%</parameter>
+                <parameter key="path">%behat.code_coverage.read.path%</parameter>
+            </parameter>
+            <parameter key="delete" type="collection">
+                <parameter key="method">%behat.code_coverage.delete.method%</parameter>
+                <parameter key="path">%behat.code_coverage.delete.path%</parameter>
+            </parameter>
+            <parameter key="drivers" type="collection">%behat.code_coverage.drivers%</parameter>
+            <parameter key="output_directory">%behat.code_coverage.output_directory%</parameter>
+        </parameter>
+    </parameters>
+
+    <services>
+        <service id="behat.code_coverage.remote_driver" class="%behat.code_coverage.driver.class%">
+            <argument type="collection">%behat.code_coverage.config%</argument>
+        </service>
+
+        <service id="behat.code_coverage.local_driver" class="PHP\CodeCoverage\Driver\Xdebug" />
+
+        <service id="behat.code_coverage.listener.suite" class="%behat.code_coverage.listener.suite.class%">
+            <argument>%behat.code_coverage.config%</argument>
+            <argument type="service" id="behat.code_coverage.remote_driver" />
+            <argument type="service" id="behat.code_coverage.local_driver" />
+            <argument type="service" id="behat.code_coverage.service.report" />
+            <tag name="behat.event_subscriber" priority="0" />
+        </service>
+
+        <service id="behat.code_coverage.service.report" class="%behat.code_coverage.service.report.class%">
+            <argument>%behat.code_coverage.config%</argument>
+        </service>
+    </services>
+
+</container>

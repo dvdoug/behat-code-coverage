@@ -1,0 +1,17 @@
+default:
+  extensions:
+    VIPSoft\CodeCoverageExtension\Extension:
+# optional authentication
+      auth:       ~
+#     auth:
+#       user:     user
+#       password: password
+      create:
+        method:   POST
+        path:     /
+      read:
+        method:   GET
+        path:     /
+      delete:
+        method:   DELETE
+        path:     /
