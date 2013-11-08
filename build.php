@@ -11,7 +11,7 @@
 
 chdir(__DIR__);
 
-$filename = 'code_coverage.phar';
+$filename = 'code_coverage_extension.phar';
 
 if (file_exists($filename)) {
     unlink($filename);
