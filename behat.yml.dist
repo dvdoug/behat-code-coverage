@@ -15,3 +15,7 @@ default:
       delete:
         method:   DELETE
         path:     /
+      drivers:
+        - remote
+        - local
+      output_directory: /tmp/report
