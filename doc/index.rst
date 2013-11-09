@@ -2,7 +2,12 @@
 CodeCoverageExtension
 =====================
 
-The Code Coverage extension allows you to collect local and/or remote code coverage.
+The Code Coverage extension allows you to collect local and/or remote code
+coverage.
+
+Use this extension to find unused/obsolete contexts or step definitions.
+
+Please don't use this extension to achieve 100% code coverage.
 
 Installation
 ============
