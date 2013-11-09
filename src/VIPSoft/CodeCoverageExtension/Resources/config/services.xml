@@ -9,6 +9,7 @@
         <parameter key="behat.code_coverage.service.report.class">VIPSoft\CodeCoverageExtension\Service\ReportService</parameter>
 
         <parameter key="behat.code_coverage.config" type="collection">
+            <parameter key="base_url">%behat.mink.base_url%</parameter>
             <parameter key="auth">%behat.code_coverage.auth%</parameter>
             <parameter key="create">%behat.code_coverage.create%</parameter>
             <parameter key="read">%behat.code_coverage.read%</parameter>
@@ -20,7 +21,7 @@
 
     <services>
         <service id="behat.code_coverage.remote_driver" class="%behat.code_coverage.driver.class%">
-            <argument type="collection">%behat.code_coverage.config%</argument>
+            <argument>%behat.code_coverage.config%</argument>
         </service>
 
         <service id="behat.code_coverage.local_driver" class="PHP_CodeCoverage_Driver_Xdebug" />

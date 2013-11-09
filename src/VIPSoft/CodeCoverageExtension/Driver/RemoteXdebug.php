@@ -29,29 +29,29 @@ class RemoteXdebug implements \PHP_CodeCoverage_Driver
      * Constructor.
      *
      * [
-     *     'baseUrl' => 'http://api.example.com/1.0/coverage',
-     *     'auth'    => [
-     *                      'user'     => 'user name',
-     *                      'password' => 'password',
-     *                  ],
-     *     'start'   => [
-     *                      'method' => 'POST',
-     *                      'path'   => '/',
-     *                  ],
-     *     'fetch'   => [
-     *                      'method' => 'GET',
-     *                      'path'   => '/',
-     *                  ],
-     *     'stop'    => [
-     *                      'method' => 'DELETE',
-     *                      'path'   => '/',
-     *                  ],
+     *     'base_url' => 'http://api.example.com/1.0/coverage',
+     *     'auth'     => [
+     *                       'user'     => 'user name',
+     *                       'password' => 'password',
+     *                   ],
+     *     'create'   => [
+     *                       'method' => 'POST',
+     *                       'path'   => '/',
+     *                   ],
+     *     'read'     => [
+     *                       'method' => 'GET',
+     *                       'path'   => '/',
+     *                   ],
+     *     'delete'   => [
+     *                       'method' => 'DELETE',
+     *                       'path'   => '/',
+     *                   ],
      * ]
      *
      * @param array  $config          Configuration
      * @param string $clientClassName HTTP client class name
      */
-    public function __construct(array $config, $clientClassName = '\Guzzle\Http\Client')
+    public function __construct(/*array*/ $config, $clientClassName = '\Guzzle\Http\Client')
     {
         $this->config          = $config;
         $this->clientClassName = $clientClassName;
@@ -62,9 +62,9 @@ class RemoteXdebug implements \PHP_CodeCoverage_Driver
      */
     public function start()
     {
-        $client = new $this->clientClassName($this->config['baseUrl']);
+        $client = new $this->clientClassName($this->config['base_url']);
 
-        $request = $this->buildRequest($client, 'start');
+        $request = $this->buildRequest($client, 'create');
 
         $response = $request->send();
 
@@ -80,9 +80,9 @@ class RemoteXdebug implements \PHP_CodeCoverage_Driver
      */
     public function stop()
     {
-        $client = new $this->clientClassName($this->config['baseUrl']);
+        $client = new $this->clientClassName($this->config['base_url']);
 
-        $request = $this->buildRequest($client, 'fetch');
+        $request = $this->buildRequest($client, 'read');
         $request->setHeader('Accept', 'application/json');
 
         $response = $request->send();
@@ -91,7 +91,7 @@ class RemoteXdebug implements \PHP_CodeCoverage_Driver
             throw new \Exception('remote driver fetch failed: ' . $response->getReasonPhrase());
         }
 
-        $request = $this->buildRequest($client, 'stop');
+        $request = $this->buildRequest($client, 'delete');
         $request->send();
 
         return json_decode($response->getBody(true));
