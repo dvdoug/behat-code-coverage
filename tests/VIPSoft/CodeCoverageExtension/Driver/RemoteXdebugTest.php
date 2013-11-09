@@ -50,22 +50,22 @@ END_OF_CLIENT
     {
         $this->config = array(
             'baseUrl' => 'http://localhost',
-            'auth'    => [
+            'auth'    => array(
                              'user'     => 'user name',
                              'password' => 'password',
-                         ],
-            'start'   => [
+                         ),
+            'create'  => array(
                              'method' => 'POST',
                              'path'   => '/',
-                         ],
-            'fetch'   => [
+                         ),
+            'read'    => array(
                              'method' => 'GET',
                              'path'   => '/',
-                         ],
-            'stop'    => [
+                         ),
+            'delete'  => array(
                              'method' => 'DELETE',
                              'path'   => '/',
-                         ],
+                         ),
         );
 
         $this->response = $this->getMockBuilder('Guzzle\Http\Message\Response')
@@ -100,7 +100,7 @@ END_OF_CLIENT
     public function testInvalidMethodException()
     {
         try {
-            $this->config['start']['method'] = 'TRACE';
+            $this->config['create']['method'] = 'TRACE';
 
             $driver = new RemoteXdebug($this->config, $this->guzzleClient);
             $driver->start();

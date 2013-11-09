@@ -10,6 +10,8 @@ Code coverage (Behat) extension.
 
 [Github](https://github.com/vipsoft/code-coverage-extension)
 
+[![Build Status](https://travis-ci.org/vipsoft/code-coverage-extension.png?branch=master)](https://travis-ci.org/vipsoft/code-coverage-extension)
+
 ## Copyright
 
 Copyright (c) 2013 Anthon Pang. See LICENSE for details.
