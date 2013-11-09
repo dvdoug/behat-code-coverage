@@ -103,7 +103,6 @@ class Extension implements ExtensionInterface
                         scalarNode('user')->end()->
                         scalarNode('password')->end()->
                     end()->
-                    defaultNull()->
                 end()->
                 arrayNode('create')->
                     children()->
@@ -125,7 +124,6 @@ class Extension implements ExtensionInterface
                 end()->
                 arrayNode('drivers')->
                     prototype('scalar')->end()->
-                    defaultNull()->
                 end()->
                 scalarNode('output_directory')->
                     defaultNull()->

@@ -9,24 +9,11 @@
         <parameter key="behat.code_coverage.service.report.class">VIPSoft\CodeCoverageExtension\Service\ReportService</parameter>
 
         <parameter key="behat.code_coverage.config" type="collection">
-            <parameter key="baseUrl">%behat.mink.base_url%</parameter>
-            <parameter key="auth" type="collection">
-                <parameter key="user">%behat.code_coverage.auth.user%</parameter>
-                <parameter key="password">%behat.code_coverage.auth.password%</parameter>
-            </parameter>
-            <parameter key="create" type="collection">
-                <parameter key="method">%behat.code_coverage.create.method%</parameter>
-                <parameter key="path">%behat.code_coverage.create.path%</parameter>
-            </parameter>
-            <parameter key="read" type="collection">
-                <parameter key="method">%behat.code_coverage.read.method%</parameter>
-                <parameter key="path">%behat.code_coverage.read.path%</parameter>
-            </parameter>
-            <parameter key="delete" type="collection">
-                <parameter key="method">%behat.code_coverage.delete.method%</parameter>
-                <parameter key="path">%behat.code_coverage.delete.path%</parameter>
-            </parameter>
-            <parameter key="drivers" type="collection">%behat.code_coverage.drivers%</parameter>
+            <parameter key="auth">%behat.code_coverage.auth%</parameter>
+            <parameter key="create">%behat.code_coverage.create%</parameter>
+            <parameter key="read">%behat.code_coverage.read%</parameter>
+            <parameter key="delete">%behat.code_coverage.delete%</parameter>
+            <parameter key="drivers">%behat.code_coverage.drivers%</parameter>
             <parameter key="output_directory">%behat.code_coverage.output_directory%</parameter>
         </parameter>
     </parameters>
@@ -36,7 +23,7 @@
             <argument type="collection">%behat.code_coverage.config%</argument>
         </service>
 
-        <service id="behat.code_coverage.local_driver" class="PHP\CodeCoverage\Driver\Xdebug" />
+        <service id="behat.code_coverage.local_driver" class="PHP_CodeCoverage_Driver_Xdebug" />
 
         <service id="behat.code_coverage.listener.suite" class="%behat.code_coverage.listener.suite.class%">
             <argument>%behat.code_coverage.config%</argument>
