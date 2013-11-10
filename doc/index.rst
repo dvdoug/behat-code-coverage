@@ -5,9 +5,8 @@ CodeCoverageExtension
 The Code Coverage extension allows you to collect local and/or remote code
 coverage.
 
-Use this extension to find unused/obsolete contexts or step definitions.
-
-Please don't use this extension to achieve 100% code coverage.
+Use this extension to find dead code in your application, or unused/obsolete
+contexts or step definitions.
 
 Installation
 ============
@@ -53,20 +52,21 @@ Activate extension in your **behat.yml** and define your routes for remote code 
       # ...
       extensions:
         VIPSoft\CodeCoverageExtension\Extension:
-          auth:       ~
+          auth:        ~
           create:
-            method:   POST
-            path:     /
+            method:    POST
+            path:      /
           read:
-            method:   GET
-            path:     /
+            method:    GET
+            path:      /
           delete:
-            method:   DELETE
-            path:     /
-          drivers:
-            - remote
-            - local
-          output_directory: /tmp/report
+            method:    DELETE
+            path:      /
+          driver:
+            service:   behat.code_coverage.aggregate_driver
+          report:
+            class:     '\PHP_CodeCoverage_Report_HTML'
+            directory: /tmp/report
 
 Settings
 --------
@@ -84,21 +84,22 @@ If HTTP Authentication is required, use:
             password: your_password
           ...
 
-There are two code coverage drivers.  The "local" driver will collect code
-coverage from the PHP instance running Behat.  The "remote" driver will
-collect code coverage for the Symfony 2 application under test on a remote
-web server.
+There are two alternate code coverage driver services.  The "local" driver will
+only collect code coverage from the PHP instance running Behat.  The "remote"
+driver will collect code coverage for the Symfony 2 application under test
+on a remote web server.
 
-The "output_directory" determines where the extension will write the code
+The report "directory" determines where the extension will write the code
 coverage report.
+
+Other choices for report "class" include PHP_CodeCoverage_Report_Clover,
+PHP_CodeCoverage_Report_PHP, and PHP_CodeCoverage_Report_Text.
 
 Limitations
 -----------
 Web server clusters not supported (because the Code Coverage bundle uses a
 SQLite database).  So, not compatible with distributed testing environments
 either (e.g., use Behat GearmanExtension).
-
-No filtering yet (but it is supported by PHP_CodeCoverage_Report_HTML).
 
 Source
 ======

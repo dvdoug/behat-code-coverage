@@ -2,20 +2,39 @@ default:
   extensions:
     VIPSoft\CodeCoverageExtension\Extension:
 # optional authentication
-      auth:       ~
+      auth:        ~
 #     auth:
-#       user:     user
-#       password: password
+#       user:      user
+#       password:  password
       create:
-        method:   POST
-        path:     /
+        method:    POST
+        path:      /
       read:
-        method:   GET
-        path:     /
+        method:    GET
+        path:      /
       delete:
-        method:   DELETE
-        path:     /
-      drivers:
-        - remote
-        - local
-      output_directory: /tmp/report
+        method:    DELETE
+        path:      /
+      driver:
+        service:   behat.code_coverage.aggregate_driver
+#       service:   behat.code_coverage.remote_driver
+#       service:   behat.code_coverage.local_driver
+      filter:      ~
+#     filter:
+#       blacklist:
+#         directories:
+#           'path': '.php'
+#         files:
+#           - 'path'
+#         exclude:
+#           directories:
+#           files:
+#       whitelist:
+#         directories:
+#         files:
+#         exclude:
+#           directories:
+#           files:
+      report:
+        class:     '\PHP_CodeCoverage_Report_HTML'
+        directory: /tmp/report

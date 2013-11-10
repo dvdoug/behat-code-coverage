@@ -39,14 +39,23 @@ END_OF_SQLITE
 
     public function testGenerateReport()
     {
+        $coverage = $this->getMockBuilder('PHP_CodeCoverage')
+                         ->disableOriginalConstructor()
+                         ->getMock();
+
         $proxy = $this->getMock('VIPSoft\Test\FunctionProxy');
         $proxy->expects($this->once())
-              ->method('invokeFunction')
-              ->with(array(), '/dev/null');
+              ->method('invokeFunction');
 
         \VIPSoft\CodeCoverageExtension\Test\PHP_CodeCoverage_Report_HTML::$proxiedMethods['process'] = array($proxy, 'invokeFunction');
 
-        $service = new ReportService(array('output_directory' => '/dev/null'), 'VIPSoft\CodeCoverageExtension\Test\PHP_CodeCoverage_Report_HTML');
-        $service->generateReport(array());
+        $service = new ReportService(array(
+            'report' => array(
+                'directory' => '/dev/null',
+                'class'     => 'VIPSoft\CodeCoverageExtension\Test\PHP_CodeCoverage_Report_HTML',
+            )
+        ));
+
+        $service->generateReport($coverage);
     }
 }

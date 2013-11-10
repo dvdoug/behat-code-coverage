@@ -21,30 +21,25 @@ class ReportService
     private $config;
 
     /**
-     * @var string
-     */
-    private $htmlReportWriterClassName;
-
-    /**
      * Constructor
      *
      * @param array  $config
-     * @param string $htmlReportWriterClassName
      */
-    public function __construct(array $config, $htmlReportWriterClassName = '\PHP_CodeCoverage_Report_HTML')
+    public function __construct(array $config)
     {
         $this->config = $config;
-        $this->htmlReportWriterClassName = $htmlReportWriterClassName;
     }
 
     /**
      * Generate report.
      *
-     * @param array $coverage
+     * @param \PHP_CodeCoverage $coverage
      */
-    public function generateReport(array $coverage)
+    public function generateReport(\PHP_CodeCoverage $coverage)
     {
-        $writer = new $this->htmlReportWriterClassName();
-        $writer->process($coverage, $this->config['output_directory']);
+        $reportWriterClassName = $this->config['report']['class'];
+
+        $writer = new $reportWriterClassName();
+        $writer->process($coverage, $this->config['report']['directory']);
     }
 }
