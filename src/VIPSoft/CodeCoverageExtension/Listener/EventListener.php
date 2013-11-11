@@ -24,11 +24,6 @@ use VIPSoft\CodeCoverageExtension\Service\ReportService;
 class EventListener implements EventSubscriberInterface
 {
     /**
-     * array
-     */
-    private $config;
-
-    /**
      * @var \PHP_CodeCoverage
      */
     private $coverage;
@@ -41,15 +36,12 @@ class EventListener implements EventSubscriberInterface
     /**
      * Constructor
      *
-     * @param array                                                     $config
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-     * @param \VIPSoft\CodeCoverageExtension\Service\ReportService      $reportService
+     * @param \PHP_CodeCoverage                                    $coverage
+     * @param \VIPSoft\CodeCoverageExtension\Service\ReportService $reportService
      */
-    public function __construct(array $config, ContainerInterface $container, ReportService $reportService)
+    public function __construct(\PHP_CodeCoverage $coverage, ReportService $reportService)
     {
-        $driverService       = $config['driver']['service'];
-        $this->config        = $config;
-        $this->coverage      = $container->get($driverService);
+        $this->coverage      = $coverage;
         $this->reportService = $reportService;
     }
 

@@ -62,8 +62,9 @@ Activate extension in your **behat.yml** and define your routes for remote code 
           delete:
             method:    DELETE
             path:      /
-          driver:
-            service:   behat.code_coverage.aggregate_driver
+          drivers:
+            - remote
+            - local
           report:
             class:     '\PHP_CodeCoverage_Report_HTML'
             directory: /tmp/report
@@ -84,8 +85,8 @@ If HTTP Authentication is required, use:
             password: your_password
           ...
 
-There are two alternate code coverage driver services.  The "local" driver will
-only collect code coverage from the PHP instance running Behat.  The "remote"
+There are two code coverage driver services.  The "local" driver will
+collect code coverage from the PHP instance running Behat.  The "remote"
 driver will collect code coverage for the Symfony 2 application under test
 on a remote web server.
 

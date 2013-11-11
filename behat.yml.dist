@@ -15,10 +15,9 @@ default:
       delete:
         method:    DELETE
         path:      /
-      driver:
-        service:   behat.code_coverage.aggregate_driver
-#       service:   behat.code_coverage.remote_driver
-#       service:   behat.code_coverage.local_driver
+      drivers:
+        - remote
+        - local
       filter:      ~
 #     filter:
 #       blacklist:

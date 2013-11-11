@@ -12,6 +12,8 @@ use VIPSoft\TestCase;
 use VIPSoft\CodeCoverageExtension\Driver\RemoteXdebug;
 
 /**
+ * Remote driver test
+ *
  * @group Unit
  */
 class RemoteXdebugTest extends TestCase
@@ -46,7 +48,7 @@ END_OF_CLIENT
         $this->guzzleClient = '\VIPSoft\CodeCoverageExtension\Test\Client';
     }
 
-    public function setUp()
+    protected function setUp()
     {
         $this->config = array(
             'baseUrl' => 'http://localhost',

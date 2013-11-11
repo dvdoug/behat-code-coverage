@@ -26,7 +26,7 @@ class RemoteXdebug implements \PHP_CodeCoverage_Driver
     private $clientClassName;
 
     /**
-     * Constructor.
+     * Constructor
      *
      * [
      *     'base_url' => 'http://api.example.com/1.0/coverage',
@@ -58,7 +58,7 @@ class RemoteXdebug implements \PHP_CodeCoverage_Driver
     }
 
     /**
-     * Start collection of code coverage information.
+     * {@inheritdoc}
      */
     public function start()
     {
@@ -74,9 +74,7 @@ class RemoteXdebug implements \PHP_CodeCoverage_Driver
     }
 
     /**
-     * Stop collection of code coverage information.
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function stop()
     {
@@ -99,6 +97,11 @@ class RemoteXdebug implements \PHP_CodeCoverage_Driver
 
     /**
      * Construct request
+     *
+     * @param \Guzzle\Http\Client $client
+     * @param string              $endpoint
+     *
+     * @return \Guzzle\Http\Message\Request
      */
     private function buildRequest($client, $endpoint)
     {

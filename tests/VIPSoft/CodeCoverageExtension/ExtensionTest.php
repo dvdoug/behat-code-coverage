@@ -14,6 +14,8 @@ use VIPSoft\TestCase;
 use org\bovigo\vfs\vfsStream;
 
 /**
+ * Extension test
+ *
  * @group Unit
  */
 class ExtensionTest extends TestCase
@@ -77,7 +79,11 @@ END_OF_CONFIG
                         'path'   => 'delete_path',
                     ),
                     'behat.code_coverage.drivers' => array('remote'),
-                    'behat.code_coverage.output_directory' => '/tmp',
+                    'behat.code_coverage.filter' => null,
+                    'behat.code_coverage.report' => array(
+                        'class'     => 'REPORT_CLASS',
+                        'directory' => '/tmp',
+                    )
                 ),
                 array(
                     'auth' => array(
@@ -97,7 +103,11 @@ END_OF_CONFIG
                         'path'   => 'delete_path',
                     ),
                     'drivers' => array('remote'),
-                    'output_directory' => '/tmp',
+                    'filter' => null,
+                    'report' => array(
+                        'class'     => 'REPORT_CLASS',
+                        'directory' => '/tmp',
+                    )
                 ),
             ),
             array(
@@ -131,13 +141,14 @@ END_OF_CONFIG
 
         $children = $this->getPropertyOnObject($builder, 'children');
 
-        $this->assertEquals(6, count($children));
+        $this->assertEquals(7, count($children));
         $this->assertTrue(isset($children['auth']));
         $this->assertTrue(isset($children['create']));
         $this->assertTrue(isset($children['read']));
         $this->assertTrue(isset($children['delete']));
         $this->assertTrue(isset($children['drivers']));
-        $this->assertTrue(isset($children['output_directory']));
+        $this->assertTrue(isset($children['filter']));
+        $this->assertTrue(isset($children['report']));
 
         $auth = $this->getPropertyOnObject($children['auth'], 'children');
 
@@ -162,6 +173,12 @@ END_OF_CONFIG
         $this->assertEquals(2, count($delete));
         $this->assertTrue(isset($delete['method']));
         $this->assertTrue(isset($delete['path']));
+
+        $report = $this->getPropertyOnObject($children['report'], 'children');
+
+        $this->assertEquals(2, count($report));
+        $this->assertTrue(isset($report['class']));
+        $this->assertTrue(isset($report['directory']));
     }
 
     public function testGetCompilerPasses()
@@ -179,6 +196,8 @@ END_OF_CONFIG
      *
      * @param mixed  $object Object
      * @param string $name   Property name
+     *
+     * @return mixed
      */
     private function getPropertyOnObject($object, $name)
     {

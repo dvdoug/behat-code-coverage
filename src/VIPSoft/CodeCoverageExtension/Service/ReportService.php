@@ -31,7 +31,7 @@ class ReportService
     }
 
     /**
-     * Generate report.
+     * Generate report
      *
      * @param \PHP_CodeCoverage $coverage
      */

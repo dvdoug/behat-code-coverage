@@ -14,31 +14,32 @@ use Behat\Gherkin\Node\OutlineNode;
 use Behat\Gherkin\Node\ScenarioNode;
 
 /**
+ * Event listener test
+ *
  * @group Unit
  */
 class EventListenerTest extends TestCase
 {
-    private $container;
+    private $coverage;
     private $service;
-    private $config;
 
-    public function setUp()
+    /**
+     * {@inheritdoc}
+     */
+    protected function setUp()
     {
-        $this->container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
-        $this->service   = $this->getMockBuilder('VIPSoft\CodeCoverageExtension\Service\ReportService')
-                                ->disableOriginalConstructor()
-                                ->getMock();
+        $this->coverage = $this->getMockBuilder('PHP_CodeCoverage')
+                               ->disableOriginalConstructor()
+                               ->getMock();
 
-        $this->config = array(
-            'driver' => array(
-                'service' => 'code_coverage.driver'
-            )
-        );
+        $this->service  = $this->getMockBuilder('VIPSoft\CodeCoverageExtension\Service\ReportService')
+                               ->disableOriginalConstructor()
+                               ->getMock();
     }
 
     public function testGetSubscribedEvents()
     {
-        $listener = new EventListener($this->config, $this->container, $this->service);
+        $listener = new EventListener($this->coverage, $this->service);
         $events   = $listener->getSubscribedEvents();
 
         $this->assertTrue(is_array($events));
@@ -51,36 +52,19 @@ class EventListenerTest extends TestCase
 
     public function testBeforeSuite()
     {
-        $coverage = $this->getMockBuilder('PHP_CodeCoverage')
-                         ->disableOriginalConstructor()
-                         ->getMock();
-        $coverage->expects($this->once())
-                 ->method('clear');
-
-        $this->container->expects($this->once())
-                        ->method('get')
-                        ->with('code_coverage.driver')
-                        ->will($this->returnValue($coverage));
+        $this->coverage->expects($this->once())
+                       ->method('clear');
 
         $event = $this->getMockBuilder('Behat\Behat\Event\SuiteEvent')
                       ->disableOriginalConstructor()
                       ->getMock();
 
-        $listener = new EventListener($this->config, $this->container, $this->service);
+        $listener = new EventListener($this->coverage, $this->service);
         $listener->beforeSuite($event);
     }
 
     public function testAfterSuite()
     {
-        $coverage = $this->getMockBuilder('PHP_CodeCoverage')
-                         ->disableOriginalConstructor()
-                         ->getMock();
-
-        $this->container->expects($this->once())
-                        ->method('get')
-                        ->with('code_coverage.driver')
-                        ->will($this->returnValue($coverage));
-
         $this->service->expects($this->once())
                       ->method('generateReport');
 
@@ -88,23 +72,15 @@ class EventListenerTest extends TestCase
                       ->disableOriginalConstructor()
                       ->getMock();
 
-        $listener = new EventListener($this->config, $this->container, $this->service);
+        $listener = new EventListener($this->coverage, $this->service);
         $listener->afterSuite($event);
     }
 
     public function testBeforeScenario()
     {
-        $coverage = $this->getMockBuilder('PHP_CodeCoverage')
-                         ->disableOriginalConstructor()
-                         ->getMock();
-        $coverage->expects($this->once())
-                 ->method('start')
-                 ->with('title:1');
-
-        $this->container->expects($this->once())
-                        ->method('get')
-                        ->with('code_coverage.driver')
-                        ->will($this->returnValue($coverage));
+        $this->coverage->expects($this->once())
+                       ->method('start')
+                       ->with('title:1');
 
         $node = new ScenarioNode('title', 1);
 
@@ -115,23 +91,15 @@ class EventListenerTest extends TestCase
               ->method('getScenario')
               ->will($this->returnValue($node));
 
-        $listener = new EventListener($this->config, $this->container, $this->service);
+        $listener = new EventListener($this->coverage, $this->service);
         $listener->beforeScenario($event);
     }
 
     public function testBeforeOutlineExample()
     {
-        $coverage = $this->getMockBuilder('PHP_CodeCoverage')
-                         ->disableOriginalConstructor()
-                         ->getMock();
-        $coverage->expects($this->once())
-                 ->method('start')
-                 ->with('title:1');
-
-        $this->container->expects($this->once())
-                        ->method('get')
-                        ->with('code_coverage.driver')
-                        ->will($this->returnValue($coverage));
+        $this->coverage->expects($this->once())
+                       ->method('start')
+                       ->with('title:1');
 
         $node = new OutlineNode('title', 1);
 
@@ -142,28 +110,20 @@ class EventListenerTest extends TestCase
               ->method('getOutline')
               ->will($this->returnValue($node));
 
-        $listener = new EventListener($this->config, $this->container, $this->service);
+        $listener = new EventListener($this->coverage, $this->service);
         $listener->beforeScenario($event);
     }
 
     public function testAfterScenario()
     {
-        $coverage = $this->getMockBuilder('PHP_CodeCoverage')
-                         ->disableOriginalConstructor()
-                         ->getMock();
-        $coverage->expects($this->once())
-                 ->method('stop');
-
-        $this->container->expects($this->once())
-                        ->method('get')
-                        ->with('code_coverage.driver')
-                        ->will($this->returnValue($coverage));
+        $this->coverage->expects($this->once())
+                       ->method('stop');
 
         $event = $this->getMockBuilder('Behat\Behat\Event\ScenarioEvent')
                       ->disableOriginalConstructor()
                       ->getMock();
 
-        $listener = new EventListener($this->config, $this->container, $this->service);
+        $listener = new EventListener($this->coverage, $this->service);
         $listener->afterScenario($event);
     }
 }

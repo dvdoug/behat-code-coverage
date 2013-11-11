@@ -8,12 +8,11 @@
 
 namespace VIPSoft\CodeCoverageExtension;
 
+use Behat\Behat\Extension\ExtensionInterface;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-
-use Behat\Behat\Extension\ExtensionInterface;
 
 /**
  * Code coverage extension
@@ -30,7 +29,7 @@ class Extension implements ExtensionInterface
     /**
      * Constructor
      *
-     * @var string $configFolder
+     * @param string $configFolder
      */
     public function __construct($configFolder = null)
     {
@@ -84,10 +83,19 @@ class Extension implements ExtensionInterface
             $container->setParameter('behat.code_coverage.drivers', array('remote', 'local'));
         }
 
-        if (isset($config['output_directory'])) {
-            $container->setParameter('behat.code_coverage.output_directory', $config['output_directory']);
+        if (isset($config['filter'])) {
+            $container->setParameter('behat.code_coverage.filter', $config['filter']);
         } else {
-            $container->setParameter('behat.code_coverage.output_directory', '/tmp');
+            $container->setParameter('behat.code_coverage.filter', null);
+        }
+
+        if (isset($config['report'])) {
+            $container->setParameter('behat.code_coverage.report', $config['report']);
+        } else {
+            $container->setParameter('behat.code_coverage.report', array(
+                'class'     => '\PHP_CodeCoverage_Report_HTML',
+                'directory' => '/tmp/report',
+            ));
         }
     }
 
@@ -125,8 +133,14 @@ class Extension implements ExtensionInterface
                 arrayNode('drivers')->
                     prototype('scalar')->end()->
                 end()->
-                scalarNode('output_directory')->
-                    defaultNull()->
+                arrayNode('filter')->
+                    prototype('variable')->end()->
+                end()->
+                arrayNode('report')->
+                    children()->
+                        scalarNode('class')->end()->
+                        scalarNode('directory')->end()->
+                    end()->
                 end()->
             end()->
         end();
