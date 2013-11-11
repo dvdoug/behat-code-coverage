@@ -92,7 +92,7 @@ class RemoteXdebug implements \PHP_CodeCoverage_Driver
         $request = $this->buildRequest($client, 'delete');
         $request->send();
 
-        return json_decode($response->getBody(true));
+        return json_decode($response->getBody(true), true);
     }
 
     /**
