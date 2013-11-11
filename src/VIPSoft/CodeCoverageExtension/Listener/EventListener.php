@@ -81,7 +81,8 @@ class EventListener implements EventSubscriberInterface
             $node = $event->getScenario();
         }
 
-        $id = $node->getTitle() . ':' . $node->getLine();
+        $file = $node->getFeature() ? $node->getFeature()->getFile() : '(unknown)';
+        $id = $file . ':' . $node->getLine();
 
         $this->coverage->start($id);
     }

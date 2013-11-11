@@ -10,6 +10,7 @@ namespace VIPSoft\CodeCoverageExtension\Listener;
 
 use VIPSoft\TestCase;
 use Behat\Behat\Event\SuiteEvent;
+use Behat\Gherkin\Node\FeatureNode;
 use Behat\Gherkin\Node\OutlineNode;
 use Behat\Gherkin\Node\ScenarioNode;
 
@@ -80,9 +81,12 @@ class EventListenerTest extends TestCase
     {
         $this->coverage->expects($this->once())
                        ->method('start')
-                       ->with('title:1');
+                       ->with('MyFile.feature:1');
 
-        $node = new ScenarioNode('title', 1);
+        $feature = new FeatureNode('featureNode', 'A Feature', 'MyFile.feature', 0);
+
+        $node = new ScenarioNode('scenarioNode', 1);
+        $node->setFeature($feature);
 
         $event = $this->getMockBuilder('Behat\Behat\Event\ScenarioEvent')
                       ->disableOriginalConstructor()
@@ -99,9 +103,9 @@ class EventListenerTest extends TestCase
     {
         $this->coverage->expects($this->once())
                        ->method('start')
-                       ->with('title:1');
+                       ->with('(unknown):1');
 
-        $node = new OutlineNode('title', 1);
+        $node = new OutlineNode('outlineNode', 1);
 
         $event = $this->getMockBuilder('Behat\Behat\Event\OutlineExampleEvent')
                       ->disableOriginalConstructor()
