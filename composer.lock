@@ -1049,16 +1049,16 @@
         },
         {
             "name": "vipsoft/code-coverage-common",
-            "version": "0.1",
+            "version": "0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vipsoft/code-coverage-common.git",
-                "reference": "42ca610ac746bbc6bdf73e9cd974c646a4ea6474"
+                "reference": "2d4b400515b4bf44d7b3a44b800bc55dc6808a84"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vipsoft/code-coverage-common/zipball/42ca610ac746bbc6bdf73e9cd974c646a4ea6474",
-                "reference": "42ca610ac746bbc6bdf73e9cd974c646a4ea6474",
+                "url": "https://api.github.com/repos/vipsoft/code-coverage-common/zipball/2d4b400515b4bf44d7b3a44b800bc55dc6808a84",
+                "reference": "2d4b400515b4bf44d7b3a44b800bc55dc6808a84",
                 "shasum": ""
             },
             "require": {
@@ -1075,13 +1075,13 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-2-Clause"
+                "BSD-3-Clause"
             ],
             "authors": [
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "Fork Maintainer"
+                    "role": "developer"
                 }
             ],
             "description": "Extending PHP_CodeCoverage",
@@ -1093,7 +1093,7 @@
                 "phpunit",
                 "testing"
             ],
-            "time": "2013-11-11 16:30:27"
+            "time": "2013-11-11 18:45:39"
         }
     ],
     "packages-dev": [

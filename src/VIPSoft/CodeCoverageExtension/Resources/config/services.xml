@@ -5,6 +5,7 @@
 
     <parameters>
         <parameter key="behat.code_coverage.driver.proxy.class">VIPSoft\CodeCoverageExtension\Driver\Proxy</parameter>
+        <parameter key="behat.code_coverage.driver.local.class">VIPSoft\CodeCoverageCommon\Driver</parameter>
         <parameter key="behat.code_coverage.driver.remote.class">VIPSoft\CodeCoverageExtension\Driver\RemoteXdebug</parameter>
         <parameter key="behat.code_coverage.listener.event.class">VIPSoft\CodeCoverageExtension\Listener\EventListener</parameter>
         <parameter key="behat.code_coverage.service.report.class">VIPSoft\CodeCoverageExtension\Service\ReportService</parameter>
@@ -33,7 +34,7 @@
             <argument type="service" id="service_container" />
         </service>
 
-        <service id="behat.code_coverage.driver.local" class="PHP_CodeCoverage_Driver_Xdebug" />
+        <service id="behat.code_coverage.driver.local" class="%behat.code_coverage.driver.local.class%" />
 
         <service id="behat.code_coverage.driver.remote" class="%behat.code_coverage.driver.remote.class%">
             <argument>%behat.code_coverage.config%</argument>
