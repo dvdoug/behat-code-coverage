@@ -22,6 +22,8 @@
     </parameters>
 
     <services>
+        <service id="behat.code_coverage.http_client" class="Guzzle\Http\Client" />
+
         <service id="behat.code_coverage.php_code_coverage_filter" class="PHP_CodeCoverage_Filter" />
 
         <service id="behat.code_coverage.php_code_coverage" class="PHP_CodeCoverage">
@@ -38,6 +40,7 @@
 
         <service id="behat.code_coverage.driver.remote" class="%behat.code_coverage.driver.remote.class%">
             <argument>%behat.code_coverage.config%</argument>
+            <argument type="service" id="behat.code_coverage.http_client" />
         </service>
 
         <service id="behat.code_coverage.listener.event" class="%behat.code_coverage.listener.event.class%">

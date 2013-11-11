@@ -21,9 +21,9 @@ class RemoteXdebug implements \PHP_CodeCoverage_Driver
     private $config;
 
     /**
-     * @var string
+     * @var \Guzzle\Http\Client
      */
-    private $clientClassName;
+    private $client;
 
     /**
      * Constructor
@@ -48,13 +48,15 @@ class RemoteXdebug implements \PHP_CodeCoverage_Driver
      *                   ],
      * ]
      *
-     * @param array  $config          Configuration
-     * @param string $clientClassName HTTP client class name
+     * @param array               $config Configuration
+     * @param \Guzzle\Http\Client $client HTTP client
      */
-    public function __construct(/*array*/ $config, $clientClassName = '\Guzzle\Http\Client')
+    public function __construct(array $config, $client)
     {
-        $this->config          = $config;
-        $this->clientClassName = $clientClassName;
+        $this->config = $config;
+
+        $this->client = $client;
+        $this->client->setBaseUrl($config['base_url']);
     }
 
     /**
@@ -62,9 +64,7 @@ class RemoteXdebug implements \PHP_CodeCoverage_Driver
      */
     public function start()
     {
-        $client = new $this->clientClassName($this->config['base_url']);
-
-        $request = $this->buildRequest($client, 'create');
+        $request = $this->buildRequest('create');
 
         $response = $request->send();
 
@@ -78,9 +78,7 @@ class RemoteXdebug implements \PHP_CodeCoverage_Driver
      */
     public function stop()
     {
-        $client = new $this->clientClassName($this->config['base_url']);
-
-        $request = $this->buildRequest($client, 'read');
+        $request = $this->buildRequest('read');
         $request->setHeader('Accept', 'application/json');
 
         $response = $request->send();
@@ -89,7 +87,7 @@ class RemoteXdebug implements \PHP_CodeCoverage_Driver
             throw new \Exception('remote driver fetch failed: ' . $response->getReasonPhrase());
         }
 
-        $request = $this->buildRequest($client, 'delete');
+        $request = $this->buildRequest('delete');
         $request->send();
 
         return json_decode($response->getBody(true), true);
@@ -98,12 +96,11 @@ class RemoteXdebug implements \PHP_CodeCoverage_Driver
     /**
      * Construct request
      *
-     * @param \Guzzle\Http\Client $client
-     * @param string              $endpoint
+     * @param string $endpoint
      *
      * @return \Guzzle\Http\Message\Request
      */
-    private function buildRequest($client, $endpoint)
+    private function buildRequest($endpoint)
     {
         $method = strtolower($this->config[$endpoint]['method']);
 
@@ -111,7 +108,7 @@ class RemoteXdebug implements \PHP_CodeCoverage_Driver
             throw new \Exception($endpoint . ' method must be GET, POST, PUT, or DELETE');
         }
 
-        $request = $client->$method($this->config[$endpoint]['path']);
+        $request = $this->client->$method($this->config[$endpoint]['path']);
 
         if (isset($this->config['auth'])) {
             $request->setAuth($this->config['auth']['user'], $this->config['auth']['password']);

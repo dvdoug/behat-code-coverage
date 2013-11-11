@@ -20,54 +20,30 @@ class RemoteXdebugTest extends TestCase
 {
     private $config;
 
-    private $guzzleClient;
+    private $client;
 
     private $response;
-
-    public function __construct()
-    {
-        if ( ! class_exists('VIPSoft\CodeCoverageExtension\Test\Client')) {
-            eval(<<<END_OF_CLIENT
-namespace VIPSoft\CodeCoverageExtension\Test {
-    class Client
-    {
-        static public \$proxiedMethods;
-
-        public function __call(\$methodName, \$args)
-        {
-            if (isset(self::\$proxiedMethods[\$methodName])) {
-                return call_user_func_array(self::\$proxiedMethods[\$methodName], \$args);
-            }
-        }
-    }
-}
-END_OF_CLIENT
-            );
-        }
-
-        $this->guzzleClient = '\VIPSoft\CodeCoverageExtension\Test\Client';
-    }
 
     protected function setUp()
     {
         $this->config = array(
-            'baseUrl' => 'http://localhost',
-            'auth'    => array(
-                             'user'     => 'user name',
-                             'password' => 'password',
-                         ),
-            'create'  => array(
-                             'method' => 'POST',
-                             'path'   => '/',
-                         ),
-            'read'    => array(
-                             'method' => 'GET',
-                             'path'   => '/',
-                         ),
-            'delete'  => array(
-                             'method' => 'DELETE',
-                             'path'   => '/',
-                         ),
+            'base_url' => 'http://localhost',
+            'auth'     => array(
+                              'user'     => 'user name',
+                              'password' => 'password',
+                          ),
+            'create'   => array(
+                              'method' => 'POST',
+                              'path'   => '/',
+                          ),
+            'read'     => array(
+                              'method' => 'GET',
+                              'path'   => '/',
+                          ),
+            'delete'   => array(
+                              'method' => 'DELETE',
+                              'path'   => '/',
+                          ),
         );
 
         $this->response = $this->getMockBuilder('Guzzle\Http\Message\Response')
@@ -82,21 +58,19 @@ END_OF_CLIENT
                 ->method('send')
                 ->will($this->returnValue($this->response));
 
-        $mockClientClass = $this->guzzleClient;
-        $mockClientClass::$proxiedMethods = array(
-            'post' => function ($url) use ($request) {
-                return $request;
-            },
-            'put' => function ($url) use ($request) {
-                return $request;
-            },
-            'get' => function ($url) use ($request) {
-                return $request;
-            },
-            'delete' => function ($url) use ($request) {
-                return $request;
-            },
-        );
+        $this->client = $this->getMock('Guzzle\Http\Client');
+        $this->client->expects($this->any())
+                     ->method('post')
+                     ->will($this->returnValue($request));
+        $this->client->expects($this->any())
+                     ->method('put')
+                     ->will($this->returnValue($request));
+        $this->client->expects($this->any())
+                     ->method('get')
+                     ->will($this->returnValue($request));
+        $this->client->expects($this->any())
+                     ->method('delete')
+                     ->will($this->returnValue($request));
     }
 
     public function testInvalidMethodException()
@@ -104,7 +78,7 @@ END_OF_CLIENT
         try {
             $this->config['create']['method'] = 'TRACE';
 
-            $driver = new RemoteXdebug($this->config, $this->guzzleClient);
+            $driver = new RemoteXdebug($this->config, $this->client);
             $driver->start();
 
             $this->fail();
@@ -119,14 +93,14 @@ END_OF_CLIENT
                        ->method('getStatusCode')
                        ->will($this->returnValue(200));
 
-        $driver = new RemoteXdebug($this->config, $this->guzzleClient);
+        $driver = new RemoteXdebug($this->config, $this->client);
         $driver->start();
     }
 
     public function testStartException()
     {
         try {
-            $driver = new RemoteXdebug($this->config, $this->guzzleClient);
+            $driver = new RemoteXdebug($this->config, $this->client);
             $driver->start();
 
             $this->fail();
@@ -141,14 +115,14 @@ END_OF_CLIENT
                        ->method('getStatusCode')
                        ->will($this->returnValue(200));
 
-        $driver   = new RemoteXdebug($this->config, $this->guzzleClient);
+        $driver   = new RemoteXdebug($this->config, $this->client);
         $coverage = $driver->stop();
     }
 
     public function testStopException()
     {
         try {
-            $driver = new RemoteXdebug($this->config, $this->guzzleClient);
+            $driver = new RemoteXdebug($this->config, $this->client);
 
             $coverage = $driver->stop();
 
