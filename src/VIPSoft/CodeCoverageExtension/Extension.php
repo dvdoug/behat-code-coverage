@@ -45,54 +45,54 @@ class Extension implements ExtensionInterface
         $loader->load('services.xml');
 
         if (isset($config['auth']) && isset($config['auth']['user']) && isset($config['auth']['password'])) {
-            $container->setParameter('behat.code_coverage.auth', $config['auth']);
+            $container->setParameter('behat.code_coverage.config.auth', $config['auth']);
         } else {
-            $container->setParameter('behat.code_coverage.auth', null);
+            $container->setParameter('behat.code_coverage.config.auth', null);
         }
 
         if (isset($config['create'])) {
-            $container->setParameter('behat.code_coverage.create', $config['create']);
+            $container->setParameter('behat.code_coverage.config.create', $config['create']);
         } else {
-            $container->setParameter('behat.code_coverage.create', array(
+            $container->setParameter('behat.code_coverage.config.create', array(
                 'method' => 'POST',
                 'path'   => '/',
             ));
         }
 
         if (isset($config['read'])) {
-            $container->setParameter('behat.code_coverage.read', $config['read']);
+            $container->setParameter('behat.code_coverage.config.read', $config['read']);
         } else {
-            $container->setParameter('behat.code_coverage.read', array(
+            $container->setParameter('behat.code_coverage.config.read', array(
                 'method' => 'GET',
                 'path'   => '/',
             ));
         }
 
         if (isset($config['delete'])) {
-            $container->setParameter('behat.code_coverage.delete', $config['delete']);
+            $container->setParameter('behat.code_coverage.config.delete', $config['delete']);
         } else {
-            $container->setParameter('behat.code_coverage.delete', array(
+            $container->setParameter('behat.code_coverage.config.delete', array(
                 'method' => 'DELETE',
                 'path'   => '/',
             ));
         }
 
         if (isset($config['drivers']) && is_array($config['drivers']) && count($config['drivers'])) {
-            $container->setParameter('behat.code_coverage.drivers', $config['drivers']);
+            $container->setParameter('behat.code_coverage.config.drivers', $config['drivers']);
         } else {
-            $container->setParameter('behat.code_coverage.drivers', array('remote', 'local'));
+            $container->setParameter('behat.code_coverage.config.drivers', array('remote', 'local'));
         }
 
         if (isset($config['filter'])) {
-            $container->setParameter('behat.code_coverage.filter', $config['filter']);
+            $container->setParameter('behat.code_coverage.config.filter', $config['filter']);
         } else {
-            $container->setParameter('behat.code_coverage.filter', null);
+            $container->setParameter('behat.code_coverage.config.filter', null);
         }
 
         if (isset($config['report'])) {
-            $container->setParameter('behat.code_coverage.report', $config['report']);
+            $container->setParameter('behat.code_coverage.config.report', $config['report']);
         } else {
-            $container->setParameter('behat.code_coverage.report', array(
+            $container->setParameter('behat.code_coverage.config.report', array(
                 'class'     => '\PHP_CodeCoverage_Report_HTML',
                 'directory' => '/tmp/report',
             ));

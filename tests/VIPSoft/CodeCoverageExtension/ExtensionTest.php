@@ -62,25 +62,25 @@ END_OF_CONFIG
         return array(
             array(
                 array(
-                    'behat.code_coverage.auth' => array(
+                    'behat.code_coverage.config.auth' => array(
                         'user'     => 'test_user',
                         'password' => 'test_password',
                     ),
-                    'behat.code_coverage.create' => array(
+                    'behat.code_coverage.config.create' => array(
                         'method' => 'CREATE',
                         'path'   => 'create_path',
                     ),
-                    'behat.code_coverage.read' => array(
+                    'behat.code_coverage.config.read' => array(
                         'method' => 'READ',
                         'path'   => 'read_path',
                     ),
-                    'behat.code_coverage.delete' => array(
+                    'behat.code_coverage.config.delete' => array(
                         'method' => 'DELETE',
                         'path'   => 'delete_path',
                     ),
-                    'behat.code_coverage.drivers' => array('remote'),
-                    'behat.code_coverage.filter' => null,
-                    'behat.code_coverage.report' => array(
+                    'behat.code_coverage.config.drivers' => array('remote'),
+                    'behat.code_coverage.config.filter' => null,
+                    'behat.code_coverage.config.report' => array(
                         'class'     => 'REPORT_CLASS',
                         'directory' => '/tmp',
                     )
@@ -112,20 +112,20 @@ END_OF_CONFIG
             ),
             array(
                 array(
-                    'behat.code_coverage.auth' => null,
-                    'behat.code_coverage.create' => array(
+                    'behat.code_coverage.config.auth' => null,
+                    'behat.code_coverage.config.create' => array(
                         'method' => 'POST',
                         'path'   => '/',
                     ),
-                    'behat.code_coverage.read' => array(
+                    'behat.code_coverage.config.read' => array(
                         'method' => 'GET',
                         'path'   => '/',
                     ),
-                    'behat.code_coverage.delete' => array(
+                    'behat.code_coverage.config.delete' => array(
                         'method' => 'DELETE',
                         'path'   => '/',
                     ),
-                    'behat.code_coverage.drivers' => array('remote', 'local'),
+                    'behat.code_coverage.config.drivers' => array('remote', 'local'),
                 ),
                 array(),
             ),
