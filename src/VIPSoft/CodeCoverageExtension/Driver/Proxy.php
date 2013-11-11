@@ -9,7 +9,7 @@
 namespace VIPSoft\CodeCoverageExtension\Driver;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use VIPSoft\CodeCoverageExtension\Model\Aggregate;
+use VIPSoft\CodeCoverageCommon\Model\Aggregate;
 
 /**
  * Proxy driver

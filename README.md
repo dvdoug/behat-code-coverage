@@ -20,4 +20,4 @@ Copyright (c) 2013 Anthon Pang. See LICENSE for details.
 
 * Anthon Pang [robocoder](http://github.com/robocoder)
 * Konstantin Kudryashov [everzet](http://github.com/everzet) - init.php and build.php
-* [Others](https://github.com/vipsoft/code-coverage/graphs/contributors)
+* [Others](https://github.com/vipsoft/code-coverage-extension/graphs/contributors)
