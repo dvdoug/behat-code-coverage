@@ -35,5 +35,6 @@ default:
 #           directories:
 #           files:
       report:
-        class:     '\PHP_CodeCoverage_Report_HTML'
-        directory: /tmp/report
+        format:    html
+        options:
+          target:: /tmp/report

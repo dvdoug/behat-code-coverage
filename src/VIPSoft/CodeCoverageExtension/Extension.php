@@ -93,7 +93,7 @@ class Extension implements ExtensionInterface
             $container->setParameter('behat.code_coverage.config.report', $config['report']);
         } else {
             $container->setParameter('behat.code_coverage.config.report', array(
-                'class'     => '\PHP_CodeCoverage_Report_HTML',
+                'format'    => 'html',
                 'directory' => '/tmp/report',
             ));
         }
@@ -138,8 +138,11 @@ class Extension implements ExtensionInterface
                 end()->
                 arrayNode('report')->
                     children()->
-                        scalarNode('class')->end()->
-                        scalarNode('directory')->end()->
+                        scalarNode('format')->end()->
+                        arrayNode('options')->
+                            useAttributeAsKey('name')->
+                            prototype('scalar')->end()->
+                        end()->
                     end()->
                 end()->
             end()->

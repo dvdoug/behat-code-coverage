@@ -52,22 +52,23 @@ Activate extension in your **behat.yml** and define your routes for remote code 
       # ...
       extensions:
         VIPSoft\CodeCoverageExtension\Extension:
-          auth:        ~
+          auth:       ~
           create:
-            method:    POST
-            path:      /
+            method:   POST
+            path:     /
           read:
-            method:    GET
-            path:      /
+            method:   GET
+            path:     /
           delete:
-            method:    DELETE
-            path:      /
+            method:   DELETE
+            path:     /
           drivers:
             - remote
             - local
           report:
-            class:     '\PHP_CodeCoverage_Report_HTML'
-            directory: /tmp/report
+            format:   html
+            options:
+              target: /tmp/report
 
 Settings
 --------
@@ -93,8 +94,9 @@ on a remote web server.
 The report "directory" determines where the extension will write the code
 coverage report.
 
-Other choices for report "class" include PHP_CodeCoverage_Report_Clover,
-PHP_CodeCoverage_Report_PHP, and PHP_CodeCoverage_Report_Text.
+Other choices for report "format" include "clover", "crap4j", "php", "text",
+and "xml".  The "options" vary and correspond to the __construct() and process()
+arguments of the underlying PHP_CodeCoverage report class.
 
 Limitations
 -----------

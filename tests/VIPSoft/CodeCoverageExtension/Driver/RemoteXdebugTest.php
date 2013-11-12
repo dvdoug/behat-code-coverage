@@ -26,6 +26,8 @@ class RemoteXdebugTest extends TestCase
 
     protected function setUp()
     {
+        parent::setUp();
+
         $this->config = array(
             'base_url' => 'http://localhost',
             'auth'     => array(

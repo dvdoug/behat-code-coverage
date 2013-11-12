@@ -9,6 +9,7 @@
         <parameter key="behat.code_coverage.driver.remote.class">VIPSoft\CodeCoverageExtension\Driver\RemoteXdebug</parameter>
         <parameter key="behat.code_coverage.listener.event.class">VIPSoft\CodeCoverageExtension\Listener\EventListener</parameter>
         <parameter key="behat.code_coverage.service.report.class">VIPSoft\CodeCoverageExtension\Service\ReportService</parameter>
+        <parameter key="behat.code_coverage.service.report_factory.class">VIPSoft\CodeCoverageCommon\Report\Factory</parameter>
 
         <parameter key="behat.code_coverage.config" type="collection">
             <parameter key="base_url">%behat.mink.base_url%</parameter>
@@ -49,8 +50,11 @@
             <tag name="behat.event_subscriber" priority="0" />
         </service>
 
+        <service id="behat.code_coverage.service.report_factory" class="%behat.code_coverage.service.report_factory.class%" />
+
         <service id="behat.code_coverage.service.report" class="%behat.code_coverage.service.report.class%">
             <argument>%behat.code_coverage.config%</argument>
+            <argument type="service" id="behat.code_coverage.service.report_factory" />
         </service>
     </services>
 

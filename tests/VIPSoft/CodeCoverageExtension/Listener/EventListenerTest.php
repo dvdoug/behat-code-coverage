@@ -29,9 +29,9 @@ class EventListenerTest extends TestCase
      */
     protected function setUp()
     {
-        $this->coverage = $this->getMockBuilder('PHP_CodeCoverage')
-                               ->disableOriginalConstructor()
-                               ->getMock();
+        parent::setUp();
+
+        $this->coverage = $this->getMock('PHP_CodeCoverage');
 
         $this->service  = $this->getMockBuilder('VIPSoft\CodeCoverageExtension\Service\ReportService')
                                ->disableOriginalConstructor()

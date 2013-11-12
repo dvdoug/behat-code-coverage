@@ -8,6 +8,8 @@
 
 namespace VIPSoft\CodeCoverageExtension\Service;
 
+use VIPSoft\CodeCoverageCommon\Report\Factory;
+
 /**
  * Code coverage report service
  *
@@ -21,13 +23,20 @@ class ReportService
     private $config;
 
     /**
+     * @var \VIPSoft\CodeCoverageCommon\Report\Factory
+     */
+    private $factory;
+
+    /**
      * Constructor
      *
-     * @param array  $config
+     * @param array                                      $config
+     * @param \VIPSoft\CodeCoverageCommon\Report\Factory $factory
      */
-    public function __construct(array $config)
+    public function __construct(array $config, Factory $factory)
     {
-        $this->config = $config;
+        $this->config  = $config;
+        $this->factory = $factory;
     }
 
     /**
@@ -37,9 +46,10 @@ class ReportService
      */
     public function generateReport(\PHP_CodeCoverage $coverage)
     {
-        $reportWriterClassName = $this->config['report']['class'];
+        $format = $this->config['report']['format'];
+        $options = $this->config['report']['options'];
 
-        $writer = new $reportWriterClassName();
-        $writer->process($coverage, $this->config['report']['directory']);
+        $report = $this->factory->create($format, $options);
+        $report->process($coverage);
     }
 }

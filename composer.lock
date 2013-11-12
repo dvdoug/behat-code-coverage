@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "351a69ee6222055a6a6162fb3056560d",
+    "hash": "57998fa3acdc1ad5723e124f072f15c5",
     "packages": [
         {
             "name": "behat/behat",
@@ -1049,22 +1049,23 @@
         },
         {
             "name": "vipsoft/code-coverage-common",
-            "version": "0.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vipsoft/code-coverage-common.git",
-                "reference": "2d4b400515b4bf44d7b3a44b800bc55dc6808a84"
+                "reference": "a464627b1f58f58ae7b79f2a125dfbc0d0b2d73a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vipsoft/code-coverage-common/zipball/2d4b400515b4bf44d7b3a44b800bc55dc6808a84",
-                "reference": "2d4b400515b4bf44d7b3a44b800bc55dc6808a84",
+                "url": "https://api.github.com/repos/vipsoft/code-coverage-common/zipball/a464627b1f58f58ae7b79f2a125dfbc0d0b2d73a",
+                "reference": "a464627b1f58f58ae7b79f2a125dfbc0d0b2d73a",
                 "shasum": ""
             },
             "require": {
                 "phpunit/php-code-coverage": "*"
             },
             "require-dev": {
+                "mikey179/vfsstream": "*",
                 "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
@@ -1081,7 +1082,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "developer"
+                    "role": "Fork Maintainer"
                 }
             ],
             "description": "Extending PHP_CodeCoverage",
@@ -1093,7 +1094,7 @@
                 "phpunit",
                 "testing"
             ],
-            "time": "2013-11-11 18:45:39"
+            "time": "2013-11-12 18:47:39"
         }
     ],
     "packages-dev": [
@@ -1299,9 +1300,9 @@
 
     ],
     "minimum-stability": "stable",
-    "stability-flags": [
-
-    ],
+    "stability-flags": {
+        "vipsoft/code-coverage-common": 20
+    },
     "platform": {
         "php": ">=5.3.10"
     },

@@ -81,8 +81,10 @@ END_OF_CONFIG
                     'behat.code_coverage.config.drivers' => array('remote'),
                     'behat.code_coverage.config.filter' => null,
                     'behat.code_coverage.config.report' => array(
-                        'class'     => 'REPORT_CLASS',
-                        'directory' => '/tmp',
+                        'format'    => 'fmt',
+                        'options' => array(
+                            'target' => '/tmp'
+                        )
                     )
                 ),
                 array(
@@ -105,8 +107,10 @@ END_OF_CONFIG
                     'drivers' => array('remote'),
                     'filter' => null,
                     'report' => array(
-                        'class'     => 'REPORT_CLASS',
-                        'directory' => '/tmp',
+                        'format'    => 'fmt',
+                        'options' => array(
+                            'target' => '/tmp'
+                        )
                     )
                 ),
             ),
@@ -177,8 +181,8 @@ END_OF_CONFIG
         $report = $this->getPropertyOnObject($children['report'], 'children');
 
         $this->assertEquals(2, count($report));
-        $this->assertTrue(isset($report['class']));
-        $this->assertTrue(isset($report['directory']));
+        $this->assertTrue(isset($report['format']));
+        $this->assertTrue(isset($report['options']));
     }
 
     public function testGetCompilerPasses()

@@ -20,6 +20,8 @@ class ProxyTest extends TestCase
 {
     protected function setUp()
     {
+        parent::setUp();
+
         $this->config = array(
             'drivers' => array(
                 'remote',
