@@ -157,6 +157,7 @@ class Extension implements ExtensionInterface
     {
         return array(
             new Compiler\DriverPass(),
+            new Compiler\FilterPass(),
         );
     }
 }

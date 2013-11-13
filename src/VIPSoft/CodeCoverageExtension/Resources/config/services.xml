@@ -35,13 +35,13 @@
         <service id="behat.code_coverage.driver.proxy" class="%behat.code_coverage.driver.proxy.class%" />
 
         <service id="behat.code_coverage.driver.local" class="%behat.code_coverage.driver.local.class%">
-            <tag name="behat.code_coverage.driver" />
+            <tag name="behat.code_coverage.driver" alias="local" />
         </service>
 
         <service id="behat.code_coverage.driver.remote" class="%behat.code_coverage.driver.remote.class%">
             <argument>%behat.code_coverage.config%</argument>
             <argument type="service" id="behat.code_coverage.http_client" />
-            <tag name="behat.code_coverage.driver" />
+            <tag name="behat.code_coverage.driver" alias="remote" />
         </service>
 
         <service id="behat.code_coverage.listener.event" class="%behat.code_coverage.listener.event.class%">

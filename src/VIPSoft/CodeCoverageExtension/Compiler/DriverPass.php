@@ -26,18 +26,20 @@ class DriverPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('behat.code_coverage.driver.proxy')) {
+        if ( ! $container->hasDefinition('behat.code_coverage.driver.proxy')) {
             return;
         }
 
         $proxy = $container->getDefinition('behat.code_coverage.driver.proxy');
         $enabled = $container->getParameter('behat.code_coverage.config.drivers');
 
-        foreach ($container->findTaggedServiceIds('behat.code_coverage.driver') as $id => $attributes) {
-            if (strncmp($id, 'behat.code_coverage.driver.', 27) === 0
-                && in_array(substr($id, 27), $enabled)
-            ) {
-                $proxy->addMethodCall('addDriver', array(new Reference($id)));
+        foreach ($container->findTaggedServiceIds('behat.code_coverage.driver') as $id => $tagAttributes) {
+            foreach ($tagAttributes as $attributes) {
+                if (isset($attributes['alias'])
+                    && in_array($attributes['alias'], $enabled)
+                ) {
+                    $proxy->addMethodCall('addDriver', array(new Reference($id)));
+                }
             }
         }
     }

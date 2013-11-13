@@ -17,4 +17,8 @@ use VIPSoft\TestCase;
  */
 class FilterPassTest extends TestCase
 {
+    public function testProcess()
+    {
+        $this->markTestIncomplete();
+    }
 }

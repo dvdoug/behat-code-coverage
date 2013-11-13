@@ -145,7 +145,7 @@ END_OF_CONFIG
 
         $children = $this->getPropertyOnObject($builder, 'children');
 
-        $this->assertEquals(7, count($children));
+        $this->assertCount(7, $children);
         $this->assertTrue(isset($children['auth']));
         $this->assertTrue(isset($children['create']));
         $this->assertTrue(isset($children['read']));
@@ -156,31 +156,31 @@ END_OF_CONFIG
 
         $auth = $this->getPropertyOnObject($children['auth'], 'children');
 
-        $this->assertEquals(2, count($auth));
+        $this->assertCount(2, $auth);
         $this->assertTrue(isset($auth['user']));
         $this->assertTrue(isset($auth['password']));
 
         $create = $this->getPropertyOnObject($children['create'], 'children');
 
-        $this->assertEquals(2, count($create));
+        $this->assertCount(2, $create);
         $this->assertTrue(isset($create['method']));
         $this->assertTrue(isset($create['path']));
 
         $read = $this->getPropertyOnObject($children['read'], 'children');
 
-        $this->assertEquals(2, count($read));
+        $this->assertCount(2, $read);
         $this->assertTrue(isset($read['method']));
         $this->assertTrue(isset($read['path']));
 
         $delete = $this->getPropertyOnObject($children['delete'], 'children');
 
-        $this->assertEquals(2, count($delete));
+        $this->assertCount(2, $delete);
         $this->assertTrue(isset($delete['method']));
         $this->assertTrue(isset($delete['path']));
 
         $report = $this->getPropertyOnObject($children['report'], 'children');
 
-        $this->assertEquals(2, count($report));
+        $this->assertCount(2, $report);
         $this->assertTrue(isset($report['format']));
         $this->assertTrue(isset($report['options']));
     }
@@ -192,7 +192,7 @@ END_OF_CONFIG
         $compilerPasses = $extension->getCompilerPasses();
 
         $this->assertTrue(is_array($compilerPasses));
-        $this->assertEquals(2, count($compilerPasses));
+        $this->assertCount(2, $compilerPasses);
     }
 
     /**
