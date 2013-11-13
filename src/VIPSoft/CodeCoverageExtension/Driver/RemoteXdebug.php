@@ -8,6 +8,8 @@
 
 namespace VIPSoft\CodeCoverageExtension\Driver;
 
+use Guzzle\Http\Client;
+
 /**
  * Remote xdebug driver
  *
@@ -51,7 +53,7 @@ class RemoteXdebug implements \PHP_CodeCoverage_Driver
      * @param array               $config Configuration
      * @param \Guzzle\Http\Client $client HTTP client
      */
-    public function __construct(array $config, $client)
+    public function __construct(array $config, Client $client)
     {
         $this->config = $config;
 

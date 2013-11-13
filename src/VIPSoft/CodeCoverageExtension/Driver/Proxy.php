@@ -25,6 +25,8 @@ class Proxy implements \PHP_CodeCoverage_Driver
 
     /**
      * Register driver
+     *
+     * @param \PHP_CodeCoverage_Driver $driver
      */
     public function addDriver(\PHP_CodeCoverage_Driver $driver)
     {
