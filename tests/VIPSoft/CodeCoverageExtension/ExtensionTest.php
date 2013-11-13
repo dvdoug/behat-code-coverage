@@ -192,7 +192,7 @@ END_OF_CONFIG
         $compilerPasses = $extension->getCompilerPasses();
 
         $this->assertTrue(is_array($compilerPasses));
-        $this->assertEquals(0, count($compilerPasses));
+        $this->assertEquals(1, count($compilerPasses));
     }
 
     /**

@@ -21,23 +21,14 @@ class Proxy implements \PHP_CodeCoverage_Driver
     /**
      * @var array
      */
-    private $drivers;
+    private $drivers = array();
 
     /**
-     * Constructor
-     *
-     * @param array                                                     $config
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     * Register driver
      */
-    public function __construct(array $config, ContainerInterface $container)
+    public function addDriver(\PHP_CodeCoverage_Driver $driver)
     {
-        $this->drivers = array();
-
-        foreach ($config['drivers'] as $type) {
-            $serviceName = 'behat.code_coverage.driver.' . $type;
-
-            $this->drivers[] = $container->get($serviceName);
-        }
+        $this->drivers[] = $driver;
     }
 
     /**

@@ -32,16 +32,16 @@
             <argument type="service" id="behat.code_coverage.php_code_coverage_filter" />
         </service>
 
-        <service id="behat.code_coverage.driver.proxy" class="%behat.code_coverage.driver.proxy.class%">
-            <argument>%behat.code_coverage.config%</argument>
-            <argument type="service" id="service_container" />
-        </service>
+        <service id="behat.code_coverage.driver.proxy" class="%behat.code_coverage.driver.proxy.class%" />
 
-        <service id="behat.code_coverage.driver.local" class="%behat.code_coverage.driver.local.class%" />
+        <service id="behat.code_coverage.driver.local" class="%behat.code_coverage.driver.local.class%">
+            <tag name="behat.code_coverage.driver" />
+        </service>
 
         <service id="behat.code_coverage.driver.remote" class="%behat.code_coverage.driver.remote.class%">
             <argument>%behat.code_coverage.config%</argument>
             <argument type="service" id="behat.code_coverage.http_client" />
+            <tag name="behat.code_coverage.driver" />
         </service>
 
         <service id="behat.code_coverage.listener.event" class="%behat.code_coverage.listener.event.class%">

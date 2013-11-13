@@ -13,6 +13,7 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use VIPSoft\CodeCoverageExtension\Compiler;
 
 /**
  * Code coverage extension
@@ -154,6 +155,8 @@ class Extension implements ExtensionInterface
      */
     public function getCompilerPasses()
     {
-        return array();
+        return array(
+            new Compiler\DriverPass(),
+        );
     }
 }
