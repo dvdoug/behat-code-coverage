@@ -20,9 +20,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 class DriverPass implements CompilerPassInterface
 {
     /**
-     * Processes container
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * {@inheritdoc}
      */
     public function process(ContainerBuilder $container)
     {

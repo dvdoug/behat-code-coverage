@@ -79,7 +79,60 @@ END_OF_CONFIG
                         'path'   => 'delete_path',
                     ),
                     'behat.code_coverage.config.drivers' => array('remote'),
-                    'behat.code_coverage.config.filter' => null,
+                    'behat.code_coverage.config.filter' => array(
+                        'whitelist' => array(
+                            'addUncoveredFilesFromWhitelist' => false,
+                            'processUncoveredFilesFromWhitelist' => true,
+                            'include' => array(
+                                'directories' => array(
+                                    'directory1' => array(
+                                        'prefix' => 'Secure',
+                                        'suffix' => '.php',
+                                    )
+                                ),
+                                'files' => array(
+                                    'file1'
+                                ),
+                            ),
+                            'exclude' => array(
+                                'directories' => array(
+                                    'directory2' => array(
+                                        'prefix' => 'Insecure',
+                                        'suffix' => '.inc',
+                                    )
+                                ),
+                                'files' => array(
+                                    'file2'
+                                ),
+                            ),
+                        ),
+                        'blacklist' => array(
+                            'include' => array(
+                                'directories' => array(
+                                    'directory3' => array(
+                                        'prefix' => 'Public',
+                                        'suffix' => '.php',
+                                    )
+                                ),
+                                'files' => array(
+                                    'file3'
+                                ),
+                            ),
+                            'exclude' => array(
+                                'directories' => array(
+                                    'directory4' => array(
+                                        'prefix' => 'Private',
+                                        'suffix' => '.inc',
+                                    )
+                                ),
+                                'files' => array(
+                                    'file4'
+                                ),
+                            ),
+                        ),
+                        'forceCoversAnnotation' => true,
+                        'mapTestClassNameToCoveredClassName' => true
+                    ),
                     'behat.code_coverage.config.report' => array(
                         'format'    => 'fmt',
                         'options' => array(
@@ -105,7 +158,60 @@ END_OF_CONFIG
                         'path'   => 'delete_path',
                     ),
                     'drivers' => array('remote'),
-                    'filter' => null,
+                    'filter' => array(
+                        'whitelist' => array(
+                            'addUncoveredFilesFromWhitelist' => false,
+                            'processUncoveredFilesFromWhitelist' => true,
+                            'include' => array(
+                                'directories' => array(
+                                    'directory1' => array(
+                                        'prefix' => 'Secure',
+                                        'suffix' => '.php',
+                                    )
+                                ),
+                                'files' => array(
+                                    'file1'
+                                ),
+                            ),
+                            'exclude' => array(
+                                'directories' => array(
+                                    'directory2' => array(
+                                        'prefix' => 'Insecure',
+                                        'suffix' => '.inc',
+                                    )
+                                ),
+                                'files' => array(
+                                    'file2'
+                                ),
+                            ),
+                        ),
+                        'blacklist' => array(
+                            'include' => array(
+                                'directories' => array(
+                                    'directory3' => array(
+                                        'prefix' => 'Public',
+                                        'suffix' => '.php',
+                                    )
+                                ),
+                                'files' => array(
+                                    'file3'
+                                ),
+                            ),
+                            'exclude' => array(
+                                'directories' => array(
+                                    'directory4' => array(
+                                        'prefix' => 'Private',
+                                        'suffix' => '.inc',
+                                    )
+                                ),
+                                'files' => array(
+                                    'file4'
+                                ),
+                            ),
+                        ),
+                        'forceCoversAnnotation' => true,
+                        'mapTestClassNameToCoveredClassName' => true
+                    ),
                     'report' => array(
                         'format'    => 'fmt',
                         'options' => array(
@@ -130,8 +236,78 @@ END_OF_CONFIG
                         'path'   => '/',
                     ),
                     'behat.code_coverage.config.drivers' => array('remote', 'local'),
+                    'behat.code_coverage.config.filter' => array(
+                        'whitelist' => array(
+                            'addUncoveredFilesFromWhitelist' => true,
+                            'processUncoveredFilesFromWhitelist' => false,
+                            'include' => array(
+                                'directories' => array(),
+                                'files' => array(),
+                            ),
+                            'exclude' => array(
+                                'directories' => array(),
+                                'files' => array(),
+                            ),
+                        ),
+                        'blacklist' => array(
+                            'include' => array(
+                                'directories' => array(),
+                                'files' => array(),
+                            ),
+                            'exclude' => array(
+                                'directories' => array(),
+                                'files' => array(),
+                            ),
+                        ),
+                        'forceCoversAnnotation' => false,
+                        'mapTestClassNameToCoveredClassName' => false
+                    )
                 ),
-                array(),
+                array(
+                    'create' => array(
+                        'method' => 'POST',
+                        'path'   => '/',
+                    ),
+                    'read' => array(
+                        'method' => 'GET',
+                        'path'   => '/',
+                    ),
+                    'delete' => array(
+                        'method' => 'DELETE',
+                        'path'   => '/',
+                    ),
+                    'drivers' => array(),
+                    'filter' => array(
+                        'whitelist' => array(
+                            'addUncoveredFilesFromWhitelist' => true,
+                            'processUncoveredFilesFromWhitelist' => false,
+                            'include' => array(
+                                'directories' => array(),
+                                'files' => array(),
+                            ),
+                            'exclude' => array(
+                                'directories' => array(),
+                                'files' => array(),
+                            ),
+                        ),
+                        'blacklist' => array(
+                            'include' => array(
+                                'directories' => array(),
+                                'files' => array(),
+                            ),
+                            'exclude' => array(
+                                'directories' => array(),
+                                'files' => array(),
+                            ),
+                        ),
+                        'forceCoversAnnotation' => false,
+                        'mapTestClassNameToCoveredClassName' => false
+                    ),
+                    'report'  => array(
+                        'format' => 'html',
+                        'options' => array(),
+                    )
+                ),
             ),
         );
     }

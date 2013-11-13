@@ -20,20 +20,34 @@ default:
         - local
       filter:      ~
 #     filter:
-#       blacklist:
-#         directories:
-#           'path': '.php'
-#         files:
-#           - 'path'
-#         exclude:
-#           directories:
-#           files:
+#       forceCoversAnnotation:                false
+#       mapTestClassNameToCoveredClassName:   false
 #       whitelist:
-#         directories:
-#         files:
+#         addUncoveredFilesFromWhitelist:     true
+#         processUncoveredFilesFromWhitelist: false
+#         include:
+#           directories:
+#             'some_path':
+#               suffix: 'some_suffix'
+#               prefix: 'some_prefix'
+#           files:
+#             - 'some_file'
 #         exclude:
 #           directories:
+#             ...
 #           files:
+#             ...
+#       blacklist:
+#         include:
+#           directories:
+#             ...
+#           files:
+#             ...
+#         exclude:
+#           directories:
+#             ...
+#           files:
+#             ...
       report:
         format:    html
         options:

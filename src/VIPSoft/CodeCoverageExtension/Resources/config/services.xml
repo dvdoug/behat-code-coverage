@@ -18,6 +18,7 @@
             <parameter key="read">%behat.code_coverage.config.read%</parameter>
             <parameter key="delete">%behat.code_coverage.config.delete%</parameter>
             <parameter key="drivers">%behat.code_coverage.config.drivers%</parameter>
+            <parameter key="filter">%behat.code_coverage.config.filter%</parameter>
             <parameter key="report">%behat.code_coverage.config.report%</parameter>
         </parameter>
     </parameters>

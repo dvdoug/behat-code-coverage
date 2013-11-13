@@ -65,6 +65,7 @@ Activate extension in your **behat.yml** and define your routes for remote code 
           drivers:
             - remote
             - local
+          filter:     ~
           report:
             format:   html
             options:
@@ -98,11 +99,39 @@ Other choices for report "format" include "clover", "crap4j", "php", "text",
 and "xml".  The "options" vary and correspond to the __construct() and process()
 arguments of the underlying PHP_CodeCoverage report class.
 
+The default "filter" includes everything / excludes nothing.  Using a
+PHPUnit configuration as an example:
+
+... code-block:: xml
+
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
+            <exclude>
+                <directory>src/*/*/Tests</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
+would be configured in YAML as:
+
+... code-block:: yaml
+
+    filter:
+        whitelist: 
+          addUncoveredFilesFromWhitelist: true
+          include:
+            directories:
+              'src':
+                suffix: .php
+          exclude:
+            directories:
+              'src/*/*/Tests': ~
+
 Limitations
 -----------
-Web server clusters not supported (because the Code Coverage bundle uses a
-SQLite database).  So, not compatible with distributed testing environments
-either (e.g., use Behat GearmanExtension).
+Multiple web servers (e.g., clusters or distributed testing environments) are not
+currently supported because the Code Coverage Bundle uses a SQLite database.
 
 Source
 ======

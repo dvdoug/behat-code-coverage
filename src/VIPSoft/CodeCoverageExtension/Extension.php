@@ -45,59 +45,27 @@ class Extension implements ExtensionInterface
         $loader = new XmlFileLoader($container, new FileLocator($this->configFolder));
         $loader->load('services.xml');
 
-        if (isset($config['auth']) && isset($config['auth']['user']) && isset($config['auth']['password'])) {
-            $container->setParameter('behat.code_coverage.config.auth', $config['auth']);
-        } else {
-            $container->setParameter('behat.code_coverage.config.auth', null);
+        if ( ! isset($config['auth']['user']) || ! isset($config['auth']['password'])) {
+            $config['auth'] = null;
         }
 
-        if (isset($config['create'])) {
-            $container->setParameter('behat.code_coverage.config.create', $config['create']);
-        } else {
-            $container->setParameter('behat.code_coverage.config.create', array(
-                'method' => 'POST',
-                'path'   => '/',
-            ));
+        if ( ! count($config['drivers'])) {
+            $config['drivers'] = array('remote', 'local');
         }
 
-        if (isset($config['read'])) {
-            $container->setParameter('behat.code_coverage.config.read', $config['read']);
-        } else {
-            $container->setParameter('behat.code_coverage.config.read', array(
-                'method' => 'GET',
-                'path'   => '/',
-            ));
+        if ( ! count($config['report']['options'])) {
+            $config['report']['options'] = array(
+                'target' => '/tmp'
+            );
         }
 
-        if (isset($config['delete'])) {
-            $container->setParameter('behat.code_coverage.config.delete', $config['delete']);
-        } else {
-            $container->setParameter('behat.code_coverage.config.delete', array(
-                'method' => 'DELETE',
-                'path'   => '/',
-            ));
-        }
-
-        if (isset($config['drivers']) && is_array($config['drivers']) && count($config['drivers'])) {
-            $container->setParameter('behat.code_coverage.config.drivers', $config['drivers']);
-        } else {
-            $container->setParameter('behat.code_coverage.config.drivers', array('remote', 'local'));
-        }
-
-        if (isset($config['filter'])) {
-            $container->setParameter('behat.code_coverage.config.filter', $config['filter']);
-        } else {
-            $container->setParameter('behat.code_coverage.config.filter', null);
-        }
-
-        if (isset($config['report'])) {
-            $container->setParameter('behat.code_coverage.config.report', $config['report']);
-        } else {
-            $container->setParameter('behat.code_coverage.config.report', array(
-                'format'    => 'html',
-                'directory' => '/tmp/report',
-            ));
-        }
+        $container->setParameter('behat.code_coverage.config.auth', $config['auth']);
+        $container->setParameter('behat.code_coverage.config.create', $config['create']);
+        $container->setParameter('behat.code_coverage.config.read', $config['read']);
+        $container->setParameter('behat.code_coverage.config.delete', $config['delete']);
+        $container->setParameter('behat.code_coverage.config.drivers', $config['drivers']);
+        $container->setParameter('behat.code_coverage.config.filter', $config['filter']);
+        $container->setParameter('behat.code_coverage.config.report', $config['report']);
     }
 
     /**
@@ -114,32 +82,127 @@ class Extension implements ExtensionInterface
                     end()->
                 end()->
                 arrayNode('create')->
+                    addDefaultsIfNotSet()->
                     children()->
-                        scalarNode('method')->end()->
-                        scalarNode('path')->end()->
+                        scalarNode('method')->defaultValue('POST')->end()->
+                        scalarNode('path')->defaultValue('/')->end()->
                     end()->
                 end()->
                 arrayNode('read')->
+                    addDefaultsIfNotSet()->
                     children()->
-                        scalarNode('method')->end()->
-                        scalarNode('path')->end()->
+                        scalarNode('method')->defaultValue('GET')->end()->
+                        scalarNode('path')->defaultValue('/')->end()->
                     end()->
                 end()->
                 arrayNode('delete')->
+                    addDefaultsIfNotSet()->
                     children()->
-                        scalarNode('method')->end()->
-                        scalarNode('path')->end()->
+                        scalarNode('method')->defaultValue('DELETE')->end()->
+                        scalarNode('path')->defaultValue('/')->end()->
                     end()->
                 end()->
                 arrayNode('drivers')->
                     prototype('scalar')->end()->
                 end()->
                 arrayNode('filter')->
-                    prototype('variable')->end()->
+                    addDefaultsIfNotSet()->
+                    children()->
+                        scalarNode('forceCoversAnnotation')->
+                            defaultFalse()->
+                        end()->
+                        scalarNode('mapTestClassNameToCoveredClassName')->
+                            defaultFalse()->
+                        end()->
+                        arrayNode('whitelist')->
+                            addDefaultsIfNotSet()->
+                            children()->
+                                scalarNode('addUncoveredFilesFromWhitelist')->
+                                    defaultTrue()->
+                                end()->
+                                scalarNode('processUncoveredFilesFromWhitelist')->
+                                    defaultFalse()->
+                                end()->
+                                arrayNode('include')->
+                                    addDefaultsIfNotSet()->
+                                    children()->
+                                        arrayNode('directories')->
+                                           useAttributeAsKey('name')->
+                                           prototype('array')->
+                                               children()->
+                                                   scalarNode('prefix')->defaultValue('')->end()->
+                                                   scalarNode('suffix')->defaultValue('.php')->end()->
+                                               end()->
+                                           end()->
+                                        end()->
+                                        arrayNode('files')->
+                                           prototype('scalar')->end()->
+                                        end()->
+                                    end()->
+                                end()->
+                                arrayNode('exclude')->
+                                    addDefaultsIfNotSet()->
+                                    children()->
+                                        arrayNode('directories')->
+                                           useAttributeAsKey('name')->
+                                           prototype('array')->
+                                               children()->
+                                                   scalarNode('prefix')->defaultValue('')->end()->
+                                                   scalarNode('suffix')->defaultValue('.php')->end()->
+                                               end()->
+                                           end()->
+                                        end()->
+                                        arrayNode('files')->
+                                           prototype('scalar')->end()->
+                                        end()->
+                                    end()->
+                                end()->
+                            end()->
+                        end()->
+                        arrayNode('blacklist')->
+                            addDefaultsIfNotSet()->
+                            children()->
+                                arrayNode('include')->
+                                    addDefaultsIfNotSet()->
+                                    children()->
+                                        arrayNode('directories')->
+                                           useAttributeAsKey('name')->
+                                           prototype('array')->
+                                               children()->
+                                                   scalarNode('prefix')->defaultValue('')->end()->
+                                                   scalarNode('suffix')->defaultValue('.php')->end()->
+                                               end()->
+                                           end()->
+                                        end()->
+                                        arrayNode('files')->
+                                           prototype('scalar')->end()->
+                                        end()->
+                                    end()->
+                                end()->
+                                arrayNode('exclude')->
+                                    addDefaultsIfNotSet()->
+                                    children()->
+                                        arrayNode('directories')->
+                                           useAttributeAsKey('name')->
+                                           prototype('array')->
+                                               children()->
+                                                   scalarNode('prefix')->defaultValue('')->end()->
+                                                   scalarNode('suffix')->defaultValue('.php')->end()->
+                                               end()->
+                                           end()->
+                                        end()->
+                                        arrayNode('files')->
+                                           prototype('scalar')->end()->
+                                        end()->
+                                    end()->
+                                end()->
+                            end()->
+                        end()->
+                    end()->
                 end()->
                 arrayNode('report')->
                     children()->
-                        scalarNode('format')->end()->
+                        scalarNode('format')->defaultValue('html')->end()->
                         arrayNode('options')->
                             useAttributeAsKey('name')->
                             prototype('scalar')->end()->
