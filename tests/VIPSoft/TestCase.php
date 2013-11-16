@@ -103,7 +103,7 @@ END_OF_FUNCTION_MOCK
      *
      * @return mixed
      */
-    static public function invokeFunction()
+    public static function invokeFunction()
     {
         $args = func_get_args();
         $functionName = array_shift($args);

@@ -10,13 +10,14 @@ namespace VIPSoft\CodeCoverageExtension\Driver;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use VIPSoft\CodeCoverageCommon\Model\Aggregate;
+use PHP_CodeCoverage_Driver as DriverInterface;
 
 /**
  * Proxy driver
  *
  * @author Anthon Pang <apang@softwaredevelopment.ca>
  */
-class Proxy implements \PHP_CodeCoverage_Driver
+class Proxy implements DriverInterface
 {
     /**
      * @var array
@@ -26,11 +27,13 @@ class Proxy implements \PHP_CodeCoverage_Driver
     /**
      * Register driver
      *
-     * @param \PHP_CodeCoverage_Driver $driver
+     * @param DriverInterface|null $driver
      */
-    public function addDriver(\PHP_CodeCoverage_Driver $driver)
+    public function addDriver(DriverInterface $driver = null)
     {
-        $this->drivers[] = $driver;
+        if ($driver) {
+            $this->drivers[] = $driver;
+        }
     }
 
     /**

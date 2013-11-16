@@ -26,7 +26,7 @@ class ProxyTest extends TestCase
     {
         parent::setUp();
 
-        $this->localDriver = $this->getMock('VIPSoft\CodeCoverageCommon\Driver');
+        $this->localDriver = $this->getMock('VIPSoft\CodeCoverageCommon\Driver\Stub');
 
         $this->remoteDriver = $this->getMockBuilder('VIPSoft\CodeCoverageExtension\Driver\RemoteXdebug')
                                    ->disableOriginalConstructor()

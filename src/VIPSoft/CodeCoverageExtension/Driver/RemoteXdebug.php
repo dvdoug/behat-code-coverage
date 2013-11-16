@@ -9,13 +9,14 @@
 namespace VIPSoft\CodeCoverageExtension\Driver;
 
 use Guzzle\Http\Client;
+use PHP_CodeCoverage_Driver as DriverInterface;
 
 /**
  * Remote xdebug driver
  *
  * @author Anthon Pang <apang@softwaredevelopment.ca>
  */
-class RemoteXdebug implements \PHP_CodeCoverage_Driver
+class RemoteXdebug implements DriverInterface
 {
     /**
      * @var array

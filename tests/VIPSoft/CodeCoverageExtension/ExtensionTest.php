@@ -27,7 +27,9 @@ class ExtensionTest extends TestCase
     {
         $vfsRoot = vfsStream::setup('configDir');
         $configDir = vfsStream::url('configDir');
-        file_put_contents($configDir . '/services.xml', <<<END_OF_CONFIG
+        file_put_contents(
+            $configDir . '/services.xml',
+            <<<END_OF_CONFIG
 <?xml version="1.0" ?>
 <container xmlns="http://symfony.com/schema/dic/services"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -368,7 +370,7 @@ END_OF_CONFIG
         $compilerPasses = $extension->getCompilerPasses();
 
         $this->assertTrue(is_array($compilerPasses));
-        $this->assertCount(2, $compilerPasses);
+        $this->assertCount(3, $compilerPasses);
     }
 
     /**

@@ -5,7 +5,6 @@
 
     <parameters>
         <parameter key="behat.code_coverage.driver.proxy.class">VIPSoft\CodeCoverageExtension\Driver\Proxy</parameter>
-        <parameter key="behat.code_coverage.driver.local.class">VIPSoft\CodeCoverageCommon\Driver</parameter>
         <parameter key="behat.code_coverage.driver.remote.class">VIPSoft\CodeCoverageExtension\Driver\RemoteXdebug</parameter>
         <parameter key="behat.code_coverage.listener.event.class">VIPSoft\CodeCoverageExtension\Listener\EventListener</parameter>
         <parameter key="behat.code_coverage.service.report.class">VIPSoft\CodeCoverageExtension\Service\ReportService</parameter>
@@ -21,21 +20,50 @@
             <parameter key="filter">%behat.code_coverage.config.filter%</parameter>
             <parameter key="report">%behat.code_coverage.config.report%</parameter>
         </parameter>
+
+        <parameter key="vipsoft.code_coverage.driver.hhmv.class">VIPSoft\CodeCoverageCommon\Driver\HHVM</parameter>
+        <parameter key="vipsoft.code_coverage.driver.xcache.class">VIPSoft\CodeCoverageCommon\Driver\XCache</parameter>
+        <parameter key="vipsoft.code_coverage.driver.xdebug.class">PHP_CodeCoverage_Driver_Xdebug</parameter>
+        <parameter key="vipsoft.code_coverage.driver.factory.class">VIPSoft\CodeCoverageCommon\Driver\Factory</parameter>
     </parameters>
 
     <services>
+        <service id="vipsoft.code_coverage.driver.hhmv"
+                 class="%vipsoft.code_coverage.driver.hhmv.class%"
+                 synthetic="true">
+            <tag name="vipsoft.code_coverage.driver"/>
+        </service>
+        <service id="vipsoft.code_coverage.driver.xcache"
+                 class="%vipsoft.code_coverage.driver.xcache.class%"
+                 synthetic="true">
+            <tag name="vipsoft.code_coverage.driver"/>
+        </service>
+        <service id="vipsoft.code_coverage.driver.xdebug"
+                 class="%vipsoft.code_coverage.driver.xdebug.class%"
+                 synthetic="true">
+            <tag name="vipsoft.code_coverage.driver"/>
+        </service>
+
+        <!-- The factory compiler pass will register available driver classes with the factory -->
+        <service id="vipsoft.code_coverage.driver.factory" class="%vipsoft.code_coverage.driver.factory.class%" />
+
         <service id="behat.code_coverage.http_client" class="Guzzle\Http\Client" />
 
         <service id="behat.code_coverage.php_code_coverage_filter" class="PHP_CodeCoverage_Filter" />
 
+        <!-- The filter compiler pass will configure the injected coverage filter -->
         <service id="behat.code_coverage.php_code_coverage" class="PHP_CodeCoverage">
             <argument type="service" id="behat.code_coverage.driver.proxy" />
             <argument type="service" id="behat.code_coverage.php_code_coverage_filter" />
         </service>
 
+        <!-- The driver compiler pass will register enabled drivers with the proxy -->
         <service id="behat.code_coverage.driver.proxy" class="%behat.code_coverage.driver.proxy.class%" />
 
-        <service id="behat.code_coverage.driver.local" class="%behat.code_coverage.driver.local.class%">
+        <service id="behat.code_coverage.driver.local"
+                 class="PHP_CodeCoverage_Driver"
+                 factory-service="vipsoft.code_coverage.driver.factory"
+                 factory-method="create">
             <tag name="behat.code_coverage.driver" alias="local" />
         </service>
 
