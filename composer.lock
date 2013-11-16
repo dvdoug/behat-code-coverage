@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "57998fa3acdc1ad5723e124f072f15c5",
+    "hash": "bce29c11b9cdefa805dce3532d1e9d42",
     "packages": [
         {
             "name": "behat/behat",
@@ -1049,16 +1049,16 @@
         },
         {
             "name": "vipsoft/code-coverage-common",
-            "version": "dev-master",
+            "version": "2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vipsoft/code-coverage-common.git",
-                "reference": "a464627b1f58f58ae7b79f2a125dfbc0d0b2d73a"
+                "reference": "816a42e203e8ecb5d4ec20775effcab700016ee9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vipsoft/code-coverage-common/zipball/a464627b1f58f58ae7b79f2a125dfbc0d0b2d73a",
-                "reference": "a464627b1f58f58ae7b79f2a125dfbc0d0b2d73a",
+                "url": "https://api.github.com/repos/vipsoft/code-coverage-common/zipball/816a42e203e8ecb5d4ec20775effcab700016ee9",
+                "reference": "816a42e203e8ecb5d4ec20775effcab700016ee9",
                 "shasum": ""
             },
             "require": {
@@ -1094,7 +1094,7 @@
                 "phpunit",
                 "testing"
             ],
-            "time": "2013-11-12 18:47:39"
+            "time": "2013-11-16 03:02:36"
         }
     ],
     "packages-dev": [
@@ -1300,9 +1300,9 @@
 
     ],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "vipsoft/code-coverage-common": 20
-    },
+    "stability-flags": [
+
+    ],
     "platform": {
         "php": ">=5.3.10"
     },
