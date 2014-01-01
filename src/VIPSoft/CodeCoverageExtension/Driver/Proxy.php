@@ -55,7 +55,10 @@ class Proxy implements DriverInterface
 
         foreach ($this->drivers as $driver) {
             $coverage = $driver->stop();
-            if (null === $coverage) continue;
+
+            if ( ! $coverage) {
+                continue;
+            }
 
             foreach ($coverage as $class => $counts) {
                 $aggregate->update($class, $counts);
