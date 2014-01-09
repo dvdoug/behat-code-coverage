@@ -30,7 +30,7 @@ class FilterPass implements CompilerPassInterface
 
     private function processCodeCoverage(ContainerBuilder $container)
     {
-        if ( ! $container->hasDefinition('behat.code_coverage.php_code_coverage')) {
+        if (! $container->hasDefinition('behat.code_coverage.php_code_coverage')) {
             return;
         }
 
@@ -57,7 +57,7 @@ class FilterPass implements CompilerPassInterface
 
     private function processCodeCoverageFilter(ContainerBuilder $container)
     {
-        if ( ! $container->hasDefinition('behat.code_coverage.php_code_coverage_filter')) {
+        if (! $container->hasDefinition('behat.code_coverage.php_code_coverage_filter')) {
             return;
         }
 

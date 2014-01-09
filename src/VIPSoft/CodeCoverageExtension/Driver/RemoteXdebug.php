@@ -107,7 +107,7 @@ class RemoteXdebug implements DriverInterface
     {
         $method = strtolower($this->config[$endpoint]['method']);
 
-        if ( ! in_array($method, array('get', 'post', 'put', 'delete'))) {
+        if (! in_array($method, array('get', 'post', 'put', 'delete'))) {
             throw new \Exception($endpoint . ' method must be GET, POST, PUT, or DELETE');
         }
 

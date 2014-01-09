@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": ">=5.3.10",
-        "behat/behat": "~2.4",
+        "behat/behat": "~3.0",
         "guzzle/guzzle": "3.7.*",
         "symfony/config": "~2.2",
         "symfony/dependency-injection": "~2.2",
@@ -29,5 +29,11 @@
     },
     "keywords": [
         "bdd", "behat", "phpunit", "code", "coverage", "testing"
-    ]
+    ],
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0.x-dev"
+        }
+    },
+    "minimum-stability": "dev"
 }

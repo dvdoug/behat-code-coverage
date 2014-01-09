@@ -8,10 +8,10 @@
 
 namespace VIPSoft\CodeCoverageExtension\Listener;
 
-use Behat\Behat\Event\BaseScenarioEvent;
-use Behat\Behat\Event\OutlineExampleEvent;
-use Behat\Behat\Event\ScenarioEvent;
-use Behat\Behat\Event\SuiteEvent;
+use Behat\Behat\Tester\Event\AbstractScenarioTested;
+use Behat\Behat\Tester\Event\FeatureTested;
+use Behat\Behat\Tester\Event\ScenarioTested;
+use Behat\Testwork\Tester\Event\SuiteTested;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use VIPSoft\CodeCoverageExtension\Service\ReportService;
@@ -34,6 +34,11 @@ class EventListener implements EventSubscriberInterface
     private $reportService;
 
     /**
+     * @var string
+     */
+    private $file;
+
+    /**
      * Constructor
      *
      * @param \PHP_CodeCoverage                                    $coverage
@@ -43,6 +48,7 @@ class EventListener implements EventSubscriberInterface
     {
         $this->coverage      = $coverage;
         $this->reportService = $reportService;
+        $this->file          = '(unknown)';
     }
 
     /**
@@ -51,48 +57,53 @@ class EventListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            'beforeSuite'    => 'beforeSuite',
-            'beforeScenario' => 'beforeScenario',
-            'afterScenario'  => 'afterScenario',
-            'afterSuite'     => 'afterSuite',
+            SuiteTested::BEFORE    => 'beforeSuite',
+            FeatureTested::BEFORE  => 'beforeFeature',
+            ScenarioTested::BEFORE => 'beforeScenario',
+            ScenarioTested::AFTER  => 'afterScenario',
+            SuiteTested::AFTER     => 'afterSuite',
         );
     }
 
     /**
      * Before Suite hook
      *
-     * @param \Behat\Behat\Event\SuiteEvent $event
+     * @param \Behat\Testwork\Tester\Event\SuiteTested $event
      */
-    public function beforeSuite(SuiteEvent $event)
+    public function beforeSuite(SuiteTested $event)
     {
         $this->coverage->clear();
     }
 
     /**
-     * Before Scenario/OutlineExample hook
+     * Before Feature hook
      *
-     * @param \Behat\Behat\Event\BaseScenarioEvent $event
+     * @param \Behat\Behat\Tester\Event\FeatureTested $event
      */
-    public function beforeScenario(BaseScenarioEvent $event)
+    public function beforeFeature(FeatureTested $event)
     {
-        if ($event instanceof OutlineExampleEvent) {
-            $node = $event->getOutline();
-        } elseif ($event instanceof ScenarioEvent) {
-            $node = $event->getScenario();
-        }
+        $this->file = $event->getFeature() ? $event->getFeature()->getFile() : '(unknown)';
+    }
 
-        $file = $node->getFeature() ? $node->getFeature()->getFile() : '(unknown)';
-        $id = $file . ':' . $node->getLine();
+    /**
+     * Before Scenario/Outline Example hook
+     *
+     * @param \Behat\Behat\Tester\Event\AbstractScenarioTested $event
+     */
+    public function beforeScenario(AbstractScenarioTested $event)
+    {
+        $node = $event->getScenario();
+        $id = $this->file . ':' . $node->getLine();
 
         $this->coverage->start($id);
     }
 
     /**
-     * After Scenario/OutlineExample hook
+     * After Scenario/Outline Example hook
      *
-     * @param \Behat\Behat\Event\BaseScenarioEvent $event
+     * @param \Behat\Behat\Tester\Event\AbstractScenarioTested $event
      */
-    public function afterScenario(BaseScenarioEvent $event)
+    public function afterScenario(AbstractScenarioTested $event)
     {
         $this->coverage->stop();
     }
@@ -100,9 +111,9 @@ class EventListener implements EventSubscriberInterface
     /**
      * After Suite hook
      *
-     * @param \Behat\Behat\Event\SuiteEvent $event
+     * @param \Behat\Testwork\Tester\Event\SuiteTested $event
      */
-    public function afterSuite(SuiteEvent $event)
+    public function afterSuite(SuiteTested $event)
     {
         $this->reportService->generateReport($this->coverage);
     }

@@ -24,7 +24,7 @@ class DriverPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if ( ! $container->hasDefinition('behat.code_coverage.driver.proxy')) {
+        if (! $container->hasDefinition('behat.code_coverage.driver.proxy')) {
             return;
         }
 
