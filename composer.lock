@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "0cde82e6bea035385e825537df207c9c",
+    "hash": "386872b0af6bf3793f43e57bd6c62262",
     "packages": [
         {
             "name": "behat/behat",
@@ -135,17 +135,17 @@
         },
         {
             "name": "guzzle/common",
-            "version": "v3.7.4",
+            "version": "v3.8.0",
             "target-dir": "Guzzle/Common",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/common.git",
-                "reference": "5126e268446c7e7df961b89128d71878e0652432"
+                "reference": "eb4e34cac1b18583f0ee74bf6a9dda96bd771a1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/common/zipball/5126e268446c7e7df961b89128d71878e0652432",
-                "reference": "5126e268446c7e7df961b89128d71878e0652432",
+                "url": "https://api.github.com/repos/guzzle/common/zipball/eb4e34cac1b18583f0ee74bf6a9dda96bd771a1e",
+                "reference": "eb4e34cac1b18583f0ee74bf6a9dda96bd771a1e",
                 "shasum": ""
             },
             "require": {
@@ -175,21 +175,21 @@
                 "event",
                 "exception"
             ],
-            "time": "2013-10-02 20:47:00"
+            "time": "2013-12-05 23:39:20"
         },
         {
             "name": "guzzle/http",
-            "version": "v3.7.4",
+            "version": "v3.8.0",
             "target-dir": "Guzzle/Http",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/http.git",
-                "reference": "3420035adcf312d62a2e64f3e6b3e3e590121786"
+                "reference": "b497e6b6a5a85751ae0c6858d677f7c4857dd171"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/http/zipball/3420035adcf312d62a2e64f3e6b3e3e590121786",
-                "reference": "3420035adcf312d62a2e64f3e6b3e3e590121786",
+                "url": "https://api.github.com/repos/guzzle/http/zipball/b497e6b6a5a85751ae0c6858d677f7c4857dd171",
+                "reference": "b497e6b6a5a85751ae0c6858d677f7c4857dd171",
                 "shasum": ""
             },
             "require": {
@@ -232,21 +232,21 @@
                 "http",
                 "http client"
             ],
-            "time": "2013-09-20 22:05:53"
+            "time": "2013-12-04 22:21:25"
         },
         {
             "name": "guzzle/parser",
-            "version": "v3.7.4",
+            "version": "v3.8.0",
             "target-dir": "Guzzle/Parser",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/parser.git",
-                "reference": "a25c2ddda1c52fb69a4ee56eb530b13ddd9573c2"
+                "reference": "77cae6425bc3466e1e47bdf6d2eebc15a092dbcc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/parser/zipball/a25c2ddda1c52fb69a4ee56eb530b13ddd9573c2",
-                "reference": "a25c2ddda1c52fb69a4ee56eb530b13ddd9573c2",
+                "url": "https://api.github.com/repos/guzzle/parser/zipball/77cae6425bc3466e1e47bdf6d2eebc15a092dbcc",
+                "reference": "77cae6425bc3466e1e47bdf6d2eebc15a092dbcc",
                 "shasum": ""
             },
             "require": {
@@ -276,11 +276,11 @@
                 "message",
                 "url"
             ],
-            "time": "2013-07-11 22:46:03"
+            "time": "2013-10-24 00:04:09"
         },
         {
             "name": "guzzle/stream",
-            "version": "v3.7.4",
+            "version": "v3.8.0",
             "target-dir": "Guzzle/Stream",
             "source": {
                 "type": "git",
