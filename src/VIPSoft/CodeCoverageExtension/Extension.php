@@ -8,7 +8,8 @@
 
 namespace VIPSoft\CodeCoverageExtension;
 
-use Behat\Testwork\ServiceContainer\Extension as BaseExtension;
+use Behat\Testwork\ServiceContainer\Extension as ExtensionInterface;
+use Behat\Testwork\ServiceContainer\ExtensionManager;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -20,7 +21,7 @@ use VIPSoft\CodeCoverageExtension\Compiler;
  *
  * @author Anthon Pang <apang@softwaredevelopment.ca>
  */
-class Extension implements BaseExtension
+class Extension implements ExtensionInterface
 {
     /**
      * @var string
@@ -35,6 +36,13 @@ class Extension implements BaseExtension
     public function __construct($configFolder = null)
     {
         $this->configFolder = $configFolder ?: __DIR__ . '/Resources/config';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function initialize(ExtensionManager $extensionManager)
+    {
     }
 
     /**

@@ -34,11 +34,6 @@ class EventListener implements EventSubscriberInterface
     private $reportService;
 
     /**
-     * @var string
-     */
-    private $file;
-
-    /**
      * Constructor
      *
      * @param \PHP_CodeCoverage                                    $coverage
@@ -48,7 +43,6 @@ class EventListener implements EventSubscriberInterface
     {
         $this->coverage      = $coverage;
         $this->reportService = $reportService;
-        $this->file          = '(unknown)';
     }
 
     /**
@@ -58,7 +52,6 @@ class EventListener implements EventSubscriberInterface
     {
         return array(
             SuiteTested::BEFORE    => 'beforeSuite',
-            FeatureTested::BEFORE  => 'beforeFeature',
             ScenarioTested::BEFORE => 'beforeScenario',
             ScenarioTested::AFTER  => 'afterScenario',
             SuiteTested::AFTER     => 'afterSuite',
@@ -76,16 +69,6 @@ class EventListener implements EventSubscriberInterface
     }
 
     /**
-     * Before Feature hook
-     *
-     * @param \Behat\Behat\Tester\Event\FeatureTested $event
-     */
-    public function beforeFeature(FeatureTested $event)
-    {
-        $this->file = $event->getFeature() ? $event->getFeature()->getFile() : '(unknown)';
-    }
-
-    /**
      * Before Scenario/Outline Example hook
      *
      * @param \Behat\Behat\Tester\Event\AbstractScenarioTested $event
@@ -93,7 +76,7 @@ class EventListener implements EventSubscriberInterface
     public function beforeScenario(AbstractScenarioTested $event)
     {
         $node = $event->getScenario();
-        $id = $this->file . ':' . $node->getLine();
+        $id   = $event->getFeature()->getFile() . ':' . $node->getLine();
 
         $this->coverage->start($id);
     }
