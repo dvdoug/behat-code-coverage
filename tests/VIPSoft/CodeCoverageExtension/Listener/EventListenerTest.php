@@ -44,7 +44,7 @@ class EventListenerTest extends TestCase
         $events   = $listener->getSubscribedEvents();
 
         $this->assertTrue(is_array($events));
-        $this->assertCount(4, $events);
+        $this->assertCount(6, $events);
         $this->assertEquals('beforeSuite', $events['beforeSuite']);
         $this->assertEquals('afterSuite', $events['afterSuite']);
         $this->assertEquals('beforeScenario', $events['beforeScenario']);

@@ -51,10 +51,12 @@ class EventListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            'beforeSuite'    => 'beforeSuite',
-            'beforeScenario' => 'beforeScenario',
-            'afterScenario'  => 'afterScenario',
-            'afterSuite'     => 'afterSuite',
+            'beforeSuite'          => 'beforeSuite',
+            'beforeScenario'       => 'beforeScenario',
+            'beforeOutlineExample' => 'beforeScenario',
+            'afterScenario'        => 'afterScenario',
+            'afterOutlineExample'  => 'afterScenario',
+            'afterSuite'           => 'afterSuite',
         );
     }
 
