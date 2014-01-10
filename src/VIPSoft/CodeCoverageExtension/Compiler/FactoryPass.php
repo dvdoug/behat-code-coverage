@@ -24,7 +24,7 @@ class FactoryPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if ( ! $container->hasDefinition('vipsoft.code_coverage.driver.factory')) {
+        if (! $container->hasDefinition('vipsoft.code_coverage.driver.factory')) {
             return;
         }
 

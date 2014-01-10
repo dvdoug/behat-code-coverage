@@ -45,15 +45,15 @@ class Extension implements ExtensionInterface
         $loader = new XmlFileLoader($container, new FileLocator($this->configFolder));
         $loader->load('services.xml');
 
-        if ( ! isset($config['auth']['user']) || ! isset($config['auth']['password'])) {
+        if (! isset($config['auth']['user']) || ! isset($config['auth']['password'])) {
             $config['auth'] = null;
         }
 
-        if ( ! count($config['drivers'])) {
+        if (! count($config['drivers'])) {
             $config['drivers'] = array('remote', 'local');
         }
 
-        if ( ! count($config['report']['options'])) {
+        if (! count($config['report']['options'])) {
             $config['report']['options'] = array(
                 'target' => '/tmp'
             );
