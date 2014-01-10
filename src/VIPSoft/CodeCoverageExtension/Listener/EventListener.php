@@ -9,6 +9,7 @@
 namespace VIPSoft\CodeCoverageExtension\Listener;
 
 use Behat\Behat\Tester\Event\AbstractScenarioTested;
+use Behat\Behat\Tester\Event\ExampleTested;
 use Behat\Behat\Tester\Event\FeatureTested;
 use Behat\Behat\Tester\Event\ScenarioTested;
 use Behat\Testwork\Tester\Event\SuiteTested;
@@ -53,7 +54,9 @@ class EventListener implements EventSubscriberInterface
         return array(
             SuiteTested::BEFORE    => 'beforeSuite',
             ScenarioTested::BEFORE => 'beforeScenario',
+            ExampleTested::BEFORE  => 'beforeScenario',
             ScenarioTested::AFTER  => 'afterScenario',
+            ExampleTested::AFTER   => 'afterScenario',
             SuiteTested::AFTER     => 'afterSuite',
         );
     }
