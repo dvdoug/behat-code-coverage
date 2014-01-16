@@ -9,7 +9,6 @@
 namespace VIPSoft\CodeCoverageExtension\Listener;
 
 use VIPSoft\TestCase;
-use Behat\Testwork\Tester\Event\SuiteTested;
 use Behat\Gherkin\Node\ExampleTableNode;
 use Behat\Gherkin\Node\FeatureNode;
 use Behat\Gherkin\Node\OutlineNode;
@@ -48,30 +47,30 @@ class EventListenerTest extends TestCase
         $this->assertCount(6, $events);
     }
 
-    public function testBeforeSuite()
+    public function testBeforeExercise()
     {
         $this->coverage->expects($this->once())
                        ->method('clear');
 
-        $event = $this->getMockBuilder('Behat\Testwork\Tester\Event\SuiteTested')
+        $event = $this->getMockBuilder('Behat\Testwork\Tester\Event\ExerciseCompleted')
                       ->disableOriginalConstructor()
                       ->getMock();
 
         $listener = new EventListener($this->coverage, $this->service);
-        $listener->beforeSuite($event);
+        $listener->beforeExercise($event);
     }
 
-    public function testAfterSuite()
+    public function testAfterExercise()
     {
         $this->service->expects($this->once())
                       ->method('generateReport');
 
-        $event = $this->getMockBuilder('Behat\Testwork\Tester\Event\SuiteTested')
+        $event = $this->getMockBuilder('Behat\Testwork\Tester\Event\ExerciseCompleted')
                       ->disableOriginalConstructor()
                       ->getMock();
 
         $listener = new EventListener($this->coverage, $this->service);
-        $listener->afterSuite($event);
+        $listener->afterExercise($event);
     }
 
     public function testBeforeScenario()

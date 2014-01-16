@@ -12,7 +12,7 @@ use Behat\Behat\Tester\Event\AbstractScenarioTested;
 use Behat\Behat\Tester\Event\ExampleTested;
 use Behat\Behat\Tester\Event\FeatureTested;
 use Behat\Behat\Tester\Event\ScenarioTested;
-use Behat\Testwork\Tester\Event\SuiteTested;
+use Behat\Testwork\Tester\Event\ExerciseCompleted;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use VIPSoft\CodeCoverageExtension\Service\ReportService;
@@ -52,21 +52,21 @@ class EventListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            SuiteTested::BEFORE    => 'beforeSuite',
+            ExerciseCompleted::BEFORE => 'beforeExercise',
             ScenarioTested::BEFORE => 'beforeScenario',
             ExampleTested::BEFORE  => 'beforeScenario',
             ScenarioTested::AFTER  => 'afterScenario',
             ExampleTested::AFTER   => 'afterScenario',
-            SuiteTested::AFTER     => 'afterSuite',
+            ExerciseCompleted::AFTER => 'afterExercise',
         );
     }
 
     /**
-     * Before Suite hook
+     * Before Exercise hook
      *
-     * @param \Behat\Testwork\Tester\Event\SuiteTested $event
+     * @param \Behat\Testwork\Tester\Event\ExerciseCompleted $event
      */
-    public function beforeSuite(SuiteTested $event)
+    public function beforeExercise(ExerciseCompleted $event)
     {
         $this->coverage->clear();
     }
@@ -95,11 +95,11 @@ class EventListener implements EventSubscriberInterface
     }
 
     /**
-     * After Suite hook
+     * After Exercise hook
      *
-     * @param \Behat\Testwork\Tester\Event\SuiteTested $event
+     * @param \Behat\Testwork\Tester\Event\ExerciseCompleted $event
      */
-    public function afterSuite(SuiteTested $event)
+    public function afterExercise(ExerciseCompleted $event)
     {
         $this->reportService->generateReport($this->coverage);
     }
