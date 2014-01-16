@@ -66,7 +66,7 @@ class EventListener implements EventSubscriberInterface
      *
      * @param \Behat\Testwork\Tester\Event\ExerciseCompleted $event
      */
-    public function beforeExcercise(ExerciseCompleted $event)
+    public function beforeExercise(ExerciseCompleted $event)
     {
         $this->coverage->clear();
     }
