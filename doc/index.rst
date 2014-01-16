@@ -102,7 +102,7 @@ arguments of the underlying PHP_CodeCoverage report class.
 The default "filter" includes everything / excludes nothing.  Using a
 PHPUnit configuration as an example:
 
-... code-block:: xml
+.. code-block:: xml
 
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">
@@ -115,7 +115,7 @@ PHPUnit configuration as an example:
 
 would be configured in YAML as:
 
-... code-block:: yaml
+.. code-block:: yaml
 
     filter:
         whitelist: 
