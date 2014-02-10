@@ -59,6 +59,10 @@ class Extension implements ExtensionInterface
             );
         }
 
+        if (! $container->hasParameter('behat.mink.base_url')) {
+            $container->setParameter('behat.mink.base_url', null);
+        }
+
         $container->setParameter('behat.code_coverage.config.auth', $config['auth']);
         $container->setParameter('behat.code_coverage.config.create', $config['create']);
         $container->setParameter('behat.code_coverage.config.read', $config['read']);
