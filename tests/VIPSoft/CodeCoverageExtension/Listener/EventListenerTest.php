@@ -137,5 +137,4 @@ class EventListenerTest extends TestCase
         $listener = new EventListener($this->coverage, $this->service);
         $listener->afterScenario($event);
     }
-    
 }
