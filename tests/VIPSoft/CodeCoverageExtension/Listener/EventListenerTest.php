@@ -52,7 +52,7 @@ class EventListenerTest extends TestCase
         $this->coverage->expects($this->once())
                        ->method('clear');
 
-        $event = $this->getMockBuilder('Behat\Testwork\Tester\Event\ExerciseCompleted')
+        $event = $this->getMockBuilder('Behat\Testwork\EventDispatcher\Event\ExerciseCompleted')
                       ->disableOriginalConstructor()
                       ->getMock();
 
@@ -65,7 +65,7 @@ class EventListenerTest extends TestCase
         $this->service->expects($this->once())
                       ->method('generateReport');
 
-        $event = $this->getMockBuilder('Behat\Testwork\Tester\Event\ExerciseCompleted')
+        $event = $this->getMockBuilder('Behat\Testwork\EventDispatcher\Event\ExerciseCompleted')
                       ->disableOriginalConstructor()
                       ->getMock();
 
@@ -83,7 +83,7 @@ class EventListenerTest extends TestCase
 
         $feature = new FeatureNode('featureNode', 'A Feature', array(), null, array(), 'Feature', 'en', 'MyFile.feature', 0);
 
-        $event = $this->getMockBuilder('Behat\Behat\Tester\Event\ScenarioTested')
+        $event = $this->getMockBuilder('Behat\Behat\EventDispatcher\Event\ScenarioTested')
                       ->disableOriginalConstructor()
                       ->getMock();
 
@@ -109,7 +109,7 @@ class EventListenerTest extends TestCase
 
         $feature = new FeatureNode('featureNode', 'A Feature', array(), null, array(), 'Feature', 'en', 'MyFile.feature', 0);
 
-        $event = $this->getMockBuilder('Behat\Behat\Tester\Event\ExampleTested')
+        $event = $this->getMockBuilder('Behat\Behat\EventDispatcher\Event\ScenarioTested')
                       ->disableOriginalConstructor()
                       ->getMock();
 
@@ -130,11 +130,12 @@ class EventListenerTest extends TestCase
         $this->coverage->expects($this->once())
                        ->method('stop');
 
-        $event = $this->getMockBuilder('Behat\Behat\Tester\Event\ScenarioTested')
+        $event = $this->getMockBuilder('Behat\Behat\EventDispatcher\Event\ScenarioTested')
                       ->disableOriginalConstructor()
                       ->getMock();
 
         $listener = new EventListener($this->coverage, $this->service);
         $listener->afterScenario($event);
     }
+    
 }

@@ -8,14 +8,12 @@
 
 namespace VIPSoft\CodeCoverageExtension\Listener;
 
-use Behat\Behat\Tester\Event\AbstractScenarioTested;
-use Behat\Behat\Tester\Event\ExampleTested;
-use Behat\Behat\Tester\Event\FeatureTested;
-use Behat\Behat\Tester\Event\ScenarioTested;
-use Behat\Testwork\Tester\Event\ExerciseCompleted;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use VIPSoft\CodeCoverageExtension\Service\ReportService;
+use Behat\Testwork\EventDispatcher\Event\ExerciseCompleted;
+use Behat\Behat\EventDispatcher\Event\ScenarioTested;
+use Behat\Behat\EventDispatcher\Event\ExampleTested;
 
 /**
  * Event listener
@@ -64,7 +62,7 @@ class EventListener implements EventSubscriberInterface
     /**
      * Before Exercise hook
      *
-     * @param \Behat\Testwork\Tester\Event\ExerciseCompleted $event
+     * @param \Behat\Testwork\EventDispatcher\Event\ExerciseCompleted $event
      */
     public function beforeExercise(ExerciseCompleted $event)
     {
@@ -74,9 +72,9 @@ class EventListener implements EventSubscriberInterface
     /**
      * Before Scenario/Outline Example hook
      *
-     * @param \Behat\Behat\Tester\Event\AbstractScenarioTested $event
+     * @param \Behat\Behat\EventDispatcher\Event\ScenarioTested $event
      */
-    public function beforeScenario(AbstractScenarioTested $event)
+    public function beforeScenario(ScenarioTested $event)
     {
         $node = $event->getScenario();
         $id   = $event->getFeature()->getFile() . ':' . $node->getLine();
@@ -87,9 +85,9 @@ class EventListener implements EventSubscriberInterface
     /**
      * After Scenario/Outline Example hook
      *
-     * @param \Behat\Behat\Tester\Event\AbstractScenarioTested $event
+     * @param \Behat\Behat\EventDispatcher\Event\ScenarioTested $event
      */
-    public function afterScenario(AbstractScenarioTested $event)
+    public function afterScenario(ScenarioTested $event)
     {
         $this->coverage->stop();
     }
