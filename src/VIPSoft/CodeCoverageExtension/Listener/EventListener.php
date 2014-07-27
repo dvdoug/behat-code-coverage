@@ -8,12 +8,12 @@
 
 namespace VIPSoft\CodeCoverageExtension\Listener;
 
+use Behat\Behat\EventDispatcher\Event\ExampleTested;
+use Behat\Behat\EventDispatcher\Event\ScenarioTested;
+use Behat\Testwork\EventDispatcher\Event\ExerciseCompleted;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use VIPSoft\CodeCoverageExtension\Service\ReportService;
-use Behat\Testwork\EventDispatcher\Event\ExerciseCompleted;
-use Behat\Behat\EventDispatcher\Event\ScenarioTested;
-use Behat\Behat\EventDispatcher\Event\ExampleTested;
 
 /**
  * Event listener
