@@ -4,7 +4,7 @@ Code coverage (Behat) extension.
 
 ## Documentation
 
-[Official documentation](http://extensions.behat.org/code-coverage/)
+[Official documentation](https://github.com/vipsoft/code-coverage-extension/blob/master/doc/index.rst)
 
 ## Source
 
