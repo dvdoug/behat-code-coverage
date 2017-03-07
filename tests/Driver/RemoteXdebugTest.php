@@ -6,10 +6,10 @@
  * @license BSD-2-Clause
  */
 
-namespace VIPSoft\CodeCoverageExtension;
+namespace LeanPHP\Behat\CodeCoverage;
 
 use VIPSoft\TestCase;
-use VIPSoft\CodeCoverageExtension\Driver\RemoteXdebug;
+use LeanPHP\Behat\CodeCoverage\Driver\RemoteXdebug;
 
 /**
  * Remote driver test

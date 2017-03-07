@@ -6,7 +6,7 @@
  * @license BSD-2-Clause
  */
 
-namespace VIPSoft\CodeCoverageExtension\Driver;
+namespace LeanPHP\Behat\CodeCoverage\Driver;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use VIPSoft\CodeCoverageCommon\Model\Aggregate;

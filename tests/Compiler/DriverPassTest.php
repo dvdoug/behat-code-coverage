@@ -6,10 +6,10 @@
  * @license BSD-2-Clause
  */
 
-namespace VIPSoft\CodeCoverageExtension\Compiler;
+namespace LeanPHP\Behat\CodeCoverage\Compiler;
 
 use VIPSoft\TestCase;
-use VIPSoft\CodeCoverageExtension\Compiler\DriverPass;
+use LeanPHP\Behat\CodeCoverage\Compiler\DriverPass;
 
 /**
  * Driver compiler pass test

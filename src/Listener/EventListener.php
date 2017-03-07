@@ -6,7 +6,7 @@
  * @license BSD-2-Clause
  */
 
-namespace VIPSoft\CodeCoverageExtension\Listener;
+namespace LeanPHP\Behat\CodeCoverage\Listener;
 
 use Behat\Behat\Event\BaseScenarioEvent;
 use Behat\Behat\Event\OutlineExampleEvent;
@@ -14,7 +14,7 @@ use Behat\Behat\Event\ScenarioEvent;
 use Behat\Behat\Event\SuiteEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use VIPSoft\CodeCoverageExtension\Service\ReportService;
+use LeanPHP\Behat\CodeCoverage\Service\ReportService;
 
 /**
  * Event listener
@@ -29,7 +29,7 @@ class EventListener implements EventSubscriberInterface
     private $coverage;
 
     /**
-     * @var \VIPSoft\CodeCoverageExtension\Service\ReportService
+     * @var \LeanPHP\Behat\CodeCoverage\Service\ReportService
      */
     private $reportService;
 
@@ -37,7 +37,7 @@ class EventListener implements EventSubscriberInterface
      * Constructor
      *
      * @param \PHP_CodeCoverage                                    $coverage
-     * @param \VIPSoft\CodeCoverageExtension\Service\ReportService $reportService
+     * @param \LeanPHP\Behat\CodeCoverage\Service\ReportService $reportService
      */
     public function __construct(\PHP_CodeCoverage $coverage, ReportService $reportService)
     {

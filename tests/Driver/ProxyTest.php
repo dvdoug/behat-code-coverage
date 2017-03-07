@@ -6,10 +6,10 @@
  * @license BSD-2-Clause
  */
 
-namespace VIPSoft\CodeCoverageExtension;
+namespace LeanPHP\Behat\CodeCoverage;
 
 use VIPSoft\TestCase;
-use VIPSoft\CodeCoverageExtension\Driver\Proxy;
+use LeanPHP\Behat\CodeCoverage\Driver\Proxy;
 
 /**
  * Proxy driver test
@@ -28,7 +28,7 @@ class ProxyTest extends TestCase
 
         $this->localDriver = $this->getMock('VIPSoft\CodeCoverageCommon\Driver\Stub');
 
-        $this->remoteDriver = $this->getMockBuilder('VIPSoft\CodeCoverageExtension\Driver\RemoteXdebug')
+        $this->remoteDriver = $this->getMockBuilder('LeanPHP\Behat\CodeCoverage\Driver\RemoteXdebug')
                                    ->disableOriginalConstructor()
                                    ->getMock();
 

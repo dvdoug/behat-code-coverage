@@ -6,10 +6,10 @@
  * @license BSD-2-Clause
  */
 
-namespace VIPSoft\CodeCoverageExtension\Compiler;
+namespace LeanPHP\Behat\CodeCoverage\Compiler;
 
 use VIPSoft\TestCase;
-use VIPSoft\CodeCoverageExtension\Compiler\FactoryPass;
+use LeanPHP\Behat\CodeCoverage\Compiler\FactoryPass;
 
 /**
  * Factory compiler pass test

@@ -6,7 +6,7 @@
  * @license BSD-2-Clause
  */
 
-namespace VIPSoft\CodeCoverageExtension;
+namespace LeanPHP\Behat\CodeCoverage;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -36,7 +36,7 @@ class ExtensionTest extends TestCase
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="behat.code_coverage.service.report.class">VIPSoft\CodeCoverageExtension\Service\ReportService</parameter>
+        <parameter key="behat.code_coverage.service.report.class">LeanPHP\Behat\CodeCoverage\Service\ReportService</parameter>
     </parameters>
 
     <services>

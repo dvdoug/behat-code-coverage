@@ -6,7 +6,7 @@
  * @license BSD-2-Clause
  */
 
-namespace VIPSoft\CodeCoverageExtension\Service;
+namespace LeanPHP\Behat\CodeCoverage\Service;
 
 use VIPSoft\TestCase;
 
@@ -19,9 +19,9 @@ class ReportServiceTest extends TestCase
 {
     public function __construct()
     {
-        if ( ! class_exists('VIPSoft\CodeCoverageExtension\Test\PHP_CodeCoverage_Report_HTML')) {
+        if ( ! class_exists('LeanPHP\Behat\CodeCoverage\Test\PHP_CodeCoverage_Report_HTML')) {
             eval(<<<END_OF_SQLITE
-namespace VIPSoft\CodeCoverageExtension\Test {
+namespace LeanPHP\Behat\CodeCoverage\Test {
     class PHP_CodeCoverage_Report_HTML
     {
         static public \$proxiedMethods;

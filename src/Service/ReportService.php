@@ -6,7 +6,7 @@
  * @license BSD-2-Clause
  */
 
-namespace VIPSoft\CodeCoverageExtension\Service;
+namespace LeanPHP\Behat\CodeCoverage\Service;
 
 use VIPSoft\CodeCoverageCommon\Report\Factory;
 

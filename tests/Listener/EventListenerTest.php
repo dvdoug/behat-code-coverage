@@ -6,7 +6,7 @@
  * @license BSD-2-Clause
  */
 
-namespace VIPSoft\CodeCoverageExtension\Listener;
+namespace LeanPHP\Behat\CodeCoverage\Listener;
 
 use VIPSoft\TestCase;
 use Behat\Behat\Event\SuiteEvent;
@@ -33,7 +33,7 @@ class EventListenerTest extends TestCase
 
         $this->coverage = $this->getMock('PHP_CodeCoverage');
 
-        $this->service  = $this->getMockBuilder('VIPSoft\CodeCoverageExtension\Service\ReportService')
+        $this->service  = $this->getMockBuilder('LeanPHP\Behat\CodeCoverage\Service\ReportService')
                                ->disableOriginalConstructor()
                                ->getMock();
     }

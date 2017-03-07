@@ -6,7 +6,7 @@
  * @license BSD-2-Clause
  */
 
-namespace VIPSoft\CodeCoverageExtension\Driver;
+namespace LeanPHP\Behat\CodeCoverage\Driver;
 
 use Guzzle\Http\Client;
 use PHP_CodeCoverage_Driver as DriverInterface;

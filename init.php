@@ -17,4 +17,4 @@ spl_autoload_register(function($class) {
     }
 }, true, false);
 
-return new VIPSoft\CodeCoverageExtension\Extension;
+return new LeanPHP\Behat\CodeCoverage\Extension;

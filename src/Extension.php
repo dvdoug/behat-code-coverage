@@ -6,14 +6,14 @@
  * @license BSD-2-Clause
  */
 
-namespace VIPSoft\CodeCoverageExtension;
+namespace LeanPHP\Behat\CodeCoverage;
 
 use Behat\Behat\Extension\ExtensionInterface;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use VIPSoft\CodeCoverageExtension\Compiler;
+use LeanPHP\Behat\CodeCoverage\Compiler;
 
 /**
  * Code coverage extension
