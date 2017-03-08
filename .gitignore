@@ -3,3 +3,4 @@ nbproject/
 vendor/
 composer.phar
 **/*.dbf
+/composer.lock
