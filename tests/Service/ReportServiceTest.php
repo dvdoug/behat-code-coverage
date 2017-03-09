@@ -41,11 +41,11 @@ END_OF_SQLITE
 
     public function testGenerateReport()
     {
-        $report = $this->getMockBuilder('VIPSoft\CodeCoverageCommon\Report\Html')
+        $report = $this->getMockBuilder('LeanPHP\Behat\CodeCoverage\Common\Report\Html')
                        ->disableOriginalConstructor()
                        ->getMock();
 
-        $factory = $this->getMock('VIPSoft\CodeCoverageCommon\Report\Factory');
+        $factory = $this->getMock('LeanPHP\Behat\CodeCoverage\Common\Report\Factory');
         $factory->expects($this->once())
                 ->method('create')
                 ->will($this->returnValue($report));

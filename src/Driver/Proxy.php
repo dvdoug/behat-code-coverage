@@ -9,7 +9,7 @@
 namespace LeanPHP\Behat\CodeCoverage\Driver;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use VIPSoft\CodeCoverageCommon\Model\Aggregate;
+use LeanPHP\Behat\CodeCoverage\Common\Model\Aggregate;
 use PHP_CodeCoverage_Driver as DriverInterface;
 
 /**

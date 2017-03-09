@@ -8,7 +8,7 @@
 
 namespace LeanPHP\Behat\CodeCoverage\Service;
 
-use VIPSoft\CodeCoverageCommon\Report\Factory;
+use LeanPHP\Behat\CodeCoverage\Common\Report\Factory;
 
 /**
  * Code coverage report service
@@ -23,7 +23,7 @@ class ReportService
     private $config;
 
     /**
-     * @var \VIPSoft\CodeCoverageCommon\Report\Factory
+     * @var \LeanPHP\Behat\CodeCoverage\Common\Report\Factory
      */
     private $factory;
 
@@ -31,7 +31,7 @@ class ReportService
      * Constructor
      *
      * @param array                                      $config
-     * @param \VIPSoft\CodeCoverageCommon\Report\Factory $factory
+     * @param \LeanPHP\Behat\CodeCoverage\Common\Report\Factory $factory
      */
     public function __construct(array $config, Factory $factory)
     {

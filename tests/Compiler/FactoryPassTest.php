@@ -38,7 +38,7 @@ class FactoryPassTest extends TestCase
         $xcache = $this->getMock('Symfony\Component\DependencyInjection\Definition');
         $xcache->expects($this->once())
                ->method('getClass')
-               ->will($this->returnValue('VIPSoft\CodeCoverageCommon\Driver\XCache'));
+               ->will($this->returnValue('LeanPHP\Behat\CodeCoverage\Common\Driver\XCache'));
 
         $xdebug = $this->getMock('Symfony\Component\DependencyInjection\Definition');
         $xdebug->expects($this->once())
