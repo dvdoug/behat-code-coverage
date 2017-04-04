@@ -144,8 +144,8 @@ default:
 Copyright (c) 2017 ek9 <dev@ek9.co> (https://ek9.co).
 
 Copyright (c) 2013-2016 Anthon Pang, Konstantin Kudryashov
-[everzet](http://github.com/everzet),
-[Contributors](https://github.com/leanphp/behat-code-coverage/graphs/contributors)
+[everzet](http://github.com/everzet) and [various
+contributors](https://github.com/leanphp/behat-code-coverage/graphs/contributors)
 for portions of code from [vipsoft/code-coverage-extension][1] and
 [vipsoft/code-coverage-common][2] projects.
 
