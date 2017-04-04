@@ -4,11 +4,11 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="behat.code_coverage.driver.proxy.class">VIPSoft\CodeCoverageExtension\Driver\Proxy</parameter>
-        <parameter key="behat.code_coverage.driver.remote.class">VIPSoft\CodeCoverageExtension\Driver\RemoteXdebug</parameter>
-        <parameter key="behat.code_coverage.listener.event.class">VIPSoft\CodeCoverageExtension\Listener\EventListener</parameter>
-        <parameter key="behat.code_coverage.service.report.class">VIPSoft\CodeCoverageExtension\Service\ReportService</parameter>
-        <parameter key="behat.code_coverage.service.report_factory.class">VIPSoft\CodeCoverageCommon\Report\Factory</parameter>
+        <parameter key="behat.code_coverage.driver.proxy.class">LeanPHP\Behat\CodeCoverage\Driver\Proxy</parameter>
+        <parameter key="behat.code_coverage.driver.remote.class">LeanPHP\Behat\CodeCoverage\Driver\RemoteXdebug</parameter>
+        <parameter key="behat.code_coverage.listener.event.class">LeanPHP\Behat\CodeCoverage\Listener\EventListener</parameter>
+        <parameter key="behat.code_coverage.service.report.class">LeanPHP\Behat\CodeCoverage\Service\ReportService</parameter>
+        <parameter key="behat.code_coverage.service.report_factory.class">LeanPHP\Behat\CodeCoverageport\Factory</parameter>
 
         <parameter key="behat.code_coverage.config" type="collection">
             <parameter key="base_url">%behat.mink.base_url%</parameter>
@@ -21,10 +21,10 @@
             <parameter key="report">%behat.code_coverage.config.report%</parameter>
         </parameter>
 
-        <parameter key="vipsoft.code_coverage.driver.hhmv.class">VIPSoft\CodeCoverageCommon\Driver\HHVM</parameter>
-        <parameter key="vipsoft.code_coverage.driver.xcache.class">VIPSoft\CodeCoverageCommon\Driver\XCache</parameter>
+        <parameter key="vipsoft.code_coverage.driver.hhmv.class">LeanPHP\Behat\CodeCoverageiver\HHVM</parameter>
+        <parameter key="vipsoft.code_coverage.driver.xcache.class">LeanPHP\Behat\CodeCoverageiver\XCache</parameter>
         <parameter key="vipsoft.code_coverage.driver.xdebug.class">PHP_CodeCoverage_Driver_Xdebug</parameter>
-        <parameter key="vipsoft.code_coverage.driver.factory.class">VIPSoft\CodeCoverageCommon\Driver\Factory</parameter>
+        <parameter key="vipsoft.code_coverage.driver.factory.class">LeanPHP\Behat\CodeCoverageiver\Factory</parameter>
     </parameters>
 
     <services>
