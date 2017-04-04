@@ -27,4 +27,4 @@ disappear, this extension would still work.
 
 [0]: https://github.com/leanphp/behat-code-coverage
 [1]: https://github.com/vipsoft/code-coverage-extension
-[1]: https://github.com/vipsoft/code-coverage-common
+[2]: https://github.com/vipsoft/code-coverage-common
