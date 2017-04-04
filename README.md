@@ -3,7 +3,7 @@ behat-code-coverage
 [![Latest Stable Version](https://poser.pugx.org/leanphp/behat-code-coverage/v/stable)](https://packagist.org/packages/leanphp/behat-code-coverage)
 [![Build Status][travis-image]][travis-url]
 [![Latest Unstable Version](https://poser.pugx.org/leanphp/behat-code-coverage/v/unstable)](https://packagist.org/packages/leanphp/behat-code-coverage)
-[![MIT License](https://poser.pugx.org/leanphp/behat-code-coverage/license)](https://packagist.org/packages/leanphp/behat-code-coverage)
+[![BSD-2-Clause License](https://poser.pugx.org/leanphp/behat-code-coverage/license)](https://packagist.org/packages/leanphp/behat-code-coverage)
 
 [behat-code-coverage][0] is a [Behat][3] extension that generates Code
 Coverage reports for [Behat][3] tests.
