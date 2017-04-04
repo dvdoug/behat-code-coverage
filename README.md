@@ -40,17 +40,7 @@ default:
   extensions:
     LeanPHP\BehathpSpec\CodeCoverage\CodeCoverageExtension:
       auth:       ~
-      #create:
-        #method:   POST
-        #path:     /
-      #read:
-        #method:   GET
-        #path:     /
-      #delete:
-        #method:   DELETE
-        #path:     /
       drivers:
-        #- remote
         - local
       filter:     ~
       report:
@@ -59,15 +49,15 @@ default:
           target: build/behat-coverage
 ```
 
-This will sufficient to enable Code Coverage generation and provideby using defaults
-provided by the extension. This extension supports various [configuration
-options](#Configuration Options). For a fully annotated example configuration
-file check [Configuration section](#Configuration).
+This will sufficient to enable Code Coverage generation in `html` format in
+`build/behat-coverage` directory. This extension supports various
+[configuration options](#Configuration Options). For a fully annotated example
+configuration file check [Configuration section](#Configuration).
 
 ## Usage
 
 If you execute `bin/behat` command, you will see code coverage generated in
-`target` directory (in `html` format):
+`target` (i.e. `build/behat-coverage`) directory (in `html` format):
 
     $ bin/behat
 
@@ -83,32 +73,71 @@ Options).
 # ...
 default:
   extensions:
-    # enable leanphp\behat-code-coverage extension
     LeanPHP\BehathpSpec\CodeCoverage\CodeCoverageExtension:
-      auth:       ~
-      #create:
-        #method:   POST
-        #path:     /
-      #read:
-        #method:   GET
-        #path:     /
-      #delete:
-        #method:   DELETE
-        #path:     /
+      # http auth (optional)
+      auth:        ~
+      # select which driver to use when gatherig coverage data
       drivers:
-        #- remote
-        - local
-      filter:     ~
+        - local     # local Xdebug driver
+      # filter options
+      filter:
+        forceCoversAnnotation:                false
+        mapTestClassNameToCoveredClassName:   false
+        whitelist:
+          addUncoveredFilesFromWhitelist:     true
+          processUncoveredFilesFromWhitelist: false
+          include:
+            directories:
+              'src':
+                prefix: 'src'
+              'tests':
+                prefix: 'src'
+        blacklist:
+          include:
+            directories:
+              'vendor':
+                prefix: 'vendor'
+      # report configuration
       report:
-        format:   html
+        # report format (html, clover, php, text)
+        format:    html
+        # report options
         options:
-          target: build/behat-coverage
+          target:: build/behat-coverage/html
 ```
 
 ### Configuration Options
 
-* `auth` (optional) HTTP/misc authentication options.
-- TBA
+* `auth` - HTTP authentication options (optional).
+- `create` (`method` / `path`) - *TBA*.
+- `read` (`method` / `path`) - *TBA*.
+- `delete` (`method` / `path`) - *TBA*.
+- `drivers` - a list of drivers for gathering code coverage data:
+    - `remote` - remote Xdebug driver.
+    - `local` - local Xdebug driver. 
+- `filter` - various filter options:
+    - `forceCoversAnnotation` - *TBA*
+    - `mapTestClassNameToCoveredClassName` - *TBA*
+    - `whiltelist` - whitelist specific options:
+        - `addUncoveredFilesFromWhiltelist` - *TBA*
+        - `processUncoveredFilesFromWhitelist` - *TBA*
+        - `include` - a list of files or directories to include in whitelist:
+            - `directories` - key containing whitelisted directories to include.
+            - `files` - key containing whitelisted files to include.
+        - `exclude` - a list of files or directories to exclude from whitelist:
+            - `directories` - key containing whitelisted directories to exclude.
+            - `files` - key containing whitelisted files to exclude.
+    - `blacklist` - blacklist specific options:
+        - `include` - a list of files or directories to include in blacklist:
+            - `directories` - key containing blacklisted directories to include.
+            - `files` - key containing blacklisted files to include.
+        - `exclude` - a list of files or directories to exclude from blacklist:
+            - `directories` - key containing blacklisted directories to exclude.
+            - `files` - key containing blacklisted files to exclude.
+- `report` - reporter options:
+    - `format` - specify report format (`html`, `clover`, `php`, `text`)
+    - `options` - format options:
+        - `target` - target/output directory
 
 ## Authors
 
