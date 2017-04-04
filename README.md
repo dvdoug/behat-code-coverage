@@ -66,100 +66,50 @@ file check [Configuration section](#Configuration).
 
 ## Usage
 
-If you execute `phpspec run` command, you will see code coverage generated in `coverage` directory (in `html` format):
+If you execute `bin/behat` command, you will see code coverage generated in
+`target` directory (in `html` format):
 
-    $ bin/phpspec run
+    $ bin/behat
 
 ## Configuration
 
-You can see fully annotated `phpspec.yml` example file below, which can be used
+You can see fully annotated `behat.yml` example file below, which can be used
 as a starting point to further customize the defaults of the extension. The
 configuration file below has all of the [Configuration Options](#Configuration
 Options).
 
 ```yaml
-# phpspec.yml
+# behat.yml
 # ...
-extensions:
-  # ... other extensions ...
-  # leanphp/phpspec-code-coverage
-  LeanPHP\PhpSpec\CodeCoverage\CodeCoverageExtension:
-    # Specify a list of formats in which code coverage report should be
-    # generated.
-    # Default: [html]
-    format:
-      - text
-      - html
-      #- clover
-      #- php
-    #
-    # Specify output file/directory where code coverage report will be
-    # generated. You can configure different output file/directory per
-    # enabled format.
-    # Default: coverage
-    output:
-      html: coverage
-      #clover: coverage.xml
-      #php: coverage.php
-    #
-    # Should uncovered files be included in the reports?
-    # Default: true
-    #show_uncovered_files: true
-    #
-    # Set lower upper bound for code coverage
-    # Default: 35
-    #lower_upper_bound: 35
-    #
-    # Set high lower bound for code coverage
-    # Default: 70
-    #high_lower_bound: 70
-    #
-    # Whilelist directories for which code generation should be done
-    # Default: [src, lib]
-    #
-    whitelist:
-      - src
-      - lib
-    #
-    # Whiltelist files for which code generation should be done
-    # Default: empty
-    #whilelist_files:
-      #- app/bootstrap.php
-      #- web/index.php
-    #
-    # Blacklist directories for which code generation should NOT be done
-    #blacklist:
-      #- src/legacy
-    #
-    # Blacklist files for which code generation should NOT be done
-    #blacklist_files:
-      #- lib/bootstrap.php
+default:
+  extensions:
+    # enable leanphp\behat-code-coverage extension
+    LeanPHP\BehathpSpec\CodeCoverage\CodeCoverageExtension:
+      auth:       ~
+      #create:
+        #method:   POST
+        #path:     /
+      #read:
+        #method:   GET
+        #path:     /
+      #delete:
+        #method:   DELETE
+        #path:     /
+      drivers:
+        #- remote
+        - local
+      filter:     ~
+      report:
+        format:   html
+        options:
+          target: build/behat-coverage
 ```
 
 ### Configuration Options
 
-* `format` (optional) a list of formats in which code coverage should be
-  generated. Can be one or many of: `clover`, `php`, `text`, `html` (default
-  `html`)
-  **Note**: When using `clover` format option, you have to configure specific
-  `output` file for the `clover` format (see below).
-* `output` (optional) sets an output file/directory where specific code
-  coverage format will be generated. If you configure multiple formats, takes
-  a hash of `format:output` (e.g. `clover:coverage.xml`) (default `coverage`)
-* `show_uncovered_files` (optional) for including uncovered files in coverage
-  reports (default `true`)
-* `lower_upper_bound` (optional) sets lower upper bound for code coverage
-  (default `35`).
-* `high_lower_bound` (optional) sets high lower bound for code coverage
-  (default `70`)
-* `whitelist` takes an array of directories to whitelist (default: `lib`,
-  `src`).
-* `whitelist_files` takes an array of files to whitelist (default: none).
-* `blacklist` takes an array of directories to blacklist (default: `test,
-  vendor, spec`)
-* `blacklist_files` takes an array of files to blacklist
+* `auth` (optional) HTTP/misc authentication options.
+- TBA
 
-#
 ## Authors
 
 Copyright (c) 2017 ek9 <dev@ek9.co> (https://ek9.co).
