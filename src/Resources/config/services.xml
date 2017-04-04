@@ -8,7 +8,7 @@
         <parameter key="behat.code_coverage.driver.remote.class">LeanPHP\Behat\CodeCoverage\Driver\RemoteXdebug</parameter>
         <parameter key="behat.code_coverage.listener.event.class">LeanPHP\Behat\CodeCoverage\Listener\EventListener</parameter>
         <parameter key="behat.code_coverage.service.report.class">LeanPHP\Behat\CodeCoverage\Service\ReportService</parameter>
-        <parameter key="behat.code_coverage.service.report_factory.class">LeanPHP\Behat\CodeCoverageport\Factory</parameter>
+        <parameter key="behat.code_coverage.service.report_factory.class">LeanPHP\Behat\CodeCoverage\Common\Report\Factory</parameter>
 
         <parameter key="behat.code_coverage.config" type="collection">
             <parameter key="base_url">%behat.mink.base_url%</parameter>
@@ -21,10 +21,10 @@
             <parameter key="report">%behat.code_coverage.config.report%</parameter>
         </parameter>
 
-        <parameter key="vipsoft.code_coverage.driver.hhmv.class">LeanPHP\Behat\CodeCoverageiver\HHVM</parameter>
-        <parameter key="vipsoft.code_coverage.driver.xcache.class">LeanPHP\Behat\CodeCoverageiver\XCache</parameter>
+        <parameter key="vipsoft.code_coverage.driver.hhmv.class">LeanPHP\Behat\CodeCoverage\Common\Driver\HHVM</parameter>
+        <parameter key="vipsoft.code_coverage.driver.xcache.class">LeanPHP\Behat\CodeCoverage\Common\Driver\XCache</parameter>
         <parameter key="vipsoft.code_coverage.driver.xdebug.class">PHP_CodeCoverage_Driver_Xdebug</parameter>
-        <parameter key="vipsoft.code_coverage.driver.factory.class">LeanPHP\Behat\CodeCoverageiver\Factory</parameter>
+        <parameter key="vipsoft.code_coverage.driver.factory.class">LeanPHP\Behat\CodeCoverage\Common\Driver\Factory</parameter>
     </parameters>
 
     <services>
