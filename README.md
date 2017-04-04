@@ -38,7 +38,7 @@ Enable extension by editing `behat.yml` of your project:
 ``` yaml
 default:
   extensions:
-    LeanPHP\BehathpSpec\CodeCoverage\CodeCoverageExtension:
+    LeanPHP\Behat\CodeCoverage\Extension:
       auth:       ~
       drivers:
         - local
@@ -73,7 +73,7 @@ Options).
 # ...
 default:
   extensions:
-    LeanPHP\BehathpSpec\CodeCoverage\CodeCoverageExtension:
+    LeanPHP\Behat\CodeCoverage\Extension:
       # http auth (optional)
       auth:        ~
       # select which driver to use when gatherig coverage data
