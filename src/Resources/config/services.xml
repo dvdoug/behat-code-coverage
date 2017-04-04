@@ -11,7 +11,7 @@
         <parameter key="behat.code_coverage.service.report_factory.class">LeanPHP\Behat\CodeCoverage\Common\Report\Factory</parameter>
 
         <parameter key="behat.code_coverage.config" type="collection">
-            <parameter key="base_url">%behat.mink.base_url%</parameter>
+            <parameter key="base_url">%mink.base_url%</parameter>
             <parameter key="auth">%behat.code_coverage.config.auth%</parameter>
             <parameter key="create">%behat.code_coverage.config.create%</parameter>
             <parameter key="read">%behat.code_coverage.config.read%</parameter>
@@ -76,7 +76,7 @@
         <service id="behat.code_coverage.listener.event" class="%behat.code_coverage.listener.event.class%">
             <argument type="service" id="behat.code_coverage.php_code_coverage" />
             <argument type="service" id="behat.code_coverage.service.report" />
-            <tag name="behat.event_subscriber" priority="0" />
+            <tag name="event_dispatcher.subscriber" />
         </service>
 
         <service id="behat.code_coverage.service.report_factory" class="%behat.code_coverage.service.report_factory.class%" />
