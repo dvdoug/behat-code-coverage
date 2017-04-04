@@ -1,9 +1,24 @@
 language: php
+matrix:
+  include:
+    - php: 5.6
+    - php: 5.6
+      env: deps=low
+    - php: 7.0
+    - php: 7.1
 
-php:
-    - 5.3
-    - 5.4
+cache:
+  directories:
+    - $HOME/.composer/cache/files
 
 before_script:
-    - wget http://getcomposer.org/composer.phar
-    - php composer.phar install --dev
+    - if [[ $deps = low ]]; then composer update --prefer-lowest --prefer-stable; fi
+
+script:
+  - composer validate
+  - composer update
+  - bin/phpunit -vvv
+
+install:
+    - travis_retry composer install
+
