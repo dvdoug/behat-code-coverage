@@ -18,7 +18,7 @@ cache:
 before_script:
   - wget http://getcomposer.org/composer.phar
   - php composer.phar validate
-  - if [[ $deps = low ]]; then composer update --prefer-lowest --prefer-stable; else php composer.phar install --dev fi
+  - if [[ $deps = low ]]; then composer update --prefer-lowest --prefer-stable; else php composer.phar install --dev; fi
 
 script: ./vendor/bin/phpunit -vvv
 
