@@ -11,14 +11,9 @@ matrix:
     - php: 7.0
     - php: 7.1
 
-cache:
-  directories:
-    - $HOME/.composer/cache/files
-
-
 before_script:
   - composer validate
-  - if [[ $deps = low ]]; then composer update --prefer-lowest --prefer-stable; else composer install --dev; fi
+  - if [[ $deps = low ]]; then composer update --prefer-lowest --prefer-stable; else composer update --dev; fi
 
 script: ./bin/phpunit -vvv
 
