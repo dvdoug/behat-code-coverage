@@ -27,8 +27,13 @@ class ExtensionTest extends TestCase
     {
         $vfsRoot = vfsStream::setup('configDir');
         $configDir = vfsStream::url('configDir');
+        $servicesFile = 'services.xml';
+        if (true === method_exists('Symfony\Component\DependencyInjection\Definition', 'setFactoryClass')) {
+            $servicesFile = 'services-2.3.xml';
+        }
+
         file_put_contents(
-            $configDir . '/services.xml',
+            $configDir . '/' . $servicesFile,
             <<<END_OF_CONFIG
 <?xml version="1.0" ?>
 <container xmlns="http://symfony.com/schema/dic/services"
@@ -49,7 +54,7 @@ END_OF_CONFIG
         $container = new ContainerBuilder;
 
         $extension = new Extension($configDir);
-        $extension->load($config, $container);
+        $extension->load($container, $config);
 
         foreach ($expected as $key => $value) {
             $this->assertEquals($value, $container->getParameter($key));
@@ -314,12 +319,12 @@ END_OF_CONFIG
         );
     }
 
-    public function testGetConfig()
+    public function testConfigure()
     {
         $builder = new ArrayNodeDefinition('test');
 
         $extension = new Extension();
-        $extension->getConfig($builder);
+        $extension->configure($builder);
 
         $children = $this->getPropertyOnObject($builder, 'children');
 
@@ -363,14 +368,15 @@ END_OF_CONFIG
         $this->assertTrue(isset($report['options']));
     }
 
-    public function testGetCompilerPasses()
+    public function testProcess()
     {
+        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerBuilder');
+        $container->expects($this->exactly(4))
+                  ->method('hasDefinition');
+
         $extension = new Extension();
 
-        $compilerPasses = $extension->getCompilerPasses();
-
-        $this->assertTrue(is_array($compilerPasses));
-        $this->assertCount(3, $compilerPasses);
+        $compilerPasses = $extension->process($container);
     }
 
     /**

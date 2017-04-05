@@ -1,4 +1,5 @@
 language: php
+
 matrix:
   include:
     - php: 5.3
@@ -10,18 +11,9 @@ matrix:
     - php: 7.0
     - php: 7.1
 
-cache:
-  directories:
-    - $HOME/.composer/cache/files
-
 before_script:
-    - if [[ $deps = low ]]; then composer update --prefer-lowest --prefer-stable; fi
-
-script:
   - composer validate
-  - composer update
-  - bin/phpunit -vvv
+  - if [[ $deps = low ]]; then composer update --prefer-lowest --prefer-stable; else composer update; fi
 
-install:
-    - travis_retry composer install
+script: ./bin/phpunit -vvv
 

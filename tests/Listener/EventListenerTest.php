@@ -9,7 +9,7 @@
 namespace LeanPHP\Behat\CodeCoverage\Listener;
 
 use VIPSoft\TestCase;
-use Behat\Behat\Event\SuiteEvent;
+use Behat\Gherkin\Node\ExampleTableNode;
 use Behat\Gherkin\Node\FeatureNode;
 use Behat\Gherkin\Node\OutlineNode;
 use Behat\Gherkin\Node\ScenarioNode;
@@ -45,36 +45,32 @@ class EventListenerTest extends TestCase
 
         $this->assertTrue(is_array($events));
         $this->assertCount(6, $events);
-        $this->assertEquals('beforeSuite', $events['beforeSuite']);
-        $this->assertEquals('afterSuite', $events['afterSuite']);
-        $this->assertEquals('beforeScenario', $events['beforeScenario']);
-        $this->assertEquals('afterScenario', $events['afterScenario']);
     }
 
-    public function testBeforeSuite()
+    public function testBeforeExercise()
     {
         $this->coverage->expects($this->once())
                        ->method('clear');
 
-        $event = $this->getMockBuilder('Behat\Behat\Event\SuiteEvent')
+        $event = $this->getMockBuilder('Behat\Testwork\EventDispatcher\Event\ExerciseCompleted')
                       ->disableOriginalConstructor()
                       ->getMock();
 
         $listener = new EventListener($this->coverage, $this->service);
-        $listener->beforeSuite($event);
+        $listener->beforeExercise($event);
     }
 
-    public function testAfterSuite()
+    public function testAfterExercise()
     {
         $this->service->expects($this->once())
                       ->method('generateReport');
 
-        $event = $this->getMockBuilder('Behat\Behat\Event\SuiteEvent')
+        $event = $this->getMockBuilder('Behat\Testwork\EventDispatcher\Event\ExerciseCompleted')
                       ->disableOriginalConstructor()
                       ->getMock();
 
         $listener = new EventListener($this->coverage, $this->service);
-        $listener->afterSuite($event);
+        $listener->afterExercise($event);
     }
 
     public function testBeforeScenario()
@@ -83,36 +79,47 @@ class EventListenerTest extends TestCase
                        ->method('start')
                        ->with('MyFile.feature:1');
 
-        $feature = new FeatureNode('featureNode', 'A Feature', 'MyFile.feature', 0);
+        $node = new ScenarioNode('scenarioNode', array(), array(), 'Scenario', 1);
 
-        $node = new ScenarioNode('scenarioNode', 1);
-        $node->setFeature($feature);
+        $feature = new FeatureNode('featureNode', 'A Feature', array(), null, array(), 'Feature', 'en', 'MyFile.feature', 0);
 
-        $event = $this->getMockBuilder('Behat\Behat\Event\ScenarioEvent')
+        $event = $this->getMockBuilder('Behat\Behat\EventDispatcher\Event\ScenarioTested')
                       ->disableOriginalConstructor()
                       ->getMock();
+
         $event->expects($this->once())
               ->method('getScenario')
               ->will($this->returnValue($node));
+
+        $event->expects($this->once())
+              ->method('getFeature')
+              ->will($this->returnValue($feature));
 
         $listener = new EventListener($this->coverage, $this->service);
         $listener->beforeScenario($event);
     }
 
-    public function testBeforeOutlineExample()
+    public function testBeforeExample()
     {
         $this->coverage->expects($this->once())
                        ->method('start')
-                       ->with('(unknown):1');
+                       ->with('MyFile.feature:2');
 
-        $node = new OutlineNode('outlineNode', 1);
+        $node = new OutlineNode('outlineNode', array(), array(), new ExampleTableNode(array(), 'Example'), 'Outline', 2);
 
-        $event = $this->getMockBuilder('Behat\Behat\Event\OutlineExampleEvent')
+        $feature = new FeatureNode('featureNode', 'A Feature', array(), null, array(), 'Feature', 'en', 'MyFile.feature', 0);
+
+        $event = $this->getMockBuilder('Behat\Behat\EventDispatcher\Event\ScenarioTested')
                       ->disableOriginalConstructor()
                       ->getMock();
+
         $event->expects($this->once())
-              ->method('getOutline')
+              ->method('getScenario')
               ->will($this->returnValue($node));
+
+        $event->expects($this->once())
+              ->method('getFeature')
+              ->will($this->returnValue($feature));
 
         $listener = new EventListener($this->coverage, $this->service);
         $listener->beforeScenario($event);
@@ -123,7 +130,7 @@ class EventListenerTest extends TestCase
         $this->coverage->expects($this->once())
                        ->method('stop');
 
-        $event = $this->getMockBuilder('Behat\Behat\Event\ScenarioEvent')
+        $event = $this->getMockBuilder('Behat\Behat\EventDispatcher\Event\ScenarioTested')
                       ->disableOriginalConstructor()
                       ->getMock();
 

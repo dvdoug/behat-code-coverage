@@ -18,10 +18,10 @@ compatible version numbers for stable releases.
 
 ## Requirements
 
-- PHP 5.3.10+
-- [Behat v2.4+][3]
-- [Mink 1.4+][4]
-- [Xdebug][5] extension enabled in PHP
+- PHP 5.3.10+ / 7.0+
+- [Behat v3][3]
+- [Xdebug][5] or [phpdbg][6] extension enabled (PHP 7+ is required for code
+  generation to work with [phpdbg][6]).
 
 ## Change Log
 
@@ -60,6 +60,15 @@ If you execute `bin/behat` command, you will see code coverage generated in
 `target` (i.e. `build/behat-coverage`) directory (in `html` format):
 
     $ bin/behat
+
+### Running with phpdbg
+
+This extension now supports [phpdbg][6], which results in faster execution when
+using more recent versions of PHP. Run `phpspec` via [phpdbg][6]:
+
+    $ phpdbg -qrr behat run
+
+**Note!** PHP 7+ is required for code generation to work with [phpdbg][6].
 
 ## Configuration
 
@@ -159,6 +168,7 @@ Licensed under [BSD-2-Clause License](LICENSE).
 [3]: http://behat.org/en/v2.5/
 [4]: http://mink.behat.org
 [5]: https://xdebug.org/
+[6]: http://phpdbg.com/
 
 [travis-image]: https://travis-ci.org/leanphp/behat-code-coverage.svg
 [travis-url]: https://travis-ci.org/leanphp/behat-code-coverage

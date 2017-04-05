@@ -60,10 +60,10 @@
         <!-- The driver compiler pass will register enabled drivers with the proxy -->
         <service id="behat.code_coverage.driver.proxy" class="%behat.code_coverage.driver.proxy.class%" />
 
-        <service id="behat.code_coverage.driver.local" class="PHP_CodeCoverage_Driver">
-            <factory service="vipsoft.code_coverage.driver.factory"
-                method="create"
-                />
+        <service id="behat.code_coverage.driver.local"
+                 class="PHP_CodeCoverage_Driver"
+                 factory-service="vipsoft.code_coverage.driver.factory"
+                 factory-method="create">
             <tag name="behat.code_coverage.driver" alias="local" />
         </service>
 
