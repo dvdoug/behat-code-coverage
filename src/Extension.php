@@ -51,7 +51,13 @@ class Extension implements ExtensionInterface
     public function load(ContainerBuilder $container, array $config)
     {
         $loader = new XmlFileLoader($container, new FileLocator($this->configFolder));
-        $loader->load('services.xml');
+        if (true === method_exists('Symfony\Component\DependencyInjection\Definition', 'setFactoryClass') {
+            // symfony 2.x
+            $loader->load('services-2.3.xml');
+        } else {
+            // symfony 3.0+
+            $loader->load('services.xml');
+        }
 
         if (! isset($config['auth']['user']) || ! isset($config['auth']['password'])) {
             $config['auth'] = null;
