@@ -5,7 +5,7 @@ platform: x64
 clone_folder: c:\projects\behat-code-coverage
 
 environment:
-  PHP_DOWNLOAD_FILE: 'php-7.0.15-nts-Win32-VC14-x86.zip'
+  PHP_DOWNLOAD_FILE: 'php-7.1.3-nts-Win32-VC14-x86.zip'
 
 #branches:
   #only:
@@ -40,9 +40,9 @@ install:
   - echo extension=php_mbstring.dll >> php.ini
   - echo extension=php_fileinfo.dll >> php.ini
     # Xdebug
-  - IF %PHP%==1 appveyor DownloadFile https://xdebug.org/files/php_xdebug-2.5.1-7.0-vc14-nts-x86_64.dll
-  - mv php_xdebug-2.5.1-7.0-vc14-nts-x86_64.dll ext\
-  - echo zend_extension="php_xdebug-2.5.1-7.0-vc14-nts-x86_64.dll" >> php.ini
+  - IF %PHP%==1 appveyor DownloadFile https://xdebug.org/files/php_xdebug-2.5.1-7.1-vc14-nts-x86_64.dll
+  - mv php_xdebug-2.5.1-7.1-vc14-nts-x86_64.dll ext\
+  - echo zend_extension="php_xdebug-2.5.1-7.1-vc14-nts-x86_64.dll" >> php.ini
   - echo xdebug.remote_enable=true >> php.ini
   - echo xdebug.remote_autostart=true >> php.ini
   - cd c:\projects\behat-code-coverage
