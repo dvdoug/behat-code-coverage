@@ -51,7 +51,7 @@ class Extension implements ExtensionInterface
     public function load(ContainerBuilder $container, array $config)
     {
         $loader = new XmlFileLoader($container, new FileLocator($this->configFolder));
-        if (true === method_exists('Symfony\Component\DependencyInjection\Definition', 'setFactoryClass') {
+        if (true === method_exists('Symfony\Component\DependencyInjection\Definition', 'setFactoryClass')) {
             // symfony 2.x
             $loader->load('services-2.3.xml');
         } else {
