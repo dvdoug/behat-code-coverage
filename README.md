@@ -2,6 +2,7 @@ behat-code-coverage
 ===================
 [![Latest Stable Version](https://poser.pugx.org/leanphp/behat-code-coverage/v/stable)](https://packagist.org/packages/leanphp/behat-code-coverage)
 [![Build Status][travis-image]][travis-url]
+[![Build status](https://ci.appveyor.com/api/projects/status/sos9oxh5chgx8d7h/branch/master?svg=true)](https://ci.appveyor.com/project/leanphp/behat-code-coverage/branch/master)
 [![Latest Unstable Version](https://poser.pugx.org/leanphp/behat-code-coverage/v/unstable)](https://packagist.org/packages/leanphp/behat-code-coverage)
 [![BSD-2-Clause License](https://poser.pugx.org/leanphp/behat-code-coverage/license)](https://packagist.org/packages/leanphp/behat-code-coverage)
 
