@@ -6,7 +6,7 @@ documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [2.5.5] - 2017-04-05 (backported v2.5.0.5, original release on 2014-02-10)
+## [2.5.5] - 2017-04-04 (backported v2.5.0.5, original release on 2014-02-10)
 
 **Note!** This version is a direct backport of `2.5.0.5` of
 [vipsoft/code-coverage-extension][1] package with updated namespaces to work
