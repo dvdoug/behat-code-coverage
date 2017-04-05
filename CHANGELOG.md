@@ -6,7 +6,7 @@ documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [3.0.x-dev] - UNRELEASED (bacported 3.0.x-dev / master, never released) 
+## [3.0.x-dev] - UNRELEASED (backported 3.0.x-dev from vipsoft/code-coverage-extension)
 
 - Merged commits from `3.0.x-dev` (`master` branch) of
   `vipsoft/code-coverage-extension` (adds support for Behat `~3.0`)
@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   there are 2 different service definitions `services-2.3.xml` for Symfony
   `2.x` and `services.xml` for Symfony `3.x`).
 - Update TravisCI to test against all supported version of PHP.
+- Added `symfony/expression-language` as a dependency for users using older
+  versions of PHP and symonfy `2.x` / `3.x`.
 
 ## [2.5.5] - 2017-04-04 (backported v2.5.0.5, original release on 2014-02-10)
 
