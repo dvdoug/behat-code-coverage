@@ -27,8 +27,13 @@ class ExtensionTest extends TestCase
     {
         $vfsRoot = vfsStream::setup('configDir');
         $configDir = vfsStream::url('configDir');
+        $servicesFile = 'services.xml';
+        if (true === method_exists('Symfony\Component\DependencyInjection\Definition', 'setFactoryClass')) {
+            $servicesFile = 'services-2.3.xml';
+        }
+
         file_put_contents(
-            $configDir . '/services.xml',
+            $configDir . '/' . $servicesFile,
             <<<END_OF_CONFIG
 <?xml version="1.0" ?>
 <container xmlns="http://symfony.com/schema/dic/services"
