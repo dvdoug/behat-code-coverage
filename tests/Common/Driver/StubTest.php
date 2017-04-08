@@ -21,7 +21,7 @@ class StubTest extends TestCase
     /**
      * @requires OS Linux
      */
-    public function testGetterSetter()
+    public function testGetterSetterXdebug()
     {
         $mock = $this->getMock('PHP_CodeCoverage_Driver_Xdebug');
 
@@ -35,7 +35,7 @@ class StubTest extends TestCase
     /**
      * @requires OS Linux
      */
-    public function testStart()
+    public function testStartXdebug()
     {
         $mock = $this->getMock('PHP_CodeCoverage_Driver_Xdebug');
         $mock->expects($this->once())
@@ -49,7 +49,7 @@ class StubTest extends TestCase
     /**
      * @requires OS Linux
      */
-    public function testStop()
+    public function testStopXdebug()
     {
         $mock = $this->getMock('PHP_CodeCoverage_Driver_Xdebug');
         $mock->expects($this->once())
@@ -63,7 +63,7 @@ class StubTest extends TestCase
     /**
      * @requires OS WIN
      */
-    public function testGetterSetter()
+    public function testGetterSetterPHPDBG()
     {
         $mock = $this->getMock('PHP_CodeCoverage_Driver_PHPDBG');
 
@@ -77,7 +77,7 @@ class StubTest extends TestCase
     /**
      * @requires OS WIN
      */
-    public function testStart()
+    public function testStartPHPDBG()
     {
         $mock = $this->getMock('PHP_CodeCoverage_Driver_PHPDBG');
         $mock->expects($this->once())
@@ -85,13 +85,13 @@ class StubTest extends TestCase
 
         $driver = new Stub();
         $driver->setDriver($mock);
-        $driver->start();
+        $driver->startPHPDBG();
     }
 
     /**
      * @requires OS WIN
      */
-    public function testStop()
+    public function testStopPHPDBG()
     {
         $mock = $this->getMock('PHP_CodeCoverage_Driver_PHPDBG');
         $mock->expects($this->once())
