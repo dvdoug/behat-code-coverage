@@ -9,6 +9,9 @@
 namespace LeanPHP\Behat\CodeCoverage\Common\Report;
 
 use LeanPHP\Behat\CodeCoverage\Common\ReportInterface;
+use SebastianBergmann\CodeCoverage\PHP_CodeCoverage;
+use SebastianBergmann\CodeCoverage\Report\Clover as Clover;
+use SebastianBergmann\CodeCoverage\Report\PHP as PHPCC;
 
 /**
  * PHP report
@@ -18,7 +21,7 @@ use LeanPHP\Behat\CodeCoverage\Common\ReportInterface;
 class Php implements ReportInterface
 {
     /**
-     * @var \PHP_CodeCoverage_Report_Clover
+     * @var \SebastianBergmann\CodeCoverage\Report\Clover
      */
     private $report;
 
@@ -36,14 +39,14 @@ class Php implements ReportInterface
             $options['target'] = null;
         }
 
-        $this->report = new \PHP_CodeCoverage_Report_PHP();
+        $this->report = new PHPCC();
         $this->options = $options;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function process(\PHP_CodeCoverage $coverage)
+    public function process(PHP_CodeCoverage $coverage)
     {
         return $this->report->process(
             $coverage,

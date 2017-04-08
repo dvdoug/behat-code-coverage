@@ -14,6 +14,8 @@ use Behat\Gherkin\Node\FeatureNode;
 use Behat\Gherkin\Node\OutlineNode;
 use Behat\Gherkin\Node\ScenarioNode;
 
+use SebastianBergmann\CodeCoverage\PHP_CodeCoverage;
+
 /**
  * Event listener test
  *

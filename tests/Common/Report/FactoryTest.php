@@ -60,7 +60,7 @@ class FactoryTest extends TestCase
         try {
             $this->assertEquals($expected, get_class($factory->create($reportType, array())));
         } catch (\Exception $e) {
-            $this->assertTrue(strpos($e->getMessage(), 'requires PHP_CodeCoverage 1.3+') !== false);
+            $this->assertTrue(strpos($e->getMessage(), 'requires PHP_CodeCoverage 4.0+') !== false);
         }
     }
 

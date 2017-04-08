@@ -11,6 +11,7 @@ namespace LeanPHP\Behat\CodeCoverage\Common\Report;
 use VIPSoft\TestCase;
 use LeanPHP\Behat\CodeCoverage\Common\Report\Factory;
 use org\bovigo\vfs\vfsStream;
+use SebastianBergmann\CodeCoverage\PHP_CodeCoverage;
 
 /**
  * HTML report test

@@ -23,7 +23,7 @@
 
         <parameter key="vipsoft.code_coverage.driver.hhmv.class">LeanPHP\Behat\CodeCoverage\Common\Driver\HHVM</parameter>
         <parameter key="vipsoft.code_coverage.driver.xcache.class">LeanPHP\Behat\CodeCoverage\Common\Driver\XCache</parameter>
-        <parameter key="vipsoft.code_coverage.driver.xdebug.class">PHP_CodeCoverage_Driver_Xdebug</parameter>
+        <parameter key="vipsoft.code_coverage.driver.xdebug.class">SebastianBergmann\CodeCoverage\Driver\Xdebug</parameter>
         <parameter key="vipsoft.code_coverage.driver.factory.class">LeanPHP\Behat\CodeCoverage\Common\Driver\Factory</parameter>
     </parameters>
 
@@ -49,10 +49,10 @@
 
         <service id="behat.code_coverage.http_client" class="Guzzle\Http\Client" />
 
-        <service id="behat.code_coverage.php_code_coverage_filter" class="PHP_CodeCoverage_Filter" />
+        <service id="behat.code_coverage.php_code_coverage_filter" class="SebastianBergmann\CodeCoverage\Filter" />
 
         <!-- The filter compiler pass will configure the injected coverage filter -->
-        <service id="behat.code_coverage.php_code_coverage" class="PHP_CodeCoverage">
+        <service id="behat.code_coverage.php_code_coverage" class="SebastianBergmann\CodeCoverage\PHP_CodeCoverage">
             <argument type="service" id="behat.code_coverage.driver.proxy" />
             <argument type="service" id="behat.code_coverage.php_code_coverage_filter" />
         </service>
@@ -60,7 +60,7 @@
         <!-- The driver compiler pass will register enabled drivers with the proxy -->
         <service id="behat.code_coverage.driver.proxy" class="%behat.code_coverage.driver.proxy.class%" />
 
-        <service id="behat.code_coverage.driver.local" class="PHP_CodeCoverage_Driver">
+        <service id="behat.code_coverage.driver.local" class="SebastianBergmann\CodeCoverage\Driver\Driver">
             <factory service="vipsoft.code_coverage.driver.factory"
                 method="create"
                 />

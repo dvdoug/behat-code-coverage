@@ -10,6 +10,8 @@ namespace LeanPHP\Behat\CodeCoverage\Common\Report;
 
 use VIPSoft\TestCase;
 use LeanPHP\Behat\CodeCoverage\Common\Report\Factory;
+use SebastianBergmann\CodeCoverage\PHP_CodeCoverage;
+use SebastianBergmann\CodeCoverage\Report\Node\File;
 
 /**
  * Text report test
@@ -21,7 +23,7 @@ class TextTest extends TestCase
     public function testProcess()
     {
 
-        $report = $this->getMockBuilder('PHP_CodeCoverage_Report_Node_File')
+        $report = $this->getMockBuilder('File')
                        ->disableOriginalConstructor()
                        ->getMock();
 

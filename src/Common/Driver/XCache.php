@@ -8,7 +8,7 @@
 
 namespace LeanPHP\Behat\CodeCoverage\Common\Driver;
 
-use PHP_CodeCoverage_Driver as DriverInterface;
+use SebastianBergmann\CodeCoverage\Driver\Driver as DriverInterface;
 
 /**
  * XCache Driver
@@ -27,7 +27,7 @@ class XCache implements DriverInterface
     public function __construct()
     {
         if ( ! extension_loaded('xcache')) {
-            throw new \PHP_CodeCoverage_Exception('This driver requires XCache');
+            throw new \SebastianBergmann\CodeCoverage\Exception('This driver requires XCache');
         }
 
         if (version_compare(phpversion('xcache'), '1.2.0', '<') ||
@@ -40,7 +40,7 @@ class XCache implements DriverInterface
     /**
      * {@inheritdoc}
      */
-    public function start()
+    public function start($determineUnusedAndDead = true)
     {
         xcache_coverager_start();
     }

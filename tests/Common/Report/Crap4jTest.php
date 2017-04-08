@@ -10,6 +10,7 @@ namespace LeanPHP\Behat\CodeCoverage\Common\Report;
 
 use VIPSoft\TestCase;
 use LeanPHP\Behat\CodeCoverage\Common\Report\Factory;
+use SebastianBergmann\CodeCoverage\Report\Crap4j;
 
 /**
  * Crap4j report test

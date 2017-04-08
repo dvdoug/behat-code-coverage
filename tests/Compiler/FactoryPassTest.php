@@ -10,6 +10,7 @@ namespace LeanPHP\Behat\CodeCoverage\Compiler;
 
 use VIPSoft\TestCase;
 use LeanPHP\Behat\CodeCoverage\Compiler\FactoryPass;
+use SebastianBergmann\CodeCoverage\Driver\Xdebug;
 
 /**
  * Factory compiler pass test
@@ -43,7 +44,7 @@ class FactoryPassTest extends TestCase
         $xdebug = $this->getMock('Symfony\Component\DependencyInjection\Definition');
         $xdebug->expects($this->once())
                ->method('getClass')
-               ->will($this->returnValue('PHP_CodeCoverage_Driver_Xdebug'));
+               ->will($this->returnValue('Xdebug'));
 
         $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerBuilder');
 

@@ -9,6 +9,8 @@
 namespace LeanPHP\Behat\CodeCoverage\Common\Report;
 
 use LeanPHP\Behat\CodeCoverage\Common\ReportInterface;
+use SebastianBergmann\CodeCoverage\PHP_CodeCoverage;
+use SebastianBergmann\CodeCoverage\Report\Text as TextCC;
 
 /**
  * Text report
@@ -18,7 +20,7 @@ use LeanPHP\Behat\CodeCoverage\Common\ReportInterface;
 class Text implements ReportInterface
 {
     /**
-     * @var \PHP_CodeCoverage_Report_Text
+     * @var \SebastianBergmann\CodeCoverage\Report\Text
      */
     private $report;
 
@@ -55,7 +57,7 @@ class Text implements ReportInterface
         if ($this->getVersion() === '1.2') {
             $outputStream = new \PHPUnit_Util_Printer($options['printer']);
 
-            $this->report = new \PHP_CodeCoverage_Report_Text(
+            $this->report = new TextCC(
                 $outputStream,
                 $options['lowUpperBound'],
                 $options['highUpperBound'],
@@ -66,7 +68,7 @@ class Text implements ReportInterface
                 $options['showOnlySummary'] = false;
             }
 
-            $this->report = new \PHP_CodeCoverage_Report_Text(
+            $this->report = new TextCC(
                 $options['lowUpperBound'],
                 $options['highUpperBound'],
                 $options['showUncoveredFiles'],
@@ -80,7 +82,7 @@ class Text implements ReportInterface
     /**
      * {@inheritdoc}
      */
-    public function process(\PHP_CodeCoverage $coverage)
+    public function process(PHP_CodeCoverage $coverage)
     {
         return $this->report->process(
             $coverage,
@@ -90,7 +92,7 @@ class Text implements ReportInterface
 
     private function getVersion()
     {
-        $reflectionMethod = new \ReflectionMethod('PHP_CodeCoverage_Report_Text', '__construct');
+        $reflectionMethod = new \ReflectionMethod('TextCC', '__construct');
         $parameters = $reflectionMethod->getParameters();
 
         if (reset($parameters)->name === 'outputStream') {

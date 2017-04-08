@@ -8,7 +8,7 @@
 
 namespace LeanPHP\Behat\CodeCoverage\Common\Driver;
 
-use PHP_CodeCoverage_Driver as DriverInterface;
+use SebastianBergmann\CodeCoverage\Driver\Driver as DriverInterface;
 
 /**
  * Driver factory

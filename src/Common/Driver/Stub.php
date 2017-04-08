@@ -8,7 +8,7 @@
 
 namespace LeanPHP\Behat\CodeCoverage\Common\Driver;
 
-use PHP_CodeCoverage_Driver as DriverInterface;
+use SebastianBergmann\CodeCoverage\Driver\Driver as DriverInterface;
 
 /**
  * Stub driver
@@ -42,7 +42,7 @@ class Stub implements DriverInterface
     /**
      * {@inheritdoc}
      */
-    public function start()
+    public function start($determineUnusedAndDead = true)
     {
         if ($this->driver) {
             $this->driver->start();

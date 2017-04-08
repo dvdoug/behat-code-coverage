@@ -8,6 +8,8 @@
 
 namespace LeanPHP\Behat\CodeCoverage\Common;
 
+use SebastianBergmann\CodeCoverage\PHP_CodeCoverage;
+
 /**
  * Report interface
  *
@@ -25,9 +27,9 @@ interface ReportInterface
     /**
      * Generate report
      *
-     * @param \PHP_CodeCoverage $coverage
+     * @param PHP_CodeCoverage $coverage
      *
      * @return string|null
      */
-    public function process(\PHP_CodeCoverage $coverage);
+    public function process(PHP_CodeCoverage $coverage);
 }

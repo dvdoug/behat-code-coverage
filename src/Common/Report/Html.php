@@ -9,6 +9,8 @@
 namespace LeanPHP\Behat\CodeCoverage\Common\Report;
 
 use LeanPHP\Behat\CodeCoverage\Common\ReportInterface;
+use SebastianBergmann\CodeCoverage\PHP_CodeCoverage;
+use SebastianBergmann\CodeCoverage\Report\HTML as HTMLCC;
 
 /**
  * HTML report
@@ -18,7 +20,7 @@ use LeanPHP\Behat\CodeCoverage\Common\ReportInterface;
 class Html implements ReportInterface
 {
     /**
-     * @var \PHP_CodeCoverage_Report_HTML
+     * @var HTMLCC
      */
     private $report;
 
@@ -56,7 +58,7 @@ class Html implements ReportInterface
             $options['generator'] = '';
         }
 
-        $this->report = new \PHP_CodeCoverage_Report_HTML(
+        $this->report = new HTMLCC(
             $options['charset'],
             $options['highlight'],
             $options['lowUpperBound'],
@@ -70,7 +72,7 @@ class Html implements ReportInterface
     /**
      * {@inheritdoc}
      */
-    public function process(\PHP_CodeCoverage $coverage)
+    public function process(PHP_CodeCoverage $coverage)
     {
         return $this->report->process(
             $coverage,

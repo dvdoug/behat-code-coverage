@@ -29,7 +29,7 @@ class HHVMTest extends TestCase
 
             $this->fail();
         } catch (\Exception $e) {
-            $this->assertTrue($e instanceof \PHP_CodeCoverage_Exception);
+            $this->assertTrue($e instanceof \SebastianBergmann\CodeCoverage\Exception);
             $this->assertEquals('This driver requires HHVM', $e->getMessage());
         }
     }

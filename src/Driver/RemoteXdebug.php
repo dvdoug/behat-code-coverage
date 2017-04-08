@@ -9,7 +9,7 @@
 namespace LeanPHP\Behat\CodeCoverage\Driver;
 
 use Guzzle\Http\Client;
-use PHP_CodeCoverage_Driver as DriverInterface;
+use SebastianBergmann\CodeCoverage\Driver\Driver as DriverInterface;
 
 /**
  * Remote xdebug driver
@@ -65,7 +65,7 @@ class RemoteXdebug implements DriverInterface
     /**
      * {@inheritdoc}
      */
-    public function start()
+    public function start($determineUnusedAndDead = true)
     {
         $request = $this->buildRequest('create');
 

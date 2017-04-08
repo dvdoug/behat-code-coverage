@@ -10,7 +10,7 @@ namespace LeanPHP\Behat\CodeCoverage\Driver;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use LeanPHP\Behat\CodeCoverage\Common\Model\Aggregate;
-use PHP_CodeCoverage_Driver as DriverInterface;
+use SebastianBergmann\CodeCoverage\Driver\Driver as DriverInterface;
 
 /**
  * Proxy driver
@@ -39,10 +39,10 @@ class Proxy implements DriverInterface
     /**
      * {@inheritdoc}
      */
-    public function start()
+    public function start($determineUnusedAndDead = true)
     {
         foreach ($this->drivers as $driver) {
-            $driver->start();
+            $driver->start($determineUnusedAndDead);
         }
     }
 

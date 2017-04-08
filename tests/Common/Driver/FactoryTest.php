@@ -32,13 +32,13 @@ class FactoryTest extends TestCase
         if ( ! class_exists('LeanPHP\Behat\CodeCoverage\Common\Driver\Factory\GoodDriver')) {
             eval(<<<END_OF_CLASS_DEFINITION
 namespace LeanPHP\Behat\CodeCoverage\Common\Driver\Factory {
-    class GoodDriver implements \PHP_CodeCoverage_Driver
+    class GoodDriver implements \SebastianBergmann\CodeCoverage\Driver\Driver
     {
         public function __construct()
         {
         }
 
-        public function start()
+        public function start(\$determineUnusedAndDead = true)
         {
         }
 
@@ -67,14 +67,14 @@ END_OF_CLASS_DEFINITION
         if ( ! class_exists('LeanPHP\Behat\CodeCoverage\Common\Driver\Factory\BadDriver')) {
             eval(<<<END_OF_CLASS_DEFINITION
 namespace LeanPHP\Behat\CodeCoverage\Common\Driver\Factory {
-    class BadDriver implements \PHP_CodeCoverage_Driver
+    class BadDriver implements \SebastianBergmann\CodeCoverage\Driver\Driver
     {
         public function __construct()
         {
             throw new \Exception('bad');
         }
 
-        public function start()
+        public function start(\$determineUnusedAndDead = true)
         {
         }
 

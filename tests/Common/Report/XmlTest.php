@@ -10,6 +10,7 @@ namespace LeanPHP\Behat\CodeCoverage\Common\Report;
 
 use VIPSoft\TestCase;
 use LeanPHP\Behat\CodeCoverage\Common\Report\Factory;
+use SebastianBergmann\CodeCoverage\Report\XML;
 
 /**
  * XML report test
@@ -20,7 +21,7 @@ class XmlTest extends TestCase
 {
     public function testProcess()
     {
-        if ( ! class_exists('PHP_CodeCoverage_Report_XML')) {
+        if ( ! class_exists('XML')) {
             $this->markTestSkipped();
 
             return;

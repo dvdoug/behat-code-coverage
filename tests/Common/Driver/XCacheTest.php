@@ -29,7 +29,7 @@ class XCacheTest extends TestCase
 
             $this->fail();
         } catch (\Exception $e) {
-            $this->assertTrue($e instanceof \PHP_CodeCoverage_Exception);
+            $this->assertTrue($e instanceof \SebastianBergmann\CodeCoverage\Exception);
             $this->assertEquals('This driver requires XCache', $e->getMessage());
         }
     }
@@ -56,7 +56,7 @@ class XCacheTest extends TestCase
 
             $this->fail();
         } catch (\Exception $e) {
-            $this->assertTrue($e instanceof \PHP_CodeCoverage_Exception);
+            $this->assertTrue($e instanceof \SebastianBergmann\CodeCoverage\Exception);
             $this->assertEquals('xcache.coverager=On has to be set in php.ini', $e->getMessage());
         }
     }
