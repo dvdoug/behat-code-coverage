@@ -40,7 +40,8 @@
         "mikey179/vfsStream": "1.6.*"
     },
     "suggest": {
-        "ext-xdebug": "Xdebug extension is required to collect coverage via Xdebug driver and run tests"
+        "ext-xdebug": "Xdebug extension is required to collect coverage via Xdebug driver and run tests",
+        "ext-phpdbg": "PHPDBG extension allows you to collect coverage faster than Xdebug (PHP 7.0+)"
     },
     "autoload": {
         "psr-4": { "LeanPHP\\Behat\\CodeCoverage\\": "src/" }
