@@ -28,7 +28,7 @@
         "php": ">=5.3.10",
         "phpunit/php-code-coverage": "2.2.*",
         "behat/behat": "~3.0",
-        "guzzle/http": "~3.0",
+        "guzzlehttp/guzzle": "~3.0",
         "symfony/config": "~2.3||~3.0",
         "symfony/dependency-injection": "~2.2||~3.0",
         "symfony/expression-language": "~2.2||~3.0",
