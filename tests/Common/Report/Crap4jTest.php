@@ -27,6 +27,19 @@ class Crap4jTest extends TestCase
             return;
         }
 
-        $this->markTestIncomplete();
+        $report = $this->getMockBuilder('SebastianBergmann\CodeCoverage\Report\Crap4j')
+                       ->disableOriginalConstructor()
+                       ->getMock();
+
+        $coverage = $this->createMock('SebastianBergmann\CodeCoverage\CodeCoverage');
+        $coverage->expects($this->once())
+                 ->method('getReport')
+                 ->will($this->returnValue($report));
+
+        $report = new Crap4j();
+        $result = $report->process($coverage);
+
+        $this->assertTrue(strpos($result, '<?xml version="1.0" encoding="UTF-8"?>') === 0);
+
     }
 }
