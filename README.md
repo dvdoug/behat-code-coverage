@@ -22,8 +22,7 @@ compatible version numbers for stable releases.
 
 - PHP 5.6+ / 7.0+
 - [Behat v3][3]
-- [Xdebug][5] or [phpdbg][6] extension enabled (PHP 7+ is required for code
-  generation to work with [phpdbg][6]).
+- [Xdebug][5] or [phpdbg][6] extension enabled
 
 ## Change Log
 
@@ -68,9 +67,7 @@ If you execute `bin/behat` command, you will see code coverage generated in
 This extension now supports [phpdbg][6], which results in faster execution when
 using more recent versions of PHP. Run `phpspec` via [phpdbg][6]:
 
-    $ phpdbg -qrr behat run
-
-**Note!** PHP 7+ is required for code generation to work with [phpdbg][6].
+    $ phpdbg -qrr bin/behat run
 
 ## Configuration
 
