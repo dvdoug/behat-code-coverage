@@ -18,6 +18,9 @@ use LeanPHP\Behat\CodeCoverage\Common\Driver\Stub;
  */
 class StubTest extends TestCase
 {
+    /**
+     * @requires OS Linux
+     */
     public function testGetterSetter()
     {
         $mock = $this->getMock('PHP_CodeCoverage_Driver_Xdebug');
@@ -29,6 +32,9 @@ class StubTest extends TestCase
         $this->assertTrue($driver->getDriver() === $mock);
     }
 
+    /**
+     * @requires OS Linux
+     */
     public function testStart()
     {
         $mock = $this->getMock('PHP_CodeCoverage_Driver_Xdebug');
@@ -40,6 +46,9 @@ class StubTest extends TestCase
         $driver->start();
     }
 
+    /**
+     * @requires OS Linux
+     */
     public function testStop()
     {
         $mock = $this->getMock('PHP_CodeCoverage_Driver_Xdebug');
@@ -50,4 +59,47 @@ class StubTest extends TestCase
         $driver->setDriver($mock);
         $driver->stop();
     }
+
+    /**
+     * @requires OS WIN
+     */
+    public function testGetterSetter()
+    {
+        $mock = $this->getMock('PHP_CodeCoverage_Driver_PHPDBG');
+
+        $driver = new Stub();
+        $this->assertTrue($driver->getDriver() === null);
+
+        $driver->setDriver($mock);
+        $this->assertTrue($driver->getDriver() === $mock);
+    }
+
+    /**
+     * @requires OS WIN
+     */
+    public function testStart()
+    {
+        $mock = $this->getMock('PHP_CodeCoverage_Driver_PHPDBG');
+        $mock->expects($this->once())
+             ->method('start');
+
+        $driver = new Stub();
+        $driver->setDriver($mock);
+        $driver->start();
+    }
+
+    /**
+     * @requires OS WIN
+     */
+    public function testStop()
+    {
+        $mock = $this->getMock('PHP_CodeCoverage_Driver_PHPDBG');
+        $mock->expects($this->once())
+             ->method('stop');
+
+        $driver = new Stub();
+        $driver->setDriver($mock);
+        $driver->stop();
+    }
+
 }
