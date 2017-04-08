@@ -1,10 +1,11 @@
 behat-code-coverage
 ===================
-[![Latest Stable Version](https://poser.pugx.org/leanphp/behat-code-coverage/v/stable)](https://packagist.org/packages/leanphp/behat-code-coverage)
-[![Build Status][travis-image]][travis-url]
-[![Build status](https://ci.appveyor.com/api/projects/status/sos9oxh5chgx8d7h/branch/master?svg=true)](https://ci.appveyor.com/project/leanphp/behat-code-coverage/branch/master)
-[![Latest Unstable Version](https://poser.pugx.org/leanphp/behat-code-coverage/v/unstable)](https://packagist.org/packages/leanphp/behat-code-coverage)
-[![BSD-2-Clause License](https://poser.pugx.org/leanphp/behat-code-coverage/license)](https://packagist.org/packages/leanphp/behat-code-coverage)
+[![License](https://img.shields.io/packagist/l/leanphp/behat-code-coverage.svg?style=flat-square)](#License)
+[![Latest Stable Version](https://img.shields.io/packagist/v/leanphp/behat-code-coverage.svg?style=flat-square)](https://packagist.org/packages/leanphp/behat-code-coverage)
+[![Total Downloads](https://img.shields.io/packagist/dt/leanphp/behat-code-coverage.svg?style=flat-square)](https://packagist.org/packages/leanphp/behat-code-coverage)
+[![Travis](https://img.shields.io/travis/leanphp/behat-code-coverage.svg?style=flat-square)](https://travis-ci.org/leanphp/behat-code-coverage)
+[![AppVeyor](https://img.shields.io/appveyor/ci/leanphp/behat-code-coverage/master.svg?style=flat-square)](https://ci.appveyor.com/project/leanphp/behat-code-coverage)
+[![Pre Release](https://img.shields.io/packagist/vpre/leanphp/behat-code-coverage.svg?style=flat-square)](https://packagist.org/packages/leanphp/behat-code-coverage)
 
 [behat-code-coverage][0] is a [Behat][3] extension that generates Code
 Coverage reports for [Behat][3] tests.
