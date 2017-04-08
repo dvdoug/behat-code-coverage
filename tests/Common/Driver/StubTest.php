@@ -19,7 +19,7 @@ use LeanPHP\Behat\CodeCoverage\Common\Driver\Stub;
 class StubTest extends TestCase
 {
     /**
-     * @requires OS Linux
+     * @requires extension xdebug
      */
     public function testGetterSetterXdebug()
     {
@@ -33,7 +33,7 @@ class StubTest extends TestCase
     }
 
     /**
-     * @requires OS Linux
+     * @requires extension xdebug
      */
     public function testStartXdebug()
     {
@@ -47,7 +47,7 @@ class StubTest extends TestCase
     }
 
     /**
-     * @requires OS Linux
+     * @requires extension xdebug
      */
     public function testStopXdebug()
     {
@@ -61,7 +61,7 @@ class StubTest extends TestCase
     }
 
     /**
-     * @requires OS WIN
+     * @requires extension phpdbg
      */
     public function testGetterSetterPHPDBG()
     {
@@ -75,7 +75,7 @@ class StubTest extends TestCase
     }
 
     /**
-     * @requires OS WIN
+     * @requires extension phpdbg
      */
     public function testStartPHPDBG()
     {
@@ -89,7 +89,7 @@ class StubTest extends TestCase
     }
 
     /**
-     * @requires OS WIN
+     * @requires extension phpdbg
      */
     public function testStopPHPDBG()
     {
