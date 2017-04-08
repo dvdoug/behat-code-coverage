@@ -6,14 +6,14 @@ documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [3.0.0-RC1] - 2017-04-04 (backported 3.0.x-dev from vipsoft/code-coverage-extension)
+## [3.0.0] - 2017-04-08 (backported `3.0.x-dev` + patches)
 
+- Fixed compatibility with Symfony `2.x` and `3.x` #2
+- Fixed abandoned guzzle dependency #6
+- Enabled Windows based CI testing (appveyor) to make sure extension is
+  compatible with Windows OS #5
 - Merged commits from `3.0.x-dev` (`master` branch) of
   `vipsoft/code-coverage-extension` (adds support for Behat `~3.0`)
-- Fixed compatibility with Symfony `~2.3` and `~3.0` components (tested with
-  versions `2.3`,`2.4`,`2.5`,`2.6`,`2.7`,`2.8`,`3.0`,`3.1`,`3.2`). As a result
-  there are 2 different service definitions `services-2.3.xml` for Symfony
-  `2.x` and `services.xml` for Symfony `3.x`).
 - Update Travis CI to test against all supported versions of PHP (`5.3` to
   `7.1`).
 - Enable windows based CI tests (appveyor).
