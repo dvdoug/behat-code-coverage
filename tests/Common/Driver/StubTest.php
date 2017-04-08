@@ -10,8 +10,6 @@ namespace LeanPHP\Behat\CodeCoverage\Common\Driver;
 
 use VIPSoft\TestCase;
 use LeanPHP\Behat\CodeCoverage\Common\Driver\Stub;
-use SebastianBergmann\CodeCoverage\Driver\Xdebug;
-use SebastianBergmann\CodeCoverage\Driver\PHPDBG;
 
 /**
  * Stub driver test
@@ -25,7 +23,7 @@ class StubTest extends TestCase
      */
     public function testGetterSetterXdebug()
     {
-        $mock = $this->getMock('Xdebug');
+        $mock = $this->getMock('SebastianBergmann\CodeCoverage\Driver\Xdebug');
 
         $driver = new Stub();
         $this->assertTrue($driver->getDriver() === null);
@@ -39,7 +37,7 @@ class StubTest extends TestCase
      */
     public function testStartXdebug()
     {
-        $mock = $this->getMock('Xdebug');
+        $mock = $this->getMock('SebastianBergmann\CodeCoverage\Driver\Xdebug');
         $mock->expects($this->once())
              ->method('start');
 
@@ -53,7 +51,7 @@ class StubTest extends TestCase
      */
     public function testStopXdebug()
     {
-        $mock = $this->getMock('Xdebug');
+        $mock = $this->getMock('SebastianBergmann\CodeCoverage\Driver\Xdebug');
         $mock->expects($this->once())
              ->method('stop');
 
@@ -67,7 +65,7 @@ class StubTest extends TestCase
      */
     public function testGetterSetterPHPDBG()
     {
-        $mock = $this->getMock('PHPDBG');
+        $mock = $this->getMock('SebastianBergmann\CodeCoverage\Driver\PHPDBG');
 
         $driver = new Stub();
         $this->assertTrue($driver->getDriver() === null);
@@ -81,7 +79,7 @@ class StubTest extends TestCase
      */
     public function testStartPHPDBG()
     {
-        $mock = $this->getMock('PHPDBG');
+        $mock = $this->getMock('SebastianBergmann\CodeCoverage\Driver\PHPDBG');
         $mock->expects($this->once())
              ->method('start');
 
@@ -95,7 +93,7 @@ class StubTest extends TestCase
      */
     public function testStopPHPDBG()
     {
-        $mock = $this->getMock('PHPDBG');
+        $mock = $this->getMock('SebastianBergmann\CodeCoverage\Driver\PHPDBG');
         $mock->expects($this->once())
              ->method('stop');
 
