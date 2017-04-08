@@ -10,6 +10,9 @@ namespace LeanPHP\Behat\CodeCoverage\Common\Report;
 
 use VIPSoft\TestCase;
 use LeanPHP\Behat\CodeCoverage\Common\Report\Factory;
+use SebastianBergmann\CodeCoverage\Filter;
+use SebastianBergmann\CodeCoverage\CodeCoverage;
+use SebastianBergmann\CodeCoverage\Report\Php;
 
 /**
  * PHP report test
@@ -20,12 +23,8 @@ class PhpTest extends TestCase
 {
     public function testProcess()
     {
-        $coverage = $this->getMock('PHP_CodeCoverage');
-        $filter = $this->getMock('PHP_CodeCoverage_Filter');
-        $filter
-            ->expects($this->once())
-            ->method('getBlacklistedFiles')
-            ->will($this->returnValue(array()));
+        $coverage = $this->createMock('SebastianBergmann\CodeCoverage\CodeCoverage');
+        $filter = $this->createMock('SebastianBergmann\CodeCoverage\Filter');
         $filter
             ->expects($this->once())
             ->method('getWhitelistedFiles')
@@ -35,7 +34,7 @@ class PhpTest extends TestCase
                   ->will($this->returnValue($filter));
 
 
-        $report = new PHP(array());
+        $report = new Php(array());
         $result = $report->process($coverage);
 
         $this->assertTrue(strncmp($result, '<?php', 2) === 0);

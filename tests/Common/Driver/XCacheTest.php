@@ -29,14 +29,14 @@ class XCacheTest extends TestCase
 
             $this->fail();
         } catch (\Exception $e) {
-            $this->assertTrue($e instanceof \PHP_CodeCoverage_Exception);
+            $this->assertTrue($e instanceof \SebastianBergmann\CodeCoverage\RuntimeException);
             $this->assertEquals('This driver requires XCache', $e->getMessage());
         }
     }
 
     public function testConstructXCacheCoverageNotEnabled()
     {
-        $function = $this->getMock('VIPSoft\Test\FunctionProxy');
+        $function = $this->createMock('VIPSoft\Test\FunctionProxy');
         $function->expects($this->once())
                  ->method('invokeFunction')
                  ->will($this->returnValue(true));
@@ -56,14 +56,14 @@ class XCacheTest extends TestCase
 
             $this->fail();
         } catch (\Exception $e) {
-            $this->assertTrue($e instanceof \PHP_CodeCoverage_Exception);
+            $this->assertTrue($e instanceof \SebastianBergmann\CodeCoverage\Exception);
             $this->assertEquals('xcache.coverager=On has to be set in php.ini', $e->getMessage());
         }
     }
 
     public function testConstructXCache()
     {
-        $function = $this->getMock('VIPSoft\Test\FunctionProxy');
+        $function = $this->createMock('VIPSoft\Test\FunctionProxy');
         $function->expects($this->once())
                  ->method('invokeFunction')
                  ->will($this->returnValue(true));
@@ -83,7 +83,7 @@ class XCacheTest extends TestCase
 
     public function testStartXCache()
     {
-        $function = $this->getMock('VIPSoft\Test\FunctionProxy');
+        $function = $this->createMock('VIPSoft\Test\FunctionProxy');
         $function->expects($this->once())
                  ->method('invokeFunction')
                  ->will($this->returnValue(true));
@@ -98,7 +98,7 @@ class XCacheTest extends TestCase
             return true;
         });
 
-        $function = $this->getMock('VIPSoft\Test\FunctionProxy');
+        $function = $this->createMock('VIPSoft\Test\FunctionProxy');
         $function->expects($this->once())
                  ->method('invokeFunction');
 
@@ -110,7 +110,7 @@ class XCacheTest extends TestCase
 
     public function testStopXCache()
     {
-        $function = $this->getMock('VIPSoft\Test\FunctionProxy');
+        $function = $this->createMock('VIPSoft\Test\FunctionProxy');
         $function->expects($this->once())
                  ->method('invokeFunction')
                  ->will($this->returnValue(true));
@@ -125,7 +125,7 @@ class XCacheTest extends TestCase
             return true;
         });
 
-        $function = $this->getMock('VIPSoft\Test\FunctionProxy');
+        $function = $this->createMock('VIPSoft\Test\FunctionProxy');
         $function->expects($this->exactly(2))
                  ->method('invokeFunction');
 

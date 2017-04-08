@@ -60,7 +60,7 @@ class RemoteXdebugTest extends TestCase
                 ->method('send')
                 ->will($this->returnValue($this->response));
 
-        $this->client = $this->getMock('Guzzle\Http\Client');
+        $this->client = $this->createMock('Guzzle\Http\Client');
         $this->client->expects($this->any())
                      ->method('post')
                      ->will($this->returnValue($request));

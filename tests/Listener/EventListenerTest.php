@@ -31,7 +31,7 @@ class EventListenerTest extends TestCase
     {
         parent::setUp();
 
-        $this->coverage = $this->getMock('PHP_CodeCoverage');
+        $this->coverage = $this->createMock('SebastianBergmann\CodeCoverage\CodeCoverage');
 
         $this->service  = $this->getMockBuilder('LeanPHP\Behat\CodeCoverage\Service\ReportService')
                                ->disableOriginalConstructor()

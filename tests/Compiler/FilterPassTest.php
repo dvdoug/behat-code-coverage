@@ -20,7 +20,7 @@ class FilterPassTest extends TestCase
 {
     public function testProcessNoServiceDefinition()
     {
-        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerBuilder');
+        $container = $this->createMock('Symfony\Component\DependencyInjection\ContainerBuilder');
         $container->expects($this->exactly(2))
                   ->method('hasDefinition')
                   ->will($this->returnValue(false));
@@ -31,11 +31,11 @@ class FilterPassTest extends TestCase
 
     public function testProcessCodeCoverage()
     {
-        $coverage = $this->getMock('Symfony\Component\DependencyInjection\Definition');
+        $coverage = $this->createMock('Symfony\Component\DependencyInjection\Definition');
         $coverage->expects($this->exactly(4))
                  ->method('addMethodCall');
 
-        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerBuilder');
+        $container = $this->createMock('Symfony\Component\DependencyInjection\ContainerBuilder');
         $container->expects($this->exactly(2))
                   ->method('hasDefinition')
                   ->will($this->onConsecutiveCalls(true, false));
@@ -63,11 +63,11 @@ class FilterPassTest extends TestCase
 
     public function testProcessCodeCoverageFilter()
     {
-        $filter = $this->getMock('Symfony\Component\DependencyInjection\Definition');
+        $filter = $this->createMock('Symfony\Component\DependencyInjection\Definition');
         $filter->expects($this->exactly(8))
                ->method('addMethodCall');
 
-        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerBuilder');
+        $container = $this->createMock('Symfony\Component\DependencyInjection\ContainerBuilder');
         $container->expects($this->exactly(2))
                   ->method('hasDefinition')
                   ->will($this->onConsecutiveCalls(false, true));

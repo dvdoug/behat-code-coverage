@@ -20,11 +20,11 @@ class CloverTest extends TestCase
 {
     public function testProcess()
     {
-        $report = $this->getMockBuilder('PHP_CodeCoverage_Report_Node_File')
+        $report = $this->getMockBuilder('SebastianBergmann\CodeCoverage\Node\File')
                        ->disableOriginalConstructor()
                        ->getMock();
 
-        $coverage = $this->getMock('PHP_CodeCoverage');
+        $coverage = $this->createMock('SebastianBergmann\CodeCoverage\CodeCoverage');
         $coverage->expects($this->once())
                  ->method('getReport')
                  ->will($this->returnValue($report));

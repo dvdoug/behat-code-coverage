@@ -6,6 +6,14 @@ documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.1.x-dev] - UNRELEASED
+
+- Update PHP requirement to `>=5.6` (from `>=5.3.10`)
+- Update `phpunit/php-code-coverage` from `~2.2` to `~4.0||~5.0`.
+- Add/implement missing tests for Xml and Crap4j reporters
+- Mark `phpdbg` or `xdebug` specific tests so they are skipped automatically
+  (using phpunit's @requires).
+
 ## [3.0.0] - 2017-04-08 (backported `3.0.x-dev` + patches)
 
 - Fixed compatibility with Symfony `2.x` and `3.x` #2

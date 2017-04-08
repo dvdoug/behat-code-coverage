@@ -9,6 +9,8 @@
 namespace LeanPHP\Behat\CodeCoverage\Common\Report;
 
 use LeanPHP\Behat\CodeCoverage\Common\ReportInterface;
+use SebastianBergmann\CodeCoverage\CodeCoverage;
+use SebastianBergmann\CodeCoverage\Report\Xml\Facade;;
 
 /**
  * XML report
@@ -18,7 +20,7 @@ use LeanPHP\Behat\CodeCoverage\Common\ReportInterface;
 class Xml implements ReportInterface
 {
     /**
-     * @var \PHP_CodeCoverage_Report_XML
+     * @var \SebastianBergmann\CodeCoverage\Report\XML
      */
     private $report;
 
@@ -32,22 +34,22 @@ class Xml implements ReportInterface
      */
     public function __construct(array $options)
     {
-        if ( ! class_exists('\PHP_CodeCoverage_Report_Xml')) {
-            throw new \Exception('XML requires PHP_CodeCoverage 1.3+');
+        if ( ! class_exists('SebastianBergmann\CodeCoverage\Report\Xml\Facade')) {
+            throw new \Exception('XML requires CodeCoverage 4.0+');
         }
 
         if ( ! isset($options['target'])) {
             $options['target'] = null;
         }
 
-        $this->report = new \PHP_CodeCoverage_Report_XML();
+        $this->report = new Facade(array());
         $this->options = $options;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function process(\PHP_CodeCoverage $coverage)
+    public function process(CodeCoverage $coverage)
     {
         return $this->report->process(
             $coverage,

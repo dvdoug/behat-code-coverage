@@ -8,12 +8,13 @@
 
 namespace LeanPHP\Behat\CodeCoverage\Common\Driver;
 
-use PHP_CodeCoverage_Driver as DriverInterface;
+use SebastianBergmann\CodeCoverage\Driver\Driver as DriverInterface;
+use SebastianBergmann\CodeCoverage\CodeCoverage;
 
 /**
  * HHVM (Hip Hop VM) Driver
  *
- * {@internal Derived from PHP_CodeCoverage_Driver_Xdebug.}
+ * {@internal Derived from SebastianBergmann\CodeCoverage\Driver\Xdebug.}
  *
  * @author Anthon Pang <apang@softwaredevelopment.ca>
  */
@@ -22,19 +23,19 @@ class HHVM implements DriverInterface
     /**
      * Constructor
      *
-     * @throws \PHP_CodeCoverage_Exception if PHP code coverage not enabled
+     * @throws SebastianBergmann\CodeCoverage\RuntimeException if PHP code coverage not enabled
      */
     public function __construct()
     {
         if ( ! defined('HPHP_VERSION')) {
-            throw new \PHP_CodeCoverage_Exception('This driver requires HHVM');
+            throw new \SebastianBergmann\CodeCoverage\RuntimeException('This driver requires HHVM');
         }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function start()
+    public function start($determineUnusedAndDead = true)
     {
         fb_enable_code_coverage();
     }

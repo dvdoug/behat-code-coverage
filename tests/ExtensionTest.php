@@ -370,7 +370,7 @@ END_OF_CONFIG
 
     public function testProcess()
     {
-        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerBuilder');
+        $container = $this->createMock('Symfony\Component\DependencyInjection\ContainerBuilder');
         $container->expects($this->exactly(4))
                   ->method('hasDefinition');
 

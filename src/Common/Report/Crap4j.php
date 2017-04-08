@@ -9,7 +9,8 @@
 namespace LeanPHP\Behat\CodeCoverage\Common\Report;
 
 use LeanPHP\Behat\CodeCoverage\Common\ReportInterface;
-
+use SebastianBergmann\CodeCoverage\CodeCoverage;
+use SebastianBergmann\CodeCoverage\Report\Crap4j as Crap4jReport;
 /**
  * Crap4j report
  *
@@ -18,7 +19,7 @@ use LeanPHP\Behat\CodeCoverage\Common\ReportInterface;
 class Crap4j implements ReportInterface
 {
     /**
-     * @var \PHP_CodeCoverage_Report_Crap4j
+     * @var SebastianBergmann\CodeCoverage\Report\Crap4j
      */
     private $report;
 
@@ -32,8 +33,8 @@ class Crap4j implements ReportInterface
      */
     public function __construct(array $options)
     {
-        if ( ! class_exists('\PHP_CodeCoverage_Report_Crap4j')) {
-            throw new \Exception('Crap4j requires PHP_CodeCoverage 1.3+');
+        if ( ! class_exists('SebastianBergmann\CodeCoverage\Report\Crap4j')) {
+            throw new \Exception('Crap4j requires CodeCoverage 4.0+');
         }
 
         if ( ! isset($options['target'])) {
@@ -44,14 +45,14 @@ class Crap4j implements ReportInterface
             $options['name'] = null;
         }
 
-        $this->report = new \PHP_CodeCoverage_Report_Crap4j();
+        $this->report = new Crap4jReport();
         $this->options = $options;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function process(\PHP_CodeCoverage $coverage)
+    public function process(CodeCoverage $coverage)
     {
         return $this->report->process(
             $coverage,

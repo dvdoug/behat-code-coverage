@@ -20,7 +20,7 @@ compatible version numbers for stable releases.
 
 ## Requirements
 
-- PHP 5.3.10+ / 7.0+
+- PHP 5.6+ / 7.0+
 - [Behat v3][3]
 - [Xdebug][5] or [phpdbg][6] extension enabled (PHP 7+ is required for code
   generation to work with [phpdbg][6]).

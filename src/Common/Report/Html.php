@@ -9,6 +9,8 @@
 namespace LeanPHP\Behat\CodeCoverage\Common\Report;
 
 use LeanPHP\Behat\CodeCoverage\Common\ReportInterface;
+use SebastianBergmann\CodeCoverage\CodeCoverage;
+use SebastianBergmann\CodeCoverage\Report\Html\Facade;
 
 /**
  * HTML report
@@ -18,7 +20,7 @@ use LeanPHP\Behat\CodeCoverage\Common\ReportInterface;
 class Html implements ReportInterface
 {
     /**
-     * @var \PHP_CodeCoverage_Report_HTML
+     * @var Facade
      */
     private $report;
 
@@ -56,9 +58,7 @@ class Html implements ReportInterface
             $options['generator'] = '';
         }
 
-        $this->report = new \PHP_CodeCoverage_Report_HTML(
-            $options['charset'],
-            $options['highlight'],
+        $this->report = new Facade(
             $options['lowUpperBound'],
             $options['highUpperBound'],
             $options['generator']
@@ -70,7 +70,7 @@ class Html implements ReportInterface
     /**
      * {@inheritdoc}
      */
-    public function process(\PHP_CodeCoverage $coverage)
+    public function process(CodeCoverage $coverage)
     {
         return $this->report->process(
             $coverage,

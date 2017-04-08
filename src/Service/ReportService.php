@@ -9,6 +9,7 @@
 namespace LeanPHP\Behat\CodeCoverage\Service;
 
 use LeanPHP\Behat\CodeCoverage\Common\Report\Factory;
+use SebastianBergmann\CodeCoverage\CodeCoverage;
 
 /**
  * Code coverage report service
@@ -42,9 +43,9 @@ class ReportService
     /**
      * Generate report
      *
-     * @param \PHP_CodeCoverage $coverage
+     * @param CodeCoverage $coverage
      */
-    public function generateReport(\PHP_CodeCoverage $coverage)
+    public function generateReport(CodeCoverage $coverage)
     {
         $format = $this->config['report']['format'];
         $options = $this->config['report']['options'];

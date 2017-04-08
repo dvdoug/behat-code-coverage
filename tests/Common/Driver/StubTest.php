@@ -1,6 +1,6 @@
 <?php
 /**
- * Code Coverage Driver 
+ * Code Coverage Driver
  *
  * @copyright 2013 Anthon Pang
  * @license BSD-2-Clause
@@ -19,11 +19,11 @@ use LeanPHP\Behat\CodeCoverage\Common\Driver\Stub;
 class StubTest extends TestCase
 {
     /**
-     * @requires OS Linux
+     * @requires extension xdebug
      */
     public function testGetterSetterXdebug()
     {
-        $mock = $this->getMock('PHP_CodeCoverage_Driver_Xdebug');
+        $mock = $this->createMock('SebastianBergmann\CodeCoverage\Driver\Xdebug');
 
         $driver = new Stub();
         $this->assertTrue($driver->getDriver() === null);
@@ -33,11 +33,11 @@ class StubTest extends TestCase
     }
 
     /**
-     * @requires OS Linux
+     * @requires extension xdebug
      */
     public function testStartXdebug()
     {
-        $mock = $this->getMock('PHP_CodeCoverage_Driver_Xdebug');
+        $mock = $this->createMock('SebastianBergmann\CodeCoverage\Driver\Xdebug');
         $mock->expects($this->once())
              ->method('start');
 
@@ -47,11 +47,11 @@ class StubTest extends TestCase
     }
 
     /**
-     * @requires OS Linux
+     * @requires extension xdebug
      */
     public function testStopXdebug()
     {
-        $mock = $this->getMock('PHP_CodeCoverage_Driver_Xdebug');
+        $mock = $this->createMock('SebastianBergmann\CodeCoverage\Driver\Xdebug');
         $mock->expects($this->once())
              ->method('stop');
 
@@ -61,11 +61,11 @@ class StubTest extends TestCase
     }
 
     /**
-     * @requires OS WIN
+     * @requires extension phpdbg
      */
     public function testGetterSetterPHPDBG()
     {
-        $mock = $this->getMock('PHP_CodeCoverage_Driver_PHPDBG');
+        $mock = $this->createMock('SebastianBergmann\CodeCoverage\Driver\PHPDBG');
 
         $driver = new Stub();
         $this->assertTrue($driver->getDriver() === null);
@@ -75,11 +75,11 @@ class StubTest extends TestCase
     }
 
     /**
-     * @requires OS WIN
+     * @requires extension phpdbg
      */
     public function testStartPHPDBG()
     {
-        $mock = $this->getMock('PHP_CodeCoverage_Driver_PHPDBG');
+        $mock = $this->createMock('SebastianBergmann\CodeCoverage\Driver\PHPDBG');
         $mock->expects($this->once())
              ->method('start');
 
@@ -89,11 +89,11 @@ class StubTest extends TestCase
     }
 
     /**
-     * @requires OS WIN
+     * @requires extension phpdbg
      */
     public function testStopPHPDBG()
     {
-        $mock = $this->getMock('PHP_CodeCoverage_Driver_PHPDBG');
+        $mock = $this->createMock('SebastianBergmann\CodeCoverage\Driver\PHPDBG');
         $mock->expects($this->once())
              ->method('stop');
 

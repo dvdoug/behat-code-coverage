@@ -29,7 +29,7 @@ class HHVMTest extends TestCase
 
             $this->fail();
         } catch (\Exception $e) {
-            $this->assertTrue($e instanceof \PHP_CodeCoverage_Exception);
+            $this->assertTrue($e instanceof \SebastianBergmann\CodeCoverage\RuntimeException);
             $this->assertEquals('This driver requires HHVM', $e->getMessage());
         }
     }
@@ -61,7 +61,7 @@ class HHVMTest extends TestCase
             return true;
         });
 
-        $function = $this->getMock('VIPSoft\Test\FunctionProxy');
+        $function = $this->createMock('VIPSoft\Test\FunctionProxy');
         $function->expects($this->exactly(2))
                  ->method('invokeFunction');
 
