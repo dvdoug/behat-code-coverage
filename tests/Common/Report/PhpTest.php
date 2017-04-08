@@ -25,10 +25,6 @@ class PhpTest extends TestCase
         $filter = $this->createMock('SebastianBergmann\CodeCoverage\Filter');
         $filter
             ->expects($this->once())
-            ->method('getBlacklistedFiles')
-            ->will($this->returnValue(array()));
-        $filter
-            ->expects($this->once())
             ->method('getWhitelistedFiles')
             ->will($this->returnValue(array()));
         $coverage->expects($this->once())
