@@ -22,12 +22,12 @@ class XCache implements DriverInterface
     /**
      * Constructor
      *
-     * @throws \PHP_CodeCoverage_Exception if PHP code coverage not enabled
+     * @throws \SebastianBergmann\CodeCoverage\RuntimeException if PHP code coverage not enabled
      */
     public function __construct()
     {
         if ( ! extension_loaded('xcache')) {
-            throw new \SebastianBergmann\CodeCoverage\Exception('This driver requires XCache');
+            throw new \SebastianBergmann\CodeCoverage\RuntimeException('This driver requires XCache');
         }
 
         if (version_compare(phpversion('xcache'), '1.2.0', '<') ||

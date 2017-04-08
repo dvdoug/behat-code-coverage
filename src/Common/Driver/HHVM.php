@@ -23,12 +23,12 @@ class HHVM implements DriverInterface
     /**
      * Constructor
      *
-     * @throws SebastianBergmann\CodeCoverage\Exception if PHP code coverage not enabled
+     * @throws SebastianBergmann\CodeCoverage\RuntimeException if PHP code coverage not enabled
      */
     public function __construct()
     {
         if ( ! defined('HPHP_VERSION')) {
-            throw new \SebastianBergmann\CodeCoverage\Exception('This driver requires HHVM');
+            throw new \SebastianBergmann\CodeCoverage\RuntimeException('This driver requires HHVM');
         }
     }
 
