@@ -23,7 +23,7 @@ class StubTest extends TestCase
      */
     public function testGetterSetterXdebug()
     {
-        $mock = $this->getMock('SebastianBergmann\CodeCoverage\Driver\Xdebug');
+        $mock = $this->createMock('SebastianBergmann\CodeCoverage\Driver\Xdebug');
 
         $driver = new Stub();
         $this->assertTrue($driver->getDriver() === null);
@@ -37,7 +37,7 @@ class StubTest extends TestCase
      */
     public function testStartXdebug()
     {
-        $mock = $this->getMock('SebastianBergmann\CodeCoverage\Driver\Xdebug');
+        $mock = $this->createMock('SebastianBergmann\CodeCoverage\Driver\Xdebug');
         $mock->expects($this->once())
              ->method('start');
 
@@ -51,7 +51,7 @@ class StubTest extends TestCase
      */
     public function testStopXdebug()
     {
-        $mock = $this->getMock('SebastianBergmann\CodeCoverage\Driver\Xdebug');
+        $mock = $this->createMock('SebastianBergmann\CodeCoverage\Driver\Xdebug');
         $mock->expects($this->once())
              ->method('stop');
 
@@ -65,7 +65,7 @@ class StubTest extends TestCase
      */
     public function testGetterSetterPHPDBG()
     {
-        $mock = $this->getMock('SebastianBergmann\CodeCoverage\Driver\PHPDBG');
+        $mock = $this->createMock('SebastianBergmann\CodeCoverage\Driver\PHPDBG');
 
         $driver = new Stub();
         $this->assertTrue($driver->getDriver() === null);
@@ -79,7 +79,7 @@ class StubTest extends TestCase
      */
     public function testStartPHPDBG()
     {
-        $mock = $this->getMock('SebastianBergmann\CodeCoverage\Driver\PHPDBG');
+        $mock = $this->createMock('SebastianBergmann\CodeCoverage\Driver\PHPDBG');
         $mock->expects($this->once())
              ->method('start');
 
@@ -93,7 +93,7 @@ class StubTest extends TestCase
      */
     public function testStopPHPDBG()
     {
-        $mock = $this->getMock('SebastianBergmann\CodeCoverage\Driver\PHPDBG');
+        $mock = $this->createMock('SebastianBergmann\CodeCoverage\Driver\PHPDBG');
         $mock->expects($this->once())
              ->method('stop');
 

@@ -22,12 +22,15 @@ class TextTest extends TestCase
 {
     public function testProcess()
     {
+        $this->markTestIncomplete(
+            'This test seems to be broken after update to phpunit ~4.0.'
+        );
 
         $report = $this->getMockBuilder('File')
                        ->disableOriginalConstructor()
                        ->getMock();
 
-        $coverage = $this->getMock('SebastianBergmann\CodeCoverage\CodeCoverage');
+        $coverage = $this->createMock('SebastianBergmann\CodeCoverage\CodeCoverage');
         $coverage->expects($this->once())
                  ->method('getReport')
                  ->will($this->returnValue($report));
@@ -37,9 +40,6 @@ class TextTest extends TestCase
         $report->process($coverage);
         $result = ob_get_clean();
 
-        $this->markTestIncomplete(
-            'This test seems to be broken after update to phpunit ~4.0.'
-        );
         $this->assertTrue(strpos($result, 'Code Coverage Report') !== false);
     }
 }

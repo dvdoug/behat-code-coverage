@@ -27,10 +27,10 @@ class HtmlTest extends TestCase
 
         file_put_contents($target . '/file', "test\n");
 
-        $report = new \SebastianBergmann\CodeCoverage\Report\Node\Directory($target);
+        $report = new \SebastianBergmann\CodeCoverage\Node\Directory($target);
         $report->addFile('file', array('class' => array(1 => 1)), array(), false);
 
-        $coverage = $this->getMock('SebastianBergmann\CodeCoverage\CodeCoverage');
+        $coverage = $this->createMock('SebastianBergmann\CodeCoverage\CodeCoverage');
         $coverage->expects($this->once())
                  ->method('getReport')
                  ->will($this->returnValue($report));

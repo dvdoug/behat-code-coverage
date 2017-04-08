@@ -21,8 +21,8 @@ class PhpTest extends TestCase
 {
     public function testProcess()
     {
-        $coverage = $this->getMock('SebastianBergmann\CodeCoverage\CodeCoverage');
-        $filter = $this->getMock('Filter');
+        $coverage = $this->createMock('SebastianBergmann\CodeCoverage\CodeCoverage');
+        $filter = $this->createMock('SebastianBergmann\CodeCoverage\Filter');
         $filter
             ->expects($this->once())
             ->method('getBlacklistedFiles')

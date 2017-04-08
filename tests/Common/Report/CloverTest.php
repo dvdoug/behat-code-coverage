@@ -26,7 +26,7 @@ class CloverTest extends TestCase
                        ->disableOriginalConstructor()
                        ->getMock();
 
-        $coverage = $this->getMock('CodeCoverage');
+        $coverage = $this->createMock('CodeCoverage');
         $coverage->expects($this->once())
                  ->method('getReport')
                  ->will($this->returnValue($report));

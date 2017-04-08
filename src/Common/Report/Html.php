@@ -10,7 +10,7 @@ namespace LeanPHP\Behat\CodeCoverage\Common\Report;
 
 use LeanPHP\Behat\CodeCoverage\Common\ReportInterface;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
-use SebastianBergmann\CodeCoverage\Report\HTML as HTMLCC;
+use SebastianBergmann\CodeCoverage\Report\Html\Facade;
 
 /**
  * HTML report
@@ -20,7 +20,7 @@ use SebastianBergmann\CodeCoverage\Report\HTML as HTMLCC;
 class Html implements ReportInterface
 {
     /**
-     * @var HTMLCC
+     * @var Facade
      */
     private $report;
 
@@ -58,9 +58,7 @@ class Html implements ReportInterface
             $options['generator'] = '';
         }
 
-        $this->report = new HTMLCC(
-            $options['charset'],
-            $options['highlight'],
+        $this->report = new Facade(
             $options['lowUpperBound'],
             $options['highUpperBound'],
             $options['generator']

@@ -45,12 +45,12 @@ END_OF_SQLITE
                        ->disableOriginalConstructor()
                        ->getMock();
 
-        $factory = $this->getMock('LeanPHP\Behat\CodeCoverage\Common\Report\Factory');
+        $factory = $this->createMock('LeanPHP\Behat\CodeCoverage\Common\Report\Factory');
         $factory->expects($this->once())
                 ->method('create')
                 ->will($this->returnValue($report));
 
-        $coverage = $this->getMock('SebastianBergmann\CodeCoverage\CodeCoverage');
+        $coverage = $this->createMock('SebastianBergmann\CodeCoverage\CodeCoverage');
 
         $service = new ReportService(array('report' => array('format' => 'html', 'options' => array())), $factory);
         $service->generateReport($coverage);

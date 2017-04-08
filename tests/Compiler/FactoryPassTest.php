@@ -21,7 +21,7 @@ class FactoryPassTest extends TestCase
 {
     public function testProcessNoServiceDefinition()
     {
-        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerBuilder');
+        $container = $this->createMock('Symfony\Component\DependencyInjection\ContainerBuilder');
         $container->expects($this->once())
                   ->method('hasDefinition')
                   ->will($this->returnValue(false));
@@ -32,21 +32,21 @@ class FactoryPassTest extends TestCase
 
     public function testProcess()
     {
-        $factory = $this->getMock('Symfony\Component\DependencyInjection\Definition');
+        $factory = $this->createMock('Symfony\Component\DependencyInjection\Definition');
         $factory->expects($this->once())
                 ->method('setArguments');
 
-        $xcache = $this->getMock('Symfony\Component\DependencyInjection\Definition');
+        $xcache = $this->createMock('Symfony\Component\DependencyInjection\Definition');
         $xcache->expects($this->once())
                ->method('getClass')
                ->will($this->returnValue('LeanPHP\Behat\CodeCoverage\Common\Driver\XCache'));
 
-        $xdebug = $this->getMock('Symfony\Component\DependencyInjection\Definition');
+        $xdebug = $this->createMock('Symfony\Component\DependencyInjection\Definition');
         $xdebug->expects($this->once())
                ->method('getClass')
                ->will($this->returnValue('Xdebug'));
 
-        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerBuilder');
+        $container = $this->createMock('Symfony\Component\DependencyInjection\ContainerBuilder');
 
         $container->expects($this->at(0))
                   ->method('hasDefinition')

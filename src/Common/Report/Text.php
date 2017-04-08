@@ -92,7 +92,7 @@ class Text implements ReportInterface
 
     private function getVersion()
     {
-        $reflectionMethod = new \ReflectionMethod('TextCC', '__construct');
+        $reflectionMethod = new \ReflectionMethod('SebastianBergmann\CodeCoverage\Report\Text', '__construct');
         $parameters = $reflectionMethod->getParameters();
 
         if (reset($parameters)->name === 'outputStream') {

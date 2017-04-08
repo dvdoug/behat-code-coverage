@@ -61,7 +61,7 @@ class HHVMTest extends TestCase
             return true;
         });
 
-        $function = $this->getMock('VIPSoft\Test\FunctionProxy');
+        $function = $this->createMock('VIPSoft\Test\FunctionProxy');
         $function->expects($this->exactly(2))
                  ->method('invokeFunction');
 

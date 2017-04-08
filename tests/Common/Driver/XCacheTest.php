@@ -36,7 +36,7 @@ class XCacheTest extends TestCase
 
     public function testConstructXCacheCoverageNotEnabled()
     {
-        $function = $this->getMock('VIPSoft\Test\FunctionProxy');
+        $function = $this->createMock('VIPSoft\Test\FunctionProxy');
         $function->expects($this->once())
                  ->method('invokeFunction')
                  ->will($this->returnValue(true));
@@ -63,7 +63,7 @@ class XCacheTest extends TestCase
 
     public function testConstructXCache()
     {
-        $function = $this->getMock('VIPSoft\Test\FunctionProxy');
+        $function = $this->createMock('VIPSoft\Test\FunctionProxy');
         $function->expects($this->once())
                  ->method('invokeFunction')
                  ->will($this->returnValue(true));
@@ -83,7 +83,7 @@ class XCacheTest extends TestCase
 
     public function testStartXCache()
     {
-        $function = $this->getMock('VIPSoft\Test\FunctionProxy');
+        $function = $this->createMock('VIPSoft\Test\FunctionProxy');
         $function->expects($this->once())
                  ->method('invokeFunction')
                  ->will($this->returnValue(true));
@@ -98,7 +98,7 @@ class XCacheTest extends TestCase
             return true;
         });
 
-        $function = $this->getMock('VIPSoft\Test\FunctionProxy');
+        $function = $this->createMock('VIPSoft\Test\FunctionProxy');
         $function->expects($this->once())
                  ->method('invokeFunction');
 
@@ -110,7 +110,7 @@ class XCacheTest extends TestCase
 
     public function testStopXCache()
     {
-        $function = $this->getMock('VIPSoft\Test\FunctionProxy');
+        $function = $this->createMock('VIPSoft\Test\FunctionProxy');
         $function->expects($this->once())
                  ->method('invokeFunction')
                  ->will($this->returnValue(true));
@@ -125,7 +125,7 @@ class XCacheTest extends TestCase
             return true;
         });
 
-        $function = $this->getMock('VIPSoft\Test\FunctionProxy');
+        $function = $this->createMock('VIPSoft\Test\FunctionProxy');
         $function->expects($this->exactly(2))
                  ->method('invokeFunction');
 

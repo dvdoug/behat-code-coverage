@@ -20,7 +20,7 @@ class DriverPassTest extends TestCase
 {
     public function testProcessNoServiceDefinition()
     {
-        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerBuilder');
+        $container = $this->createMock('Symfony\Component\DependencyInjection\ContainerBuilder');
         $container->expects($this->once())
                   ->method('hasDefinition')
                   ->will($this->returnValue(false));
@@ -31,11 +31,11 @@ class DriverPassTest extends TestCase
 
     public function testProcess()
     {
-        $proxy = $this->getMock('Symfony\Component\DependencyInjection\Definition');
+        $proxy = $this->createMock('Symfony\Component\DependencyInjection\Definition');
         $proxy->expects($this->exactly(2))
               ->method('addMethodCall');
 
-        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerBuilder');
+        $container = $this->createMock('Symfony\Component\DependencyInjection\ContainerBuilder');
         $container->expects($this->once())
                   ->method('hasDefinition')
                   ->with('behat.code_coverage.driver.proxy')
