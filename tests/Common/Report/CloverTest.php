@@ -10,7 +10,6 @@ namespace LeanPHP\Behat\CodeCoverage\Common\Report;
 
 use VIPSoft\TestCase;
 use LeanPHP\Behat\CodeCoverage\Common\Report\Factory;
-use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Report\Node\File;
 
 /**
@@ -26,7 +25,7 @@ class CloverTest extends TestCase
                        ->disableOriginalConstructor()
                        ->getMock();
 
-        $coverage = $this->createMock('CodeCoverage');
+        $coverage = $this->createMock('SebastianBergmann\CodeCoverage\CodeCoverage');
         $coverage->expects($this->once())
                  ->method('getReport')
                  ->will($this->returnValue($report));
