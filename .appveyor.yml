@@ -51,5 +51,5 @@ install:
 
 test_script:
   - cd c:\projects\behat-code-coverage
-  - php vendor\phpunit\phpunit\phpunit -vvv
+  - phpdbg -qrr vendor\phpunit\phpunit\phpunit -vvv
 
