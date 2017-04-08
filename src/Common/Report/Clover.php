@@ -10,7 +10,7 @@ namespace LeanPHP\Behat\CodeCoverage\Common\Report;
 
 use LeanPHP\Behat\CodeCoverage\Common\ReportInterface;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
-use SebastianBergmann\CodeCoverage\Report\Clover as CloverCC;
+use SebastianBergmann\CodeCoverage\Report\Clover as CloverReport;
 
 /**
  * Clover report
@@ -42,7 +42,7 @@ class Clover implements ReportInterface
             $options['name'] = null;
         }
 
-        $this->report = new CloverCC();
+        $this->report = new CloverReport();
         $this->options = $options;
     }
 

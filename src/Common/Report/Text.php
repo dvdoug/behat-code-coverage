@@ -10,7 +10,7 @@ namespace LeanPHP\Behat\CodeCoverage\Common\Report;
 
 use LeanPHP\Behat\CodeCoverage\Common\ReportInterface;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
-use SebastianBergmann\CodeCoverage\Report\Text as TextCC;
+use SebastianBergmann\CodeCoverage\Report\Text as TextReport;
 
 /**
  * Text report
@@ -57,7 +57,7 @@ class Text implements ReportInterface
         if ($this->getVersion() === '1.2') {
             $outputStream = new \PHPUnit_Util_Printer($options['printer']);
 
-            $this->report = new TextCC(
+            $this->report = new TextReport(
                 $outputStream,
                 $options['lowUpperBound'],
                 $options['highUpperBound'],
@@ -68,7 +68,7 @@ class Text implements ReportInterface
                 $options['showOnlySummary'] = false;
             }
 
-            $this->report = new TextCC(
+            $this->report = new TextReport(
                 $options['lowUpperBound'],
                 $options['highUpperBound'],
                 $options['showUncoveredFiles'],
