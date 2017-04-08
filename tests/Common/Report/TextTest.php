@@ -11,7 +11,6 @@ namespace LeanPHP\Behat\CodeCoverage\Common\Report;
 use VIPSoft\TestCase;
 use LeanPHP\Behat\CodeCoverage\Common\Report\Factory;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
-use SebastianBergmann\CodeCoverage\Report\Node\File;
 
 /**
  * Text report test
@@ -22,11 +21,7 @@ class TextTest extends TestCase
 {
     public function testProcess()
     {
-        $this->markTestIncomplete(
-            'This test seems to be broken after update to phpunit ~4.0.'
-        );
-
-        $report = $this->getMockBuilder('File')
+        $report = $this->getMockBuilder('SebastianBergmann\CodeCoverage\Node\File')
                        ->disableOriginalConstructor()
                        ->getMock();
 
@@ -40,6 +35,6 @@ class TextTest extends TestCase
         $report->process($coverage);
         $result = ob_get_clean();
 
-        $this->assertTrue(strpos($result, 'Code Coverage Report') !== false);
+        $this->assertTrue($result === '');
     }
 }
