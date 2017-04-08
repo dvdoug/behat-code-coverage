@@ -85,7 +85,7 @@ class StubTest extends TestCase
 
         $driver = new Stub();
         $driver->setDriver($mock);
-        $driver->startPHPDBG();
+        $driver->start();
     }
 
     /**
