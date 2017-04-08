@@ -52,7 +52,7 @@
         <service id="behat.code_coverage.php_code_coverage_filter" class="SebastianBergmann\CodeCoverage\Filter" />
 
         <!-- The filter compiler pass will configure the injected coverage filter -->
-        <service id="behat.code_coverage.php_code_coverage" class="SebastianBergmann\CodeCoverage\PHP_CodeCoverage">
+        <service id="behat.code_coverage.php_code_coverage" class="SebastianBergmann\CodeCoverage\CodeCoverage">
             <argument type="service" id="behat.code_coverage.driver.proxy" />
             <argument type="service" id="behat.code_coverage.php_code_coverage_filter" />
         </service>

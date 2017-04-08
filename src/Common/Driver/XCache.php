@@ -13,7 +13,7 @@ use SebastianBergmann\CodeCoverage\Driver\Driver as DriverInterface;
 /**
  * XCache Driver
  *
- * {@internal Derived from PHP_CodeCoverage_Driver_Xdebug.}
+ * {@internal Derived from SebastianBergmann\CodeCoverage\Driver\Xdebug.}
  *
  * @author Anthon Pang <apang@softwaredevelopment.ca>
  */
@@ -33,7 +33,7 @@ class XCache implements DriverInterface
         if (version_compare(phpversion('xcache'), '1.2.0', '<') ||
             ! ini_get('xcache.coverager')
         ) {
-            throw new \PHP_CodeCoverage_Exception('xcache.coverager=On has to be set in php.ini');
+            throw new \SebastianBergmann\CodeCoverage\RuntimeException('xcache.coverager=On has to be set in php.ini');
         }
     }
 

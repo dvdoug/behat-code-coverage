@@ -12,7 +12,7 @@ use Behat\Behat\EventDispatcher\Event\ExampleTested;
 use Behat\Behat\EventDispatcher\Event\ScenarioTested;
 use Behat\Testwork\EventDispatcher\Event\ExerciseCompleted;
 use LeanPHP\Behat\CodeCoverage\Service\ReportService;
-use SebastianBergmann\CodeCoverage\PHP_CodeCoverage;
+use SebastianBergmann\CodeCoverage\CodeCoverage;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -24,7 +24,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class EventListener implements EventSubscriberInterface
 {
     /**
-     * @var PHP_CodeCoverage
+     * @var CodeCoverage
      */
     private $coverage;
 
@@ -36,10 +36,10 @@ class EventListener implements EventSubscriberInterface
     /**
      * Constructor
      *
-     * @param PHP_CodeCoverage                                    $coverage
+     * @param CodeCoverage                                      $coverage
      * @param \LeanPHP\Behat\CodeCoverage\Service\ReportService $reportService
      */
-    public function __construct(PHP_CodeCoverage $coverage, ReportService $reportService)
+    public function __construct(CodeCoverage $coverage, ReportService $reportService)
     {
         $this->coverage      = $coverage;
         $this->reportService = $reportService;

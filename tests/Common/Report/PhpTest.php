@@ -11,7 +11,7 @@ namespace LeanPHP\Behat\CodeCoverage\Common\Report;
 use VIPSoft\TestCase;
 use LeanPHP\Behat\CodeCoverage\Common\Report\Factory;
 use SebastianBergmann\CodeCoverage\Filter;
-use SebastianBergmann\CodeCoverage\PHP_CodeCoverage;
+use SebastianBergmann\CodeCoverage\CodeCoverage;
 /**
  * PHP report test
  *
@@ -21,7 +21,7 @@ class PhpTest extends TestCase
 {
     public function testProcess()
     {
-        $coverage = $this->getMock('PHP_CodeCoverage');
+        $coverage = $this->getMock('SebastianBergmann\CodeCoverage\CodeCoverage');
         $filter = $this->getMock('Filter');
         $filter
             ->expects($this->once())

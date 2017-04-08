@@ -9,7 +9,7 @@
 namespace LeanPHP\Behat\CodeCoverage\Common\Report;
 
 use LeanPHP\Behat\CodeCoverage\Common\ReportInterface;
-use SebastianBergmann\CodeCoverage\PHP_CodeCoverage;
+use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Report\XML as XMLCC;
 
 /**
@@ -35,7 +35,7 @@ class Xml implements ReportInterface
     public function __construct(array $options)
     {
         if ( ! class_exists('XMLCC')) {
-            throw new \Exception('XML requires PHP_CodeCoverage 4.0+');
+            throw new \Exception('XML requires CodeCoverage 4.0+');
         }
 
         if ( ! isset($options['target'])) {
@@ -49,7 +49,7 @@ class Xml implements ReportInterface
     /**
      * {@inheritdoc}
      */
-    public function process(PHP_CodeCoverage $coverage)
+    public function process(CodeCoverage $coverage)
     {
         return $this->report->process(
             $coverage,

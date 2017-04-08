@@ -11,7 +11,7 @@ namespace LeanPHP\Behat\CodeCoverage\Common\Report;
 use VIPSoft\TestCase;
 use LeanPHP\Behat\CodeCoverage\Common\Report\Factory;
 use org\bovigo\vfs\vfsStream;
-use SebastianBergmann\CodeCoverage\PHP_CodeCoverage;
+use SebastianBergmann\CodeCoverage\CodeCoverage;
 
 /**
  * HTML report test
@@ -27,10 +27,10 @@ class HtmlTest extends TestCase
 
         file_put_contents($target . '/file', "test\n");
 
-        $report = new \PHP_CodeCoverage_Report_Node_Directory($target);
+        $report = new \SebastianBergmann\CodeCoverage\Report\Node\Directory($target);
         $report->addFile('file', array('class' => array(1 => 1)), array(), false);
 
-        $coverage = $this->getMock('PHP_CodeCoverage');
+        $coverage = $this->getMock('SebastianBergmann\CodeCoverage\CodeCoverage');
         $coverage->expects($this->once())
                  ->method('getReport')
                  ->will($this->returnValue($report));

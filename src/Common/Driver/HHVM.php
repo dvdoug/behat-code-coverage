@@ -9,12 +9,12 @@
 namespace LeanPHP\Behat\CodeCoverage\Common\Driver;
 
 use SebastianBergmann\CodeCoverage\Driver\Driver as DriverInterface;
-use SebastianBergmann\CodeCoverage\PHP_CodeCoverage;
+use SebastianBergmann\CodeCoverage\CodeCoverage;
 
 /**
  * HHVM (Hip Hop VM) Driver
  *
- * {@internal Derived from PHP_CodeCoverage_Driver_Xdebug.}
+ * {@internal Derived from SebastianBergmann\CodeCoverage\Driver\Xdebug.}
  *
  * @author Anthon Pang <apang@softwaredevelopment.ca>
  */

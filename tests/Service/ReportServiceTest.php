@@ -50,7 +50,7 @@ END_OF_SQLITE
                 ->method('create')
                 ->will($this->returnValue($report));
 
-        $coverage = $this->getMock('PHP_CodeCoverage');
+        $coverage = $this->getMock('SebastianBergmann\CodeCoverage\CodeCoverage');
 
         $service = new ReportService(array('report' => array('format' => 'html', 'options' => array())), $factory);
         $service->generateReport($coverage);

@@ -21,7 +21,7 @@ class Crap4jTest extends TestCase
 {
     public function testProcess()
     {
-        if ( ! class_exists('PHP_CodeCoverage_Report_Crap4j')) {
+        if ( ! class_exists('SebastianBergmann\CodeCoverage\Report\Crap4j')) {
             $this->markTestSkipped();
 
             return;
