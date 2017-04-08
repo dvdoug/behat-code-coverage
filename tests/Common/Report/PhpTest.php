@@ -12,6 +12,8 @@ use VIPSoft\TestCase;
 use LeanPHP\Behat\CodeCoverage\Common\Report\Factory;
 use SebastianBergmann\CodeCoverage\Filter;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
+use SebastianBergmann\CodeCoverage\Report\Php;
+
 /**
  * PHP report test
  *
@@ -32,7 +34,7 @@ class PhpTest extends TestCase
                   ->will($this->returnValue($filter));
 
 
-        $report = new PHP(array());
+        $report = new Php(array());
         $result = $report->process($coverage);
 
         $this->assertTrue(strncmp($result, '<?php', 2) === 0);

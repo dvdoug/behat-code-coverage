@@ -10,7 +10,7 @@ namespace LeanPHP\Behat\CodeCoverage\Common\Report;
 
 use LeanPHP\Behat\CodeCoverage\Common\ReportInterface;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
-use SebastianBergmann\CodeCoverage\Report\XML as XMLCC;
+use SebastianBergmann\CodeCoverage\Report\Xml\Facade;;
 
 /**
  * XML report
@@ -34,7 +34,7 @@ class Xml implements ReportInterface
      */
     public function __construct(array $options)
     {
-        if ( ! class_exists('XMLCC')) {
+        if ( ! class_exists('SebastianBergmann\CodeCoverage\Report\Xml\Facade')) {
             throw new \Exception('XML requires CodeCoverage 4.0+');
         }
 
@@ -42,7 +42,7 @@ class Xml implements ReportInterface
             $options['target'] = null;
         }
 
-        $this->report = new XMLCC();
+        $this->report = new Facade(array());
         $this->options = $options;
     }
 
