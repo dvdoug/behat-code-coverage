@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Update PHP requirement to `>=5.6` (from `>=5.3.10`)
 - Update `guzzlehttp/guzzle` from `~3.0` to `~4.0`.
 - Update `phpunit/php-code-coverage` from `~2.2` to `~4.0||~5.0`.
+- Removed blacklist functionality from configuration files (use `whiltelisted`
+  directories with `include`/`exclude` instead).
 - Add/implement missing tests for Xml and Crap4j reporters
 - Mark `phpdbg` or `xdebug` specific tests so they are skipped automatically
   (using phpunit's @requires).
