@@ -65,10 +65,8 @@ class FilterPass implements CompilerPassInterface
         $config = $container->getParameter('behat.code_coverage.config.filter');
 
         $dirs = array(
-            'addDirectoryToBlackList' => array('blacklist', 'include', 'directories'),
-            'removeDirectoryFromBlackList' => array('blacklist', 'exclude', 'directories'),
-            'addDirectoryToWhiteList' => array('whitelist', 'include', 'directories'),
-            'removeDirectoryFromWhiteList' => array('whitelist', 'exclude', 'directories'),
+            //'addDirectoryToBlackList' => array('blacklist', 'include', 'directories'),
+            //'removeDirectoryFromBlackList' => array('blacklist', 'exclude', 'directories'),
         );
 
         foreach ($dirs as $method => $hiera) {
