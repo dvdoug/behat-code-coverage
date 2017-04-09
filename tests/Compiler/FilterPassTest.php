@@ -64,7 +64,7 @@ class FilterPassTest extends TestCase
     public function testProcessCodeCoverageFilter()
     {
         $filter = $this->createMock('Symfony\Component\DependencyInjection\Definition');
-        $filter->expects($this->exactly(8))
+        $filter->expects($this->exactly(4))
                ->method('addMethodCall');
 
         $container = $this->createMock('Symfony\Component\DependencyInjection\ContainerBuilder');
