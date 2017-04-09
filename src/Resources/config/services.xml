@@ -47,7 +47,7 @@
         <!-- The factory compiler pass will register available driver classes with the factory -->
         <service id="vipsoft.code_coverage.driver.factory" class="%vipsoft.code_coverage.driver.factory.class%" />
 
-        <service id="behat.code_coverage.http_client" class="Guzzle\Http\Client" />
+        <service id="behat.code_coverage.http_client" class="GuzzleHttp\Client" />
 
         <service id="behat.code_coverage.php_code_coverage_filter" class="SebastianBergmann\CodeCoverage\Filter" />
 

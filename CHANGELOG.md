@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [3.1.x-dev] - UNRELEASED
 
 - Update PHP requirement to `>=5.6` (from `>=5.3.10`)
+- Update `guzzlehttp/guzzle` from `~3.0` to `~4.0`.
 - Update `phpunit/php-code-coverage` from `~2.2` to `~4.0||~5.0`.
 - Add/implement missing tests for Xml and Crap4j reporters
 - Mark `phpdbg` or `xdebug` specific tests so they are skipped automatically

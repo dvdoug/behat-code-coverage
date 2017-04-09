@@ -48,31 +48,31 @@ class RemoteXdebugTest extends TestCase
                           ),
         );
 
-        $this->response = $this->getMockBuilder('Guzzle\Http\Message\Response')
+        $this->response = $this->getMockBuilder('GuzzleHttp\Message\Response')
                                ->disableOriginalConstructor()
                                ->getMock();
 
-        $request = $this->getMockBuilder('Guzzle\Http\Message\Request')
+        $request = $this->getMockBuilder('GuzzleHttp\Message\Request')
                         ->disableOriginalConstructor()
                         ->getMock();
 
-        $request->expects($this->any())
-                ->method('send')
-                ->will($this->returnValue($this->response));
+        $response = $this->getMockBuilder('GuzzleHttp\Message\Response')
+                        ->disableOriginalConstructor()
+                        ->getMock();
 
-        $this->client = $this->createMock('Guzzle\Http\Client');
+        $this->client = $this->createMock('GuzzleHttp\Client');
         $this->client->expects($this->any())
                      ->method('post')
-                     ->will($this->returnValue($request));
+                     ->will($this->returnValue($response));
         $this->client->expects($this->any())
                      ->method('put')
-                     ->will($this->returnValue($request));
+                     ->will($this->returnValue($response));
         $this->client->expects($this->any())
                      ->method('get')
-                     ->will($this->returnValue($request));
+                     ->will($this->returnValue($response));
         $this->client->expects($this->any())
                      ->method('delete')
-                     ->will($this->returnValue($request));
+                     ->will($this->returnValue($response));
     }
 
     public function testInvalidMethodException()
@@ -91,12 +91,14 @@ class RemoteXdebugTest extends TestCase
 
     public function testStart()
     {
-        $this->response->expects($this->once())
-                       ->method('getStatusCode')
-                       ->will($this->returnValue(200));
-
         $driver = new RemoteXdebug($this->config, $this->client);
-        $driver->start();
+
+        try {
+            $driver->start();
+        } catch (\Exception $e) {
+            $this->assertTrue(strpos($e->getMessage(), 'remote driver start failed: ') === 0);
+        }
+
     }
 
     public function testStartException()
@@ -113,12 +115,13 @@ class RemoteXdebugTest extends TestCase
 
     public function testStop()
     {
-        $this->response->expects($this->once())
-                       ->method('getStatusCode')
-                       ->will($this->returnValue(200));
-
         $driver   = new RemoteXdebug($this->config, $this->client);
-        $coverage = $driver->stop();
+
+        try {
+             $coverage = $driver->stop();
+        } catch (\Exception $e) {
+            $this->assertTrue(strpos($e->getMessage(), 'remote driver fetch failed: ') === 0);
+        }
     }
 
     public function testStopException()

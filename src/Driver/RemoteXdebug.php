@@ -8,7 +8,8 @@
 
 namespace LeanPHP\Behat\CodeCoverage\Driver;
 
-use Guzzle\Http\Client;
+use GuzzleHttp\Client;
+use GuzzleHttp\Message\Response;
 use SebastianBergmann\CodeCoverage\Driver\Driver as DriverInterface;
 
 /**
@@ -24,7 +25,7 @@ class RemoteXdebug implements DriverInterface
     private $config;
 
     /**
-     * @var \Guzzle\Http\Client
+     * @var GuzzleHttp\Client
      */
     private $client;
 
@@ -52,7 +53,7 @@ class RemoteXdebug implements DriverInterface
      * ]
      *
      * @param array               $config Configuration
-     * @param \Guzzle\Http\Client $client HTTP client
+     * @param GuzzleHttp\Client $client HTTP client
      */
     public function __construct(array $config, Client $client)
     {
@@ -67,9 +68,7 @@ class RemoteXdebug implements DriverInterface
      */
     public function start($determineUnusedAndDead = true)
     {
-        $request = $this->buildRequest('create');
-
-        $response = $request->send();
+        $response = $this->sendRequest('create');
 
         if ($response->getStatusCode() !== 200) {
             throw new \Exception('remote driver start failed: ' . $response->getReasonPhrase());
@@ -81,17 +80,13 @@ class RemoteXdebug implements DriverInterface
      */
     public function stop()
     {
-        $request = $this->buildRequest('read');
-        $request->setHeader('Accept', 'application/json');
-
-        $response = $request->send();
+        $response = $this->sendRequest('read', ['Accept' => 'application/json']);
 
         if ($response->getStatusCode() !== 200) {
             throw new \Exception('remote driver fetch failed: ' . $response->getReasonPhrase());
         }
 
-        $request = $this->buildRequest('delete');
-        $request->send();
+        $response = $this->sendRequest('delete');
 
         return json_decode($response->getBody(true), true);
     }
@@ -100,10 +95,11 @@ class RemoteXdebug implements DriverInterface
      * Construct request
      *
      * @param string $endpoint
+     * @param array  $headers
      *
-     * @return \Guzzle\Http\Message\Request
+     * @return GuzzleHttp\Message\Response
      */
-    private function buildRequest($endpoint)
+    private function sendRequest($endpoint, $headers = array())
     {
         $method = strtolower($this->config[$endpoint]['method']);
 
@@ -111,12 +107,21 @@ class RemoteXdebug implements DriverInterface
             throw new \Exception($endpoint . ' method must be GET, POST, PUT, or DELETE');
         }
 
-        $request = $this->client->$method($this->config[$endpoint]['path']);
-
         if (isset($this->config['auth'])) {
-            $request->setAuth($this->config['auth']['user'], $this->config['auth']['password']);
+            $response = $this->client->$method(
+                $this->config[$endpoint]['path'], [
+                    'auth' => [$this->config['auth']['user'], $this->config['auth']['password']],
+                    'headers' => $headers,
+                ]
+            );
+        } else {
+            $response = $this->client->$method(
+                $this->config[$endpoint]['path'], [
+                    'headers' => $headers
+                ]
+            );
         }
 
-        return $request;
+        return $response;
     }
 }
