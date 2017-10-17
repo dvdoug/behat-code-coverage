@@ -29,7 +29,7 @@ class RemoteXdebugTest extends TestCase
         parent::setUp();
 
         $this->config = array(
-            'base_url' => 'http://localhost',
+            'base_uri' => 'http://localhost',
             'auth'     => array(
                               'user'     => 'user name',
                               'password' => 'password',

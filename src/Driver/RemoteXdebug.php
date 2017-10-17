@@ -33,7 +33,7 @@ class RemoteXdebug implements DriverInterface
      * Constructor
      *
      * [
-     *     'base_url' => 'http://api.example.com/1.0/coverage',
+     *     'base_uri' => 'http://api.example.com/1.0/coverage',
      *     'auth'     => [
      *                       'user'     => 'user name',
      *                       'password' => 'password',
@@ -60,7 +60,7 @@ class RemoteXdebug implements DriverInterface
         $this->config = $config;
 
         $this->client = $client;
-        $this->client->setBaseUrl($config['base_url']);
+        //$this->client->setBaseUrl($config['base_url']);
     }
 
     /**
