@@ -48,30 +48,34 @@ class RemoteXdebugTest extends TestCase
                           ),
         );
 
-        $this->response = $this->getMockBuilder('GuzzleHttp\Message\Response')
+        $this->response = $this->getMockBuilder('GuzzleHttp\Psr7\Response')
                                ->disableOriginalConstructor()
                                ->getMock();
 
-        $request = $this->getMockBuilder('GuzzleHttp\Message\Request')
+        $request = $this->getMockBuilder('GuzzleHttp\Psr7\Request')
                         ->disableOriginalConstructor()
                         ->getMock();
 
-        $response = $this->getMockBuilder('GuzzleHttp\Message\Response')
+        $response = $this->getMockBuilder('GuzzleHttp\Psr7\Response')
                         ->disableOriginalConstructor()
                         ->getMock();
+
+        $response->expects($this->any())
+            ->method('getStatusCode')
+            ->will($this->returnValue('302'));
 
         $this->client = $this->createMock('GuzzleHttp\Client');
         $this->client->expects($this->any())
-                     ->method('post')
+            ->method('request')
                      ->will($this->returnValue($response));
         $this->client->expects($this->any())
-                     ->method('put')
+            ->method('request')
                      ->will($this->returnValue($response));
         $this->client->expects($this->any())
-                     ->method('get')
+            ->method('request')
                      ->will($this->returnValue($response));
         $this->client->expects($this->any())
-                     ->method('delete')
+            ->method('request')
                      ->will($this->returnValue($response));
     }
 

@@ -6,6 +6,14 @@ documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.2.0] - 2017-10-17 - Guzzle 6.0 support release
+
+- Updated `guzzlehttp/guzzle` requirement from `~4.0||~5.0` to `~6.0`. We are
+  considering dropping `guzzlehttp` as a requirement altogether and have it as
+  `suggested` packages instead, as it is only required when using remote xdebug.
+  We are looking for feedback regarding this on
+  https://github.com/leanphp/behat-code-coverage/issues/15
+
 ## [3.1.0] - 2017-10-17 - Legacy maintenance release
 
 - Update PHP requirement to `>=5.6` (from `>=5.3.10`)
@@ -48,7 +56,8 @@ disappear, this extension would still work.
 - Updated `vfsStream` from `1.2.*` to `1.3.*` to fix failing/skipped test
 - Updated versions of dependencies and code is tested to run with Behat `2.5`.
 
-[3.2.x-dev]: https://github.com/leanphp/behat-code-coverage/compare/v3.1.0...master
+[3.2.x-dev]: https://github.com/leanphp/behat-code-coverage/compare/v3.2.0...master
+[3.2.0]: https://github.com/leanphp/behat-code-coverage/releases/tag/v3.2.0
 [3.1.0]: https://github.com/leanphp/behat-code-coverage/releases/tag/v3.1.0
 [3.0.0]: https://github.com/leanphp/behat-code-coverage/releases/tag/v3.0.0
 [2.5.5]: https://github.com/leanphp/behat-code-coverage/releases/tag/v2.5.5
