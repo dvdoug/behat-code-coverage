@@ -9,7 +9,7 @@
 namespace LeanPHP\Behat\CodeCoverage\Driver;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Message\Response;
+use GuzzleHttp\Psr7\Response;
 use SebastianBergmann\CodeCoverage\Driver\Driver as DriverInterface;
 
 /**
@@ -80,7 +80,7 @@ class RemoteXdebug implements DriverInterface
      */
     public function stop()
     {
-        $response = $this->sendRequest('read', ['Accept' => 'application/json']);
+        $response = $this->sendRequest('read', ['headers' => ['Accept' => 'application/json']]);
 
         if ($response->getStatusCode() !== 200) {
             throw new \Exception('remote driver fetch failed: ' . $response->getReasonPhrase());
@@ -97,7 +97,7 @@ class RemoteXdebug implements DriverInterface
      * @param string $endpoint
      * @param array  $headers
      *
-     * @return GuzzleHttp\Message\Response
+     * @return GuzzleHttp\Psr7\Response
      */
     private function sendRequest($endpoint, $headers = array())
     {
@@ -108,14 +108,14 @@ class RemoteXdebug implements DriverInterface
         }
 
         if (isset($this->config['auth'])) {
-            $response = $this->client->$method(
+            $response = $this->client->request($method,
                 $this->config[$endpoint]['path'], [
                     'auth' => [$this->config['auth']['user'], $this->config['auth']['password']],
                     'headers' => $headers,
                 ]
             );
         } else {
-            $response = $this->client->$method(
+            $response = $this->client->request($method,
                 $this->config[$endpoint]['path'], [
                     'headers' => $headers
                 ]
