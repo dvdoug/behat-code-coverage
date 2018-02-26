@@ -52,8 +52,8 @@ default:
 
 This will sufficient to enable Code Coverage generation in `html` format in
 `build/behat-coverage` directory. This extension supports various
-[configuration options](#Configuration Options). For a fully annotated example
-configuration file check [Configuration section](#Configuration).
+[Configuration options](#configuration-options). For a fully annotated example
+configuration file check [Configuration section](#configuration).
 
 ## Usage
 
