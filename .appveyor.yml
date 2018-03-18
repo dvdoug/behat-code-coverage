@@ -3,9 +3,27 @@ build: false
 shallow_clone: false
 platform: x64
 clone_folder: c:\projects\behat-code-coverage
+pull_requests:
+  do_not_increment_build_number: true
 
 environment:
-  PHP_DOWNLOAD_FILE: 'php-7.1.2-nts-Win32-VC14-x86.zip'
+  COMPOSER_ROOT_VERSION: '7.0-dev'
+  matrix:
+    - PHP_VERSION: '7.2.0-Win32-VC15-x86'
+      DEPENDENCIES: ''
+      XDEBUG_VERSION: '2.6.0-7.2-vc15'
+    - PHP_VERSION: '7.2.0-Win32-VC15-x86'
+      DEPENDENCIES: '--prefer-lowest'
+      XDEBUG_VERSION: '2.6.0-7.2-vc15'
+    - PHP_VERSION: '7.1.12-Win32-VC14-x86'
+      DEPENDENCIES: ''
+      XDEBUG_VERSION: '2.6.0-7.1-vc14'
+    - PHP_VERSION: '7.1.12-Win32-VC14-x86'
+      DEPENDENCIES: '--prefer-lowest'
+      XDEBUG_VERSION: '2.6.0-7.1-vc14'
+
+matrix:
+  fast_finish: true
 
 #branches:
   #only:
@@ -14,40 +32,47 @@ environment:
 skip_commits:
   message: /\[ci skip\]/
 
-  #cache:
-  #- c:\php -> appveyor.yml
-  #- c:\php\composer.bat
+cache:
+  - c:\php -> appveyor.yml
+  - '%LOCALAPPDATA%\Composer\files'
 
 init:
-  - SET PATH=c:\php;%PATH%
+  - SET PATH=c:\php\%PHP_VERSION%;%PATH%
   - SET COMPOSER_NO_INTERACTION=1
   - SET PHP=1
   - SET ANSICON=121x90 (121x90)
   - git config --global core.autocrlf input
 
 install:
-  - IF EXIST c:\php (SET PHP=0) ELSE (mkdir c:\php)
-  - cd c:\php
-  - IF %PHP%==1 appveyor DownloadFile http://windows.php.net/downloads/releases/archives/%PHP_DOWNLOAD_FILE%
-  - IF %PHP%==1 7z x %PHP_DOWNLOAD_FILE% -y > 7z.log
-  - IF %PHP%==1 echo @php %%~dp0composer.phar %%* > composer.bat
-  - appveyor DownloadFile https://getcomposer.org/composer.phar
-  - copy php.ini-production php.ini /Y
-  - echo date.timezone="UTC" >> php.ini
-  - echo extension_dir=ext >> php.ini
-  - echo extension=php_openssl.dll >> php.ini
-  - echo extension=php_curl.dll >> php.ini
-  - echo extension=php_mbstring.dll >> php.ini
-  - echo extension=php_fileinfo.dll >> php.ini
-    # Xdebug
-  - IF %PHP%==1 appveyor DownloadFile https://xdebug.org/files/php_xdebug-2.5.1-7.1-vc14-nts-x86_64.dll
-  - mv php_xdebug-2.5.1-7.1-vc14-nts-x86_64.dll ext\
-  - echo zend_extension="php_xdebug-2.5.1-7.1-vc14-nts-x86_64.dll" >> php.ini
+  - IF NOT EXIST c:\php mkdir c:\php
+  - IF NOT EXIST c:\php\%PHP_VERSION% mkdir c:\php\%PHP_VERSION%
+  - cd c:\php\%PHP_VERSION%
+  - IF NOT EXIST php-installed.txt curl -fsS -o php-%PHP_VERSION%.zip  https://windows.php.net/downloads/releases/archives/php-%PHP_VERSION%.zip
+  - IF NOT EXIST php-installed.txt 7z x php-%PHP_VERSION%.zip -y >nul
+  - IF NOT EXIST php-installed.txt del /Q *.zip
+  - IF NOT EXIST php-installed.txt copy /Y php.ini-development php.ini
+  - IF NOT EXIST php-installed.txt echo max_execution_time=1200 >> php.ini
+  - IF NOT EXIST php-installed.txt echo date.timezone="UTC" >> php.ini
+  - IF NOT EXIST php-installed.txt echo extension_dir=ext >> php.ini
+  - IF NOT EXIST php-installed.txt echo extension=php_curl.dll >> php.ini
+  - IF NOT EXIST php-installed.txt echo extension=php_openssl.dll >> php.ini
+  - IF NOT EXIST php-installed.txt echo extension=php_mbstring.dll >> php.ini
+  - IF NOT EXIST php-installed.txt echo extension=php_fileinfo.dll >> php.ini
+  - IF NOT EXIST php-installed.txt echo extension=php_mysqli.dll >> php.ini
+  - IF NOT EXIST php-installed.txt echo extension=php_pdo_sqlite.dll >> php.ini
+  - IF NOT EXIST php-installed.txt echo zend.assertions=1 >> php.ini
+  - IF NOT EXIST php-installed.txt echo assert.exception=On >> php.ini
+  - IF NOT EXIST php-installed.txt appveyor DownloadFile https://getcomposer.org/composer.phar
+  - IF NOT EXIST php-installed.txt echo @php %%~dp0composer.phar %%* > composer.bat
+  - IF NOT EXIST php-installed.txt type nul >> php-installed.txt
+  - IF %PHP%==1 appveyor DownloadFile https://xdebug.org/files/php_xdebug-%XDEBUG_VERSION%.dll
+  - mv php_xdebug-%XDEBUG_VERSION%.dll ext\
+  - echo zend_extension="php_xdebug-%XDEBUG_VERSION%.dll" >> php.ini
   - echo xdebug.remote_enable=true >> php.ini
   - echo xdebug.remote_autostart=true >> php.ini
   - cd c:\projects\behat-code-coverage
   - composer self-update
-  - composer install --no-progress --ansi
+  - composer update --no-progress --no-ansi --no-interaction --no-suggest --optimize-autoloader --prefer-stable %DEPENDENCIES%
 
 test_script:
   - cd c:\projects\behat-code-coverage
