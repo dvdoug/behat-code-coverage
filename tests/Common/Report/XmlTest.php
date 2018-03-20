@@ -47,7 +47,8 @@ class XmlTest extends TestCase
         try {
             $result = $report->process($coverage);
         } catch (\Exception $e) {
-            print_r($e->getMessage());
+            echo 'aaaa';
+            echo($e->getMessage());
             $this->fail();
         }
     }

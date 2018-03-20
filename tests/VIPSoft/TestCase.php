@@ -8,12 +8,14 @@
 
 namespace VIPSoft;
 
+use PHPUnit\Framework\TestCase as BaseTestCase;
+
 /**
  * Test case
  *
  * @author Anthon Pang <apang@softwaredevelopment.ca>
  */
-class TestCase extends \PHPUnit_Framework_TestCase
+class TestCase extends BaseTestCase
 {
     /**
      * @var array

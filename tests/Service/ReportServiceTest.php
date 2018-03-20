@@ -14,7 +14,7 @@ use VIPSoft\TestCase;
  * Report service test
  *
  * @group Unit
- */
+ *
 class ReportServiceTest extends TestCase
 {
     public function __construct()
