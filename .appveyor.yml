@@ -77,5 +77,6 @@ install:
 
 test_script:
   - cd c:\projects\behat-code-coverage
+  - bin\phpcs
   - phpdbg -qrr vendor\phpunit\phpunit\phpunit -vvv
 
