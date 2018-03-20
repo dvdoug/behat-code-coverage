@@ -34,6 +34,7 @@ skip_commits:
 
 cache:
   - c:\php -> appveyor.yml
+  - c:\projects\behat-code-coverage\vendor
   - '%LOCALAPPDATA%\Composer\files'
 
 init:
