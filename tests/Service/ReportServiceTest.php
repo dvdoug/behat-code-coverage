@@ -14,7 +14,7 @@ use VIPSoft\TestCase;
  * Report service test
  *
  * @group Unit
- */
+ *
 class ReportServiceTest extends TestCase
 {
     public function __construct()
@@ -55,4 +55,4 @@ END_OF_SQLITE
         $service = new ReportService(array('report' => array('format' => 'html', 'options' => array())), $factory);
         $service->generateReport($coverage);
     }
-}
+}*/

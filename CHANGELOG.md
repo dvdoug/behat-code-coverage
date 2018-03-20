@@ -6,6 +6,12 @@ documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 3.x-dev
+
+- `phpunit/php-code-coverage` dependency version requirement has been updated
+  from `~4.0|~5.0` to `~5.0` as we do not support version `4.0` anymore.
+
+
 ## [3.2.0] - 2017-10-17 - Guzzle 6.0 support release
 
 - Updated `guzzlehttp/guzzle` requirement from `~4.0||~5.0` to `~6.0`. We are

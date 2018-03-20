@@ -42,7 +42,7 @@ class Xml implements ReportInterface
             $options['target'] = null;
         }
 
-        $this->report = new Facade(array());
+        $this->report = new Facade('');
         $this->options = $options;
     }
 
