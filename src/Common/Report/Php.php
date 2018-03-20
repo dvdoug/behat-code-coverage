@@ -3,6 +3,7 @@
  * Code Coverage PHP Report
  *
  * @copyright 2013 Anthon Pang
+ *
  * @license BSD-3-Clause
  */
 
@@ -34,7 +35,7 @@ class Php implements ReportInterface
      */
     public function __construct(array $options)
     {
-        if ( ! isset($options['target'])) {
+        if (! isset($options['target'])) {
             $options['target'] = null;
         }
 

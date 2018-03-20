@@ -3,6 +3,7 @@
  * XCache Code Coverage Driver
  *
  * @copyright 2013 Anthon Pang
+ *
  * @license BSD-3-Clause
  */
 
@@ -26,7 +27,7 @@ class XCache implements DriverInterface
      */
     public function __construct()
     {
-        if ( ! extension_loaded('xcache')) {
+        if (! extension_loaded('xcache')) {
             throw new \SebastianBergmann\CodeCoverage\RuntimeException('This driver requires XCache');
         }
 

@@ -3,6 +3,7 @@
  * Aggregate
  *
  * @copyright 2013 Anthon Pang
+ *
  * @license BSD-3-Clause
  */
 
@@ -36,14 +37,14 @@ class Aggregate
      */
     public function update($class, array $counts)
     {
-        if ( ! isset($this->coverage[$class])) {
+        if (! isset($this->coverage[$class])) {
             $this->coverage[$class] = $counts;
 
             return;
         }
 
         foreach ($counts as $line => $status) {
-            if ( ! isset($this->coverage[$class][$line]) || $status > 0) {
+            if (! isset($this->coverage[$class][$line]) || $status > 0) {
                 // converts "hits" to "status"
                 $status = ! $status ? -1 : ($status > 1 ? 1 : $status);
 

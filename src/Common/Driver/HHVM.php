@@ -3,6 +3,7 @@
  * HHVM Code Coverage Driver
  *
  * @copyright 2013 Anthon Pang
+ *
  * @license BSD-3-Clause
  */
 
@@ -27,7 +28,7 @@ class HHVM implements DriverInterface
      */
     public function __construct()
     {
-        if ( ! defined('HPHP_VERSION')) {
+        if (! defined('HPHP_VERSION')) {
             throw new \SebastianBergmann\CodeCoverage\RuntimeException('This driver requires HHVM');
         }
     }

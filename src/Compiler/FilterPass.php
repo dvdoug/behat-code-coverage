@@ -3,6 +3,7 @@
  * Filter Compiler Pass
  *
  * @copyright 2013 Anthon Pang
+ *
  * @license BSD-2-Clause
  */
 
@@ -28,6 +29,9 @@ class FilterPass implements CompilerPassInterface
         $this->processCodeCoverageFilter($container);
     }
 
+    /**
+     * @param ContainerBuilder $container
+     */
     private function processCodeCoverage(ContainerBuilder $container)
     {
         if (! $container->hasDefinition('behat.code_coverage.php_code_coverage')) {
@@ -55,6 +59,9 @@ class FilterPass implements CompilerPassInterface
         );
     }
 
+    /**
+     * @param ContainerBuilder $container
+     */
     private function processCodeCoverageFilter(ContainerBuilder $container)
     {
         if (! $container->hasDefinition('behat.code_coverage.php_code_coverage_filter')) {
