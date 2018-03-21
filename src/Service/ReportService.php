@@ -54,7 +54,7 @@ class ReportService
         $report = $this->factory->create($format, $options);
         $output = $report->process($coverage);
 
-        if ($format === 'text') {
+        if ('text' == $format) {
             print_r($output);
         }
     }
