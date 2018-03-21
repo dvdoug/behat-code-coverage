@@ -6,23 +6,20 @@ documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 3.x-dev
+
+## [3.2.1] - 2018-03-21
 
 - Fixed a bug where a suffix when whitelisting files would default to `src`.
   This would make reports not generate in case no `suffix` was defined in
   configuration.
 - Fixed Text report printing (issue #12)
 - `phpunit/php-code-coverage` dependency version requirement has been updated
-  from `~4.0|~5.0` to `~5.0` as we do not support version `4.0` anymore.
+  from `~4.0|~5.0` to `^5.0` as we do not support version `4.0` anymore.
 - Updated README to list all configuration options
 - Updated `behat.yml.dist` so that it can be used as a proper example
 - `remote` driver is no longer activated by default
 - Version constraints in composer.json have been updated from `~` to `^`.
 
-
-## [3.2.1] - 2018-03-19
-
-- Fix Text report generation #5
 
 ## [3.2.0] - 2017-10-17 - Guzzle 6.0 support release
 
@@ -79,7 +76,8 @@ disappear, this extension would still work.
 - Updated `vfsStream` from `1.2.*` to `1.3.*` to fix failing/skipped test
 - Updated versions of dependencies and code is tested to run with Behat `2.5`.
 
-[3.2.x-dev]: https://github.com/leanphp/behat-code-coverage/compare/v3.2.0...master
+[3.2.x-dev]: https://github.com/leanphp/behat-code-coverage/compare/v3.2.1...master
+[3.2.1]: https://github.com/leanphp/behat-code-coverage/releases/tag/v3.2.0
 [3.2.0]: https://github.com/leanphp/behat-code-coverage/releases/tag/v3.2.0
 [3.1.1]: https://github.com/leanphp/behat-code-coverage/releases/tag/v3.1.1
 [3.1.0]: https://github.com/leanphp/behat-code-coverage/releases/tag/v3.1.0
