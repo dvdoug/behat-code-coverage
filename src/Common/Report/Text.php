@@ -3,6 +3,7 @@
  * Code Coverage Text Report
  *
  * @copyright 2013 Anthon Pang
+ *
  * @license BSD-3-Clause
  */
 
@@ -34,23 +35,23 @@ class Text implements ReportInterface
      */
     public function __construct(array $options)
     {
-        if ( ! isset($options['showColors'])) {
+        if (! isset($options['showColors'])) {
             $options['showColors'] = false;
         }
 
-        if ( ! isset($options['printer'])) {
+        if (! isset($options['printer'])) {
             $options['printer'] = null;
         }
 
-        if ( ! isset($options['lowUpperBound'])) {
+        if (! isset($options['lowUpperBound'])) {
             $options['lowUpperBound'] = 35;
         }
 
-        if ( ! isset($options['highUpperBound'])) {
+        if (! isset($options['highUpperBound'])) {
             $options['highUpperBound'] = 70;
         }
 
-        if ( ! isset($options['showUncoveredFiles'])) {
+        if (! isset($options['showUncoveredFiles'])) {
             $options['showUncoveredFiles'] = false;
         }
 
@@ -64,7 +65,7 @@ class Text implements ReportInterface
                 $options['showUncoveredFiles']
             );
         } else {
-            if ( ! isset($options['showOnlySummary'])) {
+            if (! isset($options['showOnlySummary'])) {
                 $options['showOnlySummary'] = false;
             }
 
@@ -90,6 +91,11 @@ class Text implements ReportInterface
         );
     }
 
+    /**
+     * return version of CodeCoverage
+     *
+     * @return string
+     */
     private function getVersion()
     {
         $reflectionMethod = new \ReflectionMethod('SebastianBergmann\CodeCoverage\Report\Text', '__construct');

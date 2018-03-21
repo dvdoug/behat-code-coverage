@@ -3,6 +3,7 @@
  * Code Coverage Report Service
  *
  * @copyright 2013 Anthon Pang
+ *
  * @license BSD-2-Clause
  */
 
@@ -31,7 +32,7 @@ class ReportService
     /**
      * Constructor
      *
-     * @param array                                      $config
+     * @param array                                             $config
      * @param \LeanPHP\Behat\CodeCoverage\Common\Report\Factory $factory
      */
     public function __construct(array $config, Factory $factory)

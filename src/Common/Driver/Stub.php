@@ -3,6 +3,7 @@
  * Code Coverage Stub Driver
  *
  * @copyright 2013 Anthon Pang
+ *
  * @license BSD-3-Clause
  */
 

@@ -3,6 +3,7 @@
  * Event Listener
  *
  * @copyright 2013 Anthon Pang
+ *
  * @license BSD-2-Clause
  */
 
@@ -78,7 +79,7 @@ class EventListener implements EventSubscriberInterface
     public function beforeScenario(ScenarioTested $event)
     {
         $node = $event->getScenario();
-        $id   = $event->getFeature()->getFile() . ':' . $node->getLine();
+        $id   = $event->getFeature()->getFile().':'.$node->getLine();
 
         $this->coverage->start($id);
     }

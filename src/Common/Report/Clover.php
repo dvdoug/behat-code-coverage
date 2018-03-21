@@ -3,6 +3,7 @@
  * Code Coverage Clover Report
  *
  * @copyright 2013 Anthon Pang
+ *
  * @license BSD-3-Clause
  */
 
@@ -34,11 +35,11 @@ class Clover implements ReportInterface
      */
     public function __construct(array $options)
     {
-        if ( ! isset($options['target'])) {
+        if (! isset($options['target'])) {
             $options['target'] = null;
         }
 
-        if ( ! isset($options['name'])) {
+        if (! isset($options['name'])) {
             $options['name'] = null;
         }
 

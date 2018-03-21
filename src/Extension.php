@@ -3,6 +3,7 @@
  * Code Coverage Extension for Behat
  *
  * @copyright 2013 Anthon Pang
+ *
  * @license BSD-2-Clause
  */
 
@@ -35,7 +36,7 @@ class Extension implements ExtensionInterface
      */
     public function __construct($configFolder = null)
     {
-        $this->configFolder = $configFolder ?: __DIR__ . '/Resources/config';
+        $this->configFolder = $configFolder ?: __DIR__.'/Resources/config';
     }
 
     /**
@@ -68,7 +69,7 @@ class Extension implements ExtensionInterface
 
         if (! count($config['report']['options'])) {
             $config['report']['options'] = array(
-                'target' => '/tmp'
+                'target' => '/tmp',
             );
         }
 
@@ -212,6 +213,11 @@ class Extension implements ExtensionInterface
         }
     }
 
+    /**
+     * return an array of compiler passes
+     *
+     * @return array
+     */
     private function getCompilerPasses()
     {
         return array(

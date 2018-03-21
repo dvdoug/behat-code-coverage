@@ -3,6 +3,7 @@
  * Proxy Code Coverage Driver
  *
  * @copyright 2013 Anthon Pang
+ *
  * @license BSD-2-Clause
  */
 
@@ -51,7 +52,7 @@ class Proxy implements DriverInterface
      */
     public function stop()
     {
-        $aggregate = new Aggregate;
+        $aggregate = new Aggregate();
 
         foreach ($this->drivers as $driver) {
             $coverage = $driver->stop();

@@ -19,6 +19,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Version constraints in composer.json have been updated from `~` to `^`.
 
 
+## [3.2.1] - 2018-03-19
+
+- Fix Text report generation #5
+
 ## [3.2.0] - 2017-10-17 - Guzzle 6.0 support release
 
 - Updated `guzzlehttp/guzzle` requirement from `~4.0||~5.0` to `~6.0`. We are

@@ -3,6 +3,7 @@
  * Code Coverage Driver
  *
  * @copyright 2013 Anthon Pang
+ *
  * @license BSD-2-Clause
  */
 
@@ -52,7 +53,7 @@ class RemoteXdebug implements DriverInterface
      *                   ],
      * ]
      *
-     * @param array               $config Configuration
+     * @param array             $config Configuration
      * @param GuzzleHttp\Client $client HTTP client
      */
     public function __construct(array $config, Client $client)
@@ -71,7 +72,7 @@ class RemoteXdebug implements DriverInterface
         $response = $this->sendRequest('create');
 
         if ($response->getStatusCode() !== 200) {
-            throw new \Exception('remote driver start failed: ' . $response->getReasonPhrase());
+            throw new \Exception(sprintf('remote driver start failed: %s', $response->getReasonPhrase()));
         }
     }
 
@@ -83,7 +84,7 @@ class RemoteXdebug implements DriverInterface
         $response = $this->sendRequest('read', ['headers' => ['Accept' => 'application/json']]);
 
         if ($response->getStatusCode() !== 200) {
-            throw new \Exception('remote driver fetch failed: ' . $response->getReasonPhrase());
+            throw new \Exception(sprintf('remote driver fetch failed: %s', $response->getReasonPhrase()));
         }
 
         $response = $this->sendRequest('delete');
@@ -104,20 +105,24 @@ class RemoteXdebug implements DriverInterface
         $method = strtolower($this->config[$endpoint]['method']);
 
         if (! in_array($method, array('get', 'post', 'put', 'delete'))) {
-            throw new \Exception($endpoint . ' method must be GET, POST, PUT, or DELETE');
+            throw new \Exception(sprintf('%s method must be GET, POST, PUT, or DELETE', $endpoint));
         }
 
         if (isset($this->config['auth'])) {
-            $response = $this->client->request($method,
-                $this->config[$endpoint]['path'], [
+            $response = $this->client->request(
+                $method,
+                $this->config[$endpoint]['path'],
+                [
                     'auth' => [$this->config['auth']['user'], $this->config['auth']['password']],
                     'headers' => $headers,
                 ]
             );
         } else {
-            $response = $this->client->request($method,
-                $this->config[$endpoint]['path'], [
-                    'headers' => $headers
+            $response = $this->client->request(
+                $method,
+                $this->config[$endpoint]['path'],
+                [
+                    'headers' => $headers,
                 ]
             );
         }

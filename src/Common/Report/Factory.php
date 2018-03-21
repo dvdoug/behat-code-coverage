@@ -3,6 +3,7 @@
  * Code Coverage Report Factory
  *
  * @copyright 2013 Anthon Pang
+ *
  * @license BSD-3-Clause
  */
 
@@ -26,7 +27,7 @@ class Factory
     public function create($reportType, array $options)
     {
         if (in_array($reportType, array('clover', 'crap4j', 'html', 'php', 'text', 'xml'))) {
-            $className = '\LeanPHP\Behat\CodeCoverage\Common\Report\\' . ucfirst($reportType);
+            $className = '\LeanPHP\Behat\CodeCoverage\Common\Report\\'.ucfirst($reportType);
 
             return new $className($options);
         }
