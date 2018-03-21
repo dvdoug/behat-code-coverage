@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Updated README to list all configuration options
 - Updated `behat.yml.dist` so that it can be used as a proper example
 - `remote` driver is no longer activated by default
+- Version constraints in composer.json have been updated from `~` to `^`.
 
 
 ## [3.2.0] - 2017-10-17 - Guzzle 6.0 support release

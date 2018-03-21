@@ -242,7 +242,7 @@ END_OF_CONFIG
                         'method' => 'DELETE',
                         'path'   => '/',
                     ),
-                    'behat.code_coverage.config.drivers' => array('remote', 'local'),
+                    'behat.code_coverage.config.drivers' => array('local'),
                     'behat.code_coverage.config.filter' => array(
                         'whitelist' => array(
                             'addUncoveredFilesFromWhitelist' => true,

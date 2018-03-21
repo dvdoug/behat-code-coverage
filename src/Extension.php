@@ -63,7 +63,7 @@ class Extension implements ExtensionInterface
         }
 
         if (! count($config['drivers'])) {
-            $config['drivers'] = array('remote', 'local');
+            $config['drivers'] = array('local');
         }
 
         if (! count($config['report']['options'])) {
