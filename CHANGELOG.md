@@ -27,6 +27,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   We are looking for feedback regarding this on
   https://github.com/leanphp/behat-code-coverage/issues/15
 
+## [3.1.1] - 2018-03-21
+
+- Fix for default `suffix` when whitelisting directories being defined as `src`.
+  See #28 for information.
+
 ## [3.1.0] - 2017-10-17 - Legacy maintenance release
 
 - Update PHP requirement to `>=5.6` (from `>=5.3.10`)
