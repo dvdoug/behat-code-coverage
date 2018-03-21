@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Fixed a bug where a suffix when whitelisting files would default to `src`.
   This would make reports not generate in case no `suffix` was defined in
   configuration.
+- Fixed Text report printing (issue #12)
 - `phpunit/php-code-coverage` dependency version requirement has been updated
   from `~4.0|~5.0` to `~5.0` as we do not support version `4.0` anymore.
 - Updated README to list all configuration options

@@ -52,6 +52,10 @@ class ReportService
         $options = $this->config['report']['options'];
 
         $report = $this->factory->create($format, $options);
-        $report->process($coverage);
+        $output = $report->process($coverage);
+
+        if ('text' === $format) {
+            print_r($output);
+        }
     }
 }
