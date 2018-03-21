@@ -40,10 +40,13 @@ Enable extension by editing `behat.yml` of your project:
 default:
   extensions:
     LeanPHP\Behat\CodeCoverage\Extension:
-      auth:       ~
       drivers:
         - local
-      filter:     ~
+      filter:
+        whitelist:
+          include:
+            directories:
+              'src': ~
       report:
         format:   html
         options:
