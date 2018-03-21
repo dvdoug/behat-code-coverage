@@ -117,23 +117,35 @@ default:
 ### Configuration Options
 
 * `auth` - HTTP authentication options (optional).
-- `create` (`method` / `path`) - *TBA*.
-- `read` (`method` / `path`) - *TBA*.
-- `delete` (`method` / `path`) - *TBA*.
+- `create` (`method` / `path`) - override options for create method:
+    - `method` - specify a method (default: `POST`)
+    - `path` - specify path (default: `/`)
+- `read` (`method` / `path`) - override options (method and path) for read
+  method.
+    - `method` - specify a method (default: `GET`)
+    - `path` - specify path (default: `/`)
+- `delete` (`method` / `path`) - override options (method and path) for delete
+  method.
+    - `method` - specify a method (default: `DELETE`)
+    - `path` - specify path (default: `/`)
 - `drivers` - a list of drivers for gathering code coverage data:
-    - `remote` - remote Xdebug driver.
-    - `local` - local Xdebug driver. 
+    - `local` - local Xdebug driver (default).
+    - `remote` - remote Xdebug driver (disabled by default).
 - `filter` - various filter options:
-    - `forceCoversAnnotation` - *TBA*
-    - `mapTestClassNameToCoveredClassName` - *TBA*
+    - `forceCoversAnnotation` - (default: `false`)
+    - `mapTestClassNameToCoveredClassName` - (default: `false`)
     - `whiltelist` - whitelist specific options:
-        - `addUncoveredFilesFromWhiltelist` - *TBA*
-        - `processUncoveredFilesFromWhitelist` - *TBA*
+        - `addUncoveredFilesFromWhiltelist` - (default: `true`)
+        - `processUncoveredFilesFromWhitelist` - (default: `false`)
         - `include` - a list of files or directories to include in whitelist:
             - `directories` - key containing whitelisted directories to include.
-            - `files` - key containing whitelisted files to include.
+                - `suffix` - suffix for files to be included (default: `.php`)
+                - `prefix` - prefix of files to be included (optional)
+            - `files` - a list containing whitelisted files to include.
         - `exclude` - a list of files or directories to exclude from whitelist:
             - `directories` - key containing whitelisted directories to exclude.
+                - `suffix` - suffix for files to be included (default: `.php`)
+                - `prefix` - prefix of files to be included (optional)
             - `files` - key containing whitelisted files to exclude.
 - `report` - reporter options:
     - `format` - specify report format (`html`, `clover`, `php`, `text`)
