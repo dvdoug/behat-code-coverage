@@ -54,6 +54,7 @@ disappear, this extension would still work.
 - Updated versions of dependencies and code is tested to run with Behat `2.5`.
 
 [3.2.x-dev]: https://github.com/leanphp/behat-code-coverage/compare/v3.1.0...master
+[3.1.1]: https://github.com/leanphp/behat-code-coverage/releases/tag/v3.1.1
 [3.1.0]: https://github.com/leanphp/behat-code-coverage/releases/tag/v3.1.0
 [3.0.0]: https://github.com/leanphp/behat-code-coverage/releases/tag/v3.0.0
 [2.5.5]: https://github.com/leanphp/behat-code-coverage/releases/tag/v2.5.5
