@@ -8,9 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 3.x-dev
 
+- Fixed a bug where a suffix when whitelisting files would default to `src`.
+  This would make reports not generate in case no `suffix` was defined in
+  configuration.
 - `phpunit/php-code-coverage` dependency version requirement has been updated
   from `~4.0|~5.0` to `~5.0` as we do not support version `4.0` anymore.
-- Cleaned up defaults for whitelisting files
 - Updated README to list all configuration options
 - Updated `behat.yml.dist` so that it can be used as a proper example
 - `remote` driver is no longer activated by default
