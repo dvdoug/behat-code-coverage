@@ -1,6 +1,7 @@
 bin/
 nbproject/
 vendor/
+build/
 composer.phar
 **/*.dbf
 /composer.lock

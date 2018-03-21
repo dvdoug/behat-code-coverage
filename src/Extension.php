@@ -63,7 +63,7 @@ class Extension implements ExtensionInterface
         }
 
         if (! count($config['drivers'])) {
-            $config['drivers'] = array('remote', 'local');
+            $config['drivers'] = array('local');
         }
 
         if (! count($config['report']['options'])) {
@@ -148,7 +148,7 @@ class Extension implements ExtensionInterface
                                            ->useAttributeAsKey('name')
                                            ->prototype('array')
                                                ->children()
-                                                   ->scalarNode('prefix')->defaultValue('src')->end()
+                                                   ->scalarNode('prefix')->defaultValue('')->end()
                                                    ->scalarNode('suffix')->defaultValue('.php')->end()
                                                ->end()
                                            ->end()
