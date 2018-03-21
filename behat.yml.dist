@@ -1,26 +1,12 @@
 default:
   extensions:
     LeanPHP\Behat\CodeCoverage\Extension:
-# optional authentication
-      drivers:
-        - local
       filter:
-        forceCoversAnnotation:                false
-        mapTestClassNameToCoveredClassName:   false
         whitelist:
-          addUncoveredFilesFromWhitelist:     true
-          processUncoveredFilesFromWhitelist: false
           include:
             directories:
               'src': ~
-#           files:
-#             - 'script.php'
-#         exclude:
-#           directories:
-#             'vendor': ~
-#           files:
-#             - src/script.php
       report:
-        format:    html
+        format: html
         options:
           target: build/coverage-behat
