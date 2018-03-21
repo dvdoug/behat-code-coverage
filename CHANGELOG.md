@@ -76,6 +76,7 @@ disappear, this extension would still work.
 
 [3.2.x-dev]: https://github.com/leanphp/behat-code-coverage/compare/v3.2.0...master
 [3.2.0]: https://github.com/leanphp/behat-code-coverage/releases/tag/v3.2.0
+[3.1.1]: https://github.com/leanphp/behat-code-coverage/releases/tag/v3.1.1
 [3.1.0]: https://github.com/leanphp/behat-code-coverage/releases/tag/v3.1.0
 [3.0.0]: https://github.com/leanphp/behat-code-coverage/releases/tag/v3.0.0
 [2.5.5]: https://github.com/leanphp/behat-code-coverage/releases/tag/v2.5.5
