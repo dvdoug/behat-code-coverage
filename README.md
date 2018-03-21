@@ -96,22 +96,27 @@ default:
           processUncoveredFilesFromWhitelist: false
           include:
             directories:
-              'src':
-                prefix: 'src'
+              'src': ~
               'tests':
-                prefix: 'src'
-        blacklist:
-          include:
-            directories:
-              'vendor':
-                prefix: 'vendor'
+                suffix: '.php'
+#           files:
+#             - script1.php
+#             - script2.php
+#         exclude:
+#           directories:
+#             'vendor': ~
+#             'path/to/dir':
+#               'suffix': '.php'
+#               'prefix': 'Test'
+#           files:
+#             - tests/bootstrap.php
       # report configuration
       report:
         # report format (html, clover, php, text)
         format:    html
         # report options
         options:
-          target:: build/behat-coverage/html
+          target: build/behat-coverage/html
 ```
 
 ### Configuration Options
@@ -139,13 +144,15 @@ default:
         - `processUncoveredFilesFromWhitelist` - (default: `false`)
         - `include` - a list of files or directories to include in whitelist:
             - `directories` - key containing whitelisted directories to include.
-                - `suffix` - suffix for files to be included (default: `.php`)
-                - `prefix` - prefix of files to be included (optional)
+                - `suffix` - suffix for files to be included (default: `'.php'`)
+                - `prefix` - prefix of files to be included (default: `''`)
+                  (optional)
             - `files` - a list containing whitelisted files to include.
         - `exclude` - a list of files or directories to exclude from whitelist:
             - `directories` - key containing whitelisted directories to exclude.
-                - `suffix` - suffix for files to be included (default: `.php`)
-                - `prefix` - prefix of files to be included (optional)
+                - `suffix` - suffix for files to be included (default: `'.php'`)
+                - `prefix` - prefix of files to be included (default: `''`)
+                  (optional)
             - `files` - key containing whitelisted files to exclude.
 - `report` - reporter options:
     - `format` - specify report format (`html`, `clover`, `php`, `text`)
