@@ -371,8 +371,15 @@ END_OF_CONFIG
     public function testProcess()
     {
         $container = $this->createMock('Symfony\Component\DependencyInjection\ContainerBuilder');
+        $input = $this->createMock('Symfony\Component\Console\Input\ArgvInput');
+
+        $input->expects($this->exactly(1))
+            ->method('hasParameterOption');
+
         $container->expects($this->exactly(4))
                   ->method('hasDefinition');
+        $container->expects($this->exactly(1))
+                  ->method('get')->willReturn($input);
 
         $extension = new Extension();
 

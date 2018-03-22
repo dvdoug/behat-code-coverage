@@ -4,11 +4,13 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
+        <parameter key="behat.code_coverage.controller.cli.class">LeanPHP\Behat\CodeCoverage\Controller\Cli\CodeCoverageController</parameter>
         <parameter key="behat.code_coverage.driver.proxy.class">LeanPHP\Behat\CodeCoverage\Driver\Proxy</parameter>
         <parameter key="behat.code_coverage.driver.remote.class">LeanPHP\Behat\CodeCoverage\Driver\RemoteXdebug</parameter>
         <parameter key="behat.code_coverage.listener.event.class">LeanPHP\Behat\CodeCoverage\Listener\EventListener</parameter>
         <parameter key="behat.code_coverage.service.report.class">LeanPHP\Behat\CodeCoverage\Service\ReportService</parameter>
         <parameter key="behat.code_coverage.service.report_factory.class">LeanPHP\Behat\CodeCoverage\Common\Report\Factory</parameter>
+        <parameter key="behat.code_coverage.skip">false</parameter>
 
         <parameter key="behat.code_coverage.config" type="collection">
             <parameter key="base_url">%mink.base_url%</parameter>
@@ -28,6 +30,13 @@
     </parameters>
 
     <services>
+        <!-- Code Coverage Cli Controller -->
+        <service id="behat.code_coverage.controller.cli"
+                 class="%behat.code_coverage.controller.cli.class%">
+                 <argument type="service" id="service_container" />
+            <tag name="cli.controller" priority="80000" />
+        </service>
+
         <service id="vipsoft.code_coverage.driver.hhmv"
                  class="%vipsoft.code_coverage.driver.hhmv.class%"
                  synthetic="true">
@@ -76,6 +85,7 @@
         <service id="behat.code_coverage.listener.event" class="%behat.code_coverage.listener.event.class%">
             <argument type="service" id="behat.code_coverage.php_code_coverage" />
             <argument type="service" id="behat.code_coverage.service.report" />
+            <argument>%behat.code_coverage.skip%</argument>
             <tag name="event_dispatcher.subscriber" />
         </service>
 
