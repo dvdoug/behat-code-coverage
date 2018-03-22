@@ -40,5 +40,4 @@ class CodeCoverageController implements Controller
     public function execute(InputInterface $input, OutputInterface $output)
     {
     }
-
 }

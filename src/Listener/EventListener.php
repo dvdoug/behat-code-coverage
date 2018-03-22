@@ -35,15 +35,22 @@ class EventListener implements EventSubscriberInterface
     private $reportService;
 
     /**
+     * @var bool
+     */
+    private $skipCoverage;
+
+    /**
      * Constructor
      *
      * @param CodeCoverage                                      $coverage
      * @param \LeanPHP\Behat\CodeCoverage\Service\ReportService $reportService
+     * @param boolean                                           $skipCoverage
      */
-    public function __construct(CodeCoverage $coverage, ReportService $reportService)
+    public function __construct(CodeCoverage $coverage, ReportService $reportService, $skipCoverage = false)
     {
         $this->coverage      = $coverage;
         $this->reportService = $reportService;
+        $this->skipCoverage  = $skipCoverage;
     }
 
     /**
@@ -68,6 +75,10 @@ class EventListener implements EventSubscriberInterface
      */
     public function beforeExercise(ExerciseCompleted $event)
     {
+        if ($this->skipCoverage) {
+            return;
+        }
+
         $this->coverage->clear();
     }
 
@@ -78,6 +89,10 @@ class EventListener implements EventSubscriberInterface
      */
     public function beforeScenario(ScenarioTested $event)
     {
+        if ($this->skipCoverage) {
+            return;
+        }
+
         $node = $event->getScenario();
         $id   = $event->getFeature()->getFile().':'.$node->getLine();
 
@@ -91,6 +106,10 @@ class EventListener implements EventSubscriberInterface
      */
     public function afterScenario(ScenarioTested $event)
     {
+        if ($this->skipCoverage) {
+            return;
+        }
+
         $this->coverage->stop();
     }
 
@@ -101,6 +120,10 @@ class EventListener implements EventSubscriberInterface
      */
     public function afterExercise(ExerciseCompleted $event)
     {
+        if ($this->skipCoverage) {
+            return;
+        }
+
         $this->reportService->generateReport($this->coverage);
     }
 }

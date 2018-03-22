@@ -206,6 +206,11 @@ class Extension implements ExtensionInterface
      */
     public function process(ContainerBuilder $container)
     {
+        $input = $container->get('cli.input');
+        if ($input->hasParameterOption('--no-coverage')) {
+            $container->getParameterBag()->set('behat.code_coverage.skip', true);
+        }
+
         $passes = $this->getCompilerPasses();
 
         foreach ($passes as $pass) {
