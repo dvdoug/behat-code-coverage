@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## 3.x-dev
 
 - Add `--no-coverage` parameter option to skip code coverage generation.
+- Update `phpunit/php-code-coverage` requirement from `^5.0` to `^5.0||^6.0`
 
 ## [3.2.1] - 2018-03-21
 
