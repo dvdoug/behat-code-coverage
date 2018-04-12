@@ -6,7 +6,7 @@ documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 3.x-dev
+## [3.3.0] - 2018-04-13
 
 - Add `--no-coverage` parameter option to skip code coverage generation.
 - Update `phpunit/php-code-coverage` requirement from `^5.0` to `^5.0||^6.0`
@@ -80,7 +80,8 @@ disappear, this extension would still work.
 - Updated `vfsStream` from `1.2.*` to `1.3.*` to fix failing/skipped test
 - Updated versions of dependencies and code is tested to run with Behat `2.5`.
 
-[3.2.x-dev]: https://github.com/leanphp/behat-code-coverage/compare/v3.2.1...master
+[3.3.x-dev]: https://github.com/leanphp/behat-code-coverage/compare/v3.3.0...master
+[3.3.0]: https://github.com/leanphp/behat-code-coverage/releases/tag/v3.3.0
 [3.2.1]: https://github.com/leanphp/behat-code-coverage/releases/tag/v3.2.0
 [3.2.0]: https://github.com/leanphp/behat-code-coverage/releases/tag/v3.2.0
 [3.1.1]: https://github.com/leanphp/behat-code-coverage/releases/tag/v3.1.1
