@@ -89,7 +89,6 @@ class RemoteXdebug implements DriverInterface
 
         $response = $this->sendRequest('delete');
 
-        var_dump(json_decode($response->getBody(true), true));
         return json_decode($response->getBody(true), true);
     }
 
