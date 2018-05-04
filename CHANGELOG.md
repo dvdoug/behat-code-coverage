@@ -6,6 +6,11 @@ documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.3.1] - 2018-05-04
+
+- Fix compatibility with `phpunit/php-code-coverage:^6.0`, only leaving support
+  to `5.0,<6.0` as we cannot support both.
+
 ## [3.3.0] - 2018-04-13
 
 - Add `--no-coverage` parameter option to skip code coverage generation.
