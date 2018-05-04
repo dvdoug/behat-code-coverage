@@ -10,3 +10,13 @@ default:
         format: html
         options:
           target: build/coverage-behat
+        html:
+          options:
+            target: build/coverage-behat
+        php:
+          options:
+            target: build/coverage-behat.php
+        crap4j:
+          options:
+            target: build/coverage-behat.crap4j
+

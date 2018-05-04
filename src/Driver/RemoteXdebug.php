@@ -67,7 +67,7 @@ class RemoteXdebug implements DriverInterface
     /**
      * {@inheritdoc}
      */
-    public function start($determineUnusedAndDead = true)
+    public function start($determineUnusedAndDead = true): void
     {
         $response = $this->sendRequest('create');
 
@@ -79,7 +79,7 @@ class RemoteXdebug implements DriverInterface
     /**
      * {@inheritdoc}
      */
-    public function stop()
+    public function stop(): array
     {
         $response = $this->sendRequest('read', ['headers' => ['Accept' => 'application/json']]);
 
@@ -89,6 +89,7 @@ class RemoteXdebug implements DriverInterface
 
         $response = $this->sendRequest('delete');
 
+        var_dump(json_decode($response->getBody(true), true));
         return json_decode($response->getBody(true), true);
     }
 

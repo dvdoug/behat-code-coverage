@@ -40,7 +40,7 @@ class Proxy implements DriverInterface
     /**
      * {@inheritdoc}
      */
-    public function start($determineUnusedAndDead = true)
+    public function start($determineUnusedAndDead = true): void
     {
         foreach ($this->drivers as $driver) {
             $driver->start($determineUnusedAndDead);
@@ -50,7 +50,7 @@ class Proxy implements DriverInterface
     /**
      * {@inheritdoc}
      */
-    public function stop()
+    public function stop(): array
     {
         $aggregate = new Aggregate();
 

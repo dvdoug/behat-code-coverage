@@ -38,11 +38,11 @@ namespace LeanPHP\Behat\CodeCoverage\Common\Driver\Factory {
         {
         }
 
-        public function start(\$determineUnusedAndDead = true)
+        public function start(\$determineUnusedAndDead = true): void
         {
         }
 
-        public function stop()
+        public function stop(): array
         {
         }
     }
@@ -74,11 +74,11 @@ namespace LeanPHP\Behat\CodeCoverage\Common\Driver\Factory {
             throw new \Exception('bad');
         }
 
-        public function start(\$determineUnusedAndDead = true)
+        public function start(\$determineUnusedAndDead = true): void
         {
         }
 
-        public function stop()
+        public function stop(): array
         {
         }
     }

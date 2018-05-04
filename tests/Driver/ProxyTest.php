@@ -64,7 +64,7 @@ class ProxyTest extends TestCase
 
         $this->remoteDriver->expects($this->once())
                            ->method('stop')
-                          ->will($this->returnValue(null));
+                           ->will($this->returnValue([]));
 
         $coverage = $this->driver->stop();
 

@@ -43,7 +43,7 @@ class Stub implements DriverInterface
     /**
      * {@inheritdoc}
      */
-    public function start($determineUnusedAndDead = true)
+    public function start($determineUnusedAndDead = true): void
     {
         if ($this->driver) {
             $this->driver->start();
@@ -53,7 +53,7 @@ class Stub implements DriverInterface
     /**
      * {@inheritdoc}
      */
-    public function stop()
+    public function stop(): array
     {
         return $this->driver ? $this->driver->stop() : false;
     }

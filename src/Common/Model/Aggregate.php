@@ -19,15 +19,7 @@ class Aggregate
     /**
      * @var array
      */
-    private $coverage;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->coverage = array();
-    }
+    private $coverage = [];
 
     /**
      * Update aggregated coverage

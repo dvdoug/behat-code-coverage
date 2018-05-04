@@ -6,6 +6,12 @@ documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.4.0] - 2018-05-04
+
+- Require PHP 7.1 and php-code-coverage ^6.0.
+- Fixes for Drivers to support php-code-coverage ^6.0.
+- Updated require-dev to use phpunit v7.0
+
 ## [3.3.1] - 2018-05-04
 
 - Fix compatibility with `phpunit/php-code-coverage:^6.0`, only leaving support
