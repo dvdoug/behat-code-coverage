@@ -18,8 +18,15 @@ use SebastianBergmann\CodeCoverage\CodeCoverage;
  *
  * @group Unit
  */
+/**
+ * TODO - reimplement integration tests'
+
 class HtmlTest extends TestCase
 {
+    /**
+     * TODO - reimplement integration tests'
+     *
+
     public function testProcess()
     {
         vfsStream::setup('tmp');
@@ -46,4 +53,4 @@ class HtmlTest extends TestCase
             $this->fail();
         }
     }
-}
+}*/

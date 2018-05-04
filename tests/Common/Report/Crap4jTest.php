@@ -17,8 +17,15 @@ use SebastianBergmann\CodeCoverage\Report\Crap4j;
  *
  * @group Unit
  */
+/**
+ * TODO - reimplement integration tests'
+ *
 class Crap4jTest extends TestCase
 {
+    /**
+     * TODO - reimplement integration tests'
+     *
+
     public function testProcess()
     {
         if ( ! class_exists('SebastianBergmann\CodeCoverage\Report\Crap4j')) {
@@ -42,4 +49,4 @@ class Crap4jTest extends TestCase
         $this->assertTrue(strpos($result, '<?xml version="1.0" encoding="UTF-8"?>') === 0);
 
     }
-}
+}*/

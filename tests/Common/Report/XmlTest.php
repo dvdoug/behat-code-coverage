@@ -18,10 +18,16 @@ use org\bovigo\vfs\vfsStream;
  *
  * @group Unit
  */
+/**
+ * TODO - reimplement integration tests'
 class XmlTest extends TestCase
 {
+    /**
+     * TODO - reimplement integration tests'
+     *
     public function testProcess()
     {
+
         vfsStream::setup('tmp');
         $target = vfsStream::url('tmp');
 
@@ -52,4 +58,4 @@ class XmlTest extends TestCase
             $this->fail();
         }
     }
-}
+}*/

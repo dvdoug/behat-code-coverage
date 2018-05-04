@@ -16,6 +16,9 @@ use LeanPHP\Behat\CodeCoverage\Common\Report\Factory;
  *
  * @group Unit
  */
+/**
+ * TODO - reimplement integration tests'
+ *
 class CloverTest extends TestCase
 {
     public function testProcess()
@@ -34,4 +37,4 @@ class CloverTest extends TestCase
 
         $this->assertTrue(strpos($result, '<?xml version="1.0" encoding="UTF-8"?>') === 0);
     }
-}
+}*/
