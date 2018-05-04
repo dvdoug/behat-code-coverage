@@ -40,7 +40,7 @@ class Proxy implements DriverInterface
     /**
      * {@inheritdoc}
      */
-    public function start($determineUnusedAndDead = true): void
+    public function start(bool $determineUnusedAndDead = true): void
     {
         foreach ($this->drivers as $driver) {
             $driver->start($determineUnusedAndDead);

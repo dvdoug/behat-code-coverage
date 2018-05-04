@@ -38,7 +38,7 @@ namespace LeanPHP\Behat\CodeCoverage\Common\Driver\Factory {
         {
         }
 
-        public function start(\$determineUnusedAndDead = true): void
+        public function start(bool \$determineUnusedAndDead = true): void
         {
         }
 
@@ -74,7 +74,7 @@ namespace LeanPHP\Behat\CodeCoverage\Common\Driver\Factory {
             throw new \Exception('bad');
         }
 
-        public function start(\$determineUnusedAndDead = true): void
+        public function start(bool \$determineUnusedAndDead = true): void
         {
         }
 

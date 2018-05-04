@@ -43,7 +43,7 @@ class Stub implements DriverInterface
     /**
      * {@inheritdoc}
      */
-    public function start($determineUnusedAndDead = true): void
+    public function start(bool $determineUnusedAndDead = true): void
     {
         if ($this->driver) {
             $this->driver->start();

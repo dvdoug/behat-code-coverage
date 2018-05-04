@@ -67,7 +67,7 @@ class RemoteXdebug implements DriverInterface
     /**
      * {@inheritdoc}
      */
-    public function start($determineUnusedAndDead = true): void
+    public function start(bool $determineUnusedAndDead = true): void
     {
         $response = $this->sendRequest('create');
 

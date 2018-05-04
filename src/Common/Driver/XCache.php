@@ -41,7 +41,7 @@ class XCache implements DriverInterface
     /**
      * {@inheritdoc}
      */
-    public function start($determineUnusedAndDead = true): void
+    public function start(bool $determineUnusedAndDead = true): void
     {
         xcache_coverager_start();
     }

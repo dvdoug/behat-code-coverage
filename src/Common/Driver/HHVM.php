@@ -36,7 +36,7 @@ class HHVM implements DriverInterface
     /**
      * {@inheritdoc}
      */
-    public function start($determineUnusedAndDead = true): void
+    public function start(bool $determineUnusedAndDead = true): void
     {
         fb_enable_code_coverage();
     }
