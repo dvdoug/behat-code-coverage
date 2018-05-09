@@ -48,7 +48,6 @@ class ReportService
      */
     public function generateReport(CodeCoverage $coverage)
     {
-        var_dump($this->config['report']);
         $format = $this->config['report']['format'];
         $options = $this->config['report']['options'];
 

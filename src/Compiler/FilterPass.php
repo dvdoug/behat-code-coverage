@@ -53,10 +53,6 @@ class FilterPass implements CompilerPassInterface
             'setForceCoversAnnotation',
             array($config['forceCoversAnnotation'])
         );
-        $coverage->addMethodCall(
-            'setMapTestClassNameToCoveredClassName',
-            array($config['mapTestClassNameToCoveredClassName'])
-        );
     }
 
     /**
