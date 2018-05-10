@@ -15,6 +15,7 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Reference;
 use LeanPHP\Behat\CodeCoverage\Compiler;
 
 /**
@@ -211,24 +212,115 @@ class Extension implements ExtensionInterface
             $container->getParameterBag()->set('behat.code_coverage.skip', true);
         }
 
-        $passes = $this->getCompilerPasses();
+        $this->setupDriver($container);
+        $this->setupFactory($container);
+        $this->setupCodeCoverage($container);
+        $this->setupCodeCoverageFilter($container);
 
-        foreach ($passes as $pass) {
-            $pass->process($container);
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     */
+    private function setupDriver(ContainerBuilder $container)
+    {
+        if (! $container->hasDefinition('behat.code_coverage.driver.proxy')) {
+            return;
+        }
+
+        $proxy = $container->getDefinition('behat.code_coverage.driver.proxy');
+        $enabled = $container->getParameter('behat.code_coverage.config.drivers');
+
+        foreach ($container->findTaggedServiceIds('behat.code_coverage.driver') as $id => $tagAttributes) {
+            foreach ($tagAttributes as $attributes) {
+                if (isset($attributes['alias'])
+                    && in_array($attributes['alias'], $enabled)
+                ) {
+                    $proxy->addMethodCall('addDriver', array(new Reference($id)));
+                }
+            }
         }
     }
 
     /**
-     * return an array of compiler passes
-     *
-     * @return array
+     * @param ContainerBuilder $container
      */
-    private function getCompilerPasses()
+    public function setupFactory(ContainerBuilder $container)
     {
-        return array(
-            new Compiler\DriverPass(),
-            new Compiler\FactoryPass(),
-            new Compiler\FilterPass(),
+        if (! $container->hasDefinition('vipsoft.code_coverage.driver.factory')) {
+            return;
+        }
+
+        $factory = $container->getDefinition('vipsoft.code_coverage.driver.factory');
+        $drivers = array();
+        $ids     = $container->findTaggedServiceIds('vipsoft.code_coverage.driver');
+
+        foreach ($ids as $id => $attributes) {
+            $drivers[] = $container->getDefinition($id)->getClass();
+        }
+
+        $factory->setArguments(array($drivers));
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     */
+    private function setupCodeCoverage(ContainerBuilder $container)
+    {
+        if (! $container->hasDefinition('behat.code_coverage.php_code_coverage')) {
+            return;
+        }
+
+        $coverage = $container->getDefinition('behat.code_coverage.php_code_coverage');
+        $config   = $container->getParameter('behat.code_coverage.config.filter');
+
+        $coverage->addMethodCall(
+            'setAddUncoveredFilesFromWhitelist',
+            array($config['whitelist']['addUncoveredFilesFromWhitelist'])
+        );
+        $coverage->addMethodCall(
+            'setProcessUncoveredFilesFromWhiteList',
+            array($config['whitelist']['processUncoveredFilesFromWhitelist'])
+        );
+        $coverage->addMethodCall(
+            'setForceCoversAnnotation',
+            array($config['forceCoversAnnotation'])
         );
     }
+
+    /**
+     * @param ContainerBuilder $container
+     */
+    private function setupCodeCoverageFilter(ContainerBuilder $container)
+    {
+        if (! $container->hasDefinition('behat.code_coverage.php_code_coverage_filter')) {
+            return;
+        }
+
+        $filter = $container->getDefinition('behat.code_coverage.php_code_coverage_filter');
+        $config = $container->getParameter('behat.code_coverage.config.filter');
+
+        $dirs = array(
+            'addDirectoryToWhiteList' => array('whitelist', 'include', 'directories'),
+            'removeDirectoryFromWhiteList' => array('whitelist', 'exclude', 'directories'),
+        );
+
+        foreach ($dirs as $method => $hiera) {
+            foreach ($config[$hiera[0]][$hiera[1]][$hiera[2]] as $path => $dir) {
+                $filter->addMethodCall($method, array($path, $dir['suffix'], $dir['prefix']));
+            }
+        }
+
+        $files = array(
+            'addFileToWhiteList' => array('whitelist', 'include', 'files'),
+            'removeFileFromWhiteList' => array('whitelist', 'exclude', 'files'),
+        );
+
+        foreach ($files as $method => $hiera) {
+            foreach ($config[$hiera[0]][$hiera[1]][$hiera[2]] as $file) {
+                $filter->addMethodCall($method, array($file));
+            }
+        }
+    }
+
 }
