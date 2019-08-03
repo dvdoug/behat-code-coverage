@@ -1,7 +1,7 @@
 <?php
+
+declare(strict_types=1);
 /**
- * This file is part of the leanphp/behat-code-coverage package
- *
  * @author ek9 <dev@ek9.co>
  *
  * @license BSD-2-Clause
@@ -10,17 +10,16 @@
  * that was distributed with this source code.
  */
 
-namespace LeanPHP\Behat\CodeCoverage\Controller\Cli;
+namespace DVDoug\Behat\CodeCoverage\Controller\Cli;
 
 use Behat\Testwork\Cli\Controller;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
- * Code Coverage Cli Controller
+ * Code Coverage Cli Controller.
  *
  * @author Danny Lewis
  */
@@ -29,7 +28,7 @@ class CodeCoverageController implements Controller
     /**
      * {@inheritdoc}
      */
-    public function configure(Command $command)
+    public function configure(Command $command): void
     {
         $command->addOption('no-coverage', null, InputOption::VALUE_NONE, 'Skip Code Coverage generation');
     }
@@ -37,7 +36,7 @@ class CodeCoverageController implements Controller
     /**
      * {@inheritdoc}
      */
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): void
     {
     }
 }

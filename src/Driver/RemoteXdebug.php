@@ -1,20 +1,21 @@
 <?php
+
+declare(strict_types=1);
 /**
- * Code Coverage Driver
+ * Code Coverage Driver.
  *
  * @copyright 2013 Anthon Pang
  *
  * @license BSD-2-Clause
  */
 
-namespace LeanPHP\Behat\CodeCoverage\Driver;
+namespace DVDoug\Behat\CodeCoverage\Driver;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Response;
 use SebastianBergmann\CodeCoverage\Driver\Driver as DriverInterface;
 
 /**
- * Remote xdebug driver
+ * Remote xdebug driver.
  *
  * @author Anthon Pang <apang@softwaredevelopment.ca>
  */
@@ -31,7 +32,7 @@ class RemoteXdebug implements DriverInterface
     private $client;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * [
      *     'base_uri' => 'http://api.example.com/1.0/coverage',
@@ -93,18 +94,18 @@ class RemoteXdebug implements DriverInterface
     }
 
     /**
-     * Construct request
+     * Construct request.
      *
      * @param string $endpoint
      * @param array  $headers
      *
      * @return GuzzleHttp\Psr7\Response
      */
-    private function sendRequest($endpoint, $headers = array())
+    private function sendRequest($endpoint, $headers = [])
     {
         $method = strtolower($this->config[$endpoint]['method']);
 
-        if (! in_array($method, array('get', 'post', 'put', 'delete'))) {
+        if (!in_array($method, ['get', 'post', 'put', 'delete'])) {
             throw new \Exception(sprintf('%s method must be GET, POST, PUT, or DELETE', $endpoint));
         }
 

@@ -4,12 +4,12 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="behat.code_coverage.controller.cli.class">LeanPHP\Behat\CodeCoverage\Controller\Cli\CodeCoverageController</parameter>
-        <parameter key="behat.code_coverage.driver.proxy.class">LeanPHP\Behat\CodeCoverage\Driver\Proxy</parameter>
-        <parameter key="behat.code_coverage.driver.remote.class">LeanPHP\Behat\CodeCoverage\Driver\RemoteXdebug</parameter>
-        <parameter key="behat.code_coverage.listener.event.class">LeanPHP\Behat\CodeCoverage\Listener\EventListener</parameter>
-        <parameter key="behat.code_coverage.service.report.class">LeanPHP\Behat\CodeCoverage\Service\ReportService</parameter>
-        <parameter key="behat.code_coverage.service.report_factory.class">LeanPHP\Behat\CodeCoverage\Common\Report\Factory</parameter>
+        <parameter key="behat.code_coverage.controller.cli.class">DVDoug\Behat\CodeCoverage\Controller\Cli\CodeCoverageController</parameter>
+        <parameter key="behat.code_coverage.driver.proxy.class">DVDoug\Behat\CodeCoverage\Driver\Proxy</parameter>
+        <parameter key="behat.code_coverage.driver.remote.class">DVDoug\Behat\CodeCoverage\Driver\RemoteXdebug</parameter>
+        <parameter key="behat.code_coverage.listener.event.class">DVDoug\Behat\CodeCoverage\Listener\EventListener</parameter>
+        <parameter key="behat.code_coverage.service.report.class">DVDoug\Behat\CodeCoverage\Service\ReportService</parameter>
+        <parameter key="behat.code_coverage.service.report_factory.class">DVDoug\Behat\CodeCoverage\Common\Report\Factory</parameter>
         <parameter key="behat.code_coverage.skip">false</parameter>
 
         <parameter key="behat.code_coverage.config" type="collection">
@@ -23,10 +23,8 @@
             <parameter key="report">%behat.code_coverage.config.report%</parameter>
         </parameter>
 
-        <parameter key="vipsoft.code_coverage.driver.hhmv.class">LeanPHP\Behat\CodeCoverage\Common\Driver\HHVM</parameter>
-        <parameter key="vipsoft.code_coverage.driver.xcache.class">LeanPHP\Behat\CodeCoverage\Common\Driver\XCache</parameter>
-        <parameter key="vipsoft.code_coverage.driver.xdebug.class">SebastianBergmann\CodeCoverage\Driver\Xdebug</parameter>
-        <parameter key="vipsoft.code_coverage.driver.factory.class">LeanPHP\Behat\CodeCoverage\Common\Driver\Factory</parameter>
+        <parameter key="dvdoug.code_coverage.driver.xdebug.class">SebastianBergmann\CodeCoverage\Driver\Xdebug</parameter>
+        <parameter key="dvdoug.code_coverage.driver.factory.class">DVDoug\Behat\CodeCoverage\Common\Driver\Factory</parameter>
     </parameters>
 
     <services>
@@ -37,24 +35,14 @@
             <tag name="cli.controller" priority="80000" />
         </service>
 
-        <service id="vipsoft.code_coverage.driver.hhmv"
-                 class="%vipsoft.code_coverage.driver.hhmv.class%"
+        <service id="dvdoug.code_coverage.driver.xdebug"
+                 class="%dvdoug.code_coverage.driver.xdebug.class%"
                  synthetic="true">
-            <tag name="vipsoft.code_coverage.driver"/>
-        </service>
-        <service id="vipsoft.code_coverage.driver.xcache"
-                 class="%vipsoft.code_coverage.driver.xcache.class%"
-                 synthetic="true">
-            <tag name="vipsoft.code_coverage.driver"/>
-        </service>
-        <service id="vipsoft.code_coverage.driver.xdebug"
-                 class="%vipsoft.code_coverage.driver.xdebug.class%"
-                 synthetic="true">
-            <tag name="vipsoft.code_coverage.driver"/>
+            <tag name="dvdoug.code_coverage.driver"/>
         </service>
 
         <!-- The factory compiler pass will register available driver classes with the factory -->
-        <service id="vipsoft.code_coverage.driver.factory" class="%vipsoft.code_coverage.driver.factory.class%" />
+        <service id="dvdoug.code_coverage.driver.factory" class="%dvdoug.code_coverage.driver.factory.class%" />
 
         <service id="behat.code_coverage.http_client" class="GuzzleHttp\Client" />
 
@@ -70,7 +58,7 @@
         <service id="behat.code_coverage.driver.proxy" class="%behat.code_coverage.driver.proxy.class%" />
 
         <service id="behat.code_coverage.driver.local" class="SebastianBergmann\CodeCoverage\Driver\Driver">
-            <factory service="vipsoft.code_coverage.driver.factory"
+            <factory service="dvdoug.code_coverage.driver.factory"
                 method="create"
                 />
             <tag name="behat.code_coverage.driver" alias="local" />

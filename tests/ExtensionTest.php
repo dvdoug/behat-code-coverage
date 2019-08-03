@@ -1,20 +1,22 @@
 <?php
+
+declare(strict_types=1);
 /**
- * Extension
+ * Extension.
  *
  * @copyright 2013 Anthon Pang
  * @license BSD-2-Clause
  */
 
-namespace LeanPHP\Behat\CodeCoverage;
+namespace DVDoug\Behat\CodeCoverage;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use VIPSoft\TestCase;
 use org\bovigo\vfs\vfsStream;
 
 /**
- * Extension test
+ * Extension test.
  *
  * @group Unit
  */
@@ -23,14 +25,11 @@ class ExtensionTest extends TestCase
     /**
      * @dataProvider loadProvider
      */
-    public function testLoad($expected, $config)
+    public function testLoad($expected, $config): void
     {
         $vfsRoot = vfsStream::setup('configDir');
         $configDir = vfsStream::url('configDir');
         $servicesFile = 'services.xml';
-        if (true === method_exists('Symfony\Component\DependencyInjection\Definition', 'setFactoryClass')) {
-            $servicesFile = 'services-2.3.xml';
-        }
 
         file_put_contents(
             $configDir . '/' . $servicesFile,
@@ -41,7 +40,7 @@ class ExtensionTest extends TestCase
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="behat.code_coverage.service.report.class">LeanPHP\Behat\CodeCoverage\Service\ReportService</parameter>
+        <parameter key="behat.code_coverage.service.report.class">DVDoug\Behat\CodeCoverage\Service\ReportService</parameter>
     </parameters>
 
     <services>
@@ -51,7 +50,7 @@ class ExtensionTest extends TestCase
 END_OF_CONFIG
         );
 
-        $container = new ContainerBuilder;
+        $container = new ContainerBuilder();
 
         $extension = new Extension($configDir);
         $extension->load($container, $config);
@@ -66,260 +65,260 @@ END_OF_CONFIG
      */
     public function loadProvider()
     {
-        return array(
-            array(
-                array(
-                    'behat.code_coverage.config.auth' => array(
-                        'user'     => 'test_user',
+        return [
+            [
+                [
+                    'behat.code_coverage.config.auth' => [
+                        'user' => 'test_user',
                         'password' => 'test_password',
-                    ),
-                    'behat.code_coverage.config.create' => array(
+                    ],
+                    'behat.code_coverage.config.create' => [
                         'method' => 'CREATE',
-                        'path'   => 'create_path',
-                    ),
-                    'behat.code_coverage.config.read' => array(
+                        'path' => 'create_path',
+                    ],
+                    'behat.code_coverage.config.read' => [
                         'method' => 'READ',
-                        'path'   => 'read_path',
-                    ),
-                    'behat.code_coverage.config.delete' => array(
+                        'path' => 'read_path',
+                    ],
+                    'behat.code_coverage.config.delete' => [
                         'method' => 'DELETE',
-                        'path'   => 'delete_path',
-                    ),
-                    'behat.code_coverage.config.drivers' => array('remote'),
-                    'behat.code_coverage.config.filter' => array(
-                        'whitelist' => array(
+                        'path' => 'delete_path',
+                    ],
+                    'behat.code_coverage.config.drivers' => ['remote'],
+                    'behat.code_coverage.config.filter' => [
+                        'whitelist' => [
                             'addUncoveredFilesFromWhitelist' => false,
                             'processUncoveredFilesFromWhitelist' => true,
-                            'include' => array(
-                                'directories' => array(
-                                    'directory1' => array(
+                            'include' => [
+                                'directories' => [
+                                    'directory1' => [
                                         'prefix' => 'Secure',
                                         'suffix' => '.php',
-                                    )
-                                ),
-                                'files' => array(
-                                    'file1'
-                                ),
-                            ),
-                            'exclude' => array(
-                                'directories' => array(
-                                    'directory2' => array(
+                                    ],
+                                ],
+                                'files' => [
+                                    'file1',
+                                ],
+                            ],
+                            'exclude' => [
+                                'directories' => [
+                                    'directory2' => [
                                         'prefix' => 'Insecure',
                                         'suffix' => '.inc',
-                                    )
-                                ),
-                                'files' => array(
-                                    'file2'
-                                ),
-                            ),
-                        ),
-                        'blacklist' => array(
-                            'include' => array(
-                                'directories' => array(
-                                    'directory3' => array(
+                                    ],
+                                ],
+                                'files' => [
+                                    'file2',
+                                ],
+                            ],
+                        ],
+                        'blacklist' => [
+                            'include' => [
+                                'directories' => [
+                                    'directory3' => [
                                         'prefix' => 'Public',
                                         'suffix' => '.php',
-                                    )
-                                ),
-                                'files' => array(
-                                    'file3'
-                                ),
-                            ),
-                            'exclude' => array(
-                                'directories' => array(
-                                    'directory4' => array(
+                                    ],
+                                ],
+                                'files' => [
+                                    'file3',
+                                ],
+                            ],
+                            'exclude' => [
+                                'directories' => [
+                                    'directory4' => [
                                         'prefix' => 'Private',
                                         'suffix' => '.inc',
-                                    )
-                                ),
-                                'files' => array(
-                                    'file4'
-                                ),
-                            ),
-                        ),
+                                    ],
+                                ],
+                                'files' => [
+                                    'file4',
+                                ],
+                            ],
+                        ],
                         'forceCoversAnnotation' => true,
-                        'mapTestClassNameToCoveredClassName' => true
-                    ),
-                    'behat.code_coverage.config.report' => array(
-                        'format'    => 'fmt',
-                        'options' => array(
-                            'target' => '/tmp'
-                        )
-                    )
-                ),
-                array(
-                    'auth' => array(
-                        'user'     => 'test_user',
+                        'mapTestClassNameToCoveredClassName' => true,
+                    ],
+                    'behat.code_coverage.config.report' => [
+                        'format' => 'fmt',
+                        'options' => [
+                            'target' => '/tmp',
+                        ],
+                    ],
+                ],
+                [
+                    'auth' => [
+                        'user' => 'test_user',
                         'password' => 'test_password',
-                    ),
-                    'create' => array(
+                    ],
+                    'create' => [
                         'method' => 'CREATE',
-                        'path'   => 'create_path',
-                    ),
-                    'read' => array(
+                        'path' => 'create_path',
+                    ],
+                    'read' => [
                         'method' => 'READ',
-                        'path'   => 'read_path',
-                    ),
-                    'delete' => array(
+                        'path' => 'read_path',
+                    ],
+                    'delete' => [
                         'method' => 'DELETE',
-                        'path'   => 'delete_path',
-                    ),
-                    'drivers' => array('remote'),
-                    'filter' => array(
-                        'whitelist' => array(
+                        'path' => 'delete_path',
+                    ],
+                    'drivers' => ['remote'],
+                    'filter' => [
+                        'whitelist' => [
                             'addUncoveredFilesFromWhitelist' => false,
                             'processUncoveredFilesFromWhitelist' => true,
-                            'include' => array(
-                                'directories' => array(
-                                    'directory1' => array(
+                            'include' => [
+                                'directories' => [
+                                    'directory1' => [
                                         'prefix' => 'Secure',
                                         'suffix' => '.php',
-                                    )
-                                ),
-                                'files' => array(
-                                    'file1'
-                                ),
-                            ),
-                            'exclude' => array(
-                                'directories' => array(
-                                    'directory2' => array(
+                                    ],
+                                ],
+                                'files' => [
+                                    'file1',
+                                ],
+                            ],
+                            'exclude' => [
+                                'directories' => [
+                                    'directory2' => [
                                         'prefix' => 'Insecure',
                                         'suffix' => '.inc',
-                                    )
-                                ),
-                                'files' => array(
-                                    'file2'
-                                ),
-                            ),
-                        ),
-                        'blacklist' => array(
-                            'include' => array(
-                                'directories' => array(
-                                    'directory3' => array(
+                                    ],
+                                ],
+                                'files' => [
+                                    'file2',
+                                ],
+                            ],
+                        ],
+                        'blacklist' => [
+                            'include' => [
+                                'directories' => [
+                                    'directory3' => [
                                         'prefix' => 'Public',
                                         'suffix' => '.php',
-                                    )
-                                ),
-                                'files' => array(
-                                    'file3'
-                                ),
-                            ),
-                            'exclude' => array(
-                                'directories' => array(
-                                    'directory4' => array(
+                                    ],
+                                ],
+                                'files' => [
+                                    'file3',
+                                ],
+                            ],
+                            'exclude' => [
+                                'directories' => [
+                                    'directory4' => [
                                         'prefix' => 'Private',
                                         'suffix' => '.inc',
-                                    )
-                                ),
-                                'files' => array(
-                                    'file4'
-                                ),
-                            ),
-                        ),
+                                    ],
+                                ],
+                                'files' => [
+                                    'file4',
+                                ],
+                            ],
+                        ],
                         'forceCoversAnnotation' => true,
-                        'mapTestClassNameToCoveredClassName' => true
-                    ),
-                    'report' => array(
-                        'format'    => 'fmt',
-                        'options' => array(
-                            'target' => '/tmp'
-                        )
-                    )
-                ),
-            ),
-            array(
-                array(
+                        'mapTestClassNameToCoveredClassName' => true,
+                    ],
+                    'report' => [
+                        'format' => 'fmt',
+                        'options' => [
+                            'target' => '/tmp',
+                        ],
+                    ],
+                ],
+            ],
+            [
+                [
                     'behat.code_coverage.config.auth' => null,
-                    'behat.code_coverage.config.create' => array(
+                    'behat.code_coverage.config.create' => [
                         'method' => 'POST',
-                        'path'   => '/',
-                    ),
-                    'behat.code_coverage.config.read' => array(
+                        'path' => '/',
+                    ],
+                    'behat.code_coverage.config.read' => [
                         'method' => 'GET',
-                        'path'   => '/',
-                    ),
-                    'behat.code_coverage.config.delete' => array(
+                        'path' => '/',
+                    ],
+                    'behat.code_coverage.config.delete' => [
                         'method' => 'DELETE',
-                        'path'   => '/',
-                    ),
-                    'behat.code_coverage.config.drivers' => array('local'),
-                    'behat.code_coverage.config.filter' => array(
-                        'whitelist' => array(
+                        'path' => '/',
+                    ],
+                    'behat.code_coverage.config.drivers' => ['local'],
+                    'behat.code_coverage.config.filter' => [
+                        'whitelist' => [
                             'addUncoveredFilesFromWhitelist' => true,
                             'processUncoveredFilesFromWhitelist' => false,
-                            'include' => array(
-                                'directories' => array(),
-                                'files' => array(),
-                            ),
-                            'exclude' => array(
-                                'directories' => array(),
-                                'files' => array(),
-                            ),
-                        ),
-                        'blacklist' => array(
-                            'include' => array(
-                                'directories' => array(),
-                                'files' => array(),
-                            ),
-                            'exclude' => array(
-                                'directories' => array(),
-                                'files' => array(),
-                            ),
-                        ),
+                            'include' => [
+                                'directories' => [],
+                                'files' => [],
+                            ],
+                            'exclude' => [
+                                'directories' => [],
+                                'files' => [],
+                            ],
+                        ],
+                        'blacklist' => [
+                            'include' => [
+                                'directories' => [],
+                                'files' => [],
+                            ],
+                            'exclude' => [
+                                'directories' => [],
+                                'files' => [],
+                            ],
+                        ],
                         'forceCoversAnnotation' => false,
-                        'mapTestClassNameToCoveredClassName' => false
-                    )
-                ),
-                array(
-                    'create' => array(
+                        'mapTestClassNameToCoveredClassName' => false,
+                    ],
+                ],
+                [
+                    'create' => [
                         'method' => 'POST',
-                        'path'   => '/',
-                    ),
-                    'read' => array(
+                        'path' => '/',
+                    ],
+                    'read' => [
                         'method' => 'GET',
-                        'path'   => '/',
-                    ),
-                    'delete' => array(
+                        'path' => '/',
+                    ],
+                    'delete' => [
                         'method' => 'DELETE',
-                        'path'   => '/',
-                    ),
-                    'drivers' => array(),
-                    'filter' => array(
-                        'whitelist' => array(
+                        'path' => '/',
+                    ],
+                    'drivers' => [],
+                    'filter' => [
+                        'whitelist' => [
                             'addUncoveredFilesFromWhitelist' => true,
                             'processUncoveredFilesFromWhitelist' => false,
-                            'include' => array(
-                                'directories' => array(),
-                                'files' => array(),
-                            ),
-                            'exclude' => array(
-                                'directories' => array(),
-                                'files' => array(),
-                            ),
-                        ),
-                        'blacklist' => array(
-                            'include' => array(
-                                'directories' => array(),
-                                'files' => array(),
-                            ),
-                            'exclude' => array(
-                                'directories' => array(),
-                                'files' => array(),
-                            ),
-                        ),
+                            'include' => [
+                                'directories' => [],
+                                'files' => [],
+                            ],
+                            'exclude' => [
+                                'directories' => [],
+                                'files' => [],
+                            ],
+                        ],
+                        'blacklist' => [
+                            'include' => [
+                                'directories' => [],
+                                'files' => [],
+                            ],
+                            'exclude' => [
+                                'directories' => [],
+                                'files' => [],
+                            ],
+                        ],
                         'forceCoversAnnotation' => false,
-                        'mapTestClassNameToCoveredClassName' => false
-                    ),
-                    'report'  => array(
+                        'mapTestClassNameToCoveredClassName' => false,
+                    ],
+                    'report' => [
                         'format' => 'html',
-                        'options' => array(),
-                    )
-                ),
-            ),
-        );
+                        'options' => [],
+                    ],
+                ],
+            ],
+        ];
     }
 
-    public function testConfigure()
+    public function testConfigure(): void
     {
         $builder = new ArrayNodeDefinition('test');
 
@@ -368,7 +367,7 @@ END_OF_CONFIG
         $this->assertTrue(isset($report['options']));
     }
 
-    public function testProcess()
+    public function testProcess(): void
     {
         $container = $this->createMock('Symfony\Component\DependencyInjection\ContainerBuilder');
         $input = $this->createMock('Symfony\Component\Console\Input\ArgvInput');
@@ -387,7 +386,7 @@ END_OF_CONFIG
     }
 
     /**
-     * Gets the given property of an object
+     * Gets the given property of an object.
      *
      * @param mixed  $object Object
      * @param string $name   Property name

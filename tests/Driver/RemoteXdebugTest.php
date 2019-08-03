@@ -1,18 +1,20 @@
 <?php
+
+declare(strict_types=1);
 /**
- * Code Coverage Driver 
+ * Code Coverage Driver.
  *
  * @copyright 2013 Anthon Pang
  * @license BSD-2-Clause
  */
 
-namespace LeanPHP\Behat\CodeCoverage;
+namespace DVDoug\Behat\CodeCoverage;
 
-use VIPSoft\TestCase;
-use LeanPHP\Behat\CodeCoverage\Driver\RemoteXdebug;
+use DVDoug\Behat\CodeCoverage\Driver\RemoteXdebug;
+use PHPUnit\Framework\TestCase;
 
 /**
- * Remote driver test
+ * Remote driver test.
  *
  * @group Unit
  */
@@ -24,29 +26,29 @@ class RemoteXdebugTest extends TestCase
 
     private $response;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $this->config = array(
+        $this->config = [
             'base_uri' => 'http://localhost',
-            'auth'     => array(
-                              'user'     => 'user name',
+            'auth' => [
+                              'user' => 'user name',
                               'password' => 'password',
-                          ),
-            'create'   => array(
+                          ],
+            'create' => [
                               'method' => 'POST',
-                              'path'   => '/',
-                          ),
-            'read'     => array(
+                              'path' => '/',
+                          ],
+            'read' => [
                               'method' => 'GET',
-                              'path'   => '/',
-                          ),
-            'delete'   => array(
+                              'path' => '/',
+                          ],
+            'delete' => [
                               'method' => 'DELETE',
-                              'path'   => '/',
-                          ),
-        );
+                              'path' => '/',
+                          ],
+        ];
 
         $this->response = $this->getMockBuilder('GuzzleHttp\Psr7\Response')
                                ->disableOriginalConstructor()
@@ -62,24 +64,24 @@ class RemoteXdebugTest extends TestCase
 
         $response->expects($this->any())
             ->method('getStatusCode')
-            ->will($this->returnValue('302'));
+            ->willReturn('302');
 
         $this->client = $this->createMock('GuzzleHttp\Client');
         $this->client->expects($this->any())
             ->method('request')
-                     ->will($this->returnValue($response));
+                     ->willReturn($response);
         $this->client->expects($this->any())
             ->method('request')
-                     ->will($this->returnValue($response));
+                     ->willReturn($response);
         $this->client->expects($this->any())
             ->method('request')
-                     ->will($this->returnValue($response));
+                     ->willReturn($response);
         $this->client->expects($this->any())
             ->method('request')
-                     ->will($this->returnValue($response));
+                     ->willReturn($response);
     }
 
-    public function testInvalidMethodException()
+    public function testInvalidMethodException(): void
     {
         try {
             $this->config['create']['method'] = 'TRACE';
@@ -93,7 +95,7 @@ class RemoteXdebugTest extends TestCase
         }
     }
 
-    public function testStart()
+    public function testStart(): void
     {
         $driver = new RemoteXdebug($this->config, $this->client);
 
@@ -102,10 +104,9 @@ class RemoteXdebugTest extends TestCase
         } catch (\Exception $e) {
             $this->assertTrue(strpos($e->getMessage(), 'remote driver start failed: ') === 0);
         }
-
     }
 
-    public function testStartException()
+    public function testStartException(): void
     {
         try {
             $driver = new RemoteXdebug($this->config, $this->client);
@@ -117,18 +118,18 @@ class RemoteXdebugTest extends TestCase
         }
     }
 
-    public function testStop()
+    public function testStop(): void
     {
-        $driver   = new RemoteXdebug($this->config, $this->client);
+        $driver = new RemoteXdebug($this->config, $this->client);
 
         try {
-             $coverage = $driver->stop();
+            $coverage = $driver->stop();
         } catch (\Exception $e) {
             $this->assertTrue(strpos($e->getMessage(), 'remote driver fetch failed: ') === 0);
         }
     }
 
-    public function testStopException()
+    public function testStopException(): void
     {
         try {
             $driver = new RemoteXdebug($this->config, $this->client);

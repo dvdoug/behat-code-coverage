@@ -1,11 +1,9 @@
 behat-code-coverage
 ===================
-[![License](https://img.shields.io/packagist/l/leanphp/behat-code-coverage.svg?style=flat-square)](#License)
-[![Latest Stable Version](https://img.shields.io/packagist/v/leanphp/behat-code-coverage.svg?style=flat-square)](https://packagist.org/packages/leanphp/behat-code-coverage)
-[![Total Downloads](https://img.shields.io/packagist/dt/leanphp/behat-code-coverage.svg?style=flat-square)](https://packagist.org/packages/leanphp/behat-code-coverage)
-[![Travis](https://img.shields.io/travis/leanphp/behat-code-coverage.svg?style=flat-square)](https://travis-ci.org/leanphp/behat-code-coverage)
-[![AppVeyor](https://img.shields.io/appveyor/ci/leanphp/behat-code-coverage/master.svg?style=flat-square)](https://ci.appveyor.com/project/leanphp/behat-code-coverage)
-[![Pre Release](https://img.shields.io/packagist/vpre/leanphp/behat-code-coverage.svg?style=flat-square)](https://packagist.org/packages/leanphp/behat-code-coverage)
+[![Build Status](https://travis-ci.org/dvdoug/behat-code-coverage.svg?branch=master)](https://travis-ci.org/dvdoug/behat-code-coverage)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dvdoug/BoxPacker/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dvdoug/behat-code-coverage/?branch=master)
+[![Download count](https://img.shields.io/packagist/dt/dvdoug/behat-code-coverage.svg)](https://packagist.org/packages/dvdoug/behat-code-coverage)
+[![Current version](https://img.shields.io/packagist/v/dvdoug/behat-code-coverage.svg)](https://packagist.org/packages/dvdoug/behat-code-coverage)
 
 [behat-code-coverage][0] is a [Behat][3] extension that generates Code
 Coverage reports for [Behat][3] tests.
@@ -14,13 +12,12 @@ Generating Code Coverage reports allows you to to analyze which parts of your
 codebase are tested and how well. However, Code Coverage alone should NOT be
 used as a single metric defining how good your tests are.
 
-**Note!** This is a maintained fork of [vipsoft/code-coverage-extension][1],
-including codebase for [vipsoft/code-coverage-common][2] package with
-compatible version numbers for stable releases.
+**Note!** This is a maintained fork of [leanphp/behat-code-coverage][1],
+with compatible version numbers for stable releases.
 
 ## Requirements
 
-- PHP 5.6+ / 7.0+
+- PHP 7.1+
 - [Behat v3][3]
 - [Xdebug][5] or [phpdbg][6] extension enabled
 
@@ -32,14 +29,14 @@ Please see [CHANGELOG.md](CHANGELOG.md) for information on recent changes.
 
 Install this package as a development dependency in your project:
 
-    $ composer require --dev leanphp/behat-code-coverage
+    $ composer require --dev dvdoug/behat-code-coverage
 
 Enable extension by editing `behat.yml` of your project:
 
 ``` yaml
 default:
   extensions:
-    LeanPHP\Behat\CodeCoverage\Extension:
+    DVDoug\Behat\CodeCoverage\Extension:
       drivers:
         - local
       filter:
@@ -84,7 +81,7 @@ Options).
 # ...
 default:
   extensions:
-    LeanPHP\Behat\CodeCoverage\Extension:
+    DVDoug\Behat\CodeCoverage\Extension:
       # http auth (optional)
       auth:        ~
       # select which driver to use when gatherig coverage data
@@ -162,7 +159,7 @@ default:
     - `options` - format options:
         - `target` - target/output directory
 
-## Authors
+## Original Authors
 
 Copyright (c) 2017 ek9 <dev@ek9.co> (https://ek9.co).
 

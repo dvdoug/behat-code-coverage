@@ -1,19 +1,21 @@
 <?php
+
+declare(strict_types=1);
 /**
- * Code Coverage Report Service
+ * Code Coverage Report Service.
  *
  * @copyright 2013 Anthon Pang
  *
  * @license BSD-2-Clause
  */
 
-namespace LeanPHP\Behat\CodeCoverage\Service;
+namespace DVDoug\Behat\CodeCoverage\Service;
 
-use LeanPHP\Behat\CodeCoverage\Common\Report\Factory;
+use DVDoug\Behat\CodeCoverage\Common\Report\Factory;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 
 /**
- * Code coverage report service
+ * Code coverage report service.
  *
  * @author Anthon Pang <apang@softwaredevelopment.ca>
  */
@@ -25,28 +27,28 @@ class ReportService
     private $config;
 
     /**
-     * @var \LeanPHP\Behat\CodeCoverage\Common\Report\Factory
+     * @var \DVDoug\Behat\CodeCoverage\Common\Report\Factory
      */
     private $factory;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param array                                             $config
-     * @param \LeanPHP\Behat\CodeCoverage\Common\Report\Factory $factory
+     * @param array                                            $config
+     * @param \DVDoug\Behat\CodeCoverage\Common\Report\Factory $factory
      */
     public function __construct(array $config, Factory $factory)
     {
-        $this->config  = $config;
+        $this->config = $config;
         $this->factory = $factory;
     }
 
     /**
-     * Generate report
+     * Generate report.
      *
      * @param CodeCoverage $coverage
      */
-    public function generateReport(CodeCoverage $coverage)
+    public function generateReport(CodeCoverage $coverage): void
     {
         $format = $this->config['report']['format'];
         $options = $this->config['report']['options'];

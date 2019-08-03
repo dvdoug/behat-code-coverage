@@ -1,18 +1,20 @@
 <?php
+
+declare(strict_types=1);
 /**
- * Code Coverage Driver Factory
+ * Code Coverage Driver Factory.
  *
  * @copyright 2013 Anthon Pang
  *
  * @license BSD-3-Clause
  */
 
-namespace LeanPHP\Behat\CodeCoverage\Common\Driver;
+namespace DVDoug\Behat\CodeCoverage\Common\Driver;
 
 use SebastianBergmann\CodeCoverage\Driver\Driver as DriverInterface;
 
 /**
- * Driver factory
+ * Driver factory.
  *
  * @author Anthon Pang <apang@softwaredevelopment.ca>
  */
@@ -24,7 +26,7 @@ class Factory
     private $driverClasses;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param array $driverClasses List of namespaced driver classes
      */
@@ -34,7 +36,7 @@ class Factory
     }
 
     /**
-     * Create driver
+     * Create driver.
      *
      * @return DriverInterface
      */

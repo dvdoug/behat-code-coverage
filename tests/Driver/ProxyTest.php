@@ -1,18 +1,20 @@
 <?php
+
+declare(strict_types=1);
 /**
- * Code Coverage Driver 
+ * Code Coverage Driver.
  *
  * @copyright 2013 Anthon Pang
  * @license BSD-2-Clause
  */
 
-namespace LeanPHP\Behat\CodeCoverage;
+namespace DVDoug\Behat\CodeCoverage;
 
-use VIPSoft\TestCase;
-use LeanPHP\Behat\CodeCoverage\Driver\Proxy;
+use DVDoug\Behat\CodeCoverage\Driver\Proxy;
+use PHPUnit\Framework\TestCase;
 
 /**
- * Proxy driver test
+ * Proxy driver test.
  *
  * @group Unit
  */
@@ -22,13 +24,13 @@ class ProxyTest extends TestCase
     private $localDriver;
     private $remoteDriver;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $this->localDriver = $this->createMock('LeanPHP\Behat\CodeCoverage\Common\Driver\Stub');
+        $this->localDriver = $this->createMock('DVDoug\Behat\CodeCoverage\Common\Driver\Stub');
 
-        $this->remoteDriver = $this->getMockBuilder('LeanPHP\Behat\CodeCoverage\Driver\RemoteXdebug')
+        $this->remoteDriver = $this->getMockBuilder('DVDoug\Behat\CodeCoverage\Driver\RemoteXdebug')
                                    ->disableOriginalConstructor()
                                    ->getMock();
 
@@ -37,7 +39,7 @@ class ProxyTest extends TestCase
         $this->driver->addDriver($this->remoteDriver);
     }
 
-    public function testStart()
+    public function testStart(): void
     {
         $this->localDriver->expects($this->once())
                           ->method('start');
@@ -48,34 +50,34 @@ class ProxyTest extends TestCase
         $this->driver->start();
     }
 
-    public function testStop()
+    public function testStop(): void
     {
-        $coverage = array(
-                        'SomeClass' => array(
+        $coverage = [
+                        'SomeClass' => [
                             1 => 1,
                             2 => -1,
                             3 => -2,
-                        )
-                    );
+                        ],
+                    ];
 
         $this->localDriver->expects($this->once())
                           ->method('stop')
-                          ->will($this->returnValue($coverage));
+                          ->willReturn($coverage);
 
         $this->remoteDriver->expects($this->once())
                            ->method('stop')
-                           ->will($this->returnValue([]));
+                           ->willReturn([]);
 
         $coverage = $this->driver->stop();
 
         $this->assertEquals(
-            array(
-                'SomeClass' => array(
+            [
+                'SomeClass' => [
                     1 => 1,
                     2 => -1,
                     3 => -2,
-                )
-            ),
+                ],
+            ],
             $coverage
         );
     }

@@ -1,13 +1,15 @@
 <?php
+
+declare(strict_types=1);
 /**
- * Code Coverage Extension for Behat
+ * Code Coverage Extension for Behat.
  *
  * @copyright 2013 Anthon Pang
  *
  * @license BSD-2-Clause
  */
 
-namespace LeanPHP\Behat\CodeCoverage;
+namespace DVDoug\Behat\CodeCoverage;
 
 use Behat\Testwork\ServiceContainer\Extension as ExtensionInterface;
 use Behat\Testwork\ServiceContainer\ExtensionManager;
@@ -16,10 +18,9 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
-use LeanPHP\Behat\CodeCoverage\Compiler;
 
 /**
- * Code coverage extension
+ * Code coverage extension.
  *
  * @author Anthon Pang <apang@softwaredevelopment.ca>
  */
@@ -31,50 +32,47 @@ class Extension implements ExtensionInterface
     private $configFolder;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param string $configFolder
      */
     public function __construct($configFolder = null)
     {
-        $this->configFolder = $configFolder ?: __DIR__.'/Resources/config';
+        $this->configFolder = $configFolder ?: __DIR__ . '/Resources/config';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function initialize(ExtensionManager $extensionManager)
+    public function initialize(ExtensionManager $extensionManager): void
     {
     }
 
     /**
      * {@inheritdoc}
      */
-    public function load(ContainerBuilder $container, array $config)
+    public function load(ContainerBuilder $container, array $config): void
     {
         $loader = new XmlFileLoader($container, new FileLocator($this->configFolder));
 
         $servicesFile = 'services.xml';
-        if (true === method_exists('Symfony\Component\DependencyInjection\Definition', 'setFactoryClass')) {
-            $servicesFile = 'services-2.3.xml';
-        }
         $loader->load($servicesFile);
 
-        if (! isset($config['auth']['user']) || ! isset($config['auth']['password'])) {
+        if (!isset($config['auth']['user']) || !isset($config['auth']['password'])) {
             $config['auth'] = null;
         }
 
-        if (! count($config['drivers'])) {
-            $config['drivers'] = array('local');
+        if (!count($config['drivers'])) {
+            $config['drivers'] = ['local'];
         }
 
-        if (! count($config['report']['options'])) {
-            $config['report']['options'] = array(
+        if (!count($config['report']['options'])) {
+            $config['report']['options'] = [
                 'target' => '/tmp',
-            );
+            ];
         }
 
-        if (! $container->hasParameter('mink.base_url')) {
+        if (!$container->hasParameter('mink.base_url')) {
             $container->setParameter('mink.base_url', null);
         }
 
@@ -90,7 +88,7 @@ class Extension implements ExtensionInterface
     /**
      * {@inheritdoc}
      */
-    public function configure(ArrayNodeDefinition $builder)
+    public function configure(ArrayNodeDefinition $builder): void
     {
         $builder
             ->addDefaultsIfNotSet()
@@ -205,7 +203,7 @@ class Extension implements ExtensionInterface
     /**
      * {@inheritdoc}
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $input = $container->get('cli.input');
         if ($input->hasParameterOption('--no-coverage')) {
@@ -216,15 +214,14 @@ class Extension implements ExtensionInterface
         $this->setupFactory($container);
         $this->setupCodeCoverage($container);
         $this->setupCodeCoverageFilter($container);
-
     }
 
     /**
      * @param ContainerBuilder $container
      */
-    private function setupDriver(ContainerBuilder $container)
+    private function setupDriver(ContainerBuilder $container): void
     {
-        if (! $container->hasDefinition('behat.code_coverage.driver.proxy')) {
+        if (!$container->hasDefinition('behat.code_coverage.driver.proxy')) {
             return;
         }
 
@@ -236,7 +233,7 @@ class Extension implements ExtensionInterface
                 if (isset($attributes['alias'])
                     && in_array($attributes['alias'], $enabled)
                 ) {
-                    $proxy->addMethodCall('addDriver', array(new Reference($id)));
+                    $proxy->addMethodCall('addDriver', [new Reference($id)]);
                 }
             }
         }
@@ -245,82 +242,81 @@ class Extension implements ExtensionInterface
     /**
      * @param ContainerBuilder $container
      */
-    public function setupFactory(ContainerBuilder $container)
+    public function setupFactory(ContainerBuilder $container): void
     {
-        if (! $container->hasDefinition('vipsoft.code_coverage.driver.factory')) {
+        if (!$container->hasDefinition('dvdoug.code_coverage.driver.factory')) {
             return;
         }
 
-        $factory = $container->getDefinition('vipsoft.code_coverage.driver.factory');
-        $drivers = array();
-        $ids     = $container->findTaggedServiceIds('vipsoft.code_coverage.driver');
+        $factory = $container->getDefinition('dvdoug.code_coverage.driver.factory');
+        $drivers = [];
+        $ids = $container->findTaggedServiceIds('dvdoug.code_coverage.driver');
 
         foreach ($ids as $id => $attributes) {
             $drivers[] = $container->getDefinition($id)->getClass();
         }
 
-        $factory->setArguments(array($drivers));
+        $factory->setArguments([$drivers]);
     }
 
     /**
      * @param ContainerBuilder $container
      */
-    private function setupCodeCoverage(ContainerBuilder $container)
+    private function setupCodeCoverage(ContainerBuilder $container): void
     {
-        if (! $container->hasDefinition('behat.code_coverage.php_code_coverage')) {
+        if (!$container->hasDefinition('behat.code_coverage.php_code_coverage')) {
             return;
         }
 
         $coverage = $container->getDefinition('behat.code_coverage.php_code_coverage');
-        $config   = $container->getParameter('behat.code_coverage.config.filter');
+        $config = $container->getParameter('behat.code_coverage.config.filter');
 
         $coverage->addMethodCall(
             'setAddUncoveredFilesFromWhitelist',
-            array($config['whitelist']['addUncoveredFilesFromWhitelist'])
+            [$config['whitelist']['addUncoveredFilesFromWhitelist']]
         );
         $coverage->addMethodCall(
             'setProcessUncoveredFilesFromWhiteList',
-            array($config['whitelist']['processUncoveredFilesFromWhitelist'])
+            [$config['whitelist']['processUncoveredFilesFromWhitelist']]
         );
         $coverage->addMethodCall(
             'setForceCoversAnnotation',
-            array($config['forceCoversAnnotation'])
+            [$config['forceCoversAnnotation']]
         );
     }
 
     /**
      * @param ContainerBuilder $container
      */
-    private function setupCodeCoverageFilter(ContainerBuilder $container)
+    private function setupCodeCoverageFilter(ContainerBuilder $container): void
     {
-        if (! $container->hasDefinition('behat.code_coverage.php_code_coverage_filter')) {
+        if (!$container->hasDefinition('behat.code_coverage.php_code_coverage_filter')) {
             return;
         }
 
         $filter = $container->getDefinition('behat.code_coverage.php_code_coverage_filter');
         $config = $container->getParameter('behat.code_coverage.config.filter');
 
-        $dirs = array(
-            'addDirectoryToWhiteList' => array('whitelist', 'include', 'directories'),
-            'removeDirectoryFromWhiteList' => array('whitelist', 'exclude', 'directories'),
-        );
+        $dirs = [
+            'addDirectoryToWhiteList' => ['whitelist', 'include', 'directories'],
+            'removeDirectoryFromWhiteList' => ['whitelist', 'exclude', 'directories'],
+        ];
 
         foreach ($dirs as $method => $hiera) {
             foreach ($config[$hiera[0]][$hiera[1]][$hiera[2]] as $path => $dir) {
-                $filter->addMethodCall($method, array($path, $dir['suffix'], $dir['prefix']));
+                $filter->addMethodCall($method, [$path, $dir['suffix'], $dir['prefix']]);
             }
         }
 
-        $files = array(
-            'addFileToWhiteList' => array('whitelist', 'include', 'files'),
-            'removeFileFromWhiteList' => array('whitelist', 'exclude', 'files'),
-        );
+        $files = [
+            'addFileToWhiteList' => ['whitelist', 'include', 'files'],
+            'removeFileFromWhiteList' => ['whitelist', 'exclude', 'files'],
+        ];
 
         foreach ($files as $method => $hiera) {
             foreach ($config[$hiera[0]][$hiera[1]][$hiera[2]] as $file) {
-                $filter->addMethodCall($method, array($file));
+                $filter->addMethodCall($method, [$file]);
             }
         }
     }
-
 }

@@ -1,0 +1,19 @@
+<phpunit bootstrap="vendor/autoload.php">
+
+    <testsuites>
+        <testsuite name="behat-code-coverage">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
+        </whitelist>
+    </filter>
+
+    <php>
+        <ini name="date.timezone" value="UTC"/>
+        <ini name="error_reporting" value="2147483647"/>
+    </php>
+</phpunit>

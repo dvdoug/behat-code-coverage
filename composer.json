@@ -1,7 +1,8 @@
 {
-    "name": "leanphp/behat-code-coverage",
+    "name": "dvdoug/behat-code-coverage",
     "description": "Generate Code Coverage reports for Behat tests",
     "type": "library",
+    "homepage": "https://github.com/dvdoug/behat-code-coverage",
     "keywords": [
         "behat", "code", "coverage", "generate", "generation", "build",
         "report", "test", "tests", "code-coverage", "reports", "clover",
@@ -9,6 +10,10 @@
     ],
     "license": "BSD-2-Clause",
     "authors": [
+        {
+            "name": "Doug Wright",
+            "role": "Developer"
+        },
         {
             "name": "ek9",
             "email": "dev@ek9.co",
@@ -19,43 +24,37 @@
             "email": "apang@softwaredevelopment.ca"
         }
     ],
-    "support": {
-        "issues": "https://github.com/leanphp/behat-code-coverage/issues",
-        "source": "https://github.com/leanphp/behat-code-coverage",
-        "docs": "https://github.com/leanphp/behat-code-coverage#behat-code-coverage"
-    },
     "require": {
-        "php": ">=5.6",
+        "php": ">=7.1",
         "phpunit/php-code-coverage": "^6.0",
-        "behat/behat": "^3.0",
+        "behat/behat": "^3.5",
         "guzzlehttp/guzzle": "^6.0",
-        "symfony/config": "^2.3||^3.0||^4.0",
-        "symfony/dependency-injection": "^2.2||^3.0||^4.0",
-        "symfony/expression-language": "^2.2||^3.0||^4.0",
-        "symfony/http-kernel": "^2.3||^3.0||^4.0",
-        "symfony/http-foundation": "^2.3||^3.0||^4.0"
+        "symfony/config": "^3.4||^4.0",
+        "symfony/dependency-injection": "^3.4||^4.0",
+        "symfony/expression-language": "^3.4||^4.0",
+        "symfony/http-kernel": "^3.4||^4.0",
+        "symfony/http-foundation": "^3.4||^4.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.0",
-        "mikey179/vfsStream": "1.6.*",
-        "squizlabs/php_codesniffer": "^3.2",
-        "escapestudios/symfony2-coding-standard": "^3.1"
+        "mikey179/vfsstream": "^1.6",
+        "friendsofphp/php-cs-fixer": "^2.13"
     },
     "suggest": {
         "ext-xdebug": "Xdebug extension is required to collect coverage via Xdebug driver and run tests",
-        "ext-phpdbg": "PHPDBG extension allows you to collect coverage faster than Xdebug (PHP 7.0+)"
+        "ext-phpdbg": "PHPDBG extension allows you to collect coverage faster than Xdebug"
     },
     "autoload": {
-        "psr-4": { "LeanPHP\\Behat\\CodeCoverage\\": "src/" }
+        "psr-4": {
+            "DVDoug\\Behat\\CodeCoverage\\": "src/"
+        }
     },
     "config": {
-        "bin-dir": "bin"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "3.2.x-dev",
-            "dev-develop": "4.x-dev",
-            "dev-v3.1": "3.1.x-dev"
-        }
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true,
+        "bin-compat" : "full",
+        "optimize-autoloader": true
     }
 }

@@ -1,24 +1,25 @@
 <?php
+
+declare(strict_types=1);
 /**
- * Event Listener
+ * Event Listener.
  *
  * @copyright 2013 Anthon Pang
  *
  * @license BSD-2-Clause
  */
 
-namespace LeanPHP\Behat\CodeCoverage\Listener;
+namespace DVDoug\Behat\CodeCoverage\Listener;
 
 use Behat\Behat\EventDispatcher\Event\ExampleTested;
 use Behat\Behat\EventDispatcher\Event\ScenarioTested;
 use Behat\Testwork\EventDispatcher\Event\ExerciseCompleted;
-use LeanPHP\Behat\CodeCoverage\Service\ReportService;
+use DVDoug\Behat\CodeCoverage\Service\ReportService;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Event listener
+ * Event listener.
  *
  * @author Anthon Pang <apang@softwaredevelopment.ca>
  */
@@ -30,7 +31,7 @@ class EventListener implements EventSubscriberInterface
     private $coverage;
 
     /**
-     * @var \LeanPHP\Behat\CodeCoverage\Service\ReportService
+     * @var \DVDoug\Behat\CodeCoverage\Service\ReportService
      */
     private $reportService;
 
@@ -40,17 +41,17 @@ class EventListener implements EventSubscriberInterface
     private $skipCoverage;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param CodeCoverage                                      $coverage
-     * @param \LeanPHP\Behat\CodeCoverage\Service\ReportService $reportService
-     * @param boolean                                           $skipCoverage
+     * @param CodeCoverage                                     $coverage
+     * @param \DVDoug\Behat\CodeCoverage\Service\ReportService $reportService
+     * @param bool                                             $skipCoverage
      */
     public function __construct(CodeCoverage $coverage, ReportService $reportService, $skipCoverage = false)
     {
-        $this->coverage      = $coverage;
+        $this->coverage = $coverage;
         $this->reportService = $reportService;
-        $this->skipCoverage  = $skipCoverage;
+        $this->skipCoverage = $skipCoverage;
     }
 
     /**
@@ -58,22 +59,22 @@ class EventListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             ExerciseCompleted::BEFORE => 'beforeExercise',
             ScenarioTested::BEFORE => 'beforeScenario',
-            ExampleTested::BEFORE  => 'beforeScenario',
-            ScenarioTested::AFTER  => 'afterScenario',
-            ExampleTested::AFTER   => 'afterScenario',
+            ExampleTested::BEFORE => 'beforeScenario',
+            ScenarioTested::AFTER => 'afterScenario',
+            ExampleTested::AFTER => 'afterScenario',
             ExerciseCompleted::AFTER => 'afterExercise',
-        );
+        ];
     }
 
     /**
-     * Before Exercise hook
+     * Before Exercise hook.
      *
      * @param \Behat\Testwork\EventDispatcher\Event\ExerciseCompleted $event
      */
-    public function beforeExercise(ExerciseCompleted $event)
+    public function beforeExercise(ExerciseCompleted $event): void
     {
         if ($this->skipCoverage) {
             return;
@@ -83,28 +84,28 @@ class EventListener implements EventSubscriberInterface
     }
 
     /**
-     * Before Scenario/Outline Example hook
+     * Before Scenario/Outline Example hook.
      *
      * @param \Behat\Behat\EventDispatcher\Event\ScenarioTested $event
      */
-    public function beforeScenario(ScenarioTested $event)
+    public function beforeScenario(ScenarioTested $event): void
     {
         if ($this->skipCoverage) {
             return;
         }
 
         $node = $event->getScenario();
-        $id   = $event->getFeature()->getFile().':'.$node->getLine();
+        $id = $event->getFeature()->getFile() . ':' . $node->getLine();
 
         $this->coverage->start($id);
     }
 
     /**
-     * After Scenario/Outline Example hook
+     * After Scenario/Outline Example hook.
      *
      * @param \Behat\Behat\EventDispatcher\Event\ScenarioTested $event
      */
-    public function afterScenario(ScenarioTested $event)
+    public function afterScenario(ScenarioTested $event): void
     {
         if ($this->skipCoverage) {
             return;
@@ -114,11 +115,11 @@ class EventListener implements EventSubscriberInterface
     }
 
     /**
-     * After Exercise hook
+     * After Exercise hook.
      *
      * @param \Behat\Testwork\Tester\Event\ExerciseCompleted $event
      */
-    public function afterExercise(ExerciseCompleted $event)
+    public function afterExercise(ExerciseCompleted $event): void
     {
         if ($this->skipCoverage) {
             return;

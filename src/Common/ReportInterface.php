@@ -1,32 +1,34 @@
 <?php
+
+declare(strict_types=1);
 /**
- * Report
+ * Report.
  *
  * @copyright 2013 Anthon Pang
  *
  * @license BSD-3-Clause
  */
 
-namespace LeanPHP\Behat\CodeCoverage\Common;
+namespace DVDoug\Behat\CodeCoverage\Common;
 
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 
 /**
- * Report interface
+ * Report interface.
  *
  * @author Anthon Pang <apang@softwaredevelopment.ca>
  */
 interface ReportInterface
 {
     /**
-     * Constructor
+     * Constructor.
      *
      * @param array $options
      */
     public function __construct(array $options);
 
     /**
-     * Generate report
+     * Generate report.
      *
      * @param CodeCoverage $coverage
      *

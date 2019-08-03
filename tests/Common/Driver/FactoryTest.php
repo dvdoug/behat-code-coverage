@@ -1,37 +1,38 @@
 <?php
+
+declare(strict_types=1);
 /**
- * Code Coverage Driver Factory
+ * Code Coverage Driver Factory.
  *
  * @copyright 2013 Anthon Pang
  * @license BSD-2-Clause
  */
 
-namespace LeanPHP\Behat\CodeCoverage\Common\Driver;
+namespace DVDoug\Behat\CodeCoverage\Common\Driver;
 
-use VIPSoft\TestCase;
-use LeanPHP\Behat\CodeCoverage\Common\Driver\Factory;
+use PHPUnit\Framework\TestCase;
 
 /**
- * Driver factory test
+ * Driver factory test.
  *
  * @group Unit
  */
 class FactoryTest extends TestCase
 {
-    public function testCreateNoClasses()
+    public function testCreateNoClasses(): void
     {
-        $factory = new Factory(array());
+        $factory = new Factory([]);
 
         $driver = $factory->create();
 
         $this->assertTrue($driver === null);
     }
 
-    public function testCreate()
+    public function testCreate(): void
     {
-        if ( ! class_exists('LeanPHP\Behat\CodeCoverage\Common\Driver\Factory\GoodDriver')) {
+        if (!class_exists('DVDoug\Behat\CodeCoverage\Common\Driver\Factory\GoodDriver')) {
             eval(<<<END_OF_CLASS_DEFINITION
-namespace LeanPHP\Behat\CodeCoverage\Common\Driver\Factory {
+namespace DVDoug\Behat\CodeCoverage\Common\Driver\Factory {
     class GoodDriver implements \SebastianBergmann\CodeCoverage\Driver\Driver
     {
         public function __construct()
@@ -51,9 +52,9 @@ END_OF_CLASS_DEFINITION
             );
         }
 
-        $classes = array(
-            'LeanPHP\Behat\CodeCoverage\Common\Driver\Factory\GoodDriver',
-        );
+        $classes = [
+            'DVDoug\Behat\CodeCoverage\Common\Driver\Factory\GoodDriver',
+        ];
 
         $factory = new Factory($classes);
 
@@ -62,11 +63,11 @@ END_OF_CLASS_DEFINITION
         $this->assertTrue($driver !== null);
     }
 
-    public function testCreateException()
+    public function testCreateException(): void
     {
-        if ( ! class_exists('LeanPHP\Behat\CodeCoverage\Common\Driver\Factory\BadDriver')) {
+        if (!class_exists('DVDoug\Behat\CodeCoverage\Common\Driver\Factory\BadDriver')) {
             eval(<<<END_OF_CLASS_DEFINITION
-namespace LeanPHP\Behat\CodeCoverage\Common\Driver\Factory {
+namespace DVDoug\Behat\CodeCoverage\Common\Driver\Factory {
     class BadDriver implements \SebastianBergmann\CodeCoverage\Driver\Driver
     {
         public function __construct()
@@ -87,9 +88,9 @@ END_OF_CLASS_DEFINITION
             );
         }
 
-        $classes = array(
-            'LeanPHP\Behat\CodeCoverage\Common\Driver\Factory\BadDriver',
-        );
+        $classes = [
+            'DVDoug\Behat\CodeCoverage\Common\Driver\Factory\BadDriver',
+        ];
 
         $factory = new Factory($classes);
 

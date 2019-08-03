@@ -1,20 +1,22 @@
 <?php
+
+declare(strict_types=1);
 /**
- * Code Coverage XML Report
+ * Code Coverage XML Report.
  *
  * @copyright 2013 Anthon Pang
  *
  * @license BSD-3-Clause
  */
 
-namespace LeanPHP\Behat\CodeCoverage\Common\Report;
+namespace DVDoug\Behat\CodeCoverage\Common\Report;
 
-use LeanPHP\Behat\CodeCoverage\Common\ReportInterface;
+use DVDoug\Behat\CodeCoverage\Common\ReportInterface;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Report\Xml\Facade;
 
 /**
- * XML report
+ * XML report.
  *
  * @author Anthon Pang <apang@softwaredevelopment.ca>
  */
@@ -35,11 +37,11 @@ class Xml implements ReportInterface
      */
     public function __construct(array $options)
     {
-        if (! class_exists('SebastianBergmann\CodeCoverage\Report\Xml\Facade')) {
+        if (!class_exists('SebastianBergmann\CodeCoverage\Report\Xml\Facade')) {
             throw new \Exception('XML requires CodeCoverage 4.0+');
         }
 
-        if (! isset($options['target'])) {
+        if (!isset($options['target'])) {
             $options['target'] = null;
         }
 

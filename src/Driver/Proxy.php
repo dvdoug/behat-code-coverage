@@ -1,20 +1,21 @@
 <?php
+
+declare(strict_types=1);
 /**
- * Proxy Code Coverage Driver
+ * Proxy Code Coverage Driver.
  *
  * @copyright 2013 Anthon Pang
  *
  * @license BSD-2-Clause
  */
 
-namespace LeanPHP\Behat\CodeCoverage\Driver;
+namespace DVDoug\Behat\CodeCoverage\Driver;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use LeanPHP\Behat\CodeCoverage\Common\Model\Aggregate;
+use DVDoug\Behat\CodeCoverage\Common\Model\Aggregate;
 use SebastianBergmann\CodeCoverage\Driver\Driver as DriverInterface;
 
 /**
- * Proxy driver
+ * Proxy driver.
  *
  * @author Anthon Pang <apang@softwaredevelopment.ca>
  */
@@ -23,14 +24,14 @@ class Proxy implements DriverInterface
     /**
      * @var array
      */
-    private $drivers = array();
+    private $drivers = [];
 
     /**
-     * Register driver
+     * Register driver.
      *
      * @param DriverInterface|null $driver
      */
-    public function addDriver(DriverInterface $driver = null)
+    public function addDriver(DriverInterface $driver = null): void
     {
         if ($driver) {
             $this->drivers[] = $driver;
@@ -57,7 +58,7 @@ class Proxy implements DriverInterface
         foreach ($this->drivers as $driver) {
             $coverage = $driver->stop();
 
-            if (! $coverage) {
+            if (!$coverage) {
                 continue;
             }
 

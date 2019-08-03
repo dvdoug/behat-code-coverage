@@ -1,20 +1,22 @@
 <?php
+
+declare(strict_types=1);
 /**
- * Code Coverage HTML Report
+ * Code Coverage HTML Report.
  *
  * @copyright 2013 Anthon Pang
  *
  * @license BSD-3-Clause
  */
 
-namespace LeanPHP\Behat\CodeCoverage\Common\Report;
+namespace DVDoug\Behat\CodeCoverage\Common\Report;
 
-use LeanPHP\Behat\CodeCoverage\Common\ReportInterface;
+use DVDoug\Behat\CodeCoverage\Common\ReportInterface;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Report\Html\Facade;
 
 /**
- * HTML report
+ * HTML report.
  *
  * @author Anthon Pang <apang@softwaredevelopment.ca>
  */
@@ -35,27 +37,27 @@ class Html implements ReportInterface
      */
     public function __construct(array $options)
     {
-        if (! isset($options['target'])) {
+        if (!isset($options['target'])) {
             $options['target'] = null;
         }
 
-        if (! isset($options['charset'])) {
+        if (!isset($options['charset'])) {
             $options['charset'] = 'UTF-8';
         }
 
-        if (! isset($options['highlight'])) {
+        if (!isset($options['highlight'])) {
             $options['highlight'] = false;
         }
 
-        if (! isset($options['lowUpperBound'])) {
+        if (!isset($options['lowUpperBound'])) {
             $options['lowUpperBound'] = 35;
         }
 
-        if (! isset($options['highUpperBound'])) {
+        if (!isset($options['highUpperBound'])) {
             $options['highUpperBound'] = 70;
         }
 
-        if (! isset($options['generator'])) {
+        if (!isset($options['generator'])) {
             $options['generator'] = '';
         }
 

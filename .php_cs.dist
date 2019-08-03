@@ -1,0 +1,26 @@
+<?php
+
+declare(strict_types=1);
+
+return PhpCsFixer\Config::create()
+    ->setRules(
+        [
+            '@Symfony' => true,
+            '@Symfony:risky' => true,
+            '@PHP71Migration' => true,
+            '@PHP71Migration:risky' => true,
+            'concat_space' => ['spacing' => 'one'],
+            'native_function_invocation' => false,
+            'phpdoc_separation' => false,
+            'yoda_style' => false,
+            'array_syntax' => ['syntax' => 'short'],
+        ]
+    )
+    ->setRiskyAllowed(true)
+    ->setUsingCache(false)
+    ->setFinder(
+        PhpCsFixer\Finder::create()
+            ->in(__DIR__ . '/src')
+            ->in(__DIR__ . '/tests')
+            ->append([__FILE__])
+    );
