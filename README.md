@@ -1,7 +1,7 @@
 behat-code-coverage
 ===================
-[![Build Status](https://travis-ci.org/dvdoug/behat-code-coverage.svg?branch=master)](https://travis-ci.org/dvdoug/behat-code-coverage)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dvdoug/BoxPacker/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dvdoug/behat-code-coverage/?branch=master)
+[![Build Status](https://dev.azure.com/github0636/behat-code-coverage/_apis/build/status/dvdoug.behat-code-coverage?branchName=master)](https://dev.azure.com/github0636/behat-code-coverage/_build/latest?definitionId=1&branchName=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dvdoug/behat-code-coverage/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dvdoug/behat-code-coverage/?branch=master)
 [![Download count](https://img.shields.io/packagist/dt/dvdoug/behat-code-coverage.svg)](https://packagist.org/packages/dvdoug/behat-code-coverage)
 [![Current version](https://img.shields.io/packagist/v/dvdoug/behat-code-coverage.svg)](https://packagist.org/packages/dvdoug/behat-code-coverage)
 
