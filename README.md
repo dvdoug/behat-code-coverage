@@ -57,17 +57,17 @@ configuration file check [Configuration section](#configuration).
 
 ## Usage
 
-If you execute `bin/behat` command, you will see code coverage generated in
+If you execute `vendor/bin/behat` command, you will see code coverage generated in
 `target` (i.e. `build/behat-coverage`) directory (in `html` format):
 
-    $ bin/behat
+    $ vendor/bin/behat
 
 ### Running with phpdbg
 
 This extension now supports [phpdbg][6], which results in faster execution when
-using more recent versions of PHP. Run `phpspec` via [phpdbg][6]:
+using more recent versions of PHP. Run `behat` via [phpdbg][6]:
 
-    $ phpdbg -qrr bin/behat run
+    $ phpdbg -qrr vendor/bin/behat
 
 ## Configuration
 
