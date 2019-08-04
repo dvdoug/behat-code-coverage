@@ -44,10 +44,14 @@
         "ext-xdebug": "Xdebug extension is required to collect coverage via Xdebug driver and run tests",
         "ext-phpdbg": "PHPDBG extension allows you to collect coverage faster than Xdebug"
     },
+    "replace": {
+        "leanphp/behat-code-coverage": "*"
+    },
     "autoload": {
         "psr-4": {
             "DVDoug\\Behat\\CodeCoverage\\": "src/"
-        }
+        },
+        "files": ["src/LeanPHP.php"]
     },
     "config": {
         "preferred-install": {
