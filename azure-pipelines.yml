@@ -25,6 +25,9 @@ steps:
     php -version
   displayName: 'Use PHP version $(phpVersion)'
 
+- script: vendor/bin/php-cs-fixer fix --verbose --dry-run --diff --diff-format=udiff --allow-risky=yes
+  displayName: 'Check code style'
+
 - script: composer install --no-interaction --prefer-dist
   displayName: 'Composer install'
 
