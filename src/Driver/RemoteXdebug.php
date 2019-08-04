@@ -88,7 +88,7 @@ class RemoteXdebug implements DriverInterface
             throw new \Exception(sprintf('remote driver fetch failed: %s', $response->getReasonPhrase()));
         }
 
-        $response = $this->sendRequest('delete');
+        $this->sendRequest('delete');
 
         return json_decode($response->getBody(true), true);
     }
