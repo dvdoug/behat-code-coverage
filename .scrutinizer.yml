@@ -1,0 +1,22 @@
+checks:
+  php: true
+
+filter:
+  excluded_paths:
+    - 'features/'
+    - 'tests/'
+
+build:
+  environment:
+    # Languages
+    php:
+      version: "7.1"
+
+  tests:
+    override:
+      -
+        command: 'vendor/bin/phpunit --coverage-clover=build/phpunit.clover'
+        coverage:
+            file: 'build/phpunit.clover'
+            format: 'clover'
+      - php-scrutinizer-run
