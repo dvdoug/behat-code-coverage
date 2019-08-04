@@ -9,4 +9,5 @@
 ### Removed
  - Support for Symfony components older than `<3.4`
 
-[4.0.0]: https://github.com/dvdoug/behat-code-coverage/tree/4.0.0
+[Unreleased]: https://github.com/dvdoug/behat-code-coverage/compare/v4.0.0...master
+[4.0.0]: https://github.com/dvdoug/behat-code-coverage/compare/v3.4.1...v4.0.0
