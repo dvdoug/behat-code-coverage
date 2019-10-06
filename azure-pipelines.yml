@@ -35,7 +35,7 @@ steps:
     docker-compose -f tests/docker/php$(phpVersion)/docker-compose.yml exec -T php_fpm_xdebug php vendor/phpunit/phpunit/phpunit --coverage-clover=coverage-xdebug.xml;
     if [ $(phpVersion) == "7.1" ]; then
       wget https://scrutinizer-ci.com/ocular.phar;
-      docker-compose -f tests/docker/php$(phpVersion)/docker-compose.yml exec -T php_fpm php ocular.phar code-coverage:upload --format=php-clover coverage-xdebug.xml;
+      php ocular.phar code-coverage:upload --format=php-clover coverage-xdebug.xml;
     fi;
   displayName: 'PHPUnit (Xdebug)'
 
@@ -43,6 +43,6 @@ steps:
     docker-compose -f tests/docker/php$(phpVersion)/docker-compose.yml exec -T php_fpm phpdbg -qrr vendor/phpunit/phpunit/phpunit --coverage-clover=coverage-phpdbg.xml;
     if [ $(phpVersion) == "7.1" ]; then
       wget https://scrutinizer-ci.com/ocular.phar;
-      docker-compose -f tests/docker/php$(phpVersion)/docker-compose.yml exec -T php_fpm php ocular.phar code-coverage:upload --format=php-clover coverage-phpdbg.xml;
+      php ocular.phar code-coverage:upload --format=php-clover coverage-phpdbg.xml;
     fi;
   displayName: 'PHPUnit (phpdbg)'
