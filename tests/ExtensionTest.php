@@ -34,20 +34,20 @@ class ExtensionTest extends TestCase
         file_put_contents(
             $configDir . '/' . $servicesFile,
             <<<END_OF_CONFIG
-                <?xml version="1.0" ?>
-                <container xmlns="http://symfony.com/schema/dic/services"
-                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-                
-                    <parameters>
-                        <parameter key="behat.code_coverage.service.report.class">DVDoug\Behat\CodeCoverage\Service\ReportService</parameter>
-                    </parameters>
-                
-                    <services>
-                         <service id="behat.code_coverage.service.report" class="%behat.code_coverage.service.report.class%" />
-                    </services>
-                </container>
-                END_OF_CONFIG
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="behat.code_coverage.service.report.class">DVDoug\Behat\CodeCoverage\Service\ReportService</parameter>
+    </parameters>
+
+    <services>
+         <service id="behat.code_coverage.service.report" class="%behat.code_coverage.service.report.class%" />
+    </services>
+</container>
+END_OF_CONFIG
         );
 
         $container = new ContainerBuilder();
