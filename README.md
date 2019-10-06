@@ -64,8 +64,8 @@ If you execute `vendor/bin/behat` command, you will see code coverage generated 
 
 ### Running with phpdbg
 
-This extension now supports [phpdbg][6], which results in faster execution when
-using more recent versions of PHP. Run `behat` via [phpdbg][6]:
+This extension now supports `phpdbg`, which results in faster execution when
+using more recent versions of PHP. Run `behat` via `phpdbg`:
 
     $ phpdbg -qrr vendor/bin/behat
 
@@ -169,8 +169,3 @@ Licensed under [BSD-2-Clause License](LICENSE).
 [3]: http://behat.org/en/v2.5/
 [4]: http://mink.behat.org
 [5]: https://xdebug.org/
-[6]: http://phpdbg.com/
-
-[travis-image]: https://travis-ci.org/leanphp/behat-code-coverage.svg
-[travis-url]: https://travis-ci.org/leanphp/behat-code-coverage
-
