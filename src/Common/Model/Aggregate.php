@@ -27,7 +27,6 @@ class Aggregate
      * Update aggregated coverage.
      *
      * @param string $class
-     * @param array  $counts
      */
     public function update($class, array $counts): void
     {

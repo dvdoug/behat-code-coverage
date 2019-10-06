@@ -28,8 +28,6 @@ class Proxy implements DriverInterface
 
     /**
      * Register driver.
-     *
-     * @param DriverInterface|null $driver
      */
     public function addDriver(DriverInterface $driver = null): void
     {

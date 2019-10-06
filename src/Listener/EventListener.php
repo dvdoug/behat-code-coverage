@@ -43,9 +43,7 @@ class EventListener implements EventSubscriberInterface
     /**
      * Constructor.
      *
-     * @param CodeCoverage                                     $coverage
-     * @param \DVDoug\Behat\CodeCoverage\Service\ReportService $reportService
-     * @param bool                                             $skipCoverage
+     * @param bool $skipCoverage
      */
     public function __construct(CodeCoverage $coverage, ReportService $reportService, $skipCoverage = false)
     {
@@ -71,8 +69,6 @@ class EventListener implements EventSubscriberInterface
 
     /**
      * Before Exercise hook.
-     *
-     * @param \Behat\Testwork\EventDispatcher\Event\ExerciseCompleted $event
      */
     public function beforeExercise(ExerciseCompleted $event): void
     {
@@ -85,8 +81,6 @@ class EventListener implements EventSubscriberInterface
 
     /**
      * Before Scenario/Outline Example hook.
-     *
-     * @param \Behat\Behat\EventDispatcher\Event\ScenarioTested $event
      */
     public function beforeScenario(ScenarioTested $event): void
     {
@@ -102,8 +96,6 @@ class EventListener implements EventSubscriberInterface
 
     /**
      * After Scenario/Outline Example hook.
-     *
-     * @param \Behat\Behat\EventDispatcher\Event\ScenarioTested $event
      */
     public function afterScenario(ScenarioTested $event): void
     {

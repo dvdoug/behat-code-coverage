@@ -24,8 +24,6 @@ class Stub implements DriverInterface
 
     /**
      * Register driver.
-     *
-     * @param DriverInterface $driver
      */
     public function setDriver(DriverInterface $driver): void
     {

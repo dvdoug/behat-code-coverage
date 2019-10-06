@@ -218,9 +218,6 @@ class Extension implements ExtensionInterface
         $this->setupCodeCoverageFilter($container);
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function setupDriver(ContainerBuilder $container): void
     {
         if (!$container->hasDefinition('behat.code_coverage.driver.proxy')) {
@@ -241,9 +238,6 @@ class Extension implements ExtensionInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function setupFactory(ContainerBuilder $container): void
     {
         if (!$container->hasDefinition('dvdoug.code_coverage.driver.factory')) {
@@ -261,9 +255,6 @@ class Extension implements ExtensionInterface
         $factory->setArguments([$drivers]);
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function setupCodeCoverage(ContainerBuilder $container): void
     {
         if (!$container->hasDefinition('behat.code_coverage.php_code_coverage')) {
@@ -287,9 +278,6 @@ class Extension implements ExtensionInterface
         );
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function setupCodeCoverageFilter(ContainerBuilder $container): void
     {
         if (!$container->hasDefinition('behat.code_coverage.php_code_coverage_filter')) {

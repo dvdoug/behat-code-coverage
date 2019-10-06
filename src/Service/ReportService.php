@@ -33,9 +33,6 @@ class ReportService
 
     /**
      * Constructor.
-     *
-     * @param array                                            $config
-     * @param \DVDoug\Behat\CodeCoverage\Common\Report\Factory $factory
      */
     public function __construct(array $config, Factory $factory)
     {
@@ -45,8 +42,6 @@ class ReportService
 
     /**
      * Generate report.
-     *
-     * @param CodeCoverage $coverage
      */
     public function generateReport(CodeCoverage $coverage): void
     {

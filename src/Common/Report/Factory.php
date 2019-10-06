@@ -22,7 +22,6 @@ class Factory
      * Creation method.
      *
      * @param string $reportType
-     * @param array  $options
      *
      * @return \DVDoug\Behat\CodeCoverage\Common\ReportInterface|null
      */

@@ -22,15 +22,11 @@ interface ReportInterface
 {
     /**
      * Constructor.
-     *
-     * @param array $options
      */
     public function __construct(array $options);
 
     /**
      * Generate report.
-     *
-     * @param CodeCoverage $coverage
      *
      * @return string|null
      */
