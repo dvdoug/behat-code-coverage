@@ -2,7 +2,7 @@
 
 ## [4.0.1] - 2019-08-04
 ### Added
- - Added back support for `LeanPHP\Behat\CodeCoverage` in behat.yml for seamless drop-in of the fork
+ - Added back support for `LeanPHP\Behat\CodeCoverage` in `behat.yml` for seamless drop-in of the fork
 ### Fixed
  - Support for `phpdbg`
  - Issue with directories containing dashes in the name
