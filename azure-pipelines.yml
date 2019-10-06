@@ -46,3 +46,15 @@ steps:
       php ocular.phar code-coverage:upload --format=php-clover coverage-phpdbg.xml;
     fi;
   displayName: 'PHPUnit (phpdbg)'
+
+- script: |
+    docker-compose -f tests/docker/php$(phpVersion)/docker-compose.yml exec -T php_fpm php vendor/behat/behat/bin/behat --strict;
+  displayName: 'Behat (no coverage driver)'
+
+- script: |
+    docker-compose -f tests/docker/php$(phpVersion)/docker-compose.yml exec -T php_fpm_xdebug php vendor/behat/behat/bin/behat --strict;
+  displayName: 'Behat (Xdebug)'
+
+- script: |
+    docker-compose -f tests/docker/php$(phpVersion)/docker-compose.yml exec -T php_fpm phpdbg -qrr vendor/behat/behat/bin/behat --strict;
+  displayName: 'Behat (phpdbg)'

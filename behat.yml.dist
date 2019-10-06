@@ -1,4 +1,10 @@
 default:
+  suites:
+    maths:
+      paths:
+        - '%paths.base%/features/maths'
+      contexts: [ MathsContext ]
+
   extensions:
     DVDoug\Behat\CodeCoverage\Extension:
       filter:
