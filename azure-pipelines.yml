@@ -17,19 +17,15 @@ strategy:
 
 steps:
 - script: |
-    sudo update-alternatives --set php /usr/bin/php$(phpVersion)
-    sudo update-alternatives --set phar /usr/bin/phar$(phpVersion)
-    sudo update-alternatives --set phpdbg /usr/bin/phpdbg$(phpVersion)
-    sudo update-alternatives --set php-cgi /usr/bin/php-cgi$(phpVersion)
-    sudo update-alternatives --set phar.phar /usr/bin/phar.phar$(phpVersion)
-    php -version
+    docker-compose -f tests/docker/php$(phpVersion)/docker-compose.yml up -d
+    docker-compose -f tests/docker/php$(phpVersion)/docker-compose.yml exec -T php_fpm php --version
   displayName: 'Use PHP version $(phpVersion)'
 
-- script: composer install --no-interaction --prefer-dist
+- script: docker-compose -f tests/docker/php$(phpVersion)/docker-compose.yml exec -T php_fpm composer install --no-interaction --prefer-dist
   displayName: 'Composer install'
 
-- script: vendor/bin/php-cs-fixer fix --verbose --dry-run --diff --diff-format=udiff --allow-risky=yes
+- script: docker-compose -f tests/docker/php$(phpVersion)/docker-compose.yml exec -T php_fpm vendor/bin/php-cs-fixer fix --verbose --dry-run --diff --diff-format=udiff --allow-risky=yes
   displayName: 'Check code style'
 
-- script: vendor/bin/phpunit
+- script: docker-compose -f tests/docker/php$(phpVersion)/docker-compose.yml exec -T php_fpm vendor/bin/phpunit
   displayName: 'PHPUnit'
