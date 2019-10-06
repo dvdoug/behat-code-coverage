@@ -27,5 +27,22 @@ steps:
 - script: docker-compose -f tests/docker/php$(phpVersion)/docker-compose.yml exec -T php_fpm vendor/bin/php-cs-fixer fix --verbose --dry-run --diff --diff-format=udiff --allow-risky=yes
   displayName: 'Check code style'
 
-- script: docker-compose -f tests/docker/php$(phpVersion)/docker-compose.yml exec -T php_fpm vendor/bin/phpunit
-  displayName: 'PHPUnit'
+- script: |
+    docker-compose -f tests/docker/php$(phpVersion)/docker-compose.yml exec -T php_fpm php vendor/phpunit/phpunit/phpunit;
+  displayName: 'PHPUnit (no coverage driver)'
+
+- script: |
+    docker-compose -f tests/docker/php$(phpVersion)/docker-compose.yml exec -T php_fpm_xdebug php vendor/phpunit/phpunit/phpunit --coverage-clover=coverage-xdebug.xml;
+    if [ $(phpVersion) == "7.1" ]; then
+      wget https://scrutinizer-ci.com/ocular.phar;
+      docker-compose -f tests/docker/php$(phpVersion)/docker-compose.yml exec -T php_fpm php ocular.phar code-coverage:upload --format=php-clover coverage-xdebug.xml;
+    fi;
+  displayName: 'PHPUnit (Xdebug)'
+
+- script: |
+    docker-compose -f tests/docker/php$(phpVersion)/docker-compose.yml exec -T php_fpm phpdbg -qrr vendor/phpunit/phpunit/phpunit --coverage-clover=coverage-phpdbg.xml;
+    if [ $(phpVersion) == "7.1" ]; then
+      wget https://scrutinizer-ci.com/ocular.phar;
+      docker-compose -f tests/docker/php$(phpVersion)/docker-compose.yml exec -T php_fpm php ocular.phar code-coverage:upload --format=php-clover coverage-phpdbg.xml;
+    fi;
+  displayName: 'PHPUnit (phpdbg)'
