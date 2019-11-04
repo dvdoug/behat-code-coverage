@@ -82,7 +82,8 @@ class Extension implements ExtensionInterface
         $container->setParameter('behat.code_coverage.config.delete', $config['delete']);
         $container->setParameter('behat.code_coverage.config.drivers', $config['drivers']);
         $container->setParameter('behat.code_coverage.config.filter', $config['filter']);
-        $container->setParameter('behat.code_coverage.config.report', $config['report']);
+        $container->setParameter('behat.code_coverage.config.report', $config['report'] ?? []);
+        $container->setParameter('behat.code_coverage.config.reports', $config['reports'] ?? []);
     }
 
     /**
@@ -91,7 +92,6 @@ class Extension implements ExtensionInterface
     public function configure(ArrayNodeDefinition $builder): void
     {
         $builder
-            ->addDefaultsIfNotSet()
             ->children()
                 ->arrayNode('auth')
                     ->children()
@@ -182,11 +182,54 @@ class Extension implements ExtensionInterface
                     ->end()
                 ->end()
                 ->arrayNode('report')
+                    ->setDeprecated('The "report" option is deprecated. Use "reports" instead.')
                     ->children()
                         ->scalarNode('format')->defaultValue('html')->end()
                         ->arrayNode('options')
                             ->useAttributeAsKey('name')
                             ->prototype('scalar')->end()
+                        ->end()
+                    ->end()
+                ->end()
+                ->arrayNode('reports')
+                    ->children()
+                        ->arrayNode('clover')
+                            ->children()
+                                ->scalarNode('name')->end()
+                                ->scalarNode('target')->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('crap4j')
+                            ->children()
+                                ->scalarNode('name')->end()
+                                ->scalarNode('target')->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('html')
+                            ->children()
+                                ->scalarNode('target')->end()
+                                ->scalarNode('lowUpperBound')->end()
+                                ->scalarNode('highLowerBound')->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('php')
+                            ->children()
+                                ->scalarNode('target')->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('text')
+                            ->children()
+                                ->booleanNode('showColors')->end()
+                                ->scalarNode('lowUpperBound')->end()
+                                ->scalarNode('highLowerBound')->end()
+                                ->booleanNode('showOnlySummary')->end()
+                                ->booleanNode('showUncoveredFiles')->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('xml')
+                            ->children()
+                                ->scalarNode('target')->end()
+                            ->end()
                         ->end()
                     ->end()
                 ->end()

@@ -19,7 +19,7 @@ with compatible version numbers for stable releases.
 
 - PHP 7.1+
 - [Behat v3][3]
-- [Xdebug][5] or [phpdbg][6] extension enabled
+- [Xdebug][5] or phpdbg extension enabled
 
 ## Change Log
 
@@ -110,13 +110,28 @@ default:
 #               'prefix': 'Test'
 #           files:
 #             - tests/bootstrap.php
-      # report configuration
-      report:
-        # report format (html, clover, php, text)
-        format:    html
-        # report options
-        options:
-          target: build/behat-coverage/html
+      # report configuration. For a report to be generated, include at least 1 configuration option under the relevant key
+      reports:
+        clover:
+          name: 'Project name'
+          target: build/coverage-behat/clover.xml
+        crap4j:
+          name: 'Project name'
+          target: build/coverage-behat/crap4j.xml
+        html:
+          target: build/coverage-behat
+          lowUpperBound: 50
+          highLowerBound: 90
+        php:
+          target: build/coverage-behat/coverage.php
+        text:
+          showColors: true
+          showUncoveredFiles: true
+          showOnlySummary: false
+          lowUpperBound: 50
+          highLowerBound: 90
+        xml:
+          target: build/coverage-behat
 ```
 
 ### Configuration Options

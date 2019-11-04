@@ -45,14 +45,24 @@ class ReportService
      */
     public function generateReport(CodeCoverage $coverage): void
     {
-        $format = $this->config['report']['format'];
-        $options = $this->config['report']['options'];
+        if (!empty($this->config['report']['format'])) {
+            $format = $this->config['report']['format'];
+            $options = $this->config['report']['options'] ?? [];
+            $report = $this->factory->create($format, $options);
+            $report->process($coverage);
+        }
 
-        $report = $this->factory->create($format, $options);
-        $output = $report->process($coverage);
+        if (!empty($this->config['reports'])) {
+            foreach ($this->config['reports'] as $format => $config) {
+                if ($config) {
+                    $report = $this->factory->create($format, $config);
+                    $reportContent = $report->process($coverage);
 
-        if ('text' === $format) {
-            print_r($output);
+                    if ('text' === $format) {
+                        echo $reportContent;
+                    }
+                }
+            }
         }
     }
 }
