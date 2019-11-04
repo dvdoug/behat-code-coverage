@@ -327,7 +327,7 @@ END_OF_CONFIG
 
         $children = $this->getPropertyOnObject($builder, 'children');
 
-        $this->assertCount(7, $children);
+        $this->assertCount(8, $children);
         $this->assertTrue(isset($children['auth']));
         $this->assertTrue(isset($children['create']));
         $this->assertTrue(isset($children['read']));
