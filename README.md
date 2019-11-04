@@ -5,20 +5,26 @@ behat-code-coverage
 [![Download count](https://img.shields.io/packagist/dt/dvdoug/behat-code-coverage.svg)](https://packagist.org/packages/dvdoug/behat-code-coverage)
 [![Current version](https://img.shields.io/packagist/v/dvdoug/behat-code-coverage.svg)](https://packagist.org/packages/dvdoug/behat-code-coverage)
 
-[behat-code-coverage][0] is a [Behat][3] extension that generates Code
-Coverage reports for [Behat][3] tests.
+The authors of [Behat][3] pedantically, but correctly [point out][6] that `.feature` files are not strictly speaking
+tests even though when constructed properly the scenarios described in them should cover both happy and sad paths in an
+application. Behat is a _scenario_ runner, not a _test_ runner. The scenarios might be run by hand. Or the application
+under scrutiny might not be a local PHP application, it might be running on a remote server and/or the software might
+not even written in PHP. Additionally by the very nature of needing to invoke the entire application to perform each
+scenario, it would be very hard to construct a set of scenarios that cover all possible codepaths in an application.
+Something like PHPUnit is much better to use here as you can comprehensively test each component in isolation.
 
-Generating Code Coverage reports allows you to to analyze which parts of your
-codebase are tested and how well. However, Code Coverage alone should NOT be
-used as a single metric defining how good your tests are.
+However, out in the real world we don't normally draw a distinction between the `.feature` files as a standalone concept
+and the `Contexts` that implement them - we simply refer to _Behat testing_. We also tend to use Behat when the
+application being tested is written in PHP. And as with any test suite, it's nice to know how much of your application
+code is covered by a test suite. What you do with that information is up to you :)
 
-**Note!** This is a maintained fork of [leanphp/behat-code-coverage][1],
-with compatible version numbers for stable releases.
+behat-code-coverage is a Behat extension that can generate code coverage reports when testing a PHP application using
+Behat.
 
 ## Requirements
 
 - PHP 7.1+
-- [Behat v3][3]
+- [Behat][3]
 - [Xdebug][5] or phpdbg extension enabled
 
 ## Change Log
@@ -36,7 +42,7 @@ Enable extension by editing `behat.yml` of your project:
 ``` yaml
 default:
   extensions:
-    DVDoug\Behat\CodeCoverage\Extension:
+    DVDoug\Behat\CodeCoverage\Extension:  # or LeanPHP\Behat\CodeCoverage\Extension if you also need to work with older versions
       drivers:
         - local
       filter:
@@ -189,13 +195,15 @@ default:
         - `highLowerBound` - Min % coverage considered high (optional)
     - `xml`
         - `target` - Output directory
-## License
-
+## License + Acknowledgements
 Licensed under [BSD-2-Clause License](LICENSE).
+
+This extension was created as a fork of [leanphp/behat-code-coverage][0] (abandoned) which had previously been created as a fork of [vipsoft/code-coverage-extension][1] (abandoned).
 
 [0]: https://github.com/leanphp/behat-code-coverage
 [1]: https://github.com/vipsoft/code-coverage-extension
 [2]: https://github.com/vipsoft/code-coverage-common
-[3]: http://behat.org/en/v2.5/
+[3]: http://behat.org/
 [4]: http://mink.behat.org
 [5]: https://xdebug.org/
+[6]: https://github.com/Behat/Behat/issues/92
