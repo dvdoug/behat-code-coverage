@@ -5,13 +5,14 @@ behat-code-coverage
 [![Download count](https://img.shields.io/packagist/dt/dvdoug/behat-code-coverage.svg)](https://packagist.org/packages/dvdoug/behat-code-coverage)
 [![Current version](https://img.shields.io/packagist/v/dvdoug/behat-code-coverage.svg)](https://packagist.org/packages/dvdoug/behat-code-coverage)
 
-The authors of [Behat][3] pedantically, but correctly [point out][6] that `.feature` files are not strictly speaking
+The authors of [Behat][3] pedantically, but correctly, [point out][6] that `.feature` files are not strictly speaking
 tests even though when constructed properly the scenarios described in them should cover both happy and sad paths in an
 application. Behat is a _scenario_ runner, not a _test_ runner. The scenarios might be run by hand. Or the application
 under scrutiny might not be a local PHP application, it might be running on a remote server and/or the software might
 not even written in PHP. Additionally by the very nature of needing to invoke the entire application to perform each
 scenario, it would be very hard to construct a set of scenarios that cover all possible codepaths in an application.
-Something like PHPUnit is much better to use here as you can comprehensively test each component in isolation.
+Something like PHPUnit is much better to use here if your goal is comprehensive code coverage as you can unit test each
+component in isolation.
 
 However, out in the real world we don't normally draw a distinction between the `.feature` files as a standalone concept
 and the `Contexts` that implement them - we simply refer to _Behat testing_. We also tend to use Behat when the
