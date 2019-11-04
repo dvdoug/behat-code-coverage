@@ -10,10 +10,10 @@ declare(strict_types=1);
 
 namespace DVDoug\Behat\CodeCoverage;
 
+use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use org\bovigo\vfs\vfsStream;
 
 /**
  * Extension test.
