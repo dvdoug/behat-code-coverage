@@ -169,11 +169,27 @@ default:
                 - `prefix` - prefix of files to be included (default: `''`)
                   (optional)
             - `files` - key containing whitelisted files to exclude.
-- `report` - reporter options:
-    - `format` - specify report format (`html`, `clover`, `php`, `text`)
-    - `options` - format options:
-        - `target` - target/output directory
-
+- `reports` - report options:
+    - `clover`
+        - `name` - Project name (optional)
+        - `target` - Output filename
+    - `crap4j`
+        - `name`  - Project name (optional)
+        - `target` - Output filename
+    - `html`
+        - `target` - Output directory
+        - `lowUpperBound` - Max % coverage considered low (optional)
+        - `highLowerBound` - Min % coverage considered high (optional)
+    - `php`
+        - `target` - Output filename
+    - `text`
+        - `showColors` - use colors (optional)
+        - `showUncoveredFiles` - include files with 0% coverage in output (optional)
+        - `showOnlySummary` - show only summary output (optional)
+        - `lowUpperBound` - Max % coverage considered low (optional)
+        - `highLowerBound` - Min % coverage considered high (optional)
+    - `xml`
+        - `target` - Output directory
 ## License
 
 Licensed under [BSD-2-Clause License](LICENSE).
