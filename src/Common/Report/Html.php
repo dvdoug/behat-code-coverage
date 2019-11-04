@@ -41,30 +41,17 @@ class Html implements ReportInterface
             $options['target'] = null;
         }
 
-        if (!isset($options['charset'])) {
-            $options['charset'] = 'UTF-8';
-        }
-
-        if (!isset($options['highlight'])) {
-            $options['highlight'] = false;
-        }
-
         if (!isset($options['lowUpperBound'])) {
-            $options['lowUpperBound'] = 35;
+            $options['lowUpperBound'] = 50;
         }
 
-        if (!isset($options['highUpperBound'])) {
-            $options['highUpperBound'] = 70;
-        }
-
-        if (!isset($options['generator'])) {
-            $options['generator'] = '';
+        if (!isset($options['highLowerBound'])) {
+            $options['highLowerBound'] = 90;
         }
 
         $this->report = new Facade(
             $options['lowUpperBound'],
-            $options['highUpperBound'],
-            $options['generator']
+            $options['highLowerBound']
         );
 
         $this->options = $options;

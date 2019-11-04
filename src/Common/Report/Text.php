@@ -41,43 +41,28 @@ class Text implements ReportInterface
             $options['showColors'] = false;
         }
 
-        if (!isset($options['printer'])) {
-            $options['printer'] = null;
-        }
-
         if (!isset($options['lowUpperBound'])) {
-            $options['lowUpperBound'] = 35;
+            $options['lowUpperBound'] = 50;
         }
 
-        if (!isset($options['highUpperBound'])) {
-            $options['highUpperBound'] = 70;
+        if (!isset($options['highLowerBound'])) {
+            $options['highLowerBound'] = 90;
         }
 
         if (!isset($options['showUncoveredFiles'])) {
             $options['showUncoveredFiles'] = false;
         }
 
-        if ($this->getVersion() === '1.2') {
-            $outputStream = new \PHPUnit_Util_Printer($options['printer']);
-
-            $this->report = new TextReport(
-                $outputStream,
-                $options['lowUpperBound'],
-                $options['highUpperBound'],
-                $options['showUncoveredFiles']
-            );
-        } else {
-            if (!isset($options['showOnlySummary'])) {
-                $options['showOnlySummary'] = false;
-            }
-
-            $this->report = new TextReport(
-                $options['lowUpperBound'],
-                $options['highUpperBound'],
-                $options['showUncoveredFiles'],
-                $options['showOnlySummary']
-            );
+        if (!isset($options['showOnlySummary'])) {
+            $options['showOnlySummary'] = false;
         }
+
+        $this->report = new TextReport(
+            $options['lowUpperBound'],
+            $options['highLowerBound'],
+            $options['showUncoveredFiles'],
+            $options['showOnlySummary']
+        );
 
         $this->options = $options;
     }
@@ -91,22 +76,5 @@ class Text implements ReportInterface
             $coverage,
             $this->options['showColors']
         );
-    }
-
-    /**
-     * return version of CodeCoverage.
-     *
-     * @return string
-     */
-    private function getVersion()
-    {
-        $reflectionMethod = new \ReflectionMethod('SebastianBergmann\CodeCoverage\Report\Text', '__construct');
-        $parameters = $reflectionMethod->getParameters();
-
-        if (reset($parameters)->name === 'outputStream') {
-            return '1.2';
-        }
-
-        return '1.3';
     }
 }

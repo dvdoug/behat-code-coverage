@@ -23,7 +23,7 @@ use SebastianBergmann\CodeCoverage\Report\Xml\Facade;
 class Xml implements ReportInterface
 {
     /**
-     * @var \SebastianBergmann\CodeCoverage\Report\XML
+     * @var Facade
      */
     private $report;
 
@@ -37,10 +37,6 @@ class Xml implements ReportInterface
      */
     public function __construct(array $options)
     {
-        if (!class_exists('SebastianBergmann\CodeCoverage\Report\Xml\Facade')) {
-            throw new \Exception('XML requires CodeCoverage 4.0+');
-        }
-
         if (!isset($options['target'])) {
             $options['target'] = null;
         }

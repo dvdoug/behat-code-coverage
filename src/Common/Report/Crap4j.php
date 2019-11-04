@@ -23,7 +23,7 @@ use SebastianBergmann\CodeCoverage\Report\Crap4j as Crap4jReport;
 class Crap4j implements ReportInterface
 {
     /**
-     * @var SebastianBergmann\CodeCoverage\Report\Crap4j
+     * @var Crap4jReport
      */
     private $report;
 
@@ -37,10 +37,6 @@ class Crap4j implements ReportInterface
      */
     public function __construct(array $options)
     {
-        if (!class_exists('SebastianBergmann\CodeCoverage\Report\Crap4j')) {
-            throw new \Exception('Crap4j requires CodeCoverage 4.0+');
-        }
-
         if (!isset($options['target'])) {
             $options['target'] = null;
         }
