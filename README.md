@@ -44,21 +44,20 @@ default:
           include:
             directories:
               'src': ~
-      report:
-        format:   html
-        options:
-          target: build/behat-coverage
+      reports:
+        html:
+            target: build/coverage-behat
 ```
 
 This will sufficient to enable Code Coverage generation in `html` format in
-`build/behat-coverage` directory. This extension supports various
+`build/coverage-behat` directory. This extension supports various
 [Configuration options](#configuration-options). For a fully annotated example
 configuration file check [Configuration section](#configuration).
 
 ## Usage
 
 If you execute `vendor/bin/behat` command, you will see code coverage generated in
-`target` (i.e. `build/behat-coverage`) directory (in `html` format):
+`target` (i.e. `build/coverage-behat`) directory (in `html` format):
 
     $ vendor/bin/behat
 
