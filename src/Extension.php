@@ -13,15 +13,13 @@ namespace DVDoug\Behat\CodeCoverage;
 
 use Behat\Testwork\ServiceContainer\Extension as ExtensionInterface;
 use Behat\Testwork\ServiceContainer\ExtensionManager;
-use DVDoug\Behat\CodeCoverage\Common\Driver\Factory;
-use DVDoug\Behat\CodeCoverage\Driver\Proxy;
+use DVDoug\Behat\CodeCoverage\Driver\RemoteXdebug;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Filter;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Code coverage extension.
@@ -66,8 +64,8 @@ class Extension implements ExtensionInterface
             $config['auth'] = null;
         }
 
-        if (!count($config['drivers'])) {
-            $config['drivers'] = ['local'];
+        if (count($config['drivers'])) {
+            $config['driver'] = $config['drivers'][0];
         }
 
         if (!count($config['report']['options'])) {
@@ -84,6 +82,7 @@ class Extension implements ExtensionInterface
         $container->setParameter('behat.code_coverage.config.create', $config['create']);
         $container->setParameter('behat.code_coverage.config.read', $config['read']);
         $container->setParameter('behat.code_coverage.config.delete', $config['delete']);
+        $container->setParameter('behat.code_coverage.config.driver', $config['driver']);
         $container->setParameter('behat.code_coverage.config.drivers', $config['drivers']);
         $container->setParameter('behat.code_coverage.config.filter', $config['filter']);
         $container->setParameter('behat.code_coverage.config.report', $config['report'] ?? []);
@@ -125,7 +124,12 @@ class Extension implements ExtensionInterface
                     ->end()
                 ->end()
                 ->arrayNode('drivers')
+                    ->setDeprecated('The "drivers" option is deprecated. Use "driver" instead.')
                     ->prototype('scalar')->end()
+                ->end()
+                ->enumNode('driver')
+                    ->values(['local', 'remote'])
+                    ->defaultValue('local')
                 ->end()
                 ->arrayNode('filter')
                     ->addDefaultsIfNotSet()
@@ -260,38 +264,21 @@ class Extension implements ExtensionInterface
         }
 
         $this->setupDriver($container);
-        $this->setupFactory($container);
-        $this->setupCodeCoverage($container);
         $this->setupCodeCoverageFilter($container);
+        $this->setupCodeCoverage($container);
     }
 
     private function setupDriver(ContainerBuilder $container): void
     {
-        $proxy = $container->getDefinition(Proxy::class);
-        $enabled = $container->getParameter('behat.code_coverage.config.drivers');
+        $codeCoverage = $container->getDefinition(CodeCoverage::class);
+        $remoteDriver = $container->getDefinition(RemoteXdebug::class);
+        $driverChoice = $container->getParameter('behat.code_coverage.config.driver');
 
-        foreach ($container->findTaggedServiceIds('behat.code_coverage.driver') as $id => $tagAttributes) {
-            foreach ($tagAttributes as $attributes) {
-                if (isset($attributes['alias'])
-                    && in_array($attributes['alias'], $enabled)
-                ) {
-                    $proxy->addMethodCall('addDriver', [new Reference($id)]);
-                }
-            }
+        if ($driverChoice === 'remote') {
+            $codeCoverage->setArgument(0, $remoteDriver);
+        } else {
+            $codeCoverage->setArgument(0, null);
         }
-    }
-
-    public function setupFactory(ContainerBuilder $container): void
-    {
-        $factory = $container->getDefinition(Factory::class);
-        $drivers = [];
-        $ids = $container->findTaggedServiceIds('dvdoug.code_coverage.driver');
-
-        foreach ($ids as $id => $attributes) {
-            $drivers[] = $id;
-        }
-
-        $factory->setArguments([$drivers]);
     }
 
     private function setupCodeCoverage(ContainerBuilder $container): void

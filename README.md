@@ -43,9 +43,8 @@ Enable extension by editing `behat.yml` of your project:
 ``` yaml
 default:
   extensions:
-    DVDoug\Behat\CodeCoverage\Extension:  # or LeanPHP\Behat\CodeCoverage\Extension if you also need to work with older versions
-      drivers:
-        - local
+    DVDoug\Behat\CodeCoverage\Extension:  # or `LeanPHP\Behat\CodeCoverage\Extension` if you also need to work with older versions
+      driver: local  # or `remote` if you want to get coverage from a remote PHP server (Xdebug only)
       filter:
         whitelist:
           include:
@@ -90,9 +89,8 @@ default:
     DVDoug\Behat\CodeCoverage\Extension:
       # http auth (optional)
       auth:        ~
-      # select which driver to use when gatherig coverage data
-      drivers:
-        - local     # local Xdebug driver
+      # select which driver to use when gathering coverage data
+      driver: local     # `local` Xdebug/pcov/phpdbg driver, or `remote`
       # filter options
       filter:
         forceCoversAnnotation:                false
@@ -154,9 +152,9 @@ default:
   method.
     - `method` - specify a method (default: `DELETE`)
     - `path` - specify path (default: `/`)
-- `drivers` - a list of drivers for gathering code coverage data:
-    - `local` - local Xdebug driver (default).
-    - `remote` - remote Xdebug driver (disabled by default).
+- `driver` - driver to use for gathering code coverage data:
+    - `local` - local Xdebug/pcov/phpdbg driver (default).
+    - `remote` - remote Xdebug driver
 - `filter` - various filter options:
     - `forceCoversAnnotation` - (default: `false`)
     - `mapTestClassNameToCoveredClassName` - (default: `false`)

@@ -12,6 +12,7 @@
             <parameter key="create">%behat.code_coverage.config.create%</parameter>
             <parameter key="read">%behat.code_coverage.config.read%</parameter>
             <parameter key="delete">%behat.code_coverage.config.delete%</parameter>
+            <parameter key="driver">%behat.code_coverage.config.driver%</parameter>
             <parameter key="drivers">%behat.code_coverage.config.drivers%</parameter>
             <parameter key="filter">%behat.code_coverage.config.filter%</parameter>
             <parameter key="report">%behat.code_coverage.config.report%</parameter>
@@ -27,41 +28,19 @@
             <tag name="cli.controller" priority="80000" />
         </service>
 
-        <service id="SebastianBergmann\CodeCoverage\Driver\PHPDBG">
-            <tag name="dvdoug.code_coverage.driver"/>
-        </service>
-
-        <service id="SebastianBergmann\CodeCoverage\Driver\Xdebug">
-            <tag name="dvdoug.code_coverage.driver"/>
-        </service>
-
-        <!-- The factory compiler pass will register available driver classes with the factory -->
-        <service id="DVDoug\Behat\CodeCoverage\Common\Driver\Factory"/>
-
         <service id="GuzzleHttp\Client"/>
 
         <service id="SebastianBergmann\CodeCoverage\Filter" />
 
         <!-- The filter compiler pass will configure the injected coverage filter -->
         <service id="SebastianBergmann\CodeCoverage\CodeCoverage">
-            <argument type="service" id="DVDoug\Behat\CodeCoverage\Driver\Proxy" />
+            <argument/>
             <argument type="service" id="SebastianBergmann\CodeCoverage\Filter" />
-        </service>
-
-        <!-- The driver compiler pass will register enabled drivers with the proxy -->
-        <service id="DVDoug\Behat\CodeCoverage\Driver\Proxy" />
-
-        <service id="behat.code_coverage.driver.local" class="SebastianBergmann\CodeCoverage\Driver\Driver">
-            <factory service="DVDoug\Behat\CodeCoverage\Common\Driver\Factory"
-                     method="create"
-            />
-            <tag name="behat.code_coverage.driver" alias="local" />
         </service>
 
         <service id="DVDoug\Behat\CodeCoverage\Driver\RemoteXdebug">
             <argument>%behat.code_coverage.config%</argument>
             <argument type="service" id="GuzzleHttp\Client" />
-            <tag name="behat.code_coverage.driver" alias="remote" />
         </service>
 
         <service id="DVDoug\Behat\CodeCoverage\Listener\EventListener">
