@@ -13,6 +13,10 @@ namespace DVDoug\Behat\CodeCoverage;
 
 use Behat\Testwork\ServiceContainer\Extension as ExtensionInterface;
 use Behat\Testwork\ServiceContainer\ExtensionManager;
+use DVDoug\Behat\CodeCoverage\Common\Driver\Factory;
+use DVDoug\Behat\CodeCoverage\Driver\Proxy;
+use SebastianBergmann\CodeCoverage\CodeCoverage;
+use SebastianBergmann\CodeCoverage\Filter;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -263,11 +267,7 @@ class Extension implements ExtensionInterface
 
     private function setupDriver(ContainerBuilder $container): void
     {
-        if (!$container->hasDefinition('behat.code_coverage.driver.proxy')) {
-            return;
-        }
-
-        $proxy = $container->getDefinition('behat.code_coverage.driver.proxy');
+        $proxy = $container->getDefinition(Proxy::class);
         $enabled = $container->getParameter('behat.code_coverage.config.drivers');
 
         foreach ($container->findTaggedServiceIds('behat.code_coverage.driver') as $id => $tagAttributes) {
@@ -283,16 +283,12 @@ class Extension implements ExtensionInterface
 
     public function setupFactory(ContainerBuilder $container): void
     {
-        if (!$container->hasDefinition('dvdoug.code_coverage.driver.factory')) {
-            return;
-        }
-
-        $factory = $container->getDefinition('dvdoug.code_coverage.driver.factory');
+        $factory = $container->getDefinition(Factory::class);
         $drivers = [];
         $ids = $container->findTaggedServiceIds('dvdoug.code_coverage.driver');
 
         foreach ($ids as $id => $attributes) {
-            $drivers[] = $container->getDefinition($id)->getClass();
+            $drivers[] = $id;
         }
 
         $factory->setArguments([$drivers]);
@@ -300,11 +296,7 @@ class Extension implements ExtensionInterface
 
     private function setupCodeCoverage(ContainerBuilder $container): void
     {
-        if (!$container->hasDefinition('behat.code_coverage.php_code_coverage')) {
-            return;
-        }
-
-        $coverage = $container->getDefinition('behat.code_coverage.php_code_coverage');
+        $coverage = $container->getDefinition(CodeCoverage::class);
         $config = $container->getParameter('behat.code_coverage.config.filter');
 
         $coverage->addMethodCall(
@@ -323,11 +315,7 @@ class Extension implements ExtensionInterface
 
     private function setupCodeCoverageFilter(ContainerBuilder $container): void
     {
-        if (!$container->hasDefinition('behat.code_coverage.php_code_coverage_filter')) {
-            return;
-        }
-
-        $filter = $container->getDefinition('behat.code_coverage.php_code_coverage_filter');
+        $filter = $container->getDefinition(Filter::class);
         $config = $container->getParameter('behat.code_coverage.config.filter');
 
         $dirs = [

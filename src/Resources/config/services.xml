@@ -1,15 +1,9 @@
 <?xml version="1.0" ?>
 <container xmlns="http://symfony.com/schema/dic/services"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="behat.code_coverage.controller.cli.class">DVDoug\Behat\CodeCoverage\Controller\Cli\CodeCoverageController</parameter>
-        <parameter key="behat.code_coverage.driver.proxy.class">DVDoug\Behat\CodeCoverage\Driver\Proxy</parameter>
-        <parameter key="behat.code_coverage.driver.remote.class">DVDoug\Behat\CodeCoverage\Driver\RemoteXdebug</parameter>
-        <parameter key="behat.code_coverage.listener.event.class">DVDoug\Behat\CodeCoverage\Listener\EventListener</parameter>
-        <parameter key="behat.code_coverage.service.report.class">DVDoug\Behat\CodeCoverage\Service\ReportService</parameter>
-        <parameter key="behat.code_coverage.service.report_factory.class">DVDoug\Behat\CodeCoverage\Common\Report\Factory</parameter>
         <parameter key="behat.code_coverage.skip">false</parameter>
 
         <parameter key="behat.code_coverage.config" type="collection">
@@ -24,72 +18,64 @@
             <parameter key="reports">%behat.code_coverage.config.reports%</parameter>
         </parameter>
 
-        <parameter key="dvdoug.code_coverage.driver.phpdbg.class">SebastianBergmann\CodeCoverage\Driver\PHPDBG</parameter>
-        <parameter key="dvdoug.code_coverage.driver.xdebug.class">SebastianBergmann\CodeCoverage\Driver\Xdebug</parameter>
-        <parameter key="dvdoug.code_coverage.driver.factory.class">DVDoug\Behat\CodeCoverage\Common\Driver\Factory</parameter>
     </parameters>
 
     <services>
         <!-- Code Coverage Cli Controller -->
-        <service id="behat.code_coverage.controller.cli"
-                 class="%behat.code_coverage.controller.cli.class%">
-                 <argument type="service" id="service_container" />
+        <service id="DVDoug\Behat\CodeCoverage\Controller\Cli\CodeCoverageController">
+            <argument type="service" id="service_container" />
             <tag name="cli.controller" priority="80000" />
         </service>
 
-        <service id="dvdoug.code_coverage.driver.phpdbg"
-                 class="%dvdoug.code_coverage.driver.phpdbg.class%"
-                 synthetic="true">
+        <service id="SebastianBergmann\CodeCoverage\Driver\PHPDBG">
             <tag name="dvdoug.code_coverage.driver"/>
         </service>
 
-        <service id="dvdoug.code_coverage.driver.xdebug"
-                 class="%dvdoug.code_coverage.driver.xdebug.class%"
-                 synthetic="true">
+        <service id="SebastianBergmann\CodeCoverage\Driver\Xdebug">
             <tag name="dvdoug.code_coverage.driver"/>
         </service>
 
         <!-- The factory compiler pass will register available driver classes with the factory -->
-        <service id="dvdoug.code_coverage.driver.factory" class="%dvdoug.code_coverage.driver.factory.class%" />
+        <service id="DVDoug\Behat\CodeCoverage\Common\Driver\Factory"/>
 
-        <service id="behat.code_coverage.http_client" class="GuzzleHttp\Client" />
+        <service id="GuzzleHttp\Client"/>
 
-        <service id="behat.code_coverage.php_code_coverage_filter" class="SebastianBergmann\CodeCoverage\Filter" />
+        <service id="SebastianBergmann\CodeCoverage\Filter" />
 
         <!-- The filter compiler pass will configure the injected coverage filter -->
-        <service id="behat.code_coverage.php_code_coverage" class="SebastianBergmann\CodeCoverage\CodeCoverage">
-            <argument type="service" id="behat.code_coverage.driver.proxy" />
-            <argument type="service" id="behat.code_coverage.php_code_coverage_filter" />
+        <service id="SebastianBergmann\CodeCoverage\CodeCoverage">
+            <argument type="service" id="DVDoug\Behat\CodeCoverage\Driver\Proxy" />
+            <argument type="service" id="SebastianBergmann\CodeCoverage\Filter" />
         </service>
 
         <!-- The driver compiler pass will register enabled drivers with the proxy -->
-        <service id="behat.code_coverage.driver.proxy" class="%behat.code_coverage.driver.proxy.class%" />
+        <service id="DVDoug\Behat\CodeCoverage\Driver\Proxy" />
 
         <service id="behat.code_coverage.driver.local" class="SebastianBergmann\CodeCoverage\Driver\Driver">
-            <factory service="dvdoug.code_coverage.driver.factory"
-                method="create"
-                />
+            <factory service="DVDoug\Behat\CodeCoverage\Common\Driver\Factory"
+                     method="create"
+            />
             <tag name="behat.code_coverage.driver" alias="local" />
         </service>
 
-        <service id="behat.code_coverage.driver.remote" class="%behat.code_coverage.driver.remote.class%">
+        <service id="DVDoug\Behat\CodeCoverage\Driver\RemoteXdebug">
             <argument>%behat.code_coverage.config%</argument>
-            <argument type="service" id="behat.code_coverage.http_client" />
+            <argument type="service" id="GuzzleHttp\Client" />
             <tag name="behat.code_coverage.driver" alias="remote" />
         </service>
 
-        <service id="behat.code_coverage.listener.event" class="%behat.code_coverage.listener.event.class%">
-            <argument type="service" id="behat.code_coverage.php_code_coverage" />
-            <argument type="service" id="behat.code_coverage.service.report" />
+        <service id="DVDoug\Behat\CodeCoverage\Listener\EventListener">
+            <argument type="service" id="SebastianBergmann\CodeCoverage\CodeCoverage" />
+            <argument type="service" id="DVDoug\Behat\CodeCoverage\Service\ReportService" />
             <argument>%behat.code_coverage.skip%</argument>
             <tag name="event_dispatcher.subscriber" />
         </service>
 
-        <service id="behat.code_coverage.service.report_factory" class="%behat.code_coverage.service.report_factory.class%" />
+        <service id="DVDoug\Behat\CodeCoverage\Common\Report\Factory" />
 
-        <service id="behat.code_coverage.service.report" class="%behat.code_coverage.service.report.class%">
+        <service id="DVDoug\Behat\CodeCoverage\Service\ReportService">
             <argument>%behat.code_coverage.config%</argument>
-            <argument type="service" id="behat.code_coverage.service.report_factory" />
+            <argument type="service" id="DVDoug\Behat\CodeCoverage\Common\Report\Factory" />
         </service>
     </services>
 
