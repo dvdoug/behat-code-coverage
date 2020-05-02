@@ -5,7 +5,6 @@
 
     <parameters>
         <parameter key="behat.code_coverage.skip">false</parameter>
-
         <parameter key="behat.code_coverage.config" type="collection">
             <parameter key="base_url">%mink.base_url%</parameter>
             <parameter key="auth">%behat.code_coverage.config.auth%</parameter>
@@ -18,44 +17,24 @@
             <parameter key="report">%behat.code_coverage.config.report%</parameter>
             <parameter key="reports">%behat.code_coverage.config.reports%</parameter>
         </parameter>
-
     </parameters>
 
     <services>
-        <!-- Code Coverage Cli Controller -->
-        <service id="DVDoug\Behat\CodeCoverage\Controller\Cli\CodeCoverageController">
-            <argument type="service" id="service_container" />
-            <tag name="cli.controller" priority="80000" />
-        </service>
+        <defaults autowire="true" autoconfigure="true" public="false">
+            <!-- Manual wiring of own services -->
+            <bind key="$config">%behat.code_coverage.config%</bind>
+            <bind key="$skipCoverage">%behat.code_coverage.skip%</bind>
+        </defaults>
+        <prototype namespace="DVDoug\Behat\CodeCoverage\" resource="../../*" exclude="../../LeanPHP.php"/>
 
+        <!-- Register services used from dependencies -->
         <service id="GuzzleHttp\Client"/>
+        <service id="SebastianBergmann\CodeCoverage\Filter"/>
+        <service id="SebastianBergmann\CodeCoverage\CodeCoverage"/>
 
-        <service id="SebastianBergmann\CodeCoverage\Filter" />
-
-        <!-- The filter compiler pass will configure the injected coverage filter -->
-        <service id="SebastianBergmann\CodeCoverage\CodeCoverage">
-            <argument/>
-            <argument type="service" id="SebastianBergmann\CodeCoverage\Filter" />
-        </service>
-
-        <service id="DVDoug\Behat\CodeCoverage\Driver\RemoteXdebug">
-            <argument>%behat.code_coverage.config%</argument>
-            <argument type="service" id="GuzzleHttp\Client" />
-        </service>
-
+        <!-- Manual config of own services -->
         <service id="DVDoug\Behat\CodeCoverage\Listener\EventListener">
-            <argument type="service" id="SebastianBergmann\CodeCoverage\CodeCoverage" />
-            <argument type="service" id="DVDoug\Behat\CodeCoverage\Service\ReportService" />
-            <argument>%behat.code_coverage.skip%</argument>
-            <tag name="event_dispatcher.subscriber" />
-        </service>
-
-        <service id="DVDoug\Behat\CodeCoverage\Common\Report\Factory" />
-
-        <service id="DVDoug\Behat\CodeCoverage\Service\ReportService">
-            <argument>%behat.code_coverage.config%</argument>
-            <argument type="service" id="DVDoug\Behat\CodeCoverage\Common\Report\Factory" />
+            <tag name="event_dispatcher.subscriber"/>
         </service>
     </services>
-
 </container>
