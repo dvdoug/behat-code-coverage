@@ -31,25 +31,17 @@ class EventListener implements EventSubscriberInterface
     private $coverage;
 
     /**
-     * @var \DVDoug\Behat\CodeCoverage\Service\ReportService
+     * @var ReportService
      */
     private $reportService;
 
     /**
-     * @var bool
-     */
-    private $skipCoverage;
-
-    /**
      * Constructor.
-     *
-     * @param bool $skipCoverage
      */
-    public function __construct(CodeCoverage $coverage, ReportService $reportService, $skipCoverage = false)
+    public function __construct(ReportService $reportService, CodeCoverage $coverage = null)
     {
-        $this->coverage = $coverage;
         $this->reportService = $reportService;
-        $this->skipCoverage = $skipCoverage;
+        $this->coverage = $coverage;
     }
 
     /**
@@ -72,7 +64,7 @@ class EventListener implements EventSubscriberInterface
      */
     public function beforeExercise(ExerciseCompleted $event): void
     {
-        if ($this->skipCoverage) {
+        if (!$this->coverage) {
             return;
         }
 
@@ -84,7 +76,7 @@ class EventListener implements EventSubscriberInterface
      */
     public function beforeScenario(ScenarioTested $event): void
     {
-        if ($this->skipCoverage) {
+        if (!$this->coverage) {
             return;
         }
 
@@ -99,7 +91,7 @@ class EventListener implements EventSubscriberInterface
      */
     public function afterScenario(ScenarioTested $event): void
     {
-        if ($this->skipCoverage) {
+        if (!$this->coverage) {
             return;
         }
 
@@ -108,12 +100,10 @@ class EventListener implements EventSubscriberInterface
 
     /**
      * After Exercise hook.
-     *
-     * @param \Behat\Testwork\Tester\Event\ExerciseCompleted $event
      */
     public function afterExercise(ExerciseCompleted $event): void
     {
-        if ($this->skipCoverage) {
+        if (!$this->coverage) {
             return;
         }
 

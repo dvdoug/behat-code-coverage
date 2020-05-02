@@ -14,10 +14,13 @@ namespace DVDoug\Behat\CodeCoverage;
 use Behat\Testwork\ServiceContainer\Extension as ExtensionInterface;
 use Behat\Testwork\ServiceContainer\ExtensionManager;
 use DVDoug\Behat\CodeCoverage\Driver\RemoteXdebug;
+use DVDoug\Behat\CodeCoverage\Listener\EventListener;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Filter;
+use SebastianBergmann\Environment\Runtime;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
@@ -258,9 +261,12 @@ class Extension implements ExtensionInterface
      */
     public function process(ContainerBuilder $container): void
     {
+        /** @var InputInterface $input */
         $input = $container->get('cli.input');
-        if ($input->hasParameterOption('--no-coverage')) {
-            $container->getParameterBag()->set('behat.code_coverage.skip', true);
+        $runtime = new Runtime();
+
+        if ($input->hasParameterOption('--no-coverage') || !$runtime->canCollectCodeCoverage()) {
+            $container->getDefinition(EventListener::class)->setArgument('$coverage', null);
         }
 
         $this->setupDriver($container);
