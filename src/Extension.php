@@ -21,6 +21,7 @@ use SebastianBergmann\Environment\Runtime;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
@@ -263,9 +264,18 @@ class Extension implements ExtensionInterface
     {
         /** @var InputInterface $input */
         $input = $container->get('cli.input');
-        $runtime = new Runtime();
 
-        if ($input->hasParameterOption('--no-coverage') || !$runtime->canCollectCodeCoverage()) {
+        /** @var OutputInterface $output */
+        $output = $container->get('cli.output');
+
+        $runtime = new Runtime();
+        $canCollectCodeCoverage = $runtime->canCollectCodeCoverage();
+
+        if (!$canCollectCodeCoverage) {
+            $output->writeln('<comment>No code coverage driver is available</comment>');
+        }
+
+        if (!$canCollectCodeCoverage || $input->hasParameterOption('--no-coverage')) {
             $container->getDefinition(EventListener::class)->setArgument('$coverage', null);
         }
 
