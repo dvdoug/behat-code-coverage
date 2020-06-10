@@ -93,8 +93,6 @@ default:
       driver: local     # `local` Xdebug/pcov/phpdbg driver, or `remote`
       # filter options
       filter:
-        forceCoversAnnotation:                false
-        mapTestClassNameToCoveredClassName:   false
         whitelist:
           addUncoveredFilesFromWhitelist:     true
           processUncoveredFilesFromWhitelist: false
@@ -156,8 +154,6 @@ default:
     - `local` - local Xdebug/pcov/phpdbg driver (default).
     - `remote` - remote Xdebug driver
 - `filter` - various filter options:
-    - `forceCoversAnnotation` - (default: `false`)
-    - `mapTestClassNameToCoveredClassName` - (default: `false`)
     - `whiltelist` - whitelist specific options:
         - `addUncoveredFilesFromWhiltelist` - (default: `true`)
         - `processUncoveredFilesFromWhitelist` - (default: `false`)

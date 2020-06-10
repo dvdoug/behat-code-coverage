@@ -138,12 +138,6 @@ class Extension implements ExtensionInterface
                 ->arrayNode('filter')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('forceCoversAnnotation')
-                            ->defaultFalse()
-                        ->end()
-                        ->scalarNode('mapTestClassNameToCoveredClassName')
-                            ->defaultFalse()
-                        ->end()
                         ->arrayNode('whitelist')
                             ->addDefaultsIfNotSet()
                             ->children()
@@ -279,40 +273,33 @@ class Extension implements ExtensionInterface
             $container->getDefinition(EventListener::class)->setArgument('$coverage', null);
         }
 
-        $this->setupDriver($container);
         $this->setupCodeCoverageFilter($container);
         $this->setupCodeCoverage($container);
     }
 
-    private function setupDriver(ContainerBuilder $container): void
+    private function setupCodeCoverage(ContainerBuilder $container): void
     {
         $codeCoverage = $container->getDefinition(CodeCoverage::class);
-        $remoteDriver = $container->getDefinition(RemoteXdebug::class);
+        $filter = $container->getDefinition(Filter::class);
         $driverChoice = $container->getParameter('behat.code_coverage.config.driver');
 
         if ($driverChoice === 'remote') {
-            $codeCoverage->setArgument(0, $remoteDriver);
+            $codeCoverage->setFactory([CodeCoverage::class, 'createWithDriverAndFilter']);
+            $codeCoverage->setArguments([$container->getDefinition(RemoteXdebug::class), $filter]);
         } else {
-            $codeCoverage->setArgument(0, null);
+            $codeCoverage->setFactory([CodeCoverage::class, 'createWithFilter']);
+            $codeCoverage->setArguments([$filter]);
         }
-    }
 
-    private function setupCodeCoverage(ContainerBuilder $container): void
-    {
-        $coverage = $container->getDefinition(CodeCoverage::class);
         $config = $container->getParameter('behat.code_coverage.config.filter');
 
-        $coverage->addMethodCall(
-            'setAddUncoveredFilesFromWhitelist',
+        $codeCoverage->addMethodCall(
+            'includeUncoveredFiles',
             [$config['whitelist']['addUncoveredFilesFromWhitelist']]
         );
-        $coverage->addMethodCall(
-            'setProcessUncoveredFilesFromWhiteList',
+        $codeCoverage->addMethodCall(
+            'processUncoveredFiles',
             [$config['whitelist']['processUncoveredFilesFromWhitelist']]
-        );
-        $coverage->addMethodCall(
-            'setForceCoversAnnotation',
-            [$config['forceCoversAnnotation']]
         );
     }
 
@@ -322,8 +309,8 @@ class Extension implements ExtensionInterface
         $config = $container->getParameter('behat.code_coverage.config.filter');
 
         $dirs = [
-            'addDirectoryToWhiteList' => ['whitelist', 'include', 'directories'],
-            'removeDirectoryFromWhiteList' => ['whitelist', 'exclude', 'directories'],
+            'includeDirectory' => ['whitelist', 'include', 'directories'],
+            'excludeDirectory' => ['whitelist', 'exclude', 'directories'],
         ];
 
         foreach ($dirs as $method => $hiera) {

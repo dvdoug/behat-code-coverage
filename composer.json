@@ -24,9 +24,10 @@
             "email": "apang@softwaredevelopment.ca"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
-        "php": ">=7.1",
-        "phpunit/php-code-coverage": "^6.0||^7.0||^8.0",
+        "php": ">=7.3",
+        "phpunit/php-code-coverage": "^9.0",
         "behat/behat": "^3.5",
         "guzzlehttp/guzzle": "^6.0",
         "symfony/console": "^3.4||^4.0||^5.0",
@@ -35,12 +36,12 @@
         "symfony/event-dispatcher": "^3.4||^4.0||^5.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^7.0||^8.0||^9.0",
-        "friendsofphp/php-cs-fixer": "^2.13"
+        "phpunit/phpunit": "^9.3",
+        "friendsofphp/php-cs-fixer": "^2.16.3"
     },
     "suggest": {
-        "ext-xdebug": "Xdebug extension is required to collect coverage via Xdebug driver and run tests",
-        "ext-phpdbg": "PHPDBG extension allows you to collect coverage faster than Xdebug"
+        "ext-xdebug": "Xdebug allows you to collect line, branch and path coverage",
+        "ext-pcov": "PCOV allows you to collect line coverage only, but is faster than Xdebug"
     },
     "replace": {
         "leanphp/behat-code-coverage": "*"

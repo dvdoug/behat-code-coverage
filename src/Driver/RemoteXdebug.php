@@ -12,14 +12,16 @@ declare(strict_types=1);
 namespace DVDoug\Behat\CodeCoverage\Driver;
 
 use GuzzleHttp\Client;
-use SebastianBergmann\CodeCoverage\Driver\Driver as DriverInterface;
+use Psr\Http\Message\ResponseInterface;
+use SebastianBergmann\CodeCoverage\Driver\Driver;
+use SebastianBergmann\CodeCoverage\RawCodeCoverageData;
 
 /**
  * Remote xdebug driver.
  *
  * @author Anthon Pang <apang@softwaredevelopment.ca>
  */
-class RemoteXdebug implements DriverInterface
+class RemoteXdebug extends Driver
 {
     /**
      * @var array
@@ -65,9 +67,6 @@ class RemoteXdebug implements DriverInterface
         //$this->client->setBaseUrl($config['base_url']);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function start(bool $determineUnusedAndDead = true): void
     {
         $response = $this->sendRequest('create');
@@ -77,10 +76,7 @@ class RemoteXdebug implements DriverInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function stop(): array
+    public function stop(): RawCodeCoverageData
     {
         $response = $this->sendRequest('read', ['headers' => ['Accept' => 'application/json']]);
 
@@ -90,18 +86,10 @@ class RemoteXdebug implements DriverInterface
 
         $this->sendRequest('delete');
 
-        return json_decode($response->getBody(true), true);
+        return RawCodeCoverageData::fromXdebugWithoutPathCoverage(json_decode($response->getBody(true), true));
     }
 
-    /**
-     * Construct request.
-     *
-     * @param string $endpoint
-     * @param array  $headers
-     *
-     * @return GuzzleHttp\Psr7\Response
-     */
-    private function sendRequest($endpoint, $headers = [])
+    private function sendRequest(string $endpoint, array $headers = []): ResponseInterface
     {
         $method = strtolower($this->config[$endpoint]['method']);
 
@@ -129,5 +117,10 @@ class RemoteXdebug implements DriverInterface
         }
 
         return $response;
+    }
+
+    public function name(): string
+    {
+        return 'Remote Xdebug';
     }
 }
