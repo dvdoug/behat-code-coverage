@@ -73,6 +73,7 @@ class EventListener implements EventSubscriberInterface
 
         try {
             $this->coverage->enableBranchAndPathCoverage();
+            ini_set('memory_limit', '-1');
         } catch (BranchAndPathCoverageNotSupportedException $e) {
             //do nothing, it's a nice to have
         }
