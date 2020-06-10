@@ -70,15 +70,6 @@ class RemoteXdebugTest extends TestCase
         $this->client->expects($this->any())
             ->method('request')
                      ->willReturn($response);
-        $this->client->expects($this->any())
-            ->method('request')
-                     ->willReturn($response);
-        $this->client->expects($this->any())
-            ->method('request')
-                     ->willReturn($response);
-        $this->client->expects($this->any())
-            ->method('request')
-                     ->willReturn($response);
     }
 
     public function testInvalidMethodException(): void
