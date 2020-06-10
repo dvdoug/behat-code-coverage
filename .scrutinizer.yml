@@ -3,7 +3,7 @@ checks:
 
 tools:
   external_code_coverage:
-    runs: 2    # Scrutinizer will wait for two code coverage submissions
+    runs: 6    # Scrutinizer will wait for six code coverage submissions
 
 filter:
   excluded_paths:

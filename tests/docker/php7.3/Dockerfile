@@ -31,3 +31,10 @@ RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
 
 RUN php -v && php -m && composer --ansi --version --no-interaction
+
+FROM php_fpm AS php_fpm_pcov
+
+RUN pecl install pcov \
+    && docker-php-ext-enable pcov
+
+RUN php -v && php -m && composer --ansi --version --no-interaction
