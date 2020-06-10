@@ -67,6 +67,10 @@ class EventListener implements EventSubscriberInterface
      */
     public function beforeSuite(SuiteTested $event): void
     {
+        if (!$this->coverage) {
+            return;
+        }
+
         try {
             $this->coverage->enableBranchAndPathCoverage();
         } catch (BranchAndPathCoverageNotSupportedException $e) {
