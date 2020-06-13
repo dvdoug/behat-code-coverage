@@ -6,6 +6,7 @@
 ### Removed
  - The `RemoteXDebug` driver, it was a companion to an old Symfony bundle, not a generally-usable feature
  - The old `report` configuration key, use `reports` instead
+ - Removed the custom driver selection logic and replaced it with built-in logic from `php-code-coverage`. This means that PCOV is now supported.
 
 ## [4.1.1] - 2020-02-15
 ### Added
@@ -20,8 +21,8 @@
 ## [4.0.1] - 2019-08-04
 ### Added
  - Added back support for `LeanPHP\Behat\CodeCoverage` in `behat.yml` for seamless drop-in of the fork
-### Fixed
  - Support for `phpdbg`
+### Fixed
  - Issue with directories containing dashes in the name
  - Issue with `xdebug` and `delete` calls
 

@@ -26,7 +26,7 @@ Behat.
 
 - PHP 7.3+
 - [Behat][3]
-- [Xdebug][5] or phpdbg extension enabled
+- [Xdebug][5] or [PCOV][6] extensions enabled, or running under phpdbg
 
 ## Change Log
 
@@ -182,3 +182,4 @@ This extension was created as a fork of [leanphp/behat-code-coverage][0] (abando
 [4]: http://mink.behat.org
 [5]: https://xdebug.org/
 [6]: https://github.com/Behat/Behat/issues/92
+[7]: https://github.com/krakjoe/pcov
