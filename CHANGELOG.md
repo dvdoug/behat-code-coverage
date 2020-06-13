@@ -3,6 +3,9 @@
 ## [5.0.0] - 2020-xx-xx
 ### Changed
  - Minimum version of PHP supported is `7.3`
+### Removed
+ - The `RemoteXDebug` driver, it was a companion to an old Symfony bundle, not a generally-usable feature
+
 ## [4.1.1] - 2020-02-15
 ### Added
  - Compatibility with `phpunit/php-code-coverage` v8

@@ -13,7 +13,6 @@ namespace DVDoug\Behat\CodeCoverage;
 
 use Behat\Testwork\ServiceContainer\Extension as ExtensionInterface;
 use Behat\Testwork\ServiceContainer\ExtensionManager;
-use DVDoug\Behat\CodeCoverage\Driver\RemoteXdebug;
 use DVDoug\Behat\CodeCoverage\Listener\EventListener;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Driver\Driver;
@@ -66,30 +65,12 @@ class Extension implements ExtensionInterface
         $servicesFile = 'services.xml';
         $loader->load($servicesFile);
 
-        if (!isset($config['auth']['user']) || !isset($config['auth']['password'])) {
-            $config['auth'] = null;
-        }
-
-        if (count($config['drivers'])) {
-            $config['driver'] = $config['drivers'][0];
-        }
-
         if (!count($config['report']['options'])) {
             $config['report']['options'] = [
                 'target' => '/tmp',
             ];
         }
 
-        if (!$container->hasParameter('mink.base_url')) {
-            $container->setParameter('mink.base_url', null);
-        }
-
-        $container->setParameter('behat.code_coverage.config.auth', $config['auth']);
-        $container->setParameter('behat.code_coverage.config.create', $config['create']);
-        $container->setParameter('behat.code_coverage.config.read', $config['read']);
-        $container->setParameter('behat.code_coverage.config.delete', $config['delete']);
-        $container->setParameter('behat.code_coverage.config.driver', $config['driver']);
-        $container->setParameter('behat.code_coverage.config.drivers', $config['drivers']);
         $container->setParameter('behat.code_coverage.config.filter', $config['filter']);
         $container->setParameter('behat.code_coverage.config.report', $config['report'] ?? []);
         $container->setParameter('behat.code_coverage.config.reports', $config['reports'] ?? []);
@@ -102,41 +83,6 @@ class Extension implements ExtensionInterface
     {
         $builder
             ->children()
-                ->arrayNode('auth')
-                    ->children()
-                        ->scalarNode('user')->end()
-                        ->scalarNode('password')->end()
-                    ->end()
-                ->end()
-                ->arrayNode('create')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('method')->defaultValue('POST')->end()
-                        ->scalarNode('path')->defaultValue('/')->end()
-                    ->end()
-                ->end()
-                ->arrayNode('read')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('method')->defaultValue('GET')->end()
-                        ->scalarNode('path')->defaultValue('/')->end()
-                    ->end()
-                ->end()
-                ->arrayNode('delete')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('method')->defaultValue('DELETE')->end()
-                        ->scalarNode('path')->defaultValue('/')->end()
-                    ->end()
-                ->end()
-                ->arrayNode('drivers')
-                    ->setDeprecated('The "drivers" option is deprecated. Use "driver" instead.')
-                    ->prototype('scalar')->end()
-                ->end()
-                ->enumNode('driver')
-                    ->values(['local', 'remote'])
-                    ->defaultValue('local')
-                ->end()
                 ->arrayNode('filter')
                     ->addDefaultsIfNotSet()
                     ->children()
@@ -283,15 +229,9 @@ class Extension implements ExtensionInterface
     {
         $codeCoverage = $container->getDefinition(CodeCoverage::class);
         $filter = $container->getDefinition(Filter::class);
-        $driverChoice = $container->getParameter('behat.code_coverage.config.driver');
 
-        if ($driverChoice === 'remote') {
-            $remoteXdebug = $container->getDefinition(RemoteXdebug::class);
-            $codeCoverage->setArguments([$remoteXdebug, $filter]);
-        } else {
-            $codeCoverage->setFactory([self::class, 'initCodeCoverage']);
-            $codeCoverage->setArguments([$filter]);
-        }
+        $codeCoverage->setFactory([self::class, 'initCodeCoverage']);
+        $codeCoverage->setArguments([$filter]);
 
         $config = $container->getParameter('behat.code_coverage.config.filter');
 

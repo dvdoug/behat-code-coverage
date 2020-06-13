@@ -44,7 +44,6 @@ Enable extension by editing `behat.yml` of your project:
 default:
   extensions:
     DVDoug\Behat\CodeCoverage\Extension:  # or `LeanPHP\Behat\CodeCoverage\Extension` if you also need to work with older versions
-      driver: local  # or `remote` if you want to get coverage from a remote PHP server (Xdebug only)
       filter:
         whitelist:
           include:
@@ -87,10 +86,6 @@ Options).
 default:
   extensions:
     DVDoug\Behat\CodeCoverage\Extension:
-      # http auth (optional)
-      auth:        ~
-      # select which driver to use when gathering coverage data
-      driver: local     # `local` Xdebug/pcov/phpdbg driver, or `remote`
       # filter options
       filter:
         whitelist:
@@ -138,21 +133,6 @@ default:
 
 ### Configuration Options
 
-* `auth` - HTTP authentication options (optional).
-- `create` (`method` / `path`) - override options for create method:
-    - `method` - specify a method (default: `POST`)
-    - `path` - specify path (default: `/`)
-- `read` (`method` / `path`) - override options (method and path) for read
-  method.
-    - `method` - specify a method (default: `GET`)
-    - `path` - specify path (default: `/`)
-- `delete` (`method` / `path`) - override options (method and path) for delete
-  method.
-    - `method` - specify a method (default: `DELETE`)
-    - `path` - specify path (default: `/`)
-- `driver` - driver to use for gathering code coverage data:
-    - `local` - local Xdebug/pcov/phpdbg driver (default).
-    - `remote` - remote Xdebug driver
 - `filter` - various filter options:
     - `whiltelist` - whitelist specific options:
         - `addUncoveredFilesFromWhiltelist` - (default: `true`)

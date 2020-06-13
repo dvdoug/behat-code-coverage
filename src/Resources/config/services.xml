@@ -5,13 +5,6 @@
 
     <parameters>
         <parameter key="behat.code_coverage.config" type="collection">
-            <parameter key="base_url">%mink.base_url%</parameter>
-            <parameter key="auth">%behat.code_coverage.config.auth%</parameter>
-            <parameter key="create">%behat.code_coverage.config.create%</parameter>
-            <parameter key="read">%behat.code_coverage.config.read%</parameter>
-            <parameter key="delete">%behat.code_coverage.config.delete%</parameter>
-            <parameter key="driver">%behat.code_coverage.config.driver%</parameter>
-            <parameter key="drivers">%behat.code_coverage.config.drivers%</parameter>
             <parameter key="filter">%behat.code_coverage.config.filter%</parameter>
             <parameter key="report">%behat.code_coverage.config.report%</parameter>
             <parameter key="reports">%behat.code_coverage.config.reports%</parameter>
@@ -26,7 +19,6 @@
         <prototype namespace="DVDoug\Behat\CodeCoverage\" resource="../../*" exclude="../../LeanPHP.php"/>
 
         <!-- Register services used from dependencies -->
-        <service id="GuzzleHttp\Client"/>
         <service id="SebastianBergmann\CodeCoverage\Filter"/>
         <service id="SebastianBergmann\CodeCoverage\CodeCoverage"/>
 
