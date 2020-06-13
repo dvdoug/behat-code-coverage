@@ -119,7 +119,7 @@ class RemoteXdebug extends Driver
         return $response;
     }
 
-    public function name(): string
+    public function nameAndVersion(): string
     {
         return 'Remote Xdebug';
     }
