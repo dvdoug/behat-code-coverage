@@ -66,13 +66,6 @@ If you execute `vendor/bin/behat` command, you will see code coverage generated 
 
     $ vendor/bin/behat
 
-### Running with phpdbg
-
-This extension now supports `phpdbg`, which results in faster execution when
-using more recent versions of PHP. Run `behat` via `phpdbg`:
-
-    $ phpdbg -qrr vendor/bin/behat
-
 ## Configuration
 
 You can see fully annotated `behat.yml` example file below, which can be used
@@ -179,7 +172,6 @@ This extension was created as a fork of [leanphp/behat-code-coverage][0] (abando
 [1]: https://github.com/vipsoft/code-coverage-extension
 [2]: https://github.com/vipsoft/code-coverage-common
 [3]: http://behat.org/
-[4]: http://mink.behat.org
 [5]: https://xdebug.org/
 [6]: https://github.com/Behat/Behat/issues/92
 [7]: https://github.com/krakjoe/pcov
