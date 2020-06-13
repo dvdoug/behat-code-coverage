@@ -5,6 +5,7 @@
  - Minimum version of PHP supported is `7.3`
 ### Removed
  - The `RemoteXDebug` driver, it was a companion to an old Symfony bundle, not a generally-usable feature
+ - The old `report` configuration key, use `reports` instead
 
 ## [4.1.1] - 2020-02-15
 ### Added

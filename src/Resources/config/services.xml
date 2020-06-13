@@ -6,7 +6,6 @@
     <parameters>
         <parameter key="behat.code_coverage.config" type="collection">
             <parameter key="filter">%behat.code_coverage.config.filter%</parameter>
-            <parameter key="report">%behat.code_coverage.config.report%</parameter>
             <parameter key="reports">%behat.code_coverage.config.reports%</parameter>
         </parameter>
     </parameters>

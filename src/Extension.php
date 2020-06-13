@@ -65,14 +65,7 @@ class Extension implements ExtensionInterface
         $servicesFile = 'services.xml';
         $loader->load($servicesFile);
 
-        if (!count($config['report']['options'])) {
-            $config['report']['options'] = [
-                'target' => '/tmp',
-            ];
-        }
-
         $container->setParameter('behat.code_coverage.config.filter', $config['filter']);
-        $container->setParameter('behat.code_coverage.config.report', $config['report'] ?? []);
         $container->setParameter('behat.code_coverage.config.reports', $config['reports'] ?? []);
     }
 
@@ -132,16 +125,6 @@ class Extension implements ExtensionInterface
                                     ->end()
                                 ->end()
                             ->end()
-                        ->end()
-                    ->end()
-                ->end()
-                ->arrayNode('report')
-                    ->setDeprecated('The "report" option is deprecated. Use "reports" instead.')
-                    ->children()
-                        ->scalarNode('format')->defaultValue('html')->end()
-                        ->arrayNode('options')
-                            ->useAttributeAsKey('name')
-                            ->prototype('scalar')->end()
                         ->end()
                     ->end()
                 ->end()

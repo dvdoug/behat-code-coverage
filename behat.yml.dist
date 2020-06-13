@@ -12,10 +12,6 @@ default:
           include:
             directories:
               'src': ~
-      report:
-        format: html
-        options:
-          target: build/coverage-behat-deprecated-report-config
       reports:
         clover:
           target: build/coverage-behat/clover.xml
