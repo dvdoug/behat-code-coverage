@@ -16,7 +16,9 @@ use Behat\Testwork\ServiceContainer\ExtensionManager;
 use DVDoug\Behat\CodeCoverage\Driver\RemoteXdebug;
 use DVDoug\Behat\CodeCoverage\Listener\EventListener;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
+use SebastianBergmann\CodeCoverage\Driver\Driver;
 use SebastianBergmann\CodeCoverage\Filter;
+use SebastianBergmann\CodeCoverage\NoCodeCoverageDriverWithPathCoverageSupportAvailableException;
 use SebastianBergmann\Environment\Runtime;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\FileLocator;
@@ -284,10 +286,10 @@ class Extension implements ExtensionInterface
         $driverChoice = $container->getParameter('behat.code_coverage.config.driver');
 
         if ($driverChoice === 'remote') {
-            $codeCoverage->setFactory([CodeCoverage::class, 'createWithDriverAndFilter']);
-            $codeCoverage->setArguments([$container->getDefinition(RemoteXdebug::class), $filter]);
+            $remoteXdebug = $container->getDefinition(RemoteXdebug::class);
+            $codeCoverage->setArguments([$remoteXdebug, $filter]);
         } else {
-            $codeCoverage->setFactory([CodeCoverage::class, 'createWithFilter']);
+            $codeCoverage->setFactory([self::class, 'initCodeCoverage']);
             $codeCoverage->setArguments([$filter]);
         }
 
@@ -329,5 +331,16 @@ class Extension implements ExtensionInterface
                 $filter->addMethodCall($method, [$file]);
             }
         }
+    }
+
+    public static function initCodeCoverage(Filter $filter): CodeCoverage
+    {
+        try {
+            $driver = Driver::forLineAndPathCoverage($filter);
+        } catch (NoCodeCoverageDriverWithPathCoverageSupportAvailableException $e) {
+            $driver = Driver::forLineCoverage($filter);
+        }
+
+        return new CodeCoverage($driver, $filter);
     }
 }
