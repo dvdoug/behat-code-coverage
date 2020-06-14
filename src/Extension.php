@@ -79,7 +79,7 @@ class Extension implements ExtensionInterface
                 ->arrayNode('filter')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('addUncoveredFiles')
+                        ->scalarNode('includeUncoveredFiles')
                             ->defaultTrue()
                         ->end()
                         ->scalarNode('processUncoveredFiles')
@@ -215,7 +215,7 @@ class Extension implements ExtensionInterface
 
         $codeCoverage->addMethodCall(
             'includeUncoveredFiles',
-            [$config['addUncoveredFiles']]
+            [$config['includeUncoveredFiles']]
         );
         $codeCoverage->addMethodCall(
             'processUncoveredFiles',
