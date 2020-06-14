@@ -16,6 +16,10 @@ build:
     php:
       version: "7.4"
 
+  dependencies:
+    override:
+      - composer update --no-interaction --no-scripts --ignore-platform-reqs
+
   tests:
     override:
       - php-scrutinizer-run
