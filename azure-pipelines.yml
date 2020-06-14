@@ -38,7 +38,7 @@ steps:
   displayName: 'PHPUnit (Xdebug)'
 
 - script: |
-    docker-compose -f tests/docker/php$(phpVersion)/docker-compose.yml exec -T php_fpm_pcov php vendor/phpunit/phpunit/phpunit --coverage-clover=coverage-pcov.xml;
+    docker-compose -f tests/docker/php$(phpVersion)/docker-compose.yml exec -T php_fpm_pcov php vendor/phpunit/phpunit/phpunit --configuration=phpunit-pcov.xml --coverage-clover=coverage-pcov.xml;
     if [ $(phpVersion) == "7.4" ]; then
       wget https://scrutinizer-ci.com/ocular.phar;
       php ocular.phar code-coverage:upload --format=php-clover coverage-pcov.xml;
