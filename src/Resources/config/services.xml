@@ -15,7 +15,7 @@
             <!-- Manual wiring of own services -->
             <bind key="$config">%behat.code_coverage.config%</bind>
         </defaults>
-        <prototype namespace="DVDoug\Behat\CodeCoverage\" resource="../../*" exclude="../../LeanPHP.php"/>
+        <prototype namespace="DVDoug\Behat\CodeCoverage\" resource="../../*"/>
 
         <!-- Register services used from dependencies -->
         <service id="SebastianBergmann\CodeCoverage\Filter"/>

@@ -8,6 +8,7 @@
  - The old `report` configuration key, use `reports` instead
  - Removed `forceCoversAnnotation` and `mapTestClassNameToCoveredClassName` configuration keys, these options are not supported by `php-code-coverage anymore`
  - Removed the custom driver selection logic and replaced it with built-in logic from `php-code-coverage`. This means that PCOV is now supported
+ - Removed legacy `LeanPHP\Behat\CodeCoverage` alias
 
 ## [4.1.1] - 2020-02-15
 ### Added

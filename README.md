@@ -43,7 +43,7 @@ Enable extension by editing `behat.yml` of your project:
 ``` yaml
 default:
   extensions:
-    DVDoug\Behat\CodeCoverage\Extension:  # or `LeanPHP\Behat\CodeCoverage\Extension` if you also need to work with older versions
+    DVDoug\Behat\CodeCoverage\Extension:
       filter:
         whitelist:
           include:

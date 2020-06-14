@@ -49,8 +49,7 @@
     "autoload": {
         "psr-4": {
             "DVDoug\\Behat\\CodeCoverage\\": "src/"
-        },
-        "files": ["src/LeanPHP.php"]
+        }
     },
     "config": {
         "preferred-install": {
