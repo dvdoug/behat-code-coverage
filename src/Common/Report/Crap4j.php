@@ -37,10 +37,6 @@ class Crap4j implements ReportInterface
      */
     public function __construct(array $options)
     {
-        if (!isset($options['name'])) {
-            $options['name'] = null;
-        }
-
         $this->report = new Crap4jReport();
         $this->options = $options;
     }

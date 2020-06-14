@@ -37,10 +37,6 @@ class Clover implements ReportInterface
      */
     public function __construct(array $options)
     {
-        if (!isset($options['name'])) {
-            $options['name'] = null;
-        }
-
         $this->report = new CloverReport();
         $this->options = $options;
     }
