@@ -161,4 +161,39 @@ class ReportServiceTest extends TestCase
 
         $filesystem->remove($reportDirectory);
     }
+
+    public function testCanGenerateMultipleReport(): void
+    {
+        $filesystem = new Filesystem();
+        $cloverReportFilename = sys_get_temp_dir() . '/clover.xml';
+        $crap4jReportFilename = sys_get_temp_dir() . '/crap4j.xml';
+        $filesystem->remove($cloverReportFilename);
+        $filesystem->remove($crap4jReportFilename);
+
+        $driver = $this->createMock(Driver::class);
+        $coverage = new CodeCoverage($driver, new Filter());
+
+        $reportService = new ReportService(
+            [
+                'clover' => [
+                    'target' => $cloverReportFilename,
+                    'name' => 'SomeName',
+                ],
+                'crap4j' => [
+                    'target' => $crap4jReportFilename,
+                    'name' => 'SomeName',
+                ],
+            ]
+        );
+
+        $reportService->generateReport($coverage);
+        $cloverReport = file_get_contents($cloverReportFilename);
+        $crap4jReport = file_get_contents($crap4jReportFilename);
+
+        self::assertNotEmpty($cloverReport);
+        self::assertNotEmpty($crap4jReport);
+
+        $filesystem->remove($cloverReportFilename);
+        $filesystem->remove($crap4jReportFilename);
+    }
 }

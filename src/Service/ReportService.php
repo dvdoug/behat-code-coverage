@@ -11,8 +11,14 @@ declare(strict_types=1);
 
 namespace DVDoug\Behat\CodeCoverage\Service;
 
-use DVDoug\Behat\CodeCoverage\Common\ReportInterface;
+use Composer\InstalledVersions;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
+use SebastianBergmann\CodeCoverage\Report\Clover;
+use SebastianBergmann\CodeCoverage\Report\Crap4j;
+use SebastianBergmann\CodeCoverage\Report\Html\Facade as HtmlFacade;
+use SebastianBergmann\CodeCoverage\Report\PHP;
+use SebastianBergmann\CodeCoverage\Report\Text;
+use SebastianBergmann\CodeCoverage\Report\Xml\Facade as XmlFacade;
 
 /**
  * Code coverage report service.
@@ -40,19 +46,42 @@ class ReportService
     public function generateReport(CodeCoverage $coverage): void
     {
         foreach ($this->config as $format => $config) {
-            $report = $this->create($format, $config);
-            $reportContent = $report->process($coverage);
-
-            if ('text' === $format) {
-                echo $reportContent;
+            switch ($format) {
+                case 'clover':
+                    $report = new Clover();
+                    $report->process($coverage, $config['target'], $config['name']);
+                    break;
+                case 'crap4j':
+                    $report = new Crap4j();
+                    $report->process($coverage, $config['target'], $config['name']);
+                    break;
+                case 'html':
+                    $report = new HtmlFacade(
+                        $config['lowUpperBound'],
+                        $config['highLowerBound'],
+                        \sprintf(' and <a href="https://github.com/dvdoug/behat-code-coverage">behat-code-coverage %s</a>',
+                            InstalledVersions::getPrettyVersion('dvdoug/behat-code-coverage')
+                        ));
+                    $report->process($coverage, $config['target']);
+                    break;
+                case 'php':
+                    $report = new PHP();
+                    $report->process($coverage, $config['target']);
+                    break;
+                case 'text':
+                    $report = new Text(
+                        $config['lowUpperBound'],
+                        $config['highLowerBound'],
+                        $config['showUncoveredFiles'],
+                        $config['showOnlySummary'],
+                    );
+                    echo $report->process($coverage, $config['showColors']);
+                    break;
+                case 'xml':
+                    $report = new XmlFacade('');
+                    $report->process($coverage, $config['target']);
+                    break;
             }
         }
-    }
-
-    private function create(string $reportType, array $options): ReportInterface
-    {
-        $className = '\DVDoug\Behat\CodeCoverage\Common\Report\\' . ucfirst($reportType);
-
-        return new $className($options);
     }
 }
