@@ -1,9 +1,12 @@
 # Changelog
 
 ## [5.0.0] - 2020-xx-xx
+### Added
+ - Compatibility with `phpunit/php-code-coverage` v9
 ### Changed
  - Minimum version of PHP supported is `7.3`
 ### Removed
+ - Compatibility with `phpunit/php-code-coverage` v6/7/8
  - The `RemoteXDebug` driver, it was a companion to an old Symfony bundle, not a generally-usable feature
  - The old `report` configuration key, use `reports` instead
  - Removed `forceCoversAnnotation` and `mapTestClassNameToCoveredClassName` configuration keys, these options are not supported by `php-code-coverage anymore`
