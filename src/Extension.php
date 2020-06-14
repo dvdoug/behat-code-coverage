@@ -79,10 +79,10 @@ class Extension implements ExtensionInterface
                 ->arrayNode('filter')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('addUncoveredFilesFromWhitelist')
+                        ->scalarNode('addUncoveredFiles')
                             ->defaultTrue()
                         ->end()
-                        ->scalarNode('processUncoveredFilesFromWhitelist')
+                        ->scalarNode('processUncoveredFiles')
                             ->defaultFalse()
                         ->end()
                         ->arrayNode('include')
@@ -215,11 +215,11 @@ class Extension implements ExtensionInterface
 
         $codeCoverage->addMethodCall(
             'includeUncoveredFiles',
-            [$config['addUncoveredFilesFromWhitelist']]
+            [$config['addUncoveredFiles']]
         );
         $codeCoverage->addMethodCall(
             'processUncoveredFiles',
-            [$config['processUncoveredFilesFromWhitelist']]
+            [$config['processUncoveredFiles']]
         );
     }
 

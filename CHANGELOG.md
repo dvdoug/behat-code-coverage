@@ -10,6 +10,7 @@
  - The old `report` configuration key, use `reports` instead
  - Removed `forceCoversAnnotation` and `mapTestClassNameToCoveredClassName` configuration keys, these options are not supported by `php-code-coverage anymore`
  - Removed the `whitelist` configuration key to align with `php-code-coverage` v9 terminology. All subkeys of `whitelist` are now subkeys of `filter`
+ - Renamed `addUncoveredFilesFromWhitelist` and `processUncoveredFilesFromWhitelist` to `includeUncoveredFiles` and `processUncoveredFiles` to align with `php-code-coverage` v9 terminology
  - Removed the custom driver selection logic and replaced it with built-in logic from `php-code-coverage`. This means that PCOV is now supported
  - The `RemoteXDebug` driver, it was a companion to an old Symfony bundle, not a generally-usable feature
  - Removed legacy `LeanPHP\Behat\CodeCoverage` alias

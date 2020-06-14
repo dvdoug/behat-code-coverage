@@ -80,8 +80,8 @@ default:
     DVDoug\Behat\CodeCoverage\Extension:
       # filter options
       filter:
-        addUncoveredFilesFromWhitelist:     true
-        processUncoveredFilesFromWhitelist: false
+        includeUncoveredFiles: true
+        processUncoveredFiles: false
         include:
           directories:
             'src': ~
@@ -125,8 +125,8 @@ default:
 ### Configuration Options
 
 - `filter` - various filter options:
-    - `addUncoveredFilesFromWhiltelist` - (default: `true`)
-    - `processUncoveredFilesFromWhitelist` - (default: `false`)
+    - `includeUncoveredFiles` - (default: `true`)
+    - `processUncoveredFiles` - (default: `false`)
     - `include` - a list of files or directories to include:
         - `directories` - key containing directories to include.
             - `suffix` - suffix for files to be included (default: `'.php'`)
