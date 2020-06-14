@@ -29,9 +29,9 @@ class ReportService
     /**
      * Constructor.
      */
-    public function __construct(array $config)
+    public function __construct(array $reportConfig)
     {
-        $this->config = $config;
+        $this->config = $reportConfig;
     }
 
     /**
@@ -39,7 +39,7 @@ class ReportService
      */
     public function generateReport(CodeCoverage $coverage): void
     {
-        foreach ($this->config['reports'] as $format => $config) {
+        foreach ($this->config as $format => $config) {
             if ($config) {
                 $report = $this->create($format, $config);
                 $reportContent = $report->process($coverage);
