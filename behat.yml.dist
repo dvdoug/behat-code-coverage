@@ -8,10 +8,9 @@ default:
   extensions:
     DVDoug\Behat\CodeCoverage\Extension:
       filter:
-        whitelist:
-          include:
-            directories:
-              'src': ~
+        include:
+          directories:
+            'src': ~
       reports:
         clover:
           target: build/coverage-behat/clover.xml

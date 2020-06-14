@@ -79,50 +79,45 @@ class Extension implements ExtensionInterface
                 ->arrayNode('filter')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->arrayNode('whitelist')
+                        ->scalarNode('addUncoveredFilesFromWhitelist')
+                            ->defaultTrue()
+                        ->end()
+                        ->scalarNode('processUncoveredFilesFromWhitelist')
+                            ->defaultFalse()
+                        ->end()
+                        ->arrayNode('include')
                             ->addDefaultsIfNotSet()
                             ->children()
-                                ->scalarNode('addUncoveredFilesFromWhitelist')
-                                    ->defaultTrue()
+                                ->arrayNode('directories')
+                                   ->useAttributeAsKey('name')
+                                   ->normalizeKeys(false)
+                                   ->prototype('array')
+                                       ->children()
+                                           ->scalarNode('prefix')->defaultValue('')->end()
+                                           ->scalarNode('suffix')->defaultValue('.php')->end()
+                                       ->end()
+                                   ->end()
                                 ->end()
-                                ->scalarNode('processUncoveredFilesFromWhitelist')
-                                    ->defaultFalse()
+                                ->arrayNode('files')
+                                   ->prototype('scalar')->end()
                                 ->end()
-                                ->arrayNode('include')
-                                    ->addDefaultsIfNotSet()
-                                    ->children()
-                                        ->arrayNode('directories')
-                                           ->useAttributeAsKey('name')
-                                           ->normalizeKeys(false)
-                                           ->prototype('array')
-                                               ->children()
-                                                   ->scalarNode('prefix')->defaultValue('')->end()
-                                                   ->scalarNode('suffix')->defaultValue('.php')->end()
-                                               ->end()
-                                           ->end()
-                                        ->end()
-                                        ->arrayNode('files')
-                                           ->prototype('scalar')->end()
-                                        ->end()
-                                    ->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('exclude')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->arrayNode('directories')
+                                   ->useAttributeAsKey('name')
+                                   ->normalizeKeys(false)
+                                   ->prototype('array')
+                                       ->children()
+                                           ->scalarNode('prefix')->defaultValue('')->end()
+                                           ->scalarNode('suffix')->defaultValue('.php')->end()
+                                       ->end()
+                                   ->end()
                                 ->end()
-                                ->arrayNode('exclude')
-                                    ->addDefaultsIfNotSet()
-                                    ->children()
-                                        ->arrayNode('directories')
-                                           ->useAttributeAsKey('name')
-                                           ->normalizeKeys(false)
-                                           ->prototype('array')
-                                               ->children()
-                                                   ->scalarNode('prefix')->defaultValue('')->end()
-                                                   ->scalarNode('suffix')->defaultValue('.php')->end()
-                                               ->end()
-                                           ->end()
-                                        ->end()
-                                        ->arrayNode('files')
-                                           ->prototype('scalar')->end()
-                                        ->end()
-                                    ->end()
+                                ->arrayNode('files')
+                                   ->prototype('scalar')->end()
                                 ->end()
                             ->end()
                         ->end()
@@ -220,11 +215,11 @@ class Extension implements ExtensionInterface
 
         $codeCoverage->addMethodCall(
             'includeUncoveredFiles',
-            [$config['whitelist']['addUncoveredFilesFromWhitelist']]
+            [$config['addUncoveredFilesFromWhitelist']]
         );
         $codeCoverage->addMethodCall(
             'processUncoveredFiles',
-            [$config['whitelist']['processUncoveredFilesFromWhitelist']]
+            [$config['processUncoveredFilesFromWhitelist']]
         );
     }
 
@@ -233,26 +228,20 @@ class Extension implements ExtensionInterface
         $filter = $container->getDefinition(Filter::class);
         $config = $container->getParameter('behat.code_coverage.config.filter');
 
-        $dirs = [
-            'includeDirectory' => ['whitelist', 'include', 'directories'],
-            'excludeDirectory' => ['whitelist', 'exclude', 'directories'],
-        ];
-
-        foreach ($dirs as $method => $hiera) {
-            foreach ($config[$hiera[0]][$hiera[1]][$hiera[2]] as $path => $dir) {
-                $filter->addMethodCall($method, [$path, $dir['suffix'], $dir['prefix']]);
-            }
+        foreach ($config['include']['directories'] as $path => $dir) {
+            $filter->addMethodCall('includeDirectory', [$path, $dir['suffix'], $dir['prefix']]);
         }
 
-        $files = [
-            'addFileToWhiteList' => ['whitelist', 'include', 'files'],
-            'removeFileFromWhiteList' => ['whitelist', 'exclude', 'files'],
-        ];
+        foreach ($config['include']['files'] as $file) {
+            $filter->addMethodCall('includeFile', [$file]);
+        }
 
-        foreach ($files as $method => $hiera) {
-            foreach ($config[$hiera[0]][$hiera[1]][$hiera[2]] as $file) {
-                $filter->addMethodCall($method, [$file]);
-            }
+        foreach ($config['exclude']['directories'] as $path => $dir) {
+            $filter->addMethodCall('excludeDirectory', [$path, $dir['suffix'], $dir['prefix']]);
+        }
+
+        foreach ($config['exclude']['files'] as $file) {
+            $filter->addMethodCall('excludeFile', [$file]);
         }
     }
 

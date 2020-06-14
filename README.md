@@ -45,10 +45,9 @@ default:
   extensions:
     DVDoug\Behat\CodeCoverage\Extension:
       filter:
-        whitelist:
-          include:
-            directories:
-              'src': ~
+        include:
+          directories:
+            'src': ~
       reports:
         html:
             target: build/coverage-behat
@@ -81,14 +80,13 @@ default:
     DVDoug\Behat\CodeCoverage\Extension:
       # filter options
       filter:
-        whitelist:
-          addUncoveredFilesFromWhitelist:     true
-          processUncoveredFilesFromWhitelist: false
-          include:
-            directories:
-              'src': ~
-              'tests':
-                suffix: '.php'
+        addUncoveredFilesFromWhitelist:     true
+        processUncoveredFilesFromWhitelist: false
+        include:
+          directories:
+            'src': ~
+            'tests':
+              suffix: '.php'
 #           files:
 #             - script1.php
 #             - script2.php
@@ -127,21 +125,20 @@ default:
 ### Configuration Options
 
 - `filter` - various filter options:
-    - `whiltelist` - whitelist specific options:
-        - `addUncoveredFilesFromWhiltelist` - (default: `true`)
-        - `processUncoveredFilesFromWhitelist` - (default: `false`)
-        - `include` - a list of files or directories to include in whitelist:
-            - `directories` - key containing whitelisted directories to include.
-                - `suffix` - suffix for files to be included (default: `'.php'`)
-                - `prefix` - prefix of files to be included (default: `''`)
-                  (optional)
-            - `files` - a list containing whitelisted files to include.
-        - `exclude` - a list of files or directories to exclude from whitelist:
-            - `directories` - key containing whitelisted directories to exclude.
-                - `suffix` - suffix for files to be included (default: `'.php'`)
-                - `prefix` - prefix of files to be included (default: `''`)
-                  (optional)
-            - `files` - key containing whitelisted files to exclude.
+    - `addUncoveredFilesFromWhiltelist` - (default: `true`)
+    - `processUncoveredFilesFromWhitelist` - (default: `false`)
+    - `include` - a list of files or directories to include:
+        - `directories` - key containing directories to include.
+            - `suffix` - suffix for files to be included (default: `'.php'`)
+            - `prefix` - prefix of files to be included (default: `''`)
+              (optional)
+        - `files` - a list containing files to include.
+    - `exclude` - a list of files or directories to exclude:
+        - `directories` - key containing directories to exclude.
+            - `suffix` - suffix for files to be included (default: `'.php'`)
+            - `prefix` - prefix of files to be included (default: `''`)
+              (optional)
+        - `files` - key containing files to exclude.
 - `reports` - report options:
     - `clover`
         - `name` - Project name (optional)
