@@ -38,14 +38,6 @@ class Html implements ReportInterface
      */
     public function __construct(array $options)
     {
-        if (!isset($options['lowUpperBound'])) {
-            $options['lowUpperBound'] = 50;
-        }
-
-        if (!isset($options['highLowerBound'])) {
-            $options['highLowerBound'] = 90;
-        }
-
         $this->report = new Facade(
             $options['lowUpperBound'],
             $options['highLowerBound'],
