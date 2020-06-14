@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace DVDoug\Behat\CodeCoverage\Common\Report;
 
+use Composer\InstalledVersions;
 use DVDoug\Behat\CodeCoverage\Common\ReportInterface;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Report\Html\Facade;
@@ -51,7 +52,11 @@ class Html implements ReportInterface
 
         $this->report = new Facade(
             $options['lowUpperBound'],
-            $options['highLowerBound']
+            $options['highLowerBound'],
+            \sprintf(
+                ' and <a href="https://github.com/dvdoug/behat-code-coverage">behat-code-coverage %s</a>',
+                InstalledVersions::getPrettyVersion('dvdoug/behat-code-coverage')
+            )
         );
 
         $this->options = $options;

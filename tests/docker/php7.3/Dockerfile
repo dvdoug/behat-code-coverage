@@ -24,6 +24,7 @@ RUN curl --silent --fail --location --retry 3 --output /tmp/installer.php --url 
     && rm -f /tmp/installer.php
 
 RUN php -v && php -m && composer --ansi --version --no-interaction
+RUN composer self-update --preview
 
 FROM php_fpm AS php_fpm_xdebug
 
