@@ -14,9 +14,7 @@ namespace DVDoug\Behat\CodeCoverage\Listener;
 use Behat\Behat\EventDispatcher\Event\ExampleTested;
 use Behat\Behat\EventDispatcher\Event\ScenarioTested;
 use Behat\Testwork\EventDispatcher\Event\ExerciseCompleted;
-use Behat\Testwork\EventDispatcher\Event\SuiteTested;
 use DVDoug\Behat\CodeCoverage\Service\ReportService;
-use SebastianBergmann\CodeCoverage\BranchAndPathCoverageNotSupportedException;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -58,25 +56,7 @@ class EventListener implements EventSubscriberInterface
             ScenarioTested::AFTER => 'afterScenario',
             ExampleTested::AFTER => 'afterScenario',
             ExerciseCompleted::AFTER => 'afterExercise',
-            SuiteTested::BEFORE => 'beforeSuite',
         ];
-    }
-
-    /**
-     * Before Suite hook.
-     */
-    public function beforeSuite(SuiteTested $event): void
-    {
-        if (!$this->coverage) {
-            return;
-        }
-
-        try {
-            $this->coverage->enableBranchAndPathCoverage();
-            ini_set('memory_limit', '-1');
-        } catch (BranchAndPathCoverageNotSupportedException $e) {
-            //do nothing, it's a nice to have
-        }
     }
 
     /**
