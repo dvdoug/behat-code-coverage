@@ -30,7 +30,7 @@ steps:
   displayName: 'PHPUnit (no coverage driver)'
 
 - script: |
-    docker-compose -f tests/docker/php$(phpVersion)/docker-compose.yml exec -T php_fpm_xdebug php vendor/phpunit/phpunit/phpunit --coverage-clover=coverage-xdebug.xml;
+    docker-compose -f tests/docker/php$(phpVersion)/docker-compose.yml exec -T php_fpm_xdebug php -dmemory_limit=-1 vendor/phpunit/phpunit/phpunit --coverage-clover=coverage-xdebug.xml;
     if [ $(phpVersion) == "7.4" ]; then
       wget https://scrutinizer-ci.com/ocular.phar;
       php ocular.phar code-coverage:upload --format=php-clover coverage-xdebug.xml;
@@ -50,7 +50,7 @@ steps:
   displayName: 'Behat (no coverage driver)'
 
 - script: |
-    docker-compose -f tests/docker/php$(phpVersion)/docker-compose.yml exec -T php_fpm_xdebug php vendor/behat/behat/bin/behat --strict;
+    docker-compose -f tests/docker/php$(phpVersion)/docker-compose.yml exec -T php_fpm_xdebug php -dmemory_limit=-1 vendor/behat/behat/bin/behat --strict;
     if [ $(phpVersion) == "7.4" ]; then
       wget https://scrutinizer-ci.com/ocular.phar;
       php ocular.phar code-coverage:upload --format=php-clover build/coverage-behat/clover.xml;

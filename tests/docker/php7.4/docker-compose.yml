@@ -21,5 +21,15 @@ services:
         target: /code
     working_dir: /code
 
+  php_fpm_pcov:
+    build:
+      context: ./
+      target: php_fpm_pcov
+    volumes:
+      - type: bind
+        source: ../../..
+        target: /code
+    working_dir: /code
+
 volumes:
   sut:
