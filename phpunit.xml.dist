@@ -9,7 +9,7 @@
 
     <testsuites>
         <testsuite name="behat-code-coverage">
-            <directory>tests/phpunit</directory>
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
 
