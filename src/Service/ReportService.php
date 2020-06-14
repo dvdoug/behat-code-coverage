@@ -40,13 +40,11 @@ class ReportService
     public function generateReport(CodeCoverage $coverage): void
     {
         foreach ($this->config as $format => $config) {
-            if ($config) {
-                $report = $this->create($format, $config);
-                $reportContent = $report->process($coverage);
+            $report = $this->create($format, $config);
+            $reportContent = $report->process($coverage);
 
-                if ('text' === $format) {
-                    echo $reportContent;
-                }
+            if ('text' === $format) {
+                echo $reportContent;
             }
         }
     }

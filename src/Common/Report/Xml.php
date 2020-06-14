@@ -37,10 +37,6 @@ class Xml implements ReportInterface
      */
     public function __construct(array $options)
     {
-        if (!isset($options['target'])) {
-            $options['target'] = null;
-        }
-
         $this->report = new Facade('');
         $this->options = $options;
     }

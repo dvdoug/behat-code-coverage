@@ -38,10 +38,6 @@ class Html implements ReportInterface
      */
     public function __construct(array $options)
     {
-        if (!isset($options['target'])) {
-            $options['target'] = null;
-        }
-
         if (!isset($options['lowUpperBound'])) {
             $options['lowUpperBound'] = 50;
         }
