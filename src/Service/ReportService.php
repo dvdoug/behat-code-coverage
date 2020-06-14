@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace DVDoug\Behat\CodeCoverage\Service;
 
-use DVDoug\Behat\CodeCoverage\Common\Report\Factory;
+use DVDoug\Behat\CodeCoverage\Common\ReportInterface;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 
 /**
@@ -27,17 +27,11 @@ class ReportService
     private $config;
 
     /**
-     * @var \DVDoug\Behat\CodeCoverage\Common\Report\Factory
-     */
-    private $factory;
-
-    /**
      * Constructor.
      */
-    public function __construct(array $config, Factory $factory)
+    public function __construct(array $config)
     {
         $this->config = $config;
-        $this->factory = $factory;
     }
 
     /**
@@ -55,5 +49,12 @@ class ReportService
                 }
             }
         }
+    }
+
+    private function create(string $reportType, array $options): ReportInterface
+    {
+        $className = '\DVDoug\Behat\CodeCoverage\Common\Report\\' . ucfirst($reportType);
+
+        return new $className($options);
     }
 }
