@@ -37,26 +37,6 @@ class Text implements ReportInterface
      */
     public function __construct(array $options)
     {
-        if (!isset($options['showColors'])) {
-            $options['showColors'] = false;
-        }
-
-        if (!isset($options['lowUpperBound'])) {
-            $options['lowUpperBound'] = 50;
-        }
-
-        if (!isset($options['highLowerBound'])) {
-            $options['highLowerBound'] = 90;
-        }
-
-        if (!isset($options['showUncoveredFiles'])) {
-            $options['showUncoveredFiles'] = false;
-        }
-
-        if (!isset($options['showOnlySummary'])) {
-            $options['showOnlySummary'] = false;
-        }
-
         $this->report = new TextReport(
             $options['lowUpperBound'],
             $options['highLowerBound'],
