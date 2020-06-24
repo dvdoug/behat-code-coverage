@@ -50,25 +50,12 @@ class EventListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            ExerciseCompleted::BEFORE => 'beforeExercise',
             ScenarioTested::BEFORE => 'beforeScenario',
             ExampleTested::BEFORE => 'beforeScenario',
             ScenarioTested::AFTER => 'afterScenario',
             ExampleTested::AFTER => 'afterScenario',
             ExerciseCompleted::AFTER => 'afterExercise',
         ];
-    }
-
-    /**
-     * Before Exercise hook.
-     */
-    public function beforeExercise(ExerciseCompleted $event): void
-    {
-        if (!$this->coverage) {
-            return;
-        }
-
-        $this->coverage->clear();
     }
 
     /**
