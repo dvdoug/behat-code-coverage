@@ -38,14 +38,9 @@ class Extension implements ExtensionInterface
      */
     private $configFolder;
 
-    /**
-     * Constructor.
-     *
-     * @param string $configFolder
-     */
-    public function __construct($configFolder = null)
+    public function __construct()
     {
-        $this->configFolder = $configFolder ?: __DIR__ . '/Resources/config';
+        $this->configFolder = __DIR__ . '/Resources/config';
     }
 
     /**
