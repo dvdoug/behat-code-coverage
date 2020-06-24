@@ -223,21 +223,21 @@ class Extension implements ExtensionInterface
         $filter = $container->getDefinition(Filter::class);
         $config = $container->getParameter('behat.code_coverage.config.filter');
 
-        foreach ($config['include']['directories'] as $path => $dir) {
+        array_walk($config['include']['directories'], static function ($dir, $path, $filter): void {
             $filter->addMethodCall('includeDirectory', [$path, $dir['suffix'], $dir['prefix']]);
-        }
+        }, $filter);
 
-        foreach ($config['include']['files'] as $file) {
+        array_walk($config['include']['files'], static function ($file, $key, $filter): void {
             $filter->addMethodCall('includeFile', [$file]);
-        }
+        }, $filter);
 
-        foreach ($config['exclude']['directories'] as $path => $dir) {
+        array_walk($config['exclude']['directories'], static function ($dir, $path, $filter): void {
             $filter->addMethodCall('excludeDirectory', [$path, $dir['suffix'], $dir['prefix']]);
-        }
+        }, $filter);
 
-        foreach ($config['exclude']['files'] as $file) {
+        array_walk($config['exclude']['files'], static function ($file, $key, $filter): void {
             $filter->addMethodCall('excludeFile', [$file]);
-        }
+        }, $filter);
     }
 
     public static function initCodeCoverage(Filter $filter): CodeCoverage
