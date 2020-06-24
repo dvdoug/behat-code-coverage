@@ -35,6 +35,7 @@ class CodeCoverageController implements Controller
 
     /**
      * {@inheritdoc}
+     * @codeCoverageIgnore
      */
     public function execute(InputInterface $input, OutputInterface $output): void
     {
