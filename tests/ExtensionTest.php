@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace DVDoug\Behat\CodeCoverage\Test;
 
 use Behat\Testwork\ServiceContainer\Configuration\ConfigurationTree;
+use Behat\Testwork\ServiceContainer\ContainerLoader;
+use Behat\Testwork\ServiceContainer\ExtensionManager;
 use DVDoug\Behat\CodeCoverage\Extension;
 use DVDoug\Behat\CodeCoverage\Listener\EventListener;
 use PHPUnit\Framework\TestCase;
@@ -31,6 +33,28 @@ class ExtensionTest extends TestCase
         self::assertInstanceOf(NodeInterface::class, $config);
     }
 
+    public function testContainerLoads(): void
+    {
+        $container = new ContainerBuilder();
+        $container->setParameter('paths.base', dirname(__DIR__));
+        $container->setParameter('extensions', [Extension::class]);
+
+        $loader = new ContainerLoader(new ExtensionManager([]));
+        $loader->load(
+            $container,
+            [
+                [
+                    'extensions' => [
+                        Extension::class => [],
+                    ],
+                ],
+            ]
+        );
+
+        self::assertTrue($container->hasParameter('behat.code_coverage.config.filter'));
+        self::assertTrue($container->hasParameter('behat.code_coverage.config.reports'));
+    }
+
     public function testContainerBuilds(): void
     {
         $input = $this->createMock(InputInterface::class);
@@ -48,12 +72,20 @@ class ExtensionTest extends TestCase
             'behat.code_coverage.config.filter',
             [
                 'include' => [
-                    'directories' => [],
-                    'files' => [],
+                    'directories' => [
+                        '/tmp' => ['suffix' => '.php', 'prefix' => ''],
+                    ],
+                    'files' => [
+                        '/tmp/foo',
+                    ],
                 ],
                 'exclude' => [
-                    'directories' => [],
-                    'files' => [],
+                    'directories' => [
+                        '/tmp' => ['suffix' => '.php', 'prefix' => ''],
+                    ],
+                    'files' => [
+                        '/tmp/foo',
+                    ],
                 ],
                 'includeUncoveredFiles' => true,
                 'processUncoveredFiles' => true,
