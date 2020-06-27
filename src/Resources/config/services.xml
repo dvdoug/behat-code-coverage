@@ -15,7 +15,7 @@
         <service id="SebastianBergmann\CodeCoverage\CodeCoverage"/>
 
         <!-- Manual config of own services -->
-        <service id="DVDoug\Behat\CodeCoverage\Listener\EventListener">
+        <service id="DVDoug\Behat\CodeCoverage\Subscriber\EventSubscriber">
             <tag name="event_dispatcher.subscriber"/>
         </service>
     </services>

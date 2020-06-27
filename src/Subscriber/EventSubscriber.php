@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 /**
- * Event Listener.
+ * Event subscriber.
  *
  * @copyright 2013 Anthon Pang
  *
  * @license BSD-2-Clause
  */
 
-namespace DVDoug\Behat\CodeCoverage\Listener;
+namespace DVDoug\Behat\CodeCoverage\Subscriber;
 
 use Behat\Behat\EventDispatcher\Event\ExampleTested;
 use Behat\Behat\EventDispatcher\Event\ScenarioTested;
@@ -19,11 +19,11 @@ use SebastianBergmann\CodeCoverage\CodeCoverage;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Event listener.
+ * Event subscriber.
  *
  * @author Anthon Pang <apang@softwaredevelopment.ca>
  */
-class EventListener implements EventSubscriberInterface
+class EventSubscriber implements EventSubscriberInterface
 {
     /**
      * @var CodeCoverage
@@ -35,19 +35,13 @@ class EventListener implements EventSubscriberInterface
      */
     private $reportService;
 
-    /**
-     * Constructor.
-     */
     public function __construct(ReportService $reportService, CodeCoverage $coverage = null)
     {
         $this->reportService = $reportService;
         $this->coverage = $coverage;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             ScenarioTested::BEFORE => 'beforeScenario',

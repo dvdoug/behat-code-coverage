@@ -8,7 +8,8 @@ use Behat\Testwork\ServiceContainer\Configuration\ConfigurationTree;
 use Behat\Testwork\ServiceContainer\ContainerLoader;
 use Behat\Testwork\ServiceContainer\ExtensionManager;
 use DVDoug\Behat\CodeCoverage\Extension;
-use DVDoug\Behat\CodeCoverage\Listener\EventListener;
+use DVDoug\Behat\CodeCoverage\Service\ReportService;
+use DVDoug\Behat\CodeCoverage\Subscriber\EventSubscriber;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Filter;
@@ -64,7 +65,8 @@ class ExtensionTest extends TestCase
 
         $container->set('cli.input', $input);
         $container->set('cli.output', $output);
-        $container->setDefinition(EventListener::class, new Definition(EventListener::class));
+        $container->setDefinition(EventSubscriber::class, new Definition(EventSubscriber::class));
+        $container->getDefinition(EventSubscriber::class)->setArgument(0, ReportService::class);
         $container->setDefinition(Filter::class, new Definition(Filter::class));
         $container->setDefinition(CodeCoverage::class, new Definition(CodeCoverage::class));
 

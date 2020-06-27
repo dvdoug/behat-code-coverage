@@ -13,7 +13,7 @@ namespace DVDoug\Behat\CodeCoverage;
 
 use Behat\Testwork\ServiceContainer\Extension as ExtensionInterface;
 use Behat\Testwork\ServiceContainer\ExtensionManager;
-use DVDoug\Behat\CodeCoverage\Listener\EventListener;
+use DVDoug\Behat\CodeCoverage\Subscriber\EventSubscriber;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Driver\Driver;
 use SebastianBergmann\CodeCoverage\Filter;
@@ -191,7 +191,7 @@ class Extension implements ExtensionInterface
         }
 
         if (!$canCollectCodeCoverage || $input->hasParameterOption('--no-coverage')) {
-            $container->getDefinition(EventListener::class)->setArgument('$coverage', null);
+            $container->getDefinition(EventSubscriber::class)->setArgument('$coverage', null);
         }
 
         $this->setupCodeCoverageFilter($container);
