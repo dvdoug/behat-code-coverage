@@ -56,7 +56,7 @@ class ExtensionTest extends TestCase
         self::assertTrue($container->hasParameter('behat.code_coverage.config.reports'));
     }
 
-    public function testContainerBuilds(): void
+    public function testContainerBuilds1(): void
     {
         $input = $this->createMock(InputInterface::class);
         $output = $this->createMock(OutputInterface::class);
@@ -91,6 +91,52 @@ class ExtensionTest extends TestCase
                 ],
                 'includeUncoveredFiles' => true,
                 'processUncoveredFiles' => true,
+            ]
+        );
+
+        $extension = new Extension();
+        $extension->process($container);
+
+        $container->compile();
+
+        self::assertInstanceOf(Container::class, $container);
+    }
+
+    public function testContainerBuilds2(): void
+    {
+        $input = $this->createMock(InputInterface::class);
+        $output = $this->createMock(OutputInterface::class);
+
+        $container = new ContainerBuilder();
+
+        $container->set('cli.input', $input);
+        $container->set('cli.output', $output);
+        $container->setDefinition(EventSubscriber::class, new Definition(EventSubscriber::class));
+        $container->getDefinition(EventSubscriber::class)->setArgument(0, ReportService::class);
+        $container->setDefinition(Filter::class, new Definition(Filter::class));
+        $container->setDefinition(CodeCoverage::class, new Definition(CodeCoverage::class));
+
+        $container->setParameter(
+            'behat.code_coverage.config.filter',
+            [
+                'include' => [
+                    'directories' => [
+                        '/tmp' => ['suffix' => '.php', 'prefix' => ''],
+                    ],
+                    'files' => [
+                        '/tmp/foo',
+                    ],
+                ],
+                'exclude' => [
+                    'directories' => [
+                        '/tmp' => ['suffix' => '.php', 'prefix' => ''],
+                    ],
+                    'files' => [
+                        '/tmp/foo',
+                    ],
+                ],
+                'includeUncoveredFiles' => false,
+                'processUncoveredFiles' => false,
             ]
         );
 

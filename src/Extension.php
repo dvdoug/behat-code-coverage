@@ -208,14 +208,17 @@ class Extension implements ExtensionInterface
 
         $config = $container->getParameter('behat.code_coverage.config.filter');
 
-        $codeCoverage->addMethodCall(
-            'includeUncoveredFiles',
-            [$config['includeUncoveredFiles']]
-        );
-        $codeCoverage->addMethodCall(
-            'processUncoveredFiles',
-            [$config['processUncoveredFiles']]
-        );
+        if ($config['includeUncoveredFiles']) {
+            $codeCoverage->addMethodCall('includeUncoveredFiles');
+        } else {
+            $codeCoverage->addMethodCall('excludeUncoveredFiles');
+        }
+
+        if ($config['processUncoveredFiles']) {
+            $codeCoverage->addMethodCall('processUncoveredFiles');
+        } else {
+            $codeCoverage->addMethodCall('doNotProcessUncoveredFiles');
+        }
     }
 
     private function setupCodeCoverageFilter(ContainerBuilder $container): void
