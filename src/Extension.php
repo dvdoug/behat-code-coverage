@@ -17,14 +17,15 @@ use DVDoug\Behat\CodeCoverage\Subscriber\EventSubscriber;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Driver\Driver;
 use SebastianBergmann\CodeCoverage\Filter;
+use SebastianBergmann\CodeCoverage\NoCodeCoverageDriverAvailableException;
 use SebastianBergmann\CodeCoverage\NoCodeCoverageDriverWithPathCoverageSupportAvailableException;
-use SebastianBergmann\Environment\Runtime;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Code coverage extension.
@@ -173,74 +174,67 @@ class Extension implements ExtensionInterface
         /** @var OutputInterface $output */
         $output = $container->get('cli.output');
 
-        $runtime = new Runtime();
-        $canCollectCodeCoverage = $runtime->canCollectCodeCoverage();
+        $config = $container->getParameter('behat.code_coverage.config.filter');
 
-        if (!$canCollectCodeCoverage) {
+        $canCollectCodeCoverage = true;
+        try {
+            $this->initCodeCoverage(new Filter(), $config);
+
+            $codeCoverage = $container->getDefinition(CodeCoverage::class);
+            $filter = $container->getDefinition(Filter::class);
+            $codeCoverage->setFactory([new Reference(self::class), 'initCodeCoverage']);
+            $codeCoverage->setArguments([$filter, $config]);
+        } catch (NoCodeCoverageDriverAvailableException $e) {
             $output->writeln('<comment>No code coverage driver is available</comment>');
+            $canCollectCodeCoverage = false;
         }
 
         if (!$canCollectCodeCoverage || $input->hasParameterOption('--no-coverage')) {
             $container->getDefinition(EventSubscriber::class)->setArgument('$coverage', null);
         }
-
-        $this->setupCodeCoverageFilter($container);
-        $this->setupCodeCoverage($container);
     }
 
-    private function setupCodeCoverage(ContainerBuilder $container): void
+    public function initCodeCoverage(Filter $filter, array $config): CodeCoverage
     {
-        $codeCoverage = $container->getDefinition(CodeCoverage::class);
-        $filter = $container->getDefinition(Filter::class);
-
-        $codeCoverage->setFactory([self::class, 'initCodeCoverage']);
-        $codeCoverage->setArguments([$filter]);
-
-        $config = $container->getParameter('behat.code_coverage.config.filter');
-
-        if ($config['includeUncoveredFiles']) {
-            $codeCoverage->addMethodCall('includeUncoveredFiles');
-        } else {
-            $codeCoverage->addMethodCall('excludeUncoveredFiles');
-        }
-
-        if ($config['processUncoveredFiles']) {
-            $codeCoverage->addMethodCall('processUncoveredFiles');
-        } else {
-            $codeCoverage->addMethodCall('doNotProcessUncoveredFiles');
-        }
-    }
-
-    private function setupCodeCoverageFilter(ContainerBuilder $container): void
-    {
-        $filter = $container->getDefinition(Filter::class);
-        $config = $container->getParameter('behat.code_coverage.config.filter');
-
+        // set up filter
         array_walk($config['include']['directories'], static function ($dir, $path, $filter): void {
-            $filter->addMethodCall('includeDirectory', [$path, $dir['suffix'], $dir['prefix']]);
+            $filter->includeDirectory($path, $dir['suffix'], $dir['prefix']);
         }, $filter);
 
         array_walk($config['include']['files'], static function ($file, $key, $filter): void {
-            $filter->addMethodCall('includeFile', [$file]);
+            $filter->includeFile($file);
         }, $filter);
 
         array_walk($config['exclude']['directories'], static function ($dir, $path, $filter): void {
-            $filter->addMethodCall('excludeDirectory', [$path, $dir['suffix'], $dir['prefix']]);
+            $filter->excludeDirectory($path, $dir['suffix'], $dir['prefix']);
         }, $filter);
 
         array_walk($config['exclude']['files'], static function ($file, $key, $filter): void {
-            $filter->addMethodCall('excludeFile', [$file]);
+            $filter->excludeFile($file);
         }, $filter);
-    }
 
-    public static function initCodeCoverage(Filter $filter): CodeCoverage
-    {
+        // see if we can get a driver
         try {
             $driver = Driver::forLineAndPathCoverage($filter);
         } catch (NoCodeCoverageDriverWithPathCoverageSupportAvailableException $e) {
             $driver = Driver::forLineCoverage($filter);
         }
 
-        return new CodeCoverage($driver, $filter);
+        // and init coverage
+        $codeCoverage = new CodeCoverage($driver, $filter);
+
+        if ($config['includeUncoveredFiles']) {
+            $codeCoverage->includeUncoveredFiles();
+        } else {
+            $codeCoverage->excludeUncoveredFiles();
+        }
+
+        if ($config['processUncoveredFiles']) {
+            $codeCoverage->processUncoveredFiles();
+        } else {
+            $codeCoverage->doNotProcessUncoveredFiles();
+        }
+
+        return $codeCoverage;
     }
 }
