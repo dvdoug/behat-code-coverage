@@ -11,7 +11,8 @@ default:
         include:
           directories:
             'src': ~
-        processUncoveredFiles: true
+        includeUncoveredFiles: true
+        processUncoveredFiles: false
       reports:
         clover:
           target: build/coverage-behat/clover.xml
