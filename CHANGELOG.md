@@ -2,7 +2,7 @@
 
 ## [5.0.0] - 2020-xx-xx
 ### Added
- - Compatibility with `phpunit/php-code-coverage` v9
+ - Compatibility with `phpunit/php-code-coverage` v9. Path and branch coverage is automatically enabled when running under Xdebug.
 ### Changed
  - Minimum version of PHP supported is `7.3`
 ### Removed
