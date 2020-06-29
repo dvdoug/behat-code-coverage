@@ -34,16 +34,6 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 class Extension implements ExtensionInterface
 {
     /**
-     * @var string
-     */
-    private $configFolder;
-
-    public function __construct()
-    {
-        $this->configFolder = __DIR__ . '/Resources/config';
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function initialize(ExtensionManager $extensionManager): void
@@ -55,7 +45,7 @@ class Extension implements ExtensionInterface
      */
     public function load(ContainerBuilder $container, array $config): void
     {
-        $loader = new XmlFileLoader($container, new FileLocator($this->configFolder));
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/Resources/config'));
 
         $servicesFile = 'services.xml';
         $loader->load($servicesFile);
