@@ -38,6 +38,7 @@ jobs:
       run: docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm composer update --prefer-lowest --no-interaction --prefer-dist
 
     - name: Install dependencies (high)
+      if: matrix.dependencies == 'highest'
       run: docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm composer update --no-interaction --prefer-dist
 
     - name: Check code style

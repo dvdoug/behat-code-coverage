@@ -65,13 +65,13 @@ class EventSubscriberTest extends TestCase
 
     public function testScenarioWithCoverage(): void
     {
-        $scenario = $this->createStub(ScenarioNode::class);
+        $scenario = $this->createMock(ScenarioNode::class);
         $scenario->method('getLine')->willReturn(123);
 
-        $feature = $this->createStub(FeatureNode::class);
+        $feature = $this->createMock(FeatureNode::class);
         $feature->method('getFile')->willReturn('/tmp/file');
 
-        $event = $this->createStub(ScenarioTested::class);
+        $event = $this->createMock(ScenarioTested::class);
         $event->method('getScenario')->willReturn($scenario);
         $event->method('getFeature')->willReturn($feature);
 
