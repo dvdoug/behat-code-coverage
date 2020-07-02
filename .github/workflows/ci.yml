@@ -12,10 +12,17 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
         php-version:
           - "7.3"
           - "7.4"
+
+        symfony-version:
+          - ""
+          - "^3.4"
+          - "^4.0"
+          - "^5.0"
 
         dependencies:
           - lowest
@@ -33,6 +40,10 @@ jobs:
     - name: Validate composer.json
       run: docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm composer validate
 
+    - name: Force Symfony version
+      if: matrix.symfony-version != ''
+      run: docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm composer require --no-update "symfony/symfony:${{ matrix.symfony-version }}"
+
     - name: Install dependencies (low)
       if: matrix.dependencies == 'lowest'
       run: docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm composer update --prefer-lowest --no-interaction --prefer-dist
@@ -42,7 +53,7 @@ jobs:
       run: docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm composer update --no-interaction --prefer-dist
 
     - name: Check code style
-      if: matrix.php-version == '7.4'
+      if: matrix.php-version == '7.4' && matrix.symfony-version == ''
       run: docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm vendor/bin/php-cs-fixer fix --verbose --dry-run --diff --diff-format=udiff --allow-risky=yes
 
     - name: PHPUnit (no coverage driver)
@@ -51,14 +62,14 @@ jobs:
     - name: PHPUnit (Xdebug)
       run: |
         docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm_xdebug php -dmemory_limit=-1 vendor/phpunit/phpunit/phpunit --coverage-clover=coverage-xdebug.xml;
-        if [ ${{ matrix.php-version }} == "7.4" ]; then
+        if [ ${{ matrix.php-version }} == "7.4" && ${{ matrix.symfony-version }} == ""]; then
           wget https://scrutinizer-ci.com/ocular.phar;
           php ocular.phar code-coverage:upload --format=php-clover coverage-xdebug.xml;
         fi;
 
     - name: PHPUnit (PCOV)
       run: docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm_pcov php vendor/phpunit/phpunit/phpunit --configuration=phpunit-pcov.xml --coverage-clover=coverage-pcov.xml;
-        if [ ${{ matrix.php-version }} == "7.4" ]; then
+        if [ ${{ matrix.php-version }} == "7.4" && ${{ matrix.symfony-version }} == ""]; then
         wget https://scrutinizer-ci.com/ocular.phar;
         php ocular.phar code-coverage:upload --format=php-clover coverage-pcov.xml;
         fi;
@@ -69,7 +80,7 @@ jobs:
     - name: Behat (Xdebug)
       run: |
         docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm_xdebug php -dmemory_limit=-1 vendor/behat/behat/bin/behat --strict;
-        if [ ${{ matrix.php-version }} == "7.4" ]; then
+        if [ ${{ matrix.php-version }} == "7.4" && ${{ matrix.symfony-version }} == ""]; then
           wget https://scrutinizer-ci.com/ocular.phar;
           php ocular.phar code-coverage:upload --format=php-clover build/coverage-behat/clover.xml;
         fi;
@@ -77,7 +88,7 @@ jobs:
     - name: Behat (PCOV)
       run: |
         docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm_pcov php vendor/behat/behat/bin/behat --strict;
-        if [ ${{ matrix.php-version }} == "7.4" ]; then
+        if [ ${{ matrix.php-version }} == "7.4" && ${{ matrix.symfony-version }} == ""]; then
           wget https://scrutinizer-ci.com/ocular.phar;
           php ocular.phar code-coverage:upload --format=php-clover build/coverage-behat/clover.xml;
         fi;
