@@ -1,6 +1,6 @@
 behat-code-coverage
 ===================
-[![Build Status](https://dev.azure.com/dvdoug/behat-code-coverage/_apis/build/status/dvdoug.behat-code-coverage?branchName=master)](https://dev.azure.com/dvdoug/behat-code-coverage/_build/latest?definitionId=1&branchName=master)
+[![Build Status](https://img.shields.io/github/workflow/status/dvdoug/behat-code-coverage/CI/master)](https://img.shields.io/github/workflow/status/dvdoug/behat-code-coverage/CI/master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dvdoug/behat-code-coverage/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dvdoug/behat-code-coverage/?branch=master)
 [![Download count](https://img.shields.io/packagist/dt/dvdoug/behat-code-coverage.svg)](https://packagist.org/packages/dvdoug/behat-code-coverage)
 [![Current version](https://img.shields.io/packagist/v/dvdoug/behat-code-coverage.svg)](https://packagist.org/packages/dvdoug/behat-code-coverage)
