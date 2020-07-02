@@ -14,6 +14,7 @@ use PHPUnit\Framework\TestCase;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Filter;
 use SebastianBergmann\CodeCoverage\NoCodeCoverageDriverAvailableException;
+use SebastianBergmann\Environment\Runtime;
 use Symfony\Component\Config\Definition\NodeInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -58,6 +59,10 @@ class ExtensionTest extends TestCase
 
     public function testContainerBuildsIncludingCoveredFiles(): void
     {
+        if (!(new Runtime())->canCollectCodeCoverage()) {
+            $this->markTestSkipped('Requires code coverage enabled');
+        }
+
         $input = $this->createMock(InputInterface::class);
         $output = $this->createMock(OutputInterface::class);
 
@@ -105,6 +110,10 @@ class ExtensionTest extends TestCase
 
     public function testContainerBuildsExcludingCoveredFiles(): void
     {
+        if (!(new Runtime())->canCollectCodeCoverage()) {
+            $this->markTestSkipped('Requires code coverage enabled');
+        }
+
         $input = $this->createMock(InputInterface::class);
         $output = $this->createMock(OutputInterface::class);
 
