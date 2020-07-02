@@ -169,10 +169,13 @@ class ExtensionTest extends TestCase
         $container->set('cli.input', $input);
         $container->set('cli.output', $output);
         $container->setDefinition(Extension::class, new Definition(Extension::class));
-        $container->setDefinition(EventSubscriber::class, new Definition(EventSubscriber::class));
-        $container->getDefinition(EventSubscriber::class)->setArgument(0, ReportService::class);
         $container->setDefinition(Filter::class, new Definition(Filter::class));
         $container->setDefinition(CodeCoverage::class, new Definition(CodeCoverage::class));
+
+        $eventSubscriber = new Definition(EventSubscriber::class);
+        $eventSubscriber->setArgument(0, ReportService::class);
+        $eventSubscriber->setPublic(true);
+        $container->setDefinition(EventSubscriber::class, $eventSubscriber);
 
         $container->setParameter(
             'behat.code_coverage.config.filter',
@@ -215,10 +218,13 @@ class ExtensionTest extends TestCase
 
         $container->set('cli.input', $input);
         $container->set('cli.output', $output);
-        $container->setDefinition(EventSubscriber::class, new Definition(EventSubscriber::class));
-        $container->getDefinition(EventSubscriber::class)->setArgument(0, ReportService::class);
         $container->setDefinition(Filter::class, new Definition(Filter::class));
         $container->setDefinition(CodeCoverage::class, new Definition(CodeCoverage::class));
+
+        $eventSubscriber = new Definition(EventSubscriber::class);
+        $eventSubscriber->setArgument(0, ReportService::class);
+        $eventSubscriber->setPublic(true);
+        $container->setDefinition(EventSubscriber::class, $eventSubscriber);
 
         $container->setParameter(
             'behat.code_coverage.config.filter',
