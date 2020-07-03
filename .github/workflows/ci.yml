@@ -66,7 +66,7 @@ jobs:
     - name: PHPUnit (Xdebug)
       run: |
         docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm_xdebug php -dmemory_limit=-1 vendor/phpunit/phpunit/phpunit --coverage-clover=coverage-xdebug.xml;
-        if [ ${{ matrix.php-version }} == "7.4" && ${{ matrix.symfony-version }} == "" ]; then
+        if [ "${{ matrix.php-version }}" = "7.4" ] && [ "${{ matrix.symfony-version }}" = "" ]; then
           wget https://scrutinizer-ci.com/ocular.phar;
           php ocular.phar code-coverage:upload --format=php-clover coverage-xdebug.xml;
         fi;
@@ -74,7 +74,7 @@ jobs:
     - name: PHPUnit (PCOV)
       if: matrix.dependencies == 'highest' && matrix.php-version != '7.4'
       run: docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm_pcov php vendor/phpunit/phpunit/phpunit --configuration=phpunit-pcov.xml --coverage-clover=coverage-pcov.xml;
-        if [ ${{ matrix.php-version }} == "7.4" && ${{ matrix.symfony-version }} == "" ]; then
+        if [ "${{ matrix.php-version }}" = "7.4" ] && [ "${{ matrix.symfony-version }}" = "" ]; then
         wget https://scrutinizer-ci.com/ocular.phar;
         php ocular.phar code-coverage:upload --format=php-clover coverage-pcov.xml;
         fi;
@@ -85,7 +85,7 @@ jobs:
     - name: Behat (Xdebug)
       run: |
         docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm_xdebug php -dmemory_limit=-1 vendor/behat/behat/bin/behat --strict;
-        if [ ${{ matrix.php-version }} == "7.4" && ${{ matrix.symfony-version }} == "" ]; then
+        if [ "${{ matrix.php-version }}" = "7.4" ] && [ "${{ matrix.symfony-version }}" = "" ]; then
           wget https://scrutinizer-ci.com/ocular.phar;
           php ocular.phar code-coverage:upload --format=php-clover build/coverage-behat/clover.xml;
         fi;
@@ -93,7 +93,7 @@ jobs:
     - name: Behat (PCOV)
       run: |
         docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm_pcov php vendor/behat/behat/bin/behat --strict;
-        if [ ${{ matrix.php-version }} == "7.4" && ${{ matrix.symfony-version }} == "" ]; then
+        if [ "${{ matrix.php-version }}" = "7.4" ] && [ "${{ matrix.symfony-version }}" = "" ]; then
           wget https://scrutinizer-ci.com/ocular.phar;
           php ocular.phar code-coverage:upload --format=php-clover build/coverage-behat/clover.xml;
         fi;
