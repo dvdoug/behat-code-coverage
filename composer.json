@@ -30,16 +30,16 @@
         "composer-runtime-api": "^2.0",
         "phpunit/php-code-coverage": "^9.0",
         "behat/behat": "^3.5",
-        "symfony/console": "^3.4||^4.0||^5.0",
-        "symfony/config": "^3.4||^4.0||^5.0",
-        "symfony/dependency-injection": "^3.4||^4.0||^5.0",
-        "symfony/event-dispatcher": "^3.4||^4.0||^5.0"
+        "symfony/console": "^3.0||^4.0||^5.0",
+        "symfony/config": "^3.0||^4.0||^5.0",
+        "symfony/dependency-injection": "^3.0||^4.0||^5.0",
+        "symfony/event-dispatcher": "^3.0||^4.0||^5.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16.3",
         "phpspec/prophecy-phpunit": "2.0",
         "phpunit/phpunit": "^9.3",
-        "symfony/filesystem": "^3.4||^4.0||^5.0"
+        "symfony/filesystem": "^3.0||^4.0||^5.0"
     },
     "suggest": {
         "ext-xdebug": "Xdebug allows you to collect line, branch and path coverage",
