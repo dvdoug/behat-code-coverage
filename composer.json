@@ -24,6 +24,7 @@
             "email": "apang@softwaredevelopment.ca"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
         "php": "^7.2 || ^8.0",
         "composer-runtime-api": "^2.0",

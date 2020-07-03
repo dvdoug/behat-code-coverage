@@ -13,6 +13,17 @@
         </testsuite>
     </testsuites>
 
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="false">
+            <directory suffix=".php">src</directory>
+        </whitelist>
+    </filter>
+
+    <logging>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="true"/>
+        <log type="coverage-html" target="build/coverage" showUncoveredFiles="true"/>
+    </logging>
+
     <coverage processUncoveredFiles="false">
         <include>
             <directory suffix=".php">src</directory>

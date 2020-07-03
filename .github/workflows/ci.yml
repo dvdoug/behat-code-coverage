@@ -57,7 +57,7 @@ jobs:
       run: docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm composer update --no-interaction --prefer-dist
 
     - name: Check code style
-      if: matrix.php-version == '7.4' && matrix.symfony-version == ''
+      if: matrix.php-version == '7.4' && matrix.symfony-version == '' && matrix.dependencies == 'highest'
       run: docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm vendor/bin/php-cs-fixer fix --verbose --dry-run --diff --diff-format=udiff --allow-risky=yes
 
     - name: PHPUnit (no coverage driver)
