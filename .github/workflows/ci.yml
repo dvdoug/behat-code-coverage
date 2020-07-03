@@ -35,7 +35,10 @@ jobs:
       run: docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml up -d
 
     - name: Verify PHP version used
-      run: docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm php -v && php -m
+      run: |
+        docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm php -v && php -m;
+        docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm_xdebug php -v && php -m;
+        docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm_pcov php -v && php -m;
 
     - name: Validate composer.json
       run: docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm composer validate
