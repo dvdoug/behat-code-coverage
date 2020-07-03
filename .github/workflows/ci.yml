@@ -72,7 +72,6 @@ jobs:
         fi;
 
     - name: PHPUnit (PCOV)
-      if: matrix.dependencies == 'highest' && matrix.php-version != '7.4'
       run: docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm_pcov php vendor/phpunit/phpunit/phpunit --configuration=phpunit-pcov.xml --coverage-clover=coverage-pcov.xml;
         if [ "${{ matrix.php-version }}" = "7.4" ] && [ "${{ matrix.symfony-version }}" = "" ]; then
         wget https://scrutinizer-ci.com/ocular.phar;
