@@ -73,7 +73,7 @@ class ReportService
                         $config['lowUpperBound'],
                         $config['highLowerBound'],
                         $config['showUncoveredFiles'],
-                        $config['showOnlySummary'],
+                        $config['showOnlySummary']
                     );
                     echo $report->process($coverage, $config['showColors']);
                     break;

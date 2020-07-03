@@ -12,8 +12,10 @@ use DVDoug\Behat\CodeCoverage\Service\ReportService;
 use DVDoug\Behat\CodeCoverage\Subscriber\EventSubscriber;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
+use SebastianBergmann\CodeCoverage\Driver\Driver;
 use SebastianBergmann\CodeCoverage\Filter;
 use SebastianBergmann\CodeCoverage\NoCodeCoverageDriverAvailableException;
+use SebastianBergmann\CodeCoverage\RuntimeException;
 use SebastianBergmann\Environment\Runtime;
 use Symfony\Component\Config\Definition\NodeInterface;
 use Symfony\Component\Console\Input\InputInterface;
@@ -211,6 +213,8 @@ class ExtensionTest extends TestCase
 
     public function testContainerBuildsWithCoverageUnavailable(): void
     {
+        $driverClassReflection = new \ReflectionClass(Driver::class);
+
         $input = $this->createMock(InputInterface::class);
         $output = $this->createMock(OutputInterface::class);
 
@@ -251,7 +255,11 @@ class ExtensionTest extends TestCase
         );
 
         $extension = $this->createPartialMock(Extension::class, ['initCodeCoverage']);
-        $extension->method('initCodeCoverage')->willThrowException(new NoCodeCoverageDriverAvailableException());
+        if ($driverClassReflection->isInterface()) {
+            $extension->method('initCodeCoverage')->willThrowException(new RuntimeException());
+        } else {
+            $extension->method('initCodeCoverage')->willThrowException(new NoCodeCoverageDriverAvailableException());
+        }
 
         $extension->process($container);
 

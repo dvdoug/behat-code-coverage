@@ -19,6 +19,7 @@ use SebastianBergmann\CodeCoverage\Driver\Driver;
 use SebastianBergmann\CodeCoverage\Filter;
 use SebastianBergmann\CodeCoverage\NoCodeCoverageDriverAvailableException;
 use SebastianBergmann\CodeCoverage\NoCodeCoverageDriverWithPathCoverageSupportAvailableException;
+use SebastianBergmann\CodeCoverage\RuntimeException;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Input\InputInterface;
@@ -184,7 +185,7 @@ class Extension implements ExtensionInterface
             $filter = $container->getDefinition(Filter::class);
             $codeCoverage->setFactory([new Reference(self::class), 'initCodeCoverage']);
             $codeCoverage->setArguments([$filter, $config]);
-        } catch (NoCodeCoverageDriverAvailableException $e) {
+        } catch (NoCodeCoverageDriverAvailableException | RuntimeException $e) {
             $output->writeln('<comment>No code coverage driver is available</comment>');
             $canCollectCodeCoverage = false;
         }
@@ -196,20 +197,30 @@ class Extension implements ExtensionInterface
 
     public function initCodeCoverage(Filter $filter, array $config): CodeCoverage
     {
+        $driverClassReflection = new \ReflectionClass(Driver::class);
+        if ($driverClassReflection->isInterface()) {
+            return $this->initCodeCoverageV678($filter, $config);
+        }
+
+        return $this->initCodeCoverageV9($filter, $config);
+    }
+
+    public function initCodeCoverageV9(Filter $filter, array $config): CodeCoverage
+    {
         // set up filter
-        array_walk($config['include']['directories'], static function ($dir, $path, $filter): void {
+        array_walk($config['include']['directories'], static function (array $dir, string $path, Filter $filter): void {
             $filter->includeDirectory($path, $dir['suffix'], $dir['prefix']);
         }, $filter);
 
-        array_walk($config['include']['files'], static function ($file, $key, $filter): void {
+        array_walk($config['include']['files'], static function (string $file, string $key, Filter $filter): void {
             $filter->includeFile($file);
         }, $filter);
 
-        array_walk($config['exclude']['directories'], static function ($dir, $path, $filter): void {
+        array_walk($config['exclude']['directories'], static function (array $dir, string $path, Filter $filter): void {
             $filter->excludeDirectory($path, $dir['suffix'], $dir['prefix']);
         }, $filter);
 
-        array_walk($config['exclude']['files'], static function ($file, $key, $filter): void {
+        array_walk($config['exclude']['files'], static function (string $file, string $key, Filter $filter): void {
             $filter->excludeFile($file);
         }, $filter);
 
@@ -234,6 +245,34 @@ class Extension implements ExtensionInterface
         } else {
             $codeCoverage->doNotProcessUncoveredFiles();
         }
+
+        return $codeCoverage;
+    }
+
+    public function initCodeCoverageV678(Filter $filter, array $config): CodeCoverage
+    {
+        // set up filter
+        array_walk($config['include']['directories'], static function (array $dir, string $path, Filter $filter): void {
+            $filter->addDirectoryToWhitelist($path, $dir['suffix'], $dir['prefix']);
+        }, $filter);
+
+        array_walk($config['include']['files'], static function (string $file, string $key, Filter $filter): void {
+            $filter->addFileToWhitelist($file);
+        }, $filter);
+
+        array_walk($config['exclude']['directories'], static function (array $dir, string $path, Filter $filter): void {
+            $filter->removeDirectoryFromWhitelist($path, $dir['suffix'], $dir['prefix']);
+        }, $filter);
+
+        array_walk($config['exclude']['files'], static function (string $file, string $key, Filter $filter): void {
+            $filter->removeFileFromWhitelist($file);
+        }, $filter);
+
+        // and init coverage
+        $codeCoverage = new CodeCoverage(null, $filter);
+
+        $codeCoverage->setAddUncoveredFilesFromWhitelist($config['includeUncoveredFiles']);
+        $codeCoverage->setProcessUncoveredFilesFromWhitelist($config['processUncoveredFiles']);
 
         return $codeCoverage;
     }
