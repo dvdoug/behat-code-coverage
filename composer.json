@@ -26,19 +26,19 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": "^7.2 || ^8.0",
+        "php": "^7.1 || ^8.0",
         "composer-runtime-api": "^2.0",
         "behat/behat": "^3.5",
-        "phpunit/php-code-coverage": "^7.0.2||^8.0||^9.0",
-        "symfony/console": "^3.0||^4.0||^5.0",
-        "symfony/config": "^3.0||^4.0||^5.0",
-        "symfony/dependency-injection": "^3.0||^4.0||^5.0",
-        "symfony/event-dispatcher": "^3.0||^4.0||^5.0"
+        "phpunit/php-code-coverage": "^6.0.1||^7.0.2||^8.0||^9.0",
+        "symfony/console": "^3.4||^4.0||^5.0",
+        "symfony/config": "^3.4||^4.0||^5.0",
+        "symfony/dependency-injection": "^3.4||^4.0||^5.0",
+        "symfony/event-dispatcher": "^3.4||^4.0||^5.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16.3",
-        "phpunit/phpunit": "^8.0||^9.0",
-        "symfony/filesystem": "^3.0||^4.0||^5.0"
+        "phpunit/phpunit": "^7.0||^8.0||^9.0",
+        "symfony/filesystem": "^3.4||^4.0||^5.0"
     },
     "suggest": {
         "ext-xdebug": "Xdebug allows you to collect line, branch and path coverage",

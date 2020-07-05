@@ -3,10 +3,7 @@
 ## [5.0.0] - 2020-xx-xx
 ### Added
  - Compatibility with `phpunit/php-code-coverage` v9. Path and branch coverage is automatically enabled when running under Xdebug.
-### Changed
- - Minimum version of PHP supported is `7.2`
 ### Removed
- - Compatibility with `phpunit/php-code-coverage` v6
  - The old `report` configuration key, use `reports` instead
  - Removed `forceCoversAnnotation` and `mapTestClassNameToCoveredClassName` configuration keys, these options are not supported by `php-code-coverage anymore`
  - Removed the `whitelist` configuration key to align with `php-code-coverage` v9 terminology. All subkeys of `whitelist` are now subkeys of `filter`

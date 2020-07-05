@@ -24,7 +24,7 @@ Behat.
 
 ## Requirements
 
-- PHP 7.2+
+- PHP 7.1+
 - [Behat][3]
 - [Xdebug][5] or [PCOV][6] extensions enabled, or running under phpdbg
 
