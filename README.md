@@ -69,8 +69,7 @@ If you execute `vendor/bin/behat` command, you will see code coverage generated 
 
 You can see fully annotated `behat.yml` example file below, which can be used
 as a starting point to further customize the defaults of the extension. The
-configuration file below has all of the [Configuration Options](#Configuration
-Options).
+configuration file below has all of the [Configuration options](#configuration-options).
 
 ```yaml
 # behat.yml
