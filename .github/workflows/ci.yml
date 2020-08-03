@@ -35,7 +35,26 @@ jobs:
           - highest
           - lowest
 
+        include:
+          - php-version: "8.0"
+            dependencies: "force_latest"
+
         exclude:
+          - dependencies: "highest"
+            php-code-coverage-version: "^9.0"
+
+          - dependencies: "lowest"
+            php-code-coverage-version: "^9.0"
+
+          - php-version: "8.0"
+            php-code-coverage-version: "^8.0"
+
+          - php-version: "8.0"
+            php-code-coverage-version: "^7.0.2"
+
+          - php-version: "8.0"
+            php-code-coverage-version: "^6.0.1"
+
           - php-version: "7.2"
             php-code-coverage-version: "^9.0"
 
@@ -70,9 +89,11 @@ jobs:
       run: docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm composer validate
 
     - name: Force Symfony version
+      if: matrix.symfony-version != ''
       run: docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm composer require --no-update "symfony/symfony:${{ matrix.symfony-version }}"
 
     - name: Force php-code-coverage version
+      if: matrix.php-code-coverage-version != ''
       run: docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm composer require --no-update "phpunit/php-code-coverage:${{ matrix.php-code-coverage-version }}"
 
     - name: Composer cache
@@ -95,8 +116,10 @@ jobs:
       run: docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm composer update --no-interaction --prefer-dist
 
     - name: Install dependencies (force latest)
-      if: matrix.dependencies == 'force_latest'
-      run: docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm composer update --no-interaction --prefer-dist --force-latest
+      if: matrix.dependencies == 'force_latest' || matrix.php-code-coverage-version == '^9.0'
+      run: |
+        docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm composer config minimum-stability dev;
+        docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm composer update --no-interaction --prefer-dist --ignore-platform-reqs;
 
     - name: Check code style
       if: matrix.php-version == '7.4' && matrix.symfony-version == '^5.0' && matrix.dependencies == 'highest'

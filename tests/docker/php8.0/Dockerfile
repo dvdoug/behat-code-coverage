@@ -5,6 +5,8 @@ ENV COMPOSER_HOME /tmp
 
 RUN sed -i 's/#default_bits/default_bits/g; s/#default_md/default_md/g' /etc/ssl/openssl.cnf
 
+RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+
 # ext-zip uses system libzip
 RUN apk --no-cache add libzip-dev
 
@@ -26,16 +28,26 @@ RUN curl --silent --fail --location --retry 3 --output /tmp/installer.php --url 
 RUN php -v && php -m && composer --ansi --version --no-interaction
 RUN composer self-update --preview
 
+RUN curl --silent --fail --location --retry 3 --output /usr/local/bin/pickle --url https://github.com/FriendsOfPHP/pickle/releases/download/v0.6.0/pickle.phar \
+ && chmod +x /usr/local/bin/pickle
+
 FROM php_fpm AS php_fpm_xdebug
 
-RUN pecl install xdebug \
-    && docker-php-ext-enable xdebug
+#RUN pickle install xdebug \
+#    && docker-php-ext-enable xdebug
+RUN mkdir -p /usr/src/php/ext/xdebug && mkdir -p /tmp/xdebug \
+    && curl --silent --fail --location --retry 3 --output /tmp/xdebug.zip --url https://github.com/xdebug/xdebug/archive/master.zip \
+    && unzip /tmp/xdebug.zip -d /tmp/xdebug \
+    && mv /tmp/xdebug/xdebug-master/* /usr/src/php/ext/xdebug \
+    && docker-php-ext-install xdebug \
+    && echo "xdebug.mode=coverage" >> "$PHP_INI_DIR/php.ini"
 
 RUN php -v && php -m && composer --ansi --version --no-interaction
 
+
 FROM php_fpm AS php_fpm_pcov
 
-RUN pecl install pcov \
+RUN pickle install pcov \
     && docker-php-ext-enable pcov
 
 RUN php -v && php -m && composer --ansi --version --no-interaction
