@@ -5,8 +5,6 @@
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          colors="true"
          bootstrap="vendor/autoload.php"
-         convertDeprecationsToExceptions="false"
-         beStrictAboutOutputDuringTests="false"
 >
 
     <testsuites>
@@ -26,15 +24,4 @@
         <log type="coverage-html" target="build/coverage" showUncoveredFiles="true"/>
     </logging>
 
-    <coverage pathCoverage="true" processUncoveredFiles="false">
-        <include>
-            <directory suffix=".php">src</directory>
-        </include>
-
-        <report>
-            <text outputFile="php://stdout" showUncoveredFiles="true"/>
-            <html outputDirectory="build/coverage"/>
-        </report>
-
-    </coverage>
 </phpunit>
