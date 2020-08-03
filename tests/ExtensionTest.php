@@ -57,6 +57,7 @@ class ExtensionTest extends TestCase
 
         self::assertTrue($container->hasParameter('behat.code_coverage.config.filter'));
         self::assertTrue($container->hasParameter('behat.code_coverage.config.reports'));
+        self::assertTrue($container->hasParameter('behat.code_coverage.config.branchAndPathCoverage'));
     }
 
     public function testContainerBuildsIncludingCoveredFiles(): void
@@ -78,6 +79,7 @@ class ExtensionTest extends TestCase
         $container->setDefinition(Filter::class, new Definition(Filter::class));
         $container->setDefinition(CodeCoverage::class, new Definition(CodeCoverage::class));
 
+        $container->setParameter('behat.code_coverage.config.branchAndPathCoverage', false);
         $container->setParameter(
             'behat.code_coverage.config.filter',
             [
@@ -129,6 +131,7 @@ class ExtensionTest extends TestCase
         $container->setDefinition(Filter::class, new Definition(Filter::class));
         $container->setDefinition(CodeCoverage::class, new Definition(CodeCoverage::class));
 
+        $container->setParameter('behat.code_coverage.config.branchAndPathCoverage', true);
         $container->setParameter(
             'behat.code_coverage.config.filter',
             [
@@ -179,6 +182,7 @@ class ExtensionTest extends TestCase
         $eventSubscriber->setPublic(true);
         $container->setDefinition(EventSubscriber::class, $eventSubscriber);
 
+        $container->setParameter('behat.code_coverage.config.branchAndPathCoverage', false);
         $container->setParameter(
             'behat.code_coverage.config.filter',
             [
@@ -230,6 +234,7 @@ class ExtensionTest extends TestCase
         $eventSubscriber->setPublic(true);
         $container->setDefinition(EventSubscriber::class, $eventSubscriber);
 
+        $container->setParameter('behat.code_coverage.config.branchAndPathCoverage', false);
         $container->setParameter(
             'behat.code_coverage.config.filter',
             [

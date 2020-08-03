@@ -53,6 +53,7 @@ class Extension implements ExtensionInterface
         $loader->load($servicesFile);
 
         $container->setParameter('behat.code_coverage.config.filter', $config['filter']);
+        $container->setParameter('behat.code_coverage.config.branchAndPathCoverage', $config['branchAndPathCoverage']);
         $container->setParameter('behat.code_coverage.config.reports', $config['reports'] ?? []);
     }
 
@@ -63,6 +64,9 @@ class Extension implements ExtensionInterface
     {
         $builder
             ->children()
+                ->booleanNode('branchAndPathCoverage')
+                  ->defaultNull() // use null to mean auto
+                ->end()
                 ->arrayNode('filter')
                     ->addDefaultsIfNotSet()
                     ->children()
@@ -175,16 +179,17 @@ class Extension implements ExtensionInterface
         /** @var OutputInterface $output */
         $output = $container->get('cli.output');
 
-        $config = $container->getParameter('behat.code_coverage.config.filter');
+        $filterConfig = $container->getParameter('behat.code_coverage.config.filter');
+        $branchPathConfig = $container->getParameter('behat.code_coverage.config.branchAndPathCoverage');
 
         $canCollectCodeCoverage = true;
         try {
-            $this->initCodeCoverage(new Filter(), $config);
+            $this->initCodeCoverage(new Filter(), $filterConfig, null, $output);
 
-            $codeCoverage = $container->getDefinition(CodeCoverage::class);
-            $filter = $container->getDefinition(Filter::class);
-            $codeCoverage->setFactory([new Reference(self::class), 'initCodeCoverage']);
-            $codeCoverage->setArguments([$filter, $config]);
+            $codeCoverageDefinition = $container->getDefinition(CodeCoverage::class);
+            $filterDefinition = $container->getDefinition(Filter::class);
+            $codeCoverageDefinition->setFactory([new Reference(self::class), 'initCodeCoverage']);
+            $codeCoverageDefinition->setArguments([$filterDefinition, $filterConfig, $branchPathConfig, $output]);
         } catch (NoCodeCoverageDriverAvailableException | RuntimeException $e) {
             $output->writeln('<comment>No code coverage driver is available</comment>');
             $canCollectCodeCoverage = false;
@@ -195,52 +200,58 @@ class Extension implements ExtensionInterface
         }
     }
 
-    public function initCodeCoverage(Filter $filter, array $config): CodeCoverage
+    public function initCodeCoverage(Filter $filter, array $filterConfig, ?bool $branchPathConfig, OutputInterface $output): CodeCoverage
     {
         $driverClassReflection = new \ReflectionClass(Driver::class);
         if ($driverClassReflection->isInterface()) {
-            return $this->initCodeCoverageV678($filter, $config);
+            return $this->initCodeCoverageV678($filter, $filterConfig, $branchPathConfig, $output);
         }
 
-        return $this->initCodeCoverageV9($filter, $config);
+        return $this->initCodeCoverageV9($filter, $filterConfig, $branchPathConfig, $output);
     }
 
-    public function initCodeCoverageV9(Filter $filter, array $config): CodeCoverage
+    public function initCodeCoverageV9(Filter $filter, array $filterConfig, ?bool $branchPathConfig, OutputInterface $output): CodeCoverage
     {
         // set up filter
-        array_walk($config['include']['directories'], static function (array $dir, string $path, Filter $filter): void {
+        array_walk($filterConfig['include']['directories'], static function (array $dir, string $path, Filter $filter): void {
             $filter->includeDirectory($path, $dir['suffix'], $dir['prefix']);
         }, $filter);
 
-        array_walk($config['include']['files'], static function (string $file, string $key, Filter $filter): void {
+        array_walk($filterConfig['include']['files'], static function (string $file, string $key, Filter $filter): void {
             $filter->includeFile($file);
         }, $filter);
 
-        array_walk($config['exclude']['directories'], static function (array $dir, string $path, Filter $filter): void {
+        array_walk($filterConfig['exclude']['directories'], static function (array $dir, string $path, Filter $filter): void {
             $filter->excludeDirectory($path, $dir['suffix'], $dir['prefix']);
         }, $filter);
 
-        array_walk($config['exclude']['files'], static function (string $file, string $key, Filter $filter): void {
+        array_walk($filterConfig['exclude']['files'], static function (string $file, string $key, Filter $filter): void {
             $filter->excludeFile($file);
         }, $filter);
 
         // see if we can get a driver
-        try {
-            $driver = Driver::forLineAndPathCoverage($filter);
-        } catch (NoCodeCoverageDriverWithPathCoverageSupportAvailableException $e) {
-            $driver = Driver::forLineCoverage($filter);
+        $driver = Driver::forLineCoverage($filter);
+        if ($branchPathConfig !== false) {
+            try {
+                $driver = Driver::forLineAndPathCoverage($filter);
+            } catch (NoCodeCoverageDriverWithPathCoverageSupportAvailableException $e) {
+                // fallback driver is already set
+                if ($branchPathConfig === true) { //only warn if explicitly enabled
+                    $output->writeln(sprintf('<info>%s does not support collecting branch and path data</info>', $driver->nameAndVersion()));
+                }
+            }
         }
 
         // and init coverage
         $codeCoverage = new CodeCoverage($driver, $filter);
 
-        if ($config['includeUncoveredFiles']) {
+        if ($filterConfig['includeUncoveredFiles']) {
             $codeCoverage->includeUncoveredFiles();
         } else {
             $codeCoverage->excludeUncoveredFiles();
         }
 
-        if ($config['processUncoveredFiles']) {
+        if ($filterConfig['processUncoveredFiles']) {
             $codeCoverage->processUncoveredFiles();
         } else {
             $codeCoverage->doNotProcessUncoveredFiles();
@@ -249,8 +260,12 @@ class Extension implements ExtensionInterface
         return $codeCoverage;
     }
 
-    public function initCodeCoverageV678(Filter $filter, array $config): CodeCoverage
+    public function initCodeCoverageV678(Filter $filter, array $config, ?bool $branchPathConfig, OutputInterface $output): CodeCoverage
     {
+        if ($branchPathConfig === true) { //only warn if explicitly enabled
+            $output->writeln('<info>php-code-coverage v9+ is needed to support collecting branch and path data</info>');
+        }
+
         // set up filter
         array_walk($config['include']['directories'], static function (array $dir, string $path, Filter $filter): void {
             $filter->addDirectoryToWhitelist($path, $dir['suffix'], $dir['prefix']);

@@ -119,6 +119,7 @@ default:
           highLowerBound: 90
         xml:
           target: build/coverage-behat
+      branchAndPathCoverage: true
 ```
 
 ### Configuration Options
@@ -159,6 +160,7 @@ default:
         - `highLowerBound` - Min % coverage considered high (optional)
     - `xml`
         - `target` - Output directory
+- `branchAndPathCoverage` - whether to enable Xdebug's branch and path coverage (default: `true` under Xdebug)
 ## License + Acknowledgements
 Licensed under [BSD-2-Clause License](LICENSE).
 
