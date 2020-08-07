@@ -44,9 +44,6 @@
         "ext-xdebug": "Xdebug allows you to collect line, branch and path coverage",
         "ext-pcov": "PCOV allows you to collect line coverage only, but is faster than Xdebug"
     },
-    "replace": {
-        "leanphp/behat-code-coverage": "*"
-    },
     "autoload": {
         "psr-4": {
             "DVDoug\\Behat\\CodeCoverage\\": "src/"
