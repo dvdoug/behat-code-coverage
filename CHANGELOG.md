@@ -1,8 +1,8 @@
 # Changelog
 
-## [5.0.0] - 2020-xx-xx
+## [5.0.0] - 2020-08-07
 ### Added
- - Compatibility with `phpunit/php-code-coverage` v9. Branch and path coverage is automatically enabled when running under Xdebug.
+ - Compatibility with `phpunit/php-code-coverage` v9. Branch and path coverage is automatically enabled when running under Xdebug. For more information on this feature, see https://doug.codes/php-code-coverage
  - `branchAndPathCoverage` configuration key to enable/disable path and branch coverage. Setting this to `true` explicitly will warn when the feature cannot be used.
  - Support for PCOV
 ### Removed
