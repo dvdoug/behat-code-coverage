@@ -2,7 +2,7 @@
 
 <!-- https://phpunit.readthedocs.io/en/latest/configuration.html -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/schema/9.3.xsd"
          colors="true"
          bootstrap="vendor/autoload.php"
 >
@@ -13,15 +13,17 @@
         </testsuite>
     </testsuites>
 
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="false">
-            <directory suffix=".php">src</directory>
-        </whitelist>
-    </filter>
+  <coverage processUncoveredFiles="false">
 
-    <logging>
-        <log type="coverage-text" target="php://stdout" showUncoveredFiles="true"/>
-        <log type="coverage-html" target="build/coverage" showUncoveredFiles="true"/>
-    </logging>
+    <include>
+      <directory>src</directory>
+    </include>
+
+    <report>
+      <html outputDirectory="build/coverage"/>
+      <text outputFile="php://stdout" showUncoveredFiles="true"/>
+    </report>
+
+  </coverage>
 
 </phpunit>

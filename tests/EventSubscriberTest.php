@@ -11,6 +11,7 @@ use Behat\Testwork\EventDispatcher\Event\ExerciseCompleted;
 use DVDoug\Behat\CodeCoverage\Service\ReportService;
 use DVDoug\Behat\CodeCoverage\Subscriber\EventSubscriber;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Driver\Driver;
 use SebastianBergmann\CodeCoverage\Filter;
@@ -19,6 +20,8 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class EventSubscriberTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testCanSubscribeToEvents(): void
     {
         $eventSubscriber = new EventSubscriber(new ReportService([]));

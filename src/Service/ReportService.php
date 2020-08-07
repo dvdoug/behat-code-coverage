@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace DVDoug\Behat\CodeCoverage\Service;
 
+use Composer\InstalledVersions;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Report\Clover;
 use SebastianBergmann\CodeCoverage\Report\Crap4j;
@@ -59,7 +60,7 @@ class ReportService
                         $config['lowUpperBound'],
                         $config['highLowerBound'],
                         \sprintf(' and <a href="https://github.com/dvdoug/behat-code-coverage">behat-code-coverage %s</a>',
-                            '5.0.0'
+                            InstalledVersions::getPrettyVersion('dvdoug/behat-code-coverage')
                         ));
                     $report->process($coverage, $config['target']);
                     break;

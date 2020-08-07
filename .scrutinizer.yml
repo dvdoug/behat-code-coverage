@@ -3,7 +3,7 @@ checks:
 
 tools:
   external_code_coverage:
-    runs: 48    # Scrutinizer will wait for 48 code coverage submissions
+    runs: 6    # Scrutinizer will wait for 6 code coverage submissions
     timeout: 600    # Timeout in seconds.
 
 filter:

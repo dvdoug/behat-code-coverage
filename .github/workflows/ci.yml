@@ -17,14 +17,9 @@ jobs:
         php-version:
           - "7.4"
           - "7.3"
-          - "7.2"
-          - "7.1"
 
         php-code-coverage-version:
           - "^9.0"
-          - "^8.0"
-          - "^7.0.2"
-          - "^6.0.1"
 
         symfony-version:
           - "^5.0"
@@ -38,34 +33,6 @@ jobs:
         include:
           - php-version: "8.0"
             dependencies: "force_latest"
-
-        exclude:
-          - php-version: "8.0"
-            php-code-coverage-version: "^8.0"
-
-          - php-version: "8.0"
-            php-code-coverage-version: "^7.0.2"
-
-          - php-version: "8.0"
-            php-code-coverage-version: "^6.0.1"
-
-          - php-version: "7.2"
-            php-code-coverage-version: "^9.0"
-
-          - php-version: "7.2"
-            php-code-coverage-version: "^8.0"
-
-          - php-version: "7.1"
-            symfony-version: "^5.0"
-
-          - php-version: "7.1"
-            php-code-coverage-version: "^9.0"
-
-          - php-version: "7.1"
-            php-code-coverage-version: "^8.0"
-
-          - php-version: "7.1"
-            php-code-coverage-version: "^7.0.2"
 
     steps:
     - uses: actions/checkout@v2
@@ -124,18 +91,13 @@ jobs:
 
     - name: PHPUnit (Xdebug)
       run: |
-        if [ "${{ matrix.php-code-coverage-version }}" = "^9.0" ]; then
-          docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm_xdebug php -dmemory_limit=-1 vendor/phpunit/phpunit/phpunit --coverage-clover=coverage-xdebug.xml --path-coverage;
-        else
-          docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm_xdebug php -dmemory_limit=-1 vendor/phpunit/phpunit/phpunit --coverage-clover=coverage-xdebug.xml;
-        fi;
+        docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm_xdebug php -dmemory_limit=-1 vendor/phpunit/phpunit/phpunit --coverage-clover=coverage-xdebug.xml --path-coverage;
         if [ "${{ matrix.php-version }}" = "7.4" ]; then
           wget https://scrutinizer-ci.com/ocular.phar;
           php ocular.phar code-coverage:upload --format=php-clover coverage-xdebug.xml;
         fi;
 
     - name: PHPUnit (PCOV)
-      if: matrix.php-code-coverage-version != '^6.0.1'
       run: docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm_pcov php vendor/phpunit/phpunit/phpunit --coverage-clover=coverage-pcov.xml;
         if [ "${{ matrix.php-version }}" = "7.4" ]; then
         wget https://scrutinizer-ci.com/ocular.phar;
@@ -154,7 +116,6 @@ jobs:
         fi;
 
     - name: Behat (PCOV)
-      if: matrix.php-code-coverage-version != '^6.0.1'
       run: |
         docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm_pcov php vendor/behat/behat/bin/behat --strict;
         if [ "${{ matrix.php-version }}" = "7.4" ]; then
