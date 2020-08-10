@@ -15,7 +15,6 @@ use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Driver\Driver;
 use SebastianBergmann\CodeCoverage\Filter;
 use SebastianBergmann\CodeCoverage\NoCodeCoverageDriverAvailableException;
-use SebastianBergmann\CodeCoverage\RuntimeException;
 use SebastianBergmann\Environment\Runtime;
 use Symfony\Component\Config\Definition\NodeInterface;
 use Symfony\Component\Console\Input\InputInterface;
@@ -80,6 +79,7 @@ class ExtensionTest extends TestCase
         $container->setDefinition(CodeCoverage::class, new Definition(CodeCoverage::class));
 
         $container->setParameter('behat.code_coverage.config.branchAndPathCoverage', false);
+        $container->setParameter('behat.code_coverage.config.cache', sys_get_temp_dir());
         $container->setParameter(
             'behat.code_coverage.config.filter',
             [
@@ -132,6 +132,7 @@ class ExtensionTest extends TestCase
         $container->setDefinition(CodeCoverage::class, new Definition(CodeCoverage::class));
 
         $container->setParameter('behat.code_coverage.config.branchAndPathCoverage', true);
+        $container->setParameter('behat.code_coverage.config.cache', sys_get_temp_dir());
         $container->setParameter(
             'behat.code_coverage.config.filter',
             [
@@ -183,6 +184,7 @@ class ExtensionTest extends TestCase
         $container->setDefinition(EventSubscriber::class, $eventSubscriber);
 
         $container->setParameter('behat.code_coverage.config.branchAndPathCoverage', false);
+        $container->setParameter('behat.code_coverage.config.cache', sys_get_temp_dir());
         $container->setParameter(
             'behat.code_coverage.config.filter',
             [
@@ -235,6 +237,7 @@ class ExtensionTest extends TestCase
         $container->setDefinition(EventSubscriber::class, $eventSubscriber);
 
         $container->setParameter('behat.code_coverage.config.branchAndPathCoverage', false);
+        $container->setParameter('behat.code_coverage.config.cache', sys_get_temp_dir());
         $container->setParameter(
             'behat.code_coverage.config.filter',
             [

@@ -7,6 +7,7 @@ default:
 
   extensions:
     DVDoug\Behat\CodeCoverage\Extension:
+      cache: build/behat-code-coverage-cache
       filter:
         include:
           directories:

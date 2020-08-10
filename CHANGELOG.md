@@ -1,5 +1,15 @@
 # Changelog
 
+## [5.1.0] - 2020-08-10
+### Added
+ - Support for `phpunit/php-code-coverage`'s static analysis cache introduced in v9.1. This can be configured via the `cache` key in behat.yml, otherwise defaults to `sys_get_temp_dir() . '/behat-code-coverage-cache'`
+
+### Changed
+ - Minimum `phpunit/php-code-coverage` version bumped to 9.1
+
+### Removed
+ - Support for Symfony 3.4, in alignment with https://github.com/Behat/Behat/issues/1296
+
 ## [5.0.0] - 2020-08-07
 ### Added
  - Compatibility with `phpunit/php-code-coverage` v9. Branch and path coverage is automatically enabled when running under Xdebug. For more information on this feature, see https://doug.codes/php-code-coverage
@@ -42,7 +52,9 @@
  - Support for Symfony components older than `<3.4`
  - Support for HHVM
 
-[Unreleased]: https://github.com/dvdoug/behat-code-coverage/compare/v4.1.1...master
+[Unreleased]: https://github.com/dvdoug/behat-code-coverage/compare/v5.1.0...master
+[5.1.0]: https://github.com/dvdoug/behat-code-coverage/compare/v5.0.0...v5.1.0
+[5.0.0]: https://github.com/dvdoug/behat-code-coverage/compare/v4.1.1...v5.0.0
 [4.1.1]: https://github.com/dvdoug/behat-code-coverage/compare/v4.1.0...v4.1.1
 [4.1.0]: https://github.com/dvdoug/behat-code-coverage/compare/v4.0.1...v4.1.0
 [4.0.1]: https://github.com/dvdoug/behat-code-coverage/compare/v4.0.0...v4.0.1

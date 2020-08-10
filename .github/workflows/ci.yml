@@ -19,7 +19,7 @@ jobs:
           - "7.3"
 
         php-code-coverage-version:
-          - "^9.0"
+          - "^9.1"
 
         symfony-version:
           - "^5.0"
@@ -90,7 +90,7 @@ jobs:
 
     - name: PHPUnit (Xdebug)
       run: |
-        docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm_xdebug php -dmemory_limit=-1 vendor/phpunit/phpunit/phpunit --coverage-clover=coverage-xdebug.xml --path-coverage;
+        docker-compose -f tests/docker/php${{ matrix.php-version }}/docker-compose.yml exec -T php_fpm_xdebug php -dmemory_limit=-1 vendor/phpunit/phpunit/phpunit --coverage-clover=coverage-xdebug.xml;
         if [ "${{ matrix.php-version }}" = "7.4" ]; then
           wget https://scrutinizer-ci.com/ocular.phar;
           php ocular.phar code-coverage:upload --format=php-clover coverage-xdebug.xml;

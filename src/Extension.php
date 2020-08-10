@@ -54,6 +54,7 @@ class Extension implements ExtensionInterface
         $container->setParameter('behat.code_coverage.config.filter', $config['filter']);
         $container->setParameter('behat.code_coverage.config.branchAndPathCoverage', $config['branchAndPathCoverage']);
         $container->setParameter('behat.code_coverage.config.reports', $config['reports'] ?? []);
+        $container->setParameter('behat.code_coverage.config.cache', $config['cache']);
     }
 
     /**
@@ -63,6 +64,9 @@ class Extension implements ExtensionInterface
     {
         $builder
             ->children()
+                ->scalarNode('cache')
+                    ->defaultValue(sys_get_temp_dir() . '/behat-code-coverage-cache')
+                ->end()
                 ->booleanNode('branchAndPathCoverage')
                   ->defaultNull() // use null to mean auto
                 ->end()
@@ -180,15 +184,16 @@ class Extension implements ExtensionInterface
 
         $filterConfig = $container->getParameter('behat.code_coverage.config.filter');
         $branchPathConfig = $container->getParameter('behat.code_coverage.config.branchAndPathCoverage');
+        $cacheDir = $container->getParameter('behat.code_coverage.config.cache');
 
         $canCollectCodeCoverage = true;
         try {
-            $this->initCodeCoverage(new Filter(), $filterConfig, null, $output);
+            $this->initCodeCoverage(new Filter(), $filterConfig, null, $cacheDir, $output);
 
             $codeCoverageDefinition = $container->getDefinition(CodeCoverage::class);
             $filterDefinition = $container->getDefinition(Filter::class);
             $codeCoverageDefinition->setFactory([new Reference(self::class), 'initCodeCoverage']);
-            $codeCoverageDefinition->setArguments([$filterDefinition, $filterConfig, $branchPathConfig, $output]);
+            $codeCoverageDefinition->setArguments([$filterDefinition, $filterConfig, $branchPathConfig, $cacheDir, $output]);
         } catch (NoCodeCoverageDriverAvailableException $e) {
             $output->writeln('<comment>No code coverage driver is available</comment>');
             $canCollectCodeCoverage = false;
@@ -199,7 +204,7 @@ class Extension implements ExtensionInterface
         }
     }
 
-    public function initCodeCoverage(Filter $filter, array $filterConfig, ?bool $branchPathConfig, OutputInterface $output): CodeCoverage
+    public function initCodeCoverage(Filter $filter, array $filterConfig, ?bool $branchPathConfig, string $cacheDir, OutputInterface $output): CodeCoverage
     {
         // set up filter
         array_walk($filterConfig['include']['directories'], static function (array $dir, string $path, Filter $filter): void {
@@ -233,6 +238,7 @@ class Extension implements ExtensionInterface
 
         // and init coverage
         $codeCoverage = new CodeCoverage($driver, $filter);
+        $codeCoverage->cacheStaticAnalysis($cacheDir);
 
         if ($filterConfig['includeUncoveredFiles']) {
             $codeCoverage->includeUncoveredFiles();

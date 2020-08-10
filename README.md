@@ -24,7 +24,6 @@ Behat.
 
 ## Requirements
 
-- PHP 7.1+
 - [Behat][3]
 - [Xdebug][5] or [PCOV][6] extensions enabled, or running under phpdbg
 
@@ -120,6 +119,7 @@ default:
         xml:
           target: build/coverage-behat
       branchAndPathCoverage: true
+      cache: build/behat-code-coverage-cache
 ```
 
 ### Configuration Options
@@ -161,6 +161,8 @@ default:
     - `xml`
         - `target` - Output directory
 - `branchAndPathCoverage` - whether to enable Xdebug's branch and path coverage (default: `true` under Xdebug)
+- `cache` - cache directory. Defaults to `sys_get_temp_dir() . '/behat-code-coverage-cache'`
+
 ## License + Acknowledgements
 Licensed under [BSD-2-Clause License](LICENSE).
 
