@@ -1,5 +1,9 @@
 # Changelog
 
+## [5.1.1] - 2020-08-14
+### Fixed
+ - Make the `--no-coverage` option work again
+
 ## [5.1.0] - 2020-08-10
 ### Added
  - Support for `phpunit/php-code-coverage`'s static analysis cache introduced in v9.1. This can be configured via the `cache` key in behat.yml, otherwise defaults to `sys_get_temp_dir() . '/behat-code-coverage-cache'`
