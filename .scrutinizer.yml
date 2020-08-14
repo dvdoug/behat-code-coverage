@@ -16,10 +16,8 @@ build:
     # Languages
     php:
       version: "7.4"
-
-  dependencies:
-    override:
-      - composer update --no-interaction --no-scripts --ignore-platform-reqs
+      ini:
+        memory_limit: "-1"
 
   tests:
     override:
