@@ -28,7 +28,7 @@
         "php": "^7.3 || ^8.0",
         "composer-runtime-api": "^2.0",
         "behat/behat": "^3.5",
-        "phpunit/php-code-coverage": "^9.1",
+        "phpunit/php-code-coverage": "^9.1.10",
         "symfony/console": "^4.4||^5.0",
         "symfony/config": "^4.4||^5.0",
         "symfony/dependency-injection": "^4.4||^5.0",

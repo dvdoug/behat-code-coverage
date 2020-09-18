@@ -16,6 +16,7 @@ use Behat\Testwork\ServiceContainer\ExtensionManager;
 use DVDoug\Behat\CodeCoverage\Subscriber\EventSubscriber;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Driver\Driver;
+use SebastianBergmann\CodeCoverage\Driver\Selector;
 use SebastianBergmann\CodeCoverage\Filter;
 use SebastianBergmann\CodeCoverage\NoCodeCoverageDriverAvailableException;
 use SebastianBergmann\CodeCoverage\NoCodeCoverageDriverWithPathCoverageSupportAvailableException;
@@ -224,10 +225,11 @@ class Extension implements ExtensionInterface
         }, $filter);
 
         // see if we can get a driver
-        $driver = Driver::forLineCoverage($filter);
+        $selector = new Selector();
+        $driver = $selector->forLineCoverage($filter);
         if ($branchPathConfig !== false) {
             try {
-                $driver = Driver::forLineAndPathCoverage($filter);
+                $driver = $selector->forLineAndPathCoverage($filter);
             } catch (NoCodeCoverageDriverWithPathCoverageSupportAvailableException $e) {
                 // fallback driver is already set
                 if ($branchPathConfig === true) { //only warn if explicitly enabled
