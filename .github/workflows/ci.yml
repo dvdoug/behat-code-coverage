@@ -20,7 +20,7 @@ jobs:
           - "7.3"
 
         php-code-coverage-version:
-          - "^9.1.11"
+          - "^9.2"
 
         symfony-version:
           - "^5.0"

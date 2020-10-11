@@ -28,7 +28,7 @@
         "php": "^7.3 || ^8.0",
         "composer-runtime-api": "^2.0",
         "behat/behat": "^3.5",
-        "phpunit/php-code-coverage": "^9.1.11",
+        "phpunit/php-code-coverage": "^9.2",
         "symfony/console": "^4.4||^5.0",
         "symfony/config": "^4.4||^5.0",
         "symfony/dependency-injection": "^4.4||^5.0",
@@ -37,7 +37,7 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16.4",
         "phpspec/prophecy-phpunit": "^2.0",
-        "phpunit/phpunit": "^9.3.4",
+        "phpunit/phpunit": "^9.4.1",
         "symfony/filesystem": "^4.4||^5.0"
     },
     "suggest": {

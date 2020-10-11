@@ -98,6 +98,8 @@ default:
 #             - tests/bootstrap.php
       # report configuration. For a report to be generated, include at least 1 configuration option under the relevant key
       reports:
+        cobertura:
+          target: build/coverage-behat/cobertura.xml
         clover:
           name: 'Project name'
           target: build/coverage-behat/clover.xml
@@ -140,6 +142,8 @@ default:
               (optional)
         - `files` - key containing files to exclude.
 - `reports` - report options:
+    - `cobertura`
+        - `target` - Output filename
     - `clover`
         - `name` - Project name (optional)
         - `target` - Output filename

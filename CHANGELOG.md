@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.2.0] - 2020-10-11
+### Added
+ - Added support for the Cobertura report format
+
+### Changed
+ - Minimum `phpunit/php-code-coverage` version bumped to 9.2
+
 ## [5.1.1] - 2020-08-14
 ### Fixed
  - Make the `--no-coverage` option work again

@@ -14,6 +14,7 @@ namespace DVDoug\Behat\CodeCoverage\Service;
 use Composer\InstalledVersions;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Report\Clover;
+use SebastianBergmann\CodeCoverage\Report\Cobertura;
 use SebastianBergmann\CodeCoverage\Report\Crap4j;
 use SebastianBergmann\CodeCoverage\Report\Html\Facade as HtmlFacade;
 use SebastianBergmann\CodeCoverage\Report\PHP;
@@ -79,6 +80,10 @@ class ReportService
                     break;
                 case 'xml':
                     $report = new XmlFacade('');
+                    $report->process($coverage, $config['target']);
+                    break;
+                case 'cobertura':
+                    $report = new Cobertura();
                     $report->process($coverage, $config['target']);
                     break;
             }
