@@ -12,6 +12,7 @@ use DVDoug\Behat\CodeCoverage\Service\ReportService;
 use DVDoug\Behat\CodeCoverage\Subscriber\EventSubscriber;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
+use ReflectionClass;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Driver\Driver;
 use SebastianBergmann\CodeCoverage\Filter;
@@ -65,7 +66,7 @@ class EventSubscriberTest extends TestCase
 
     public function testScenarioWithCoverage(): void
     {
-        $driverClassReflection = new \ReflectionClass(Driver::class);
+        $driverClassReflection = new ReflectionClass(Driver::class);
 
         $scenario = $this->createMock(ScenarioNode::class);
         $scenario->method('getLine')->willReturn(123);

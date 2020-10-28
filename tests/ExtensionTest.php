@@ -11,6 +11,7 @@ use DVDoug\Behat\CodeCoverage\Extension;
 use DVDoug\Behat\CodeCoverage\Service\ReportService;
 use DVDoug\Behat\CodeCoverage\Subscriber\EventSubscriber;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Driver\Driver;
 use SebastianBergmann\CodeCoverage\Filter;
@@ -219,7 +220,7 @@ class ExtensionTest extends TestCase
 
     public function testContainerBuildsWithCoverageUnavailable(): void
     {
-        $driverClassReflection = new \ReflectionClass(Driver::class);
+        $driverClassReflection = new ReflectionClass(Driver::class);
 
         $input = $this->createMock(InputInterface::class);
         $output = $this->createMock(OutputInterface::class);

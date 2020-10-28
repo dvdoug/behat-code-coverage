@@ -20,6 +20,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Facade as HtmlFacade;
 use SebastianBergmann\CodeCoverage\Report\PHP;
 use SebastianBergmann\CodeCoverage\Report\Text;
 use SebastianBergmann\CodeCoverage\Report\Xml\Facade as XmlFacade;
+use function sprintf;
 
 /**
  * Code coverage report service.
@@ -60,7 +61,7 @@ class ReportService
                     $report = new HtmlFacade(
                         $config['lowUpperBound'],
                         $config['highLowerBound'],
-                        \sprintf(' and <a href="https://github.com/dvdoug/behat-code-coverage">behat-code-coverage %s</a>',
+                        sprintf(' and <a href="https://github.com/dvdoug/behat-code-coverage">behat-code-coverage %s</a>',
                             InstalledVersions::getPrettyVersion('dvdoug/behat-code-coverage')
                         ));
                     $report->process($coverage, $config['target']);
