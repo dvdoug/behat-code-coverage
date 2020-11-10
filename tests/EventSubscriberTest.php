@@ -11,8 +11,6 @@ use Behat\Testwork\EventDispatcher\Event\ExerciseCompleted;
 use DVDoug\Behat\CodeCoverage\Service\ReportService;
 use DVDoug\Behat\CodeCoverage\Subscriber\EventSubscriber;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use ReflectionClass;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Driver\Driver;
 use SebastianBergmann\CodeCoverage\Filter;
@@ -21,8 +19,6 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class EventSubscriberTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function testCanSubscribeToEvents(): void
     {
         $eventSubscriber = new EventSubscriber(new ReportService([]));
@@ -66,8 +62,6 @@ class EventSubscriberTest extends TestCase
 
     public function testScenarioWithCoverage(): void
     {
-        $driverClassReflection = new ReflectionClass(Driver::class);
-
         $scenario = $this->createMock(ScenarioNode::class);
         $scenario->method('getLine')->willReturn(123);
 
@@ -78,24 +72,14 @@ class EventSubscriberTest extends TestCase
         $event->method('getScenario')->willReturn($scenario);
         $event->method('getFeature')->willReturn($feature);
 
-        $driver = $this->prophesize(Driver::class);
-        if ($driverClassReflection->isInterface()) {
-            $driver->start(true)->shouldBeCalled();
-        } else {
-            $driver->start()->shouldBeCalled();
-        }
+        $driver = $this->createMock(Driver::class);
+        $driver->expects(self::once())->method('start');
+        $driver->method('stop')->willReturn(RawCodeCoverageData::fromXdebugWithPathCoverage([]));
 
-        $codeCoverage = new CodeCoverage($driver->reveal(), new Filter());
+        $codeCoverage = new CodeCoverage($driver, new Filter());
 
         $subscriber = new EventSubscriber(new ReportService([]), $codeCoverage);
         $subscriber->beforeScenario($event);
-
-        if ($driverClassReflection->isInterface()) {
-            $driver->stop()->willReturn([]);
-        } else {
-            $driver->stop()->willReturn(RawCodeCoverageData::fromXdebugWithPathCoverage([]));
-        }
-        $driver->stop()->shouldBeCalled();
 
         $subscriber = new EventSubscriber(new ReportService([]), $codeCoverage);
         $subscriber->afterScenario($event);
@@ -105,14 +89,14 @@ class EventSubscriberTest extends TestCase
     {
         $event = $this->createMock(ExerciseCompleted::class);
 
-        $driver = $this->prophesize(Driver::class);
+        $driver = $this->createMock(Driver::class);
 
-        $codeCoverage = new CodeCoverage($driver->reveal(), new Filter());
+        $codeCoverage = new CodeCoverage($driver, new Filter());
 
-        $reportService = $this->prophesize(ReportService::class);
-        $reportService->generateReport($codeCoverage)->shouldBeCalled();
+        $reportService = $this->createMock(ReportService::class);
+        $reportService->expects(self::once())->method('generateReport')->with($codeCoverage);
 
-        $subscriber = new EventSubscriber($reportService->reveal(), $codeCoverage);
+        $subscriber = new EventSubscriber($reportService, $codeCoverage);
         $subscriber->afterExercise($event);
     }
 }
