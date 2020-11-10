@@ -48,7 +48,7 @@ jobs:
       with:
         php-version: ${{ matrix.php-version }}
         coverage: ${{ matrix.driver }}
-        tools: cs2pr, composer:v2
+        tools: cs2pr
       env:
         COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
