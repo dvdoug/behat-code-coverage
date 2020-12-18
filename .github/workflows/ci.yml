@@ -38,6 +38,15 @@ jobs:
         include:
           - php-version: "8.0"
             dependencies: "force_latest"
+            driver: "none"
+
+          - php-version: "8.0"
+            dependencies: "force_latest"
+            driver: "xdebug"
+
+          - php-version: "8.0"
+            dependencies: "force_latest"
+            driver: "pcov"
 
     steps:
     - uses: actions/checkout@v2
