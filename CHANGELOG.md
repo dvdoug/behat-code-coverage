@@ -1,5 +1,10 @@
 # Changelog
 
+## [5.2.1] - 2021-01-10
+### Fixed
+- When Xdebug was enabled, but its coverage feature was disabled an exception was thrown. This scenario is now treated
+  the same as when no coverage driver is loaded at all (a warning is printed but Behat is allowed to run to completion)
+
 ## [5.2.0] - 2020-10-11
 ### Added
  - Added support for the Cobertura report format

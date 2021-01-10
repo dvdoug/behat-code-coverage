@@ -17,6 +17,8 @@ use DVDoug\Behat\CodeCoverage\Subscriber\EventSubscriber;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Driver\Driver;
 use SebastianBergmann\CodeCoverage\Driver\Selector;
+use SebastianBergmann\CodeCoverage\Driver\Xdebug2NotEnabledException;
+use SebastianBergmann\CodeCoverage\Driver\Xdebug3NotEnabledException;
 use SebastianBergmann\CodeCoverage\Filter;
 use SebastianBergmann\CodeCoverage\NoCodeCoverageDriverAvailableException;
 use SebastianBergmann\CodeCoverage\NoCodeCoverageDriverWithPathCoverageSupportAvailableException;
@@ -201,7 +203,7 @@ class Extension implements ExtensionInterface
             $filterDefinition = $container->getDefinition(Filter::class);
             $codeCoverageDefinition->setFactory([new Reference(self::class), 'initCodeCoverage']);
             $codeCoverageDefinition->setArguments([$filterDefinition, $filterConfig, $branchPathConfig, $cacheDir, $output]);
-        } catch (NoCodeCoverageDriverAvailableException $e) {
+        } catch (NoCodeCoverageDriverAvailableException | Xdebug2NotEnabledException | Xdebug3NotEnabledException $e) {
             $output->writeln('<comment>No code coverage driver is available</comment>');
             $canCollectCodeCoverage = false;
         }
