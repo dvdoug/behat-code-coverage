@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DVDoug\Behat\CodeCoverage\Test;
 
+use function array_keys;
 use Behat\Behat\EventDispatcher\Event\ScenarioTested;
 use Behat\Gherkin\Node\FeatureNode;
 use Behat\Gherkin\Node\ScenarioNode;
