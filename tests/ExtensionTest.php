@@ -15,9 +15,11 @@ use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Driver\Driver;
+use SebastianBergmann\CodeCoverage\Driver\Selector;
+use SebastianBergmann\CodeCoverage\Driver\Xdebug2NotEnabledException;
+use SebastianBergmann\CodeCoverage\Driver\Xdebug3NotEnabledException;
 use SebastianBergmann\CodeCoverage\Filter;
 use SebastianBergmann\CodeCoverage\NoCodeCoverageDriverAvailableException;
-use SebastianBergmann\Environment\Runtime;
 use Symfony\Component\Config\Definition\NodeInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -64,7 +66,10 @@ class ExtensionTest extends TestCase
 
     public function testContainerBuildsIncludingCoveredFiles(): void
     {
-        if (!(new Runtime())->canCollectCodeCoverage()) {
+        try {
+            $selector = new Selector();
+            $selector->forLineCoverage(new Filter());
+        } catch (NoCodeCoverageDriverAvailableException | Xdebug2NotEnabledException | Xdebug3NotEnabledException $e) {
             $this->markTestSkipped('Requires code coverage enabled');
         }
 
@@ -117,7 +122,10 @@ class ExtensionTest extends TestCase
 
     public function testContainerBuildsExcludingCoveredFiles(): void
     {
-        if (!(new Runtime())->canCollectCodeCoverage()) {
+        try {
+            $selector = new Selector();
+            $selector->forLineCoverage(new Filter());
+        } catch (NoCodeCoverageDriverAvailableException | Xdebug2NotEnabledException | Xdebug3NotEnabledException $e) {
             $this->markTestSkipped('Requires code coverage enabled');
         }
 
