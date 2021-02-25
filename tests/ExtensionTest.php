@@ -274,11 +274,7 @@ class ExtensionTest extends TestCase
         );
 
         $extension = $this->createPartialMock(Extension::class, ['initCodeCoverage']);
-        if ($driverClassReflection->isInterface()) {
-            $extension->method('initCodeCoverage')->willThrowException(new RuntimeException());
-        } else {
-            $extension->method('initCodeCoverage')->willThrowException(new NoCodeCoverageDriverAvailableException());
-        }
+        $extension->method('initCodeCoverage')->willThrowException(new NoCodeCoverageDriverAvailableException());
 
         $extension->process($container);
 
