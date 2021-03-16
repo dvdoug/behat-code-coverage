@@ -13,15 +13,6 @@
         {
             "name": "Doug Wright",
             "role": "Developer"
-        },
-        {
-            "name": "ek9",
-            "email": "dev@ek9.co",
-            "homepage": "https://ek9.co"
-        },
-        {
-            "name": "Anthon Pang",
-            "email": "apang@softwaredevelopment.ca"
         }
     ],
     "require": {
