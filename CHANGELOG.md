@@ -68,7 +68,9 @@
  - Support for Symfony components older than `<3.4`
  - Support for HHVM
 
-[Unreleased]: https://github.com/dvdoug/behat-code-coverage/compare/v5.2.0...master
+[Unreleased]: https://github.com/dvdoug/behat-code-coverage/compare/v5.2.1...master
+
+[5.2.1]: https://github.com/dvdoug/behat-code-coverage/compare/v5.2.1...v5.2.1
 [5.2.0]: https://github.com/dvdoug/behat-code-coverage/compare/v5.1.1...v5.2.0
 [5.1.1]: https://github.com/dvdoug/behat-code-coverage/compare/v5.1.0...v5.1.1
 [5.1.0]: https://github.com/dvdoug/behat-code-coverage/compare/v5.0.0...v5.1.0
