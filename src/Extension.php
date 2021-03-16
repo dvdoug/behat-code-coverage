@@ -7,6 +7,7 @@ declare(strict_types=1);
 namespace DVDoug\Behat\CodeCoverage;
 
 use function array_walk;
+use Behat\Testwork\Cli\ServiceContainer\CliExtension;
 use Behat\Testwork\ServiceContainer\Extension as ExtensionInterface;
 use Behat\Testwork\ServiceContainer\ExtensionManager;
 use DVDoug\Behat\CodeCoverage\Subscriber\EventSubscriber;
@@ -179,10 +180,10 @@ class Extension implements ExtensionInterface
     public function process(ContainerBuilder $container): void
     {
         /** @var InputInterface $input */
-        $input = $container->get('cli.input');
+        $input = $container->get(CliExtension::INPUT_ID);
 
         /** @var OutputInterface $output */
-        $output = $container->get('cli.output');
+        $output = $container->get(CliExtension::OUTPUT_ID);
 
         $filterConfig = $container->getParameter('behat.code_coverage.config.filter');
         $branchPathConfig = $container->getParameter('behat.code_coverage.config.branchAndPathCoverage');
