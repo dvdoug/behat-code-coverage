@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Behat Code Coverage
+ */
 declare(strict_types=1);
 
 return PhpCsFixer\Config::create()
@@ -18,6 +20,13 @@ return PhpCsFixer\Config::create()
         'yoda_style' => false,
         'phpdoc_trim_consecutive_blank_line_separation' => true,
         'no_superfluous_phpdoc_tags' => ['allow_mixed' => false],
+        'header_comment' => [
+            'location' => 'after_open',
+            'comment_type' => 'PHPDoc',
+            'separate' => 'none',
+            'header' => 'Behat Code Coverage',
+        ],
+        'phpdoc_line_span' => true,
     ])
     ->setRiskyAllowed(true)
     ->setFinder(

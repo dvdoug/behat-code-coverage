@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Behat Code Coverage
+ */
 declare(strict_types=1);
 
 namespace DVDoug\Behat\CodeCoverage\Test;

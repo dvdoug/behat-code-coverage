@@ -1,13 +1,8 @@
 <?php
-
-declare(strict_types=1);
 /**
- * Event subscriber.
- *
- * @copyright 2013 Anthon Pang
- *
- * @license BSD-2-Clause
+ * Behat Code Coverage
  */
+declare(strict_types=1);
 
 namespace DVDoug\Behat\CodeCoverage\Subscriber;
 
@@ -18,11 +13,6 @@ use DVDoug\Behat\CodeCoverage\Service\ReportService;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-/**
- * Event subscriber.
- *
- * @author Anthon Pang <apang@softwaredevelopment.ca>
- */
 class EventSubscriber implements EventSubscriberInterface
 {
     /**

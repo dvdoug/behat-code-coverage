@@ -1,13 +1,8 @@
 <?php
-
-declare(strict_types=1);
 /**
- * Code Coverage Report Service.
- *
- * @copyright 2013 Anthon Pang
- *
- * @license BSD-2-Clause
+ * Behat Code Coverage
  */
+declare(strict_types=1);
 
 namespace DVDoug\Behat\CodeCoverage\Service;
 
@@ -22,11 +17,6 @@ use SebastianBergmann\CodeCoverage\Report\Text;
 use SebastianBergmann\CodeCoverage\Report\Xml\Facade as XmlFacade;
 use function sprintf;
 
-/**
- * Code coverage report service.
- *
- * @author Anthon Pang <apang@softwaredevelopment.ca>
- */
 class ReportService
 {
     /**

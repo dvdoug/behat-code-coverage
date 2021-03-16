@@ -1,13 +1,8 @@
 <?php
-
-declare(strict_types=1);
 /**
- * Code Coverage Extension for Behat.
- *
- * @copyright 2013 Anthon Pang
- *
- * @license BSD-2-Clause
+ * Behat Code Coverage
  */
+declare(strict_types=1);
 
 namespace DVDoug\Behat\CodeCoverage;
 
@@ -33,11 +28,6 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 use function sys_get_temp_dir;
 
-/**
- * Code coverage extension.
- *
- * @author Anthon Pang <apang@softwaredevelopment.ca>
- */
 class Extension implements ExtensionInterface
 {
     /**
