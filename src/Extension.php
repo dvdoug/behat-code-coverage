@@ -198,7 +198,7 @@ class Extension implements ExtensionInterface
             $codeCoverageDefinition->setFactory([new Reference(self::class), 'initCodeCoverage']);
             $codeCoverageDefinition->setArguments([$filterDefinition, $filterConfig, $branchPathConfig, $cacheDir, $output]);
         } catch (NoCodeCoverageDriverAvailableException | Xdebug2NotEnabledException | Xdebug3NotEnabledException $e) {
-            $output->writeln('<comment>No code coverage driver is available</comment>');
+            $output->writeln("<comment>No code coverage driver is available. {$e->getMessage()}</comment>");
             $canCollectCodeCoverage = false;
         }
 
