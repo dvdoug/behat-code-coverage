@@ -24,7 +24,7 @@ default:
         html:
           target: build/coverage-behat
         php:
-          target: build/coverage-behat/coverage.php
+          target: build/coverage-behat/coverage.cov
         text:
           showColors: true
           showUncoveredFiles: true
