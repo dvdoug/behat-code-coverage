@@ -83,8 +83,8 @@ jobs:
         path: |
           ${{ steps.composercache.outputs.dir }}
           "build/php-code-coverage-cache"
-        key: "php-${{ matrix.php-version }}-deps-${{ matrix.dependencies }}-${{ hashFiles('composer.json') }}"
-        restore-keys: "php-${{ matrix.php-version }}-deps-${{ matrix.dependencies }}"
+        key: "php-${{ matrix.php-version }}-deps-${{ matrix.dependencies }}-php-code-coverage-${{ matrix.php-code-coverage-version }}-symfony-${{ matrix.symfony }}-${{ hashFiles('composer.json') }}"
+        restore-keys: "php-${{ matrix.php-version }}-deps-${{ matrix.dependencies }}-php-code-coverage-${{ matrix.php-code-coverage-version }}-symfony-${{ matrix.symfony }}"
 
     - name: Force Symfony version
       if: matrix.symfony-version != ''
@@ -107,17 +107,22 @@ jobs:
 
     - name: Install dependencies (low)
       if: matrix.dependencies == 'lowest'
-      run: composer update --prefer-lowest --no-interaction --prefer-dist
+      run: |
+        composer update --prefer-lowest --no-interaction --prefer-dist;
+        composer show;
 
     - name: Install dependencies (high)
       if: matrix.dependencies == 'highest'
-      run: composer update --no-interaction --prefer-dist
+      run: |
+        composer update --no-interaction --prefer-dist;
+        composer show;
 
     - name: Install dependencies (force latest)
       if: matrix.dependencies == 'force_latest'
       run: |
         composer config minimum-stability dev;
         composer update --no-interaction --prefer-dist --ignore-platform-reqs;
+        composer show;
 
     - name: Check code style
       if: matrix.php-version == '7.4' && matrix.symfony-version == '^5.0' && matrix.dependencies == 'highest'

@@ -77,9 +77,10 @@ By default uncovered files are **included** but not **processed**.
   *processing*, the files will be loaded via an ``include()`` call and passed through the driver in exactly the same way as
   covered files are. However, not all files can be safely loaded in this way, for instance ``include()``\ing a script
   may have runtime side-effects. Because Behat Code Coverage cannot know the structure of your codebase and which files
-  are safe to ``include()`` and which are not, by default uncovered file processing is disabled for safety reasons. When
-  processing of uncovered files is disabled, a less-efficient and limited emulation of executable code detection is
-  performed out.
+  are safe to ``include()`` and which are not, by default uncovered file processing is disabled for safety reasons.
+
+  .. note::
+    The ``processUncoveredFiles`` setting has been removed in php-code-coverage v10, configuring it here is deprecated
 
 Reports
 -------

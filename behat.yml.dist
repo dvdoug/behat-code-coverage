@@ -13,7 +13,6 @@ default:
           directories:
             'src': ~
         includeUncoveredFiles: true
-        processUncoveredFiles: false
       reports:
         cobertura:
           target: build/coverage-behat/cobertura.xml

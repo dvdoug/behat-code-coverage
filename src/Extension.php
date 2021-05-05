@@ -11,6 +11,7 @@ use Behat\Testwork\Cli\ServiceContainer\CliExtension;
 use Behat\Testwork\ServiceContainer\Extension as ExtensionInterface;
 use Behat\Testwork\ServiceContainer\ExtensionManager;
 use DVDoug\Behat\CodeCoverage\Subscriber\EventSubscriber;
+use ReflectionClass;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Driver\Driver;
 use SebastianBergmann\CodeCoverage\Driver\Selector;
@@ -75,6 +76,7 @@ class Extension implements ExtensionInterface
                         ->end()
                         ->scalarNode('processUncoveredFiles')
                             ->defaultFalse()
+                            ->setDeprecated('dvdoug/behat-code-coverage', '5.3', 'the processUncoveredFiles setting is deprecated, it has been removed from php-code-coverage v10')
                         ->end()
                         ->arrayNode('include')
                             ->addDefaultsIfNotSet()
@@ -250,10 +252,14 @@ class Extension implements ExtensionInterface
             $codeCoverage->excludeUncoveredFiles();
         }
 
-        if ($filterConfig['processUncoveredFiles']) {
-            $codeCoverage->processUncoveredFiles();
-        } else {
-            $codeCoverage->doNotProcessUncoveredFiles();
+        $codeCoverageReflection = new ReflectionClass($codeCoverage);
+
+        if ($codeCoverageReflection->hasMethod('processUncoveredFiles')) {
+            if ($filterConfig['processUncoveredFiles']) {
+                $codeCoverage->processUncoveredFiles();
+            } else {
+                $codeCoverage->doNotProcessUncoveredFiles();
+            }
         }
 
         return $codeCoverage;

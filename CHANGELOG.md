@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased] - 2021-xx-xx
+### Added
+- Compatibility with `phpunit/php-code-coverage` v10.
+### Changed
+- Deprecated `processUncoveredFiles` setting, it has been removed as of php-code-coverage v10.
+
 ## [5.2.1] - 2021-01-10
 ### Fixed
 - When Xdebug was enabled, but its coverage feature was disabled an exception was thrown. This scenario is now treated
@@ -70,7 +76,7 @@
 
 [Unreleased]: https://github.com/dvdoug/behat-code-coverage/compare/v5.2.1...master
 
-[5.2.1]: https://github.com/dvdoug/behat-code-coverage/compare/v5.2.1...v5.2.1
+[5.2.1]: https://github.com/dvdoug/behat-code-coverage/compare/v5.2.0...v5.2.1
 [5.2.0]: https://github.com/dvdoug/behat-code-coverage/compare/v5.1.1...v5.2.0
 [5.1.1]: https://github.com/dvdoug/behat-code-coverage/compare/v5.1.0...v5.1.1
 [5.1.0]: https://github.com/dvdoug/behat-code-coverage/compare/v5.0.0...v5.1.0

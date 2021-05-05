@@ -15,7 +15,7 @@
     </testsuites>
 
   <!-- pathCoverage must be set false here for CI or PCOV/PHPDBG fail. It is enabled via CLI for Xdebug -->
-  <coverage pathCoverage="false" processUncoveredFiles="true" cacheDirectory="build/phpunit-cache/coverage">
+  <coverage pathCoverage="false" cacheDirectory="build/phpunit-cache/coverage">
 
     <include>
       <directory>src</directory>
