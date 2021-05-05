@@ -51,7 +51,7 @@ class ReportService
                     $report = new HtmlFacade(
                         $config['lowUpperBound'],
                         $config['highLowerBound'],
-                        sprintf(' and <a href="https://github.com/dvdoug/behat-code-coverage">behat-code-coverage %s</a>',
+                        sprintf(' and <a href="https://behat.cc">Behat Code Coverage %s</a>',
                             InstalledVersions::getPrettyVersion('dvdoug/behat-code-coverage')
                         ));
                     $report->process($coverage, $config['target']);
