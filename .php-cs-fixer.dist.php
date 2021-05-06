@@ -4,17 +4,18 @@
  */
 declare(strict_types=1);
 
-return PhpCsFixer\Config::create()
-    ->setRules([
+$config = new PhpCsFixer\Config();
+
+return $config->setRules(
+    [
         '@Symfony' => true,
         '@Symfony:risky' => true,
         '@PHP71Migration' => true,
         '@PHP71Migration:risky' => true,
         '@PHP73Migration' => true,
-        'array_syntax' => ['syntax' => 'short'],
         'concat_space' => ['spacing' => 'one'],
         'fopen_flags' => ['b_mode' => true],
-        'native_function_invocation' => true,
+        'native_function_invocation' => ['include' => ['@all']],
         'global_namespace_import' => ['import_classes' => true, 'import_constants' => true, 'import_functions' => true],
         'phpdoc_separation' => false,
         'yoda_style' => false,
@@ -27,7 +28,8 @@ return PhpCsFixer\Config::create()
             'header' => 'Behat Code Coverage',
         ],
         'phpdoc_line_span' => true,
-    ])
+    ]
+)
     ->setRiskyAllowed(true)
     ->setFinder(
         PhpCsFixer\Finder::create()
