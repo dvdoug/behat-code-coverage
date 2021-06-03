@@ -11,8 +11,8 @@ automatically take care of downloading the source and configuring an autoloader:
 
 The code is also available to download from `GitHub`_
 
-After installation, in your project's ``behat.yml`` or ``behat.yml.dist``, add the into the ``extensions`` key
-under ``default`` to enable it.
+After installation, in your project's ``behat.yml`` or ``behat.yml.dist``, add ``DVDoug\Behat\CodeCoverage\Extension``
+into the ``extensions`` key under ``default`` to enable it.
 
 The below example represents a typical configuration you may wish to use as a starting point. Each option is more fully
 explained in the next section.

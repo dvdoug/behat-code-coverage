@@ -12,7 +12,7 @@ reports that are familiar to developers and interoperable with other tooling.
 
     Technically, Behat is a *scenario* runner, not a *test* runner. The scenarios might be run by hand. Or the application
     under scrutiny might not be a local PHP application, it might be running on a remote server and/or the software might
-    not even written in PHP. Additionally by the very nature of needing to invoke the entire application to perform each
+    not even be written in PHP. Additionally by the very nature of needing to invoke the entire application to perform each
     scenario, it would be very hard to construct a set of scenarios that cover all possible codepaths in an application.
     Something like PHPUnit is much better to use here if your goal is comprehensive code coverage as you can unit test each
     component in isolation.
