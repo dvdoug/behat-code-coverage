@@ -36,15 +36,15 @@ jobs:
           - "pcov"
 
         include:
-          - php-version: "8.0"
+          - php-version: "8.1"
             dependencies: "force_latest"
             driver: "none"
 
-          - php-version: "8.0"
+          - php-version: "8.1"
             dependencies: "force_latest"
             driver: "xdebug"
 
-          - php-version: "8.0"
+          - php-version: "8.1"
             dependencies: "force_latest"
             driver: "pcov"
 
