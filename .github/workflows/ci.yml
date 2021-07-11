@@ -57,6 +57,7 @@ jobs:
         php-version: ${{ matrix.php-version }}
         coverage: ${{ matrix.driver }}
         tools: cs2pr
+        ini-values: "error_reporting=E_ALL, display_errors=On"
       env:
         COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
