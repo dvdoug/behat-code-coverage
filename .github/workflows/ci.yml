@@ -15,6 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         php-version:
+          - "8.1"
           - "8.0"
           - "7.4"
           - "7.3"
@@ -27,26 +28,14 @@ jobs:
           - "^4.4"
 
         dependencies:
-          - highest
-          - lowest
+          - "highest"
+          - "lowest"
+          - "force_latest"
 
         driver:
           - "none"
           - "xdebug"
           - "pcov"
-
-        include:
-          - php-version: "8.1"
-            dependencies: "force_latest"
-            driver: "none"
-
-          - php-version: "8.1"
-            dependencies: "force_latest"
-            driver: "xdebug"
-
-          - php-version: "8.1"
-            dependencies: "force_latest"
-            driver: "pcov"
 
     steps:
     - uses: actions/checkout@v2
