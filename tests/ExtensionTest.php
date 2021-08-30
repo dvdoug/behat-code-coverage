@@ -71,7 +71,7 @@ class ExtensionTest extends TestCase
         try {
             $selector = new Selector();
             $selector->forLineCoverage(new Filter());
-        } catch (NoCodeCoverageDriverAvailableException | Xdebug2NotEnabledException | Xdebug3NotEnabledException $e) {
+        } catch (NoCodeCoverageDriverAvailableException|Xdebug2NotEnabledException|Xdebug3NotEnabledException $e) {
             $this->markTestSkipped('Requires code coverage enabled');
         }
 
@@ -127,7 +127,7 @@ class ExtensionTest extends TestCase
         try {
             $selector = new Selector();
             $selector->forLineCoverage(new Filter());
-        } catch (NoCodeCoverageDriverAvailableException | Xdebug2NotEnabledException | Xdebug3NotEnabledException $e) {
+        } catch (NoCodeCoverageDriverAvailableException|Xdebug2NotEnabledException|Xdebug3NotEnabledException $e) {
             $this->markTestSkipped('Requires code coverage enabled');
         }
 
