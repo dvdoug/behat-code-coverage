@@ -82,8 +82,11 @@ jobs:
         path: |
           ${{ steps.composercache.outputs.dir }}
           "build/php-code-coverage-cache"
-        key: "php-${{ matrix.php-version }}-deps-${{ matrix.dependencies }}-php-code-coverage-${{ matrix.php-code-coverage-version }}-symfony-${{ matrix.symfony }}-${{ hashFiles('composer.json') }}"
-        restore-keys: "php-${{ matrix.php-version }}-deps-${{ matrix.dependencies }}-php-code-coverage-${{ matrix.php-code-coverage-version }}-symfony-${{ matrix.symfony }}"
+          ".php-cs-fixer.cache"
+        key: php-${{ matrix.php-version }}-deps-${{ matrix.dependencies }}-php-code-coverage-${{ matrix.php-code-coverage-version }}-symfony-${{ matrix.symfony }}-${{ github.ref }}-${{ github.sha }}
+        restore-keys: |
+          php-${{ matrix.php-version }}-deps-${{ matrix.dependencies }}-php-code-coverage-${{ matrix.php-code-coverage-version }}-symfony-${{ matrix.symfony }}-${{ github.ref }}
+          php-${{ matrix.php-version }}-deps-${{ matrix.dependencies }}-php-code-coverage-${{ matrix.php-code-coverage-version }}-symfony-${{ matrix.symfony }}
 
     - name: Force Symfony version
       if: matrix.symfony-version != ''
@@ -92,13 +95,6 @@ jobs:
     - name: Force php-code-coverage version
       if: matrix.php-code-coverage-version != ''
       run: composer require --no-update "phpunit/php-code-coverage:${{ matrix.php-code-coverage-version }}"
-
-    - name: Composer cache
-      uses: "actions/cache@v2"
-      with:
-        path: "vendor"
-        key: "php${{ matrix.php-version }}-deps${{ matrix.dependencies }}-symfony${{ matrix.symfony-version }}-${{ hashFiles('composer.json') }}"
-        restore-keys: "php${{ matrix.php-version }}-deps${{ matrix.dependencies }}-symfony${{ matrix.symfony-version }}"
 
     - name: Remove PHP-CS-Fixer if not called
       if: matrix.php-version != '8.0' || matrix.symfony-version != '^5.0' || matrix.dependencies != 'highest'
