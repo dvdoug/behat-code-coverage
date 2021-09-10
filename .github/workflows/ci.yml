@@ -37,13 +37,6 @@ jobs:
           - "xdebug"
           - "pcov"
 
-        exclude:
-          - php-version: "8.1"
-            dependencies: "highest" #prophecy is PHP <8.1 and doesn't want to tag a compatible version until RC
-
-          - php-version: "8.1"
-            dependencies: "lowest" #prophecy is PHP <8.1 and doesn't want to tag a compatible version until RC
-
     steps:
     - uses: actions/checkout@v2
       with:
