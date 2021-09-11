@@ -83,7 +83,9 @@ jobs:
 
     - name: Force Symfony version
       if: matrix.symfony-version != ''
-      run: composer require --no-update "symfony/symfony:${{ matrix.symfony-version }}"
+      run: |
+        composer global require "symfony/flex"
+        composer config extra.symfony.require "${{ matrix.symfony-version }}"
 
     - name: Force php-code-coverage version
       if: matrix.php-code-coverage-version != ''
