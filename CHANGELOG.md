@@ -32,6 +32,10 @@
 ### Removed
  - Support for Symfony 3.4, in alignment with https://github.com/Behat/Behat/issues/1296
 
+## [5.0.1] - 2021-09-13
+### Fixed
+ - Make the `--no-coverage` option work again
+
 ## [5.0.0] - 2020-08-07
 ### Added
  - Compatibility with `phpunit/php-code-coverage` v9. Branch and path coverage is automatically enabled when running under Xdebug. For more information on this feature, see https://doug.codes/php-code-coverage
@@ -79,7 +83,8 @@
 [5.2.1]: https://github.com/dvdoug/behat-code-coverage/compare/v5.2.0...v5.2.1
 [5.2.0]: https://github.com/dvdoug/behat-code-coverage/compare/v5.1.1...v5.2.0
 [5.1.1]: https://github.com/dvdoug/behat-code-coverage/compare/v5.1.0...v5.1.1
-[5.1.0]: https://github.com/dvdoug/behat-code-coverage/compare/v5.0.0...v5.1.0
+[5.1.0]: https://github.com/dvdoug/behat-code-coverage/compare/v5.0.1...v5.1.0
+[5.0.1]: https://github.com/dvdoug/behat-code-coverage/compare/v5.0.0...v5.0.1
 [5.0.0]: https://github.com/dvdoug/behat-code-coverage/compare/v4.1.1...v5.0.0
 [4.1.1]: https://github.com/dvdoug/behat-code-coverage/compare/v4.1.0...v4.1.1
 [4.1.0]: https://github.com/dvdoug/behat-code-coverage/compare/v4.0.1...v4.1.0
