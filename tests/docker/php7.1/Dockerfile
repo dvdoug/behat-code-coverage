@@ -28,7 +28,7 @@ RUN composer self-update --preview
 
 FROM php_fpm AS php_fpm_xdebug
 
-RUN pecl install xdebug \
+RUN pecl install xdebug-2.8.1 \
     && docker-php-ext-enable xdebug
 
 RUN php -v && php -m && composer --ansi --version --no-interaction
