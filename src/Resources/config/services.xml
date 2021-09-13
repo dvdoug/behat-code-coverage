@@ -18,5 +18,10 @@
         <service id="DVDoug\Behat\CodeCoverage\Subscriber\EventSubscriber">
             <tag name="event_dispatcher.subscriber"/>
         </service>
+
+        <service id="DVDoug\Behat\CodeCoverage\Controller\Cli\CodeCoverageController">
+            <tag name="cli.controller"/>
+        </service>
+
     </services>
 </container>
