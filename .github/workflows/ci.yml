@@ -24,6 +24,7 @@ jobs:
           - "^9.2"
 
         symfony-version:
+          - "^6.0"
           - "^5.0"
           - "^4.4"
 
@@ -36,6 +37,12 @@ jobs:
           - "none"
           - "xdebug"
           - "pcov"
+
+        exclude:
+          - php-version: "7.4"
+            symfony-version: "^6.0"
+          - php-version: "7.3"
+            symfony-version: "^6.0"
 
     steps:
     - uses: actions/checkout@v2
