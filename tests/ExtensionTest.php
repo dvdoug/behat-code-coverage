@@ -180,7 +180,7 @@ class ExtensionTest extends TestCase
     public function testContainerBuildsWithCoverageSkipped(): void
     {
         $input = $this->createMock(InputInterface::class);
-        $input->method('hasParameterOption')->willReturn('--no-coverage');
+        $input->method('hasParameterOption')->with($this->equalTo('--no-coverage'))->willReturn(true);
         $output = $this->createMock(OutputInterface::class);
 
         $container = new ContainerBuilder();
