@@ -30,7 +30,7 @@ jobs:
         dependencies:
           - "highest"
           - "lowest"
-          - "force_latest"
+          - "latest"
 
         driver:
           - "none"
@@ -104,6 +104,13 @@ jobs:
     - name: Install dependencies (high)
       if: matrix.dependencies == 'highest'
       run: |
+        composer update --no-interaction --prefer-dist;
+        composer show;
+
+    - name: Install dependencies (latest)
+      if: matrix.dependencies == 'latest'
+      run: |
+        composer config minimum-stability dev;
         composer update --no-interaction --prefer-dist;
         composer show;
 
