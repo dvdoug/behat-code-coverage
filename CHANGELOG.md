@@ -2,7 +2,6 @@
 
 ## [Unreleased] - 2021-xx-xx
 ### Added
-- Compatibility with `phpunit/php-code-coverage` v10.
 ### Changed
 - Deprecated `processUncoveredFiles` setting, it has been removed as of php-code-coverage v10.
 
