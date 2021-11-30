@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased] - 2021-xx-xx
+### Added
+- Compatibility with `phpunit/php-code-coverage` v10.
 
 ## [5.2.2] - 2021-11-30
 ### Added
