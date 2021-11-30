@@ -1,8 +1,12 @@
 # Changelog
 
 ## [Unreleased] - 2021-xx-xx
+
+## [5.2.2] - 2021-11-30
 ### Added
+- Support for Symfony 6
 ### Changed
+- Improved error messages when a coverage driver cannot be found
 - Deprecated `processUncoveredFiles` setting, it has been removed as of php-code-coverage v10.
 
 ## [5.2.1] - 2021-01-10
@@ -77,8 +81,9 @@
  - Support for Symfony components older than `<3.4`
  - Support for HHVM
 
-[Unreleased]: https://github.com/dvdoug/behat-code-coverage/compare/v5.2.1...master
+[Unreleased]: https://github.com/dvdoug/behat-code-coverage/compare/v5.2.2...master
 
+[5.2.2]: https://github.com/dvdoug/behat-code-coverage/compare/v5.2.1...v5.2.2
 [5.2.1]: https://github.com/dvdoug/behat-code-coverage/compare/v5.2.0...v5.2.1
 [5.2.0]: https://github.com/dvdoug/behat-code-coverage/compare/v5.1.1...v5.2.0
 [5.1.1]: https://github.com/dvdoug/behat-code-coverage/compare/v5.1.0...v5.1.1
