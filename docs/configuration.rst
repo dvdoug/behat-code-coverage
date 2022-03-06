@@ -132,11 +132,22 @@ basis. It is configured by setting the ``html`` key. The default values are outl
                         target: <directory>  # no default value, you must specify
                         lowUpperBound: 50
                         highLowerBound: 90
+                        colors:
+                            successLow: '#dff0d8'
+                            successMedium: '#c3e3b5'
+                            successHigh: '#99cb84'
+                            warning: '#fcf8e3'
+                            danger: '#f2dede'
+                        customCSSFile: ~ # defaults to null, i.e. no custom CSS file
 
 * The mandatory ``target`` key specifies the target directory to place the report files.
 * The HTML report is heavily colour-coded format using red for low coverage, amber/yellow for a medium amount of
   coverage and green for high coverage. If desired, the thresholds for each colour can be configured via
-  ``lowUpperBound`` and ``highLowerBound``.
+  ``lowUpperBound`` and ``highLowerBound``, and the precise colours used via the ``colors`` key. Further customisation
+  may be done via specifying a custom CSS file
+
+  .. note::
+    The ``colors`` and ``customCSSFile`` settings are only available from php-code-coverage v10
 
 Clover
 ^^^^^^^^^

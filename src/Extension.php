@@ -10,13 +10,16 @@ use function array_walk;
 use Behat\Testwork\Cli\ServiceContainer\CliExtension;
 use Behat\Testwork\ServiceContainer\Extension as ExtensionInterface;
 use Behat\Testwork\ServiceContainer\ExtensionManager;
+use Composer\InstalledVersions;
+use Composer\Semver\VersionParser;
 use DVDoug\Behat\CodeCoverage\Subscriber\EventSubscriber;
-use ReflectionClass;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Driver\Driver;
 use SebastianBergmann\CodeCoverage\Driver\Selector;
 use SebastianBergmann\CodeCoverage\Driver\Xdebug2NotEnabledException;
 use SebastianBergmann\CodeCoverage\Driver\Xdebug3NotEnabledException;
+use SebastianBergmann\CodeCoverage\Driver\XdebugNotAvailableException;
+use SebastianBergmann\CodeCoverage\Driver\XdebugNotEnabledException;
 use SebastianBergmann\CodeCoverage\Filter;
 use SebastianBergmann\CodeCoverage\NoCodeCoverageDriverAvailableException;
 use SebastianBergmann\CodeCoverage\NoCodeCoverageDriverWithPathCoverageSupportAvailableException;
@@ -141,6 +144,17 @@ class Extension implements ExtensionInterface
                                 ->scalarNode('target')->isRequired()->cannotBeEmpty()->end()
                                 ->scalarNode('lowUpperBound')->defaultValue(50)->end()
                                 ->scalarNode('highLowerBound')->defaultValue(90)->end()
+                                ->arrayNode('colors')
+                                    ->addDefaultsIfNotSet()
+                                    ->children()
+                                        ->scalarNode('successLow')->defaultValue('#dff0d8')->end()
+                                        ->scalarNode('successMedium')->defaultValue('#c3e3b5')->end()
+                                        ->scalarNode('successHigh')->defaultValue('#99cb84')->end()
+                                        ->scalarNode('warning')->defaultValue('#fcf8e3')->end()
+                                        ->scalarNode('danger')->defaultValue('#f2dede')->end()
+                                    ->end()
+                                ->end()
+                                ->scalarNode('customCSSFile')->defaultNull()->end()
                             ->end()
                         ->end()
                         ->arrayNode('php')
@@ -199,7 +213,7 @@ class Extension implements ExtensionInterface
             $filterDefinition = $container->getDefinition(Filter::class);
             $codeCoverageDefinition->setFactory([new Reference(self::class), 'initCodeCoverage']);
             $codeCoverageDefinition->setArguments([$filterDefinition, $filterConfig, $branchPathConfig, $cacheDir, $output]);
-        } catch (NoCodeCoverageDriverAvailableException|Xdebug2NotEnabledException|Xdebug3NotEnabledException $e) {
+        } catch (NoCodeCoverageDriverAvailableException|Xdebug2NotEnabledException|Xdebug3NotEnabledException|XdebugNotEnabledException|XdebugNotAvailableException $e) {
             $output->writeln("<comment>No code coverage driver is available. {$e->getMessage()}</comment>");
             $canCollectCodeCoverage = false;
         }
@@ -252,9 +266,7 @@ class Extension implements ExtensionInterface
             $codeCoverage->excludeUncoveredFiles();
         }
 
-        $codeCoverageReflection = new ReflectionClass($codeCoverage);
-
-        if ($codeCoverageReflection->hasMethod('processUncoveredFiles')) {
+        if (InstalledVersions::satisfies(new VersionParser(), 'phpunit/php-code-coverage', '^9.0')) {
             if ($filterConfig['processUncoveredFiles']) {
                 $codeCoverage->processUncoveredFiles();
             } else {

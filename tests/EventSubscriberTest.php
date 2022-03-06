@@ -11,13 +11,15 @@ use Behat\Behat\EventDispatcher\Event\ScenarioTested;
 use Behat\Gherkin\Node\FeatureNode;
 use Behat\Gherkin\Node\ScenarioNode;
 use Behat\Testwork\EventDispatcher\Event\ExerciseCompleted;
+use function class_exists;
 use DVDoug\Behat\CodeCoverage\Service\ReportService;
 use DVDoug\Behat\CodeCoverage\Subscriber\EventSubscriber;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
+use SebastianBergmann\CodeCoverage\Data\RawCodeCoverageData as RawCodeCoverageDataV10;
 use SebastianBergmann\CodeCoverage\Driver\Driver;
 use SebastianBergmann\CodeCoverage\Filter;
-use SebastianBergmann\CodeCoverage\RawCodeCoverageData;
+use SebastianBergmann\CodeCoverage\RawCodeCoverageData as RawCodeCoverageDataV9;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class EventSubscriberTest extends TestCase
@@ -77,7 +79,11 @@ class EventSubscriberTest extends TestCase
 
         $driver = $this->createMock(Driver::class);
         $driver->expects(self::once())->method('start');
-        $driver->method('stop')->willReturn(RawCodeCoverageData::fromXdebugWithPathCoverage([]));
+        if (class_exists(RawCodeCoverageDataV9::class)) {
+            $driver->method('stop')->willReturn(RawCodeCoverageDataV9::fromXdebugWithPathCoverage([]));
+        } else {
+            $driver->method('stop')->willReturn(RawCodeCoverageDataV10::fromXdebugWithPathCoverage([]));
+        }
 
         $codeCoverage = new CodeCoverage($driver, new Filter());
 

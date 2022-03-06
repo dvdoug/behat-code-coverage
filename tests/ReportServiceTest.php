@@ -135,6 +135,14 @@ class ReportServiceTest extends TestCase
                     'target' => $reportDirectory,
                     'lowUpperBound' => 50,
                     'highLowerBound' => 90,
+                    'colors' => [
+                        'successLow' => '#dff0d8',
+                        'successMedium' => '#c3e3b5',
+                        'successHigh' => '#99cb84',
+                        'warning' => '#fcf8e3',
+                        'danger' => '#f2dede',
+                    ],
+                    'customCSSFile' => null,
                 ],
             ]
         );

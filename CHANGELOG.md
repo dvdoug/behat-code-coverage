@@ -1,8 +1,9 @@
 # Changelog
 
-## [Unreleased] - 2021-xx-xx
+## [Unreleased] - 2022-xx-xx
 ### Added
 - Compatibility with `phpunit/php-code-coverage` v10.
+- Added `colors` and `customCSSFile` options to HTML report configuration
 
 ## [5.2.2] - 2021-11-30
 ### Added
