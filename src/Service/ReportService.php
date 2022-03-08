@@ -15,9 +15,9 @@ use SebastianBergmann\CodeCoverage\Report\Crap4j;
 use SebastianBergmann\CodeCoverage\Report\Html\Colors;
 use SebastianBergmann\CodeCoverage\Report\Html\CustomCssFile;
 use SebastianBergmann\CodeCoverage\Report\Html\Facade as HtmlFacade;
-use SebastianBergmann\CodeCoverage\Report\Html\Thresholds;
 use SebastianBergmann\CodeCoverage\Report\PHP;
 use SebastianBergmann\CodeCoverage\Report\Text;
+use SebastianBergmann\CodeCoverage\Report\Thresholds;
 use SebastianBergmann\CodeCoverage\Report\Xml\Facade as XmlFacade;
 use function sprintf;
 
@@ -95,13 +95,26 @@ class ReportService
                     $report->process($coverage, $config['target']);
                     break;
                 case 'text':
-                    $report = new Text(
-                        $config['lowUpperBound'],
-                        $config['highLowerBound'],
-                        $config['showUncoveredFiles'],
-                        $config['showOnlySummary']
-                    );
-                    echo $report->process($coverage, $config['showColors']);
+                    if (InstalledVersions::satisfies(new VersionParser(), 'phpunit/php-code-coverage', '^9.0')) {
+                        $report = new Text(
+                            $config['lowUpperBound'],
+                            $config['highLowerBound'],
+                            $config['showUncoveredFiles'],
+                            $config['showOnlySummary']
+                        );
+                        echo $report->process($coverage, $config['showColors']);
+                    } else {
+                        $thresholds = Thresholds::from(
+                            $config['lowUpperBound'],
+                            $config['highLowerBound'],
+                        );
+                        $report = new Text(
+                            $thresholds,
+                            $config['showUncoveredFiles'],
+                            $config['showOnlySummary']
+                        );
+                        echo $report->process($coverage, $config['showColors']);
+                    }
                     break;
                 case 'xml':
                     $report = new XmlFacade('');
