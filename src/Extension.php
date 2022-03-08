@@ -250,7 +250,7 @@ class Extension implements ExtensionInterface
                 $driver = $selector->forLineAndPathCoverage($filter);
             } catch (NoCodeCoverageDriverWithPathCoverageSupportAvailableException $e) {
                 // fallback driver is already set
-                if ($branchPathConfig === true) { //only warn if explicitly enabled
+                if ($branchPathConfig === true) { // only warn if explicitly enabled
                     $output->writeln(sprintf('<info>%s does not support collecting branch and path data</info>', $driver->nameAndVersion()));
                 }
             }
