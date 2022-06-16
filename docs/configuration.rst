@@ -36,7 +36,7 @@ For directories, list them by **key**. Optionally, you can specify a prefix or s
                                 prefix: 'API'
                     exclude:
                         directories:
-                            'tests/data' ~
+                            'tests/data': ~
 
 For files, list them by **name**:
 
