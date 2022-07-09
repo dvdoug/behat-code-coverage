@@ -91,6 +91,7 @@ jobs:
     - name: Force Symfony version
       if: matrix.symfony-version != ''
       run: |
+        composer global config allow-plugins.symfony/flex true
         composer global require "symfony/flex"
         composer config extra.symfony.require "${{ matrix.symfony-version }}"
 
