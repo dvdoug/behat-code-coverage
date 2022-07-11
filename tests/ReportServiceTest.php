@@ -7,14 +7,17 @@ declare(strict_types=1);
 namespace DVDoug\Behat\CodeCoverage\Test;
 
 use DVDoug\Behat\CodeCoverage\Service\ReportService;
+
 use function file_get_contents;
 use function ob_get_clean;
 use function ob_start;
+
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Driver\Driver;
 use SebastianBergmann\CodeCoverage\Filter;
 use Symfony\Component\Filesystem\Filesystem;
+
 use function sys_get_temp_dir;
 
 class ReportServiceTest extends TestCase
