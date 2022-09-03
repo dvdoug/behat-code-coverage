@@ -6,15 +6,10 @@ declare(strict_types=1);
 
 namespace DVDoug\Behat\CodeCoverage\Test;
 
-use function array_keys;
-
 use Behat\Behat\EventDispatcher\Event\ScenarioTested;
 use Behat\Gherkin\Node\FeatureNode;
 use Behat\Gherkin\Node\ScenarioNode;
 use Behat\Testwork\EventDispatcher\Event\ExerciseCompleted;
-
-use function class_exists;
-
 use DVDoug\Behat\CodeCoverage\Service\ReportService;
 use DVDoug\Behat\CodeCoverage\Subscriber\EventSubscriber;
 use PHPUnit\Framework\TestCase;
@@ -24,6 +19,9 @@ use SebastianBergmann\CodeCoverage\Driver\Driver;
 use SebastianBergmann\CodeCoverage\Filter;
 use SebastianBergmann\CodeCoverage\RawCodeCoverageData as RawCodeCoverageDataV9;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+
+use function array_keys;
+use function class_exists;
 
 class EventSubscriberTest extends TestCase
 {

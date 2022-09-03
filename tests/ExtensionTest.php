@@ -9,9 +9,6 @@ namespace DVDoug\Behat\CodeCoverage\Test;
 use Behat\Testwork\ServiceContainer\Configuration\ConfigurationTree;
 use Behat\Testwork\ServiceContainer\ContainerLoader;
 use Behat\Testwork\ServiceContainer\ExtensionManager;
-
-use function dirname;
-
 use DVDoug\Behat\CodeCoverage\Extension;
 use DVDoug\Behat\CodeCoverage\Service\ReportService;
 use DVDoug\Behat\CodeCoverage\Subscriber\EventSubscriber;
@@ -30,6 +27,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
+use function dirname;
 use function sys_get_temp_dir;
 
 class ExtensionTest extends TestCase

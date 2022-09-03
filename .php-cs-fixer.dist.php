@@ -28,6 +28,7 @@ return $config->setRules(
             'header' => 'Behat Code Coverage',
         ],
         'phpdoc_line_span' => true,
+        'ordered_imports' => ['imports_order' => ['class', 'function', 'const'], 'sort_algorithm' => 'none'],
     ]
 )
     ->setRiskyAllowed(true)
