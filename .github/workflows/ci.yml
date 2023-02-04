@@ -141,6 +141,8 @@ jobs:
       run: |
         if [ "${{ matrix.driver }}" == "xdebug" ]; then
           php -dmemory_limit=-1 vendor/phpunit/phpunit/phpunit --coverage-clover=build/coverage-phpunit/clover.xml --path-coverage;
+        elif [ "${{ matrix.driver }}" == "none" ]; then
+          php -dmemory_limit=-1 vendor/phpunit/phpunit/phpunit --no-coverage;
         else
           php -dmemory_limit=-1 vendor/phpunit/phpunit/phpunit --coverage-clover=build/coverage-phpunit/clover.xml;
         fi;

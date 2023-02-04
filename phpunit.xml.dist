@@ -6,6 +6,13 @@
          colors="true"
          bootstrap="vendor/autoload.php"
          cacheResultFile="build/phpunit-cache/test-results"
+         cacheDirectory="build/phpunit-cache"
+         displayDetailsOnIncompleteTests="true"
+         displayDetailsOnSkippedTests="true"
+         displayDetailsOnTestsThatTriggerDeprecations="true"
+         displayDetailsOnTestsThatTriggerErrors="true"
+         displayDetailsOnTestsThatTriggerWarnings="true"
+         displayDetailsOnTestsThatTriggerNotices="true"
 >
 
     <testsuites>
@@ -14,7 +21,7 @@
         </testsuite>
     </testsuites>
 
-  <!-- pathCoverage must be set false here for CI or PCOV/PHPDBG fail. It is enabled via CLI for Xdebug -->
+  <!-- pathCoverage must be set false here for CI or PCOV fails. It is enabled via CLI for Xdebug -->
   <coverage pathCoverage="false" cacheDirectory="build/phpunit-cache/coverage">
 
     <include>
