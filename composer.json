@@ -43,6 +43,7 @@
     },
     "config": {
         "preferred-install": {
+            "phpunit/php-code-coverage": "source",
             "*": "dist"
         },
         "sort-packages": true,
