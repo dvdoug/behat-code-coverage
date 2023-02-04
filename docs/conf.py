@@ -46,7 +46,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Behat Code Coverage'
-copyright = u'2019-2022, Doug Wright'
+copyright = u'2019-2023, Doug Wright'
 author = u'Doug Wright'
 
 # The version info for the project you're documenting, acts as replacement for
