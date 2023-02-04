@@ -1,6 +1,8 @@
 # Changelog
 
-## [Unreleased] - 2022-xx-xx
+## [Unreleased] - 2023-xx-xx
+
+## [5.3.0] - 2023-02-04
 ### Added
 - Compatibility with `phpunit/php-code-coverage` v10.
 - Added `colors` and `customCSSFile` options to HTML report configuration
@@ -84,8 +86,9 @@
  - Support for Symfony components older than `<3.4`
  - Support for HHVM
 
-[Unreleased]: https://github.com/dvdoug/behat-code-coverage/compare/v5.2.2...master
+[Unreleased]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.0...master
 
+[5.3.0]: https://github.com/dvdoug/behat-code-coverage/compare/v5.2.2...v5.3.0
 [5.2.2]: https://github.com/dvdoug/behat-code-coverage/compare/v5.2.1...v5.2.2
 [5.2.1]: https://github.com/dvdoug/behat-code-coverage/compare/v5.2.0...v5.2.1
 [5.2.0]: https://github.com/dvdoug/behat-code-coverage/compare/v5.1.1...v5.2.0

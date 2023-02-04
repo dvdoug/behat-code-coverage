@@ -10,9 +10,8 @@ Settings are configured in your project's ``behat.yml`` or ``behat.yml.dist``.
 
 Driver
 ------
-In order to generate code coverage data, you must have a code coverage driver installed - using either Xdebug or the
-PCOV extensions is recommended, although you can also make use of PHP's built in PHPDBG. Drivers are detected at runtime,
-they do not need to be configured.
+In order to generate code coverage data, you must have a code coverage driver installed - you may use either Xdebug or
+the PCOV extension. Drivers are detected at runtime, they do not need to be configured.
 
 Filter
 ------
