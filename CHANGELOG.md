@@ -2,6 +2,12 @@
 
 ## [Unreleased] - 2023-xx-xx
 
+## [5.3.1] - 2023-05-08
+### Changed
+- Stopped using some deprecated methods inside `phpunit/php-code-coverage` v10.1
+### Fixed
+- Better handling of PCOV and Xdebug running side by side
+
 ## [5.3.0] - 2023-02-04
 ### Added
 - Compatibility with `phpunit/php-code-coverage` v10.
