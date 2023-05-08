@@ -13,7 +13,6 @@ use Composer\InstalledVersions;
 use Composer\Semver\VersionParser;
 use DVDoug\Behat\CodeCoverage\Subscriber\EventSubscriber;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
-use SebastianBergmann\CodeCoverage\Driver\Driver;
 use SebastianBergmann\CodeCoverage\Driver\Selector;
 use SebastianBergmann\CodeCoverage\Driver\Xdebug2NotEnabledException;
 use SebastianBergmann\CodeCoverage\Driver\Xdebug3NotEnabledException;
@@ -22,6 +21,7 @@ use SebastianBergmann\CodeCoverage\Driver\XdebugNotEnabledException;
 use SebastianBergmann\CodeCoverage\Filter;
 use SebastianBergmann\CodeCoverage\NoCodeCoverageDriverAvailableException;
 use SebastianBergmann\CodeCoverage\NoCodeCoverageDriverWithPathCoverageSupportAvailableException;
+use SebastianBergmann\FileIterator\Facade as FileIteratorFacade;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Input\InputInterface;
@@ -30,7 +30,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 
-use function array_walk;
 use function sprintf;
 use function sys_get_temp_dir;
 
@@ -227,21 +226,31 @@ class Extension implements ExtensionInterface
     public function initCodeCoverage(Filter $filter, array $filterConfig, ?bool $branchPathConfig, string $cacheDir, OutputInterface $output): CodeCoverage
     {
         // set up filter
-        array_walk($filterConfig['include']['directories'], static function (array $dir, string $path, Filter $filter): void {
-            $filter->includeDirectory($path, $dir['suffix'], $dir['prefix']);
-        }, $filter);
+        $files = [];
 
-        array_walk($filterConfig['include']['files'], static function (string $file, string $key, Filter $filter): void {
+        foreach ($filterConfig['include']['directories'] as $directoryToInclude => $details) {
+            foreach ((new FileIteratorFacade())->getFilesAsArray($directoryToInclude, $details['suffix'], $details['prefix']) as $fileToInclude) {
+                $files[$fileToInclude] = $fileToInclude;
+            }
+        }
+
+        foreach ($filterConfig['include']['files'] as $fileToInclude) {
+            $files[$fileToInclude] = $fileToInclude;
+        }
+
+        foreach ($filterConfig['exclude']['directories'] as $directoryToExclude => $details) {
+            foreach ((new FileIteratorFacade())->getFilesAsArray($directoryToExclude, $details['suffix'], $details['prefix']) as $fileToExclude) {
+                unset($files[$fileToExclude]);
+            }
+        }
+
+        foreach ($filterConfig['exclude']['files'] as $fileToExclude) {
+            unset($files[$fileToExclude]);
+        }
+
+        foreach ($files as $file) {
             $filter->includeFile($file);
-        }, $filter);
-
-        array_walk($filterConfig['exclude']['directories'], static function (array $dir, string $path, Filter $filter): void {
-            $filter->excludeDirectory($path, $dir['suffix'], $dir['prefix']);
-        }, $filter);
-
-        array_walk($filterConfig['exclude']['files'], static function (string $file, string $key, Filter $filter): void {
-            $filter->excludeFile($file);
-        }, $filter);
+        }
 
         // see if we can get a driver
         $selector = new Selector();
