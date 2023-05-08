@@ -2,6 +2,10 @@
 
 ## [Unreleased] - 2023-xx-xx
 
+## [5.3.1] - 2023-05-08
+### Fixed
+ - `branchAndPathCoverage` configuration parameter is now correctly passed through to `initCodeCoverage` method. Before it was just ignored.
+
 ## [5.3.0] - 2023-02-04
 ### Added
 - Compatibility with `phpunit/php-code-coverage` v10.
