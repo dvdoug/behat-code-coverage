@@ -5,10 +5,12 @@
 ## [5.3.1] - 2023-05-08
 ### Changed
 - Stopped using some deprecated methods inside `phpunit/php-code-coverage` v10.1
+
 ### Fixed
 - Better handling of PCOV and Xdebug running side by side
 
 ## [5.3.0] - 2023-02-04
+
 ### Added
 - Compatibility with `phpunit/php-code-coverage` v10.
 - Added `colors` and `customCSSFile` options to HTML report configuration
@@ -16,6 +18,7 @@
 ## [5.2.2] - 2021-11-30
 ### Added
 - Support for Symfony 6
+
 ### Changed
 - Improved error messages when a coverage driver cannot be found
 - Deprecated `processUncoveredFiles` setting, it has been removed as of php-code-coverage v10.
@@ -55,6 +58,7 @@
  - Compatibility with `phpunit/php-code-coverage` v9. Branch and path coverage is automatically enabled when running under Xdebug. For more information on this feature, see https://doug.codes/php-code-coverage
  - `branchAndPathCoverage` configuration key to enable/disable path and branch coverage. Setting this to `true` explicitly will warn when the feature cannot be used.
  - Support for PCOV
+
 ### Removed
  - The old `report` configuration key, use `reports` instead
  - Removed `forceCoversAnnotation` and `mapTestClassNameToCoveredClassName` configuration keys, these options are not supported by `php-code-coverage` anymore
@@ -71,6 +75,7 @@
 ## [4.1.0] - 2019-11-04
 ### Added
  - Added `reports` configuration key to enable generation of multiple coverage output formats, with schema validation of the available format-specific options
+
 ### Deprecated
  - The `report` configuration key as it only allowed for a single report type
 
@@ -78,6 +83,7 @@
 ### Added
  - Added back support for `LeanPHP\Behat\CodeCoverage` in `behat.yml` for seamless drop-in of the fork
  - Support for `phpdbg`
+
 ### Fixed
  - Issue with directories containing dashes in the name
  - Issue with `xdebug` and `delete` calls
@@ -85,15 +91,18 @@
 ## [4.0.0] - 2019-08-04
 ### Added
  - Support for version 7.0 of `phpunit/php-code-coverage`
+
 ### Changed
  - Changed namespace of all code to `LeanPHP\Behat\CodeCoverage` from `DVDoug\Behat\CodeCoverage`
  - Minimum version of PHP supported is `7.1`
+
 ### Removed
  - Support for Symfony components older than `<3.4`
  - Support for HHVM
 
-[Unreleased]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.0...master
+[Unreleased]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.1...master
 
+[5.3.1]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.0...v5.3.1
 [5.3.0]: https://github.com/dvdoug/behat-code-coverage/compare/v5.2.2...v5.3.0
 [5.2.2]: https://github.com/dvdoug/behat-code-coverage/compare/v5.2.1...v5.2.2
 [5.2.1]: https://github.com/dvdoug/behat-code-coverage/compare/v5.2.0...v5.2.1

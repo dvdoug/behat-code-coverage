@@ -40,3 +40,9 @@ Behat Code Coverage is licensed under the BSD-2-Clause License. See `license.txt
 
     installation
     configuration
+
+.. toctree::
+    :maxdepth: 1
+    :caption: About
+
+    changelog
