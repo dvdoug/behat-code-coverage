@@ -1,10 +1,8 @@
-/.github               export-ignore
-/features              export-ignore
-/tests                 export-ignore
-.gitattributes         export-ignore
-.gitignore             export-ignore
-.php-cs-fixer.dist.php export-ignore
-.readthedocs.yaml      export-ignore
-.scrutinizer.yml       export-ignore
-behat.yml.dist         export-ignore
-phpunit.xml.dist       export-ignore
+* text=auto eol=lf
+*.php diff=php
+
+/docs export-ignore
+/features export-ignore
+/tests export-ignore
+/.* export-ignore
+/*.dist export-ignore
