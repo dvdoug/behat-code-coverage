@@ -1,7 +1,7 @@
 Installation
 ============
 
-The recommended way to install PHPCoord is to use `Composer`_. From the command line simply execute the following to add
+The recommended way to install Behat Code Coverage is to use `Composer`_. From the command line simply execute the following to add
 ``dvdoug/behat-code-coverage`` to the ``require-dev`` section of your project's ``composer.json`` file. Composer will
 automatically take care of downloading the source and configuring an autoloader:
 
