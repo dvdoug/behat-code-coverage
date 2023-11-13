@@ -44,6 +44,10 @@ class ReportService
     {
         foreach ($this->config as $format => $config) {
             switch ($format) {
+                case 'php':
+                    $report = new PHP();
+                    $report->process($coverage, $config['target']);
+                    break;
                 case 'clover':
                     $report = new Clover();
                     $report->process($coverage, $config['target'], $config['name']);
@@ -89,10 +93,6 @@ class ReportService
                             $customCss
                         );
                     }
-                    $report->process($coverage, $config['target']);
-                    break;
-                case 'php':
-                    $report = new PHP();
                     $report->process($coverage, $config['target']);
                     break;
                 case 'text':
