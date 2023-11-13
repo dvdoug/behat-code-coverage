@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased] - 2023-xx-xx
+### Added
+- Support for Symfony 7
+
 
 ## [5.3.1] - 2023-05-08
 ### Changed
