@@ -6,7 +6,9 @@ declare(strict_types=1);
 
 namespace DVDoug\Behat\CodeCoverage;
 
+use Behat\Testwork\Cli\Controller;
 use Behat\Testwork\Cli\ServiceContainer\CliExtension;
+use Behat\Testwork\EventDispatcher\ServiceContainer\EventDispatcherExtension;
 use Behat\Testwork\ServiceContainer\Extension as ExtensionInterface;
 use Behat\Testwork\ServiceContainer\ExtensionManager;
 use Composer\InstalledVersions;
@@ -27,7 +29,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 
 use function sprintf;
@@ -47,10 +49,11 @@ class Extension implements ExtensionInterface
      */
     public function load(ContainerBuilder $container, array $config): void
     {
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/Resources/config'));
+        $container->registerForAutoconfiguration(Controller::class)->addTag(CliExtension::CONTROLLER_TAG);
+        $container->registerForAutoconfiguration(EventSubscriber::class)->addTag(EventDispatcherExtension::SUBSCRIBER_TAG);
 
-        $servicesFile = 'services.xml';
-        $loader->load($servicesFile);
+        $loader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/../config'));
+        $loader->load('services.php');
 
         $container->setParameter('behat.code_coverage.config.filter', $config['filter']);
         $container->setParameter('behat.code_coverage.config.branchAndPathCoverage', $config['branchAndPathCoverage']);
