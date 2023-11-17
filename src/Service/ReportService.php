@@ -24,10 +24,7 @@ use function sprintf;
 
 class ReportService
 {
-    /**
-     * @var array
-     */
-    private $config;
+    private array $config;
 
     /**
      * Constructor.

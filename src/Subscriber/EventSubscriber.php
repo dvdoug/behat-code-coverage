@@ -15,17 +15,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EventSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var CodeCoverage
-     */
-    private $coverage;
+    private ?CodeCoverage $coverage;
 
-    /**
-     * @var ReportService
-     */
-    private $reportService;
+    private ReportService $reportService;
 
-    public function __construct(ReportService $reportService, CodeCoverage $coverage = null)
+    public function __construct(ReportService $reportService, ?CodeCoverage $coverage)
     {
         $this->reportService = $reportService;
         $this->coverage = $coverage;

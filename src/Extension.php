@@ -37,16 +37,10 @@ use function sys_get_temp_dir;
 
 class Extension implements ExtensionInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function initialize(ExtensionManager $extensionManager): void
     {
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function load(ContainerBuilder $container, array $config): void
     {
         $container->registerForAutoconfiguration(Controller::class)->addTag(CliExtension::CONTROLLER_TAG);
@@ -61,9 +55,6 @@ class Extension implements ExtensionInterface
         $container->setParameter('behat.code_coverage.config.cache', $config['cache']);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configure(ArrayNodeDefinition $builder): void
     {
         $builder
@@ -185,17 +176,11 @@ class Extension implements ExtensionInterface
         ->end();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getConfigKey()
     {
         return 'code_coverage';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container): void
     {
         /** @var InputInterface $input */

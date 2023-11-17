@@ -27,7 +27,7 @@ class EventSubscriberTest extends TestCase
 {
     public function testCanSubscribeToEvents(): void
     {
-        $eventSubscriber = new EventSubscriber(new ReportService([]));
+        $eventSubscriber = new EventSubscriber(new ReportService([]), null);
         $dispatcher = new EventDispatcher();
         $dispatcher->addSubscriber($eventSubscriber);
 
@@ -40,7 +40,7 @@ class EventSubscriberTest extends TestCase
     {
         $event = $this->createMock(ScenarioTested::class);
 
-        $subscriber = new EventSubscriber(new ReportService([]));
+        $subscriber = new EventSubscriber(new ReportService([]), null);
         $subscriber->beforeScenario($event);
 
         self::assertTrue(true);
@@ -50,7 +50,7 @@ class EventSubscriberTest extends TestCase
     {
         $event = $this->createMock(ScenarioTested::class);
 
-        $subscriber = new EventSubscriber(new ReportService([]));
+        $subscriber = new EventSubscriber(new ReportService([]), null);
         $subscriber->afterScenario($event);
 
         self::assertTrue(true);
@@ -60,7 +60,7 @@ class EventSubscriberTest extends TestCase
     {
         $event = $this->createMock(ExerciseCompleted::class);
 
-        $subscriber = new EventSubscriber(new ReportService([]));
+        $subscriber = new EventSubscriber(new ReportService([]), null);
         $subscriber->afterExercise($event);
 
         self::assertTrue(true);

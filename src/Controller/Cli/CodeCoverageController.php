@@ -14,16 +14,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CodeCoverageController implements Controller
 {
-    /**
-     * {@inheritdoc}
-     */
     public function configure(Command $command): void
     {
         $command->addOption('no-coverage', null, InputOption::VALUE_NONE, 'Skip Code Coverage generation');
     }
 
     /**
-     * {@inheritdoc}
      * @codeCoverageIgnore
      */
     public function execute(InputInterface $input, OutputInterface $output): void
