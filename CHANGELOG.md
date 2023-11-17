@@ -4,6 +4,9 @@
 ### Added
 - Support for Symfony 7
 
+### Removed
+- Support for Symfony 4
+
 
 ## [5.3.1] - 2023-05-08
 ### Changed
