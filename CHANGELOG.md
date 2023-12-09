@@ -1,12 +1,13 @@
 # Changelog
 
-## [Unreleased] - 2023-xx-xx
+## [Unreleased] - 2024-xx-xx
+
+## [5.3.2] - 2023-12-09
 ### Added
 - Support for Symfony 7
 
 ### Removed
 - Support for Symfony 4
-
 
 ## [5.3.1] - 2023-05-08
 ### Changed
@@ -106,18 +107,19 @@
  - Support for Symfony components older than `<3.4`
  - Support for HHVM
 
-[Unreleased]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.1...master
+[Unreleased]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.2..master
 
-[5.3.1]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.0...v5.3.1
-[5.3.0]: https://github.com/dvdoug/behat-code-coverage/compare/v5.2.2...v5.3.0
-[5.2.2]: https://github.com/dvdoug/behat-code-coverage/compare/v5.2.1...v5.2.2
-[5.2.1]: https://github.com/dvdoug/behat-code-coverage/compare/v5.2.0...v5.2.1
-[5.2.0]: https://github.com/dvdoug/behat-code-coverage/compare/v5.1.1...v5.2.0
-[5.1.1]: https://github.com/dvdoug/behat-code-coverage/compare/v5.1.0...v5.1.1
-[5.1.0]: https://github.com/dvdoug/behat-code-coverage/compare/v5.0.1...v5.1.0
-[5.0.1]: https://github.com/dvdoug/behat-code-coverage/compare/v5.0.0...v5.0.1
-[5.0.0]: https://github.com/dvdoug/behat-code-coverage/compare/v4.1.1...v5.0.0
-[4.1.1]: https://github.com/dvdoug/behat-code-coverage/compare/v4.1.0...v4.1.1
-[4.1.0]: https://github.com/dvdoug/behat-code-coverage/compare/v4.0.1...v4.1.0
-[4.0.1]: https://github.com/dvdoug/behat-code-coverage/compare/v4.0.0...v4.0.1
-[4.0.0]: https://github.com/dvdoug/behat-code-coverage/compare/v3.4.1...v4.0.0
+[5.3.2]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.1..v5.3.2
+[5.3.1]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.0..v5.3.1
+[5.3.0]: https://github.com/dvdoug/behat-code-coverage/compare/v5.2.2..v5.3.0
+[5.2.2]: https://github.com/dvdoug/behat-code-coverage/compare/v5.2.1..v5.2.2
+[5.2.1]: https://github.com/dvdoug/behat-code-coverage/compare/v5.2.0..v5.2.1
+[5.2.0]: https://github.com/dvdoug/behat-code-coverage/compare/v5.1.1..v5.2.0
+[5.1.1]: https://github.com/dvdoug/behat-code-coverage/compare/v5.1.0..v5.1.1
+[5.1.0]: https://github.com/dvdoug/behat-code-coverage/compare/v5.0.1..v5.1.0
+[5.0.1]: https://github.com/dvdoug/behat-code-coverage/compare/v5.0.0..v5.0.1
+[5.0.0]: https://github.com/dvdoug/behat-code-coverage/compare/v4.1.1..v5.0.0
+[4.1.1]: https://github.com/dvdoug/behat-code-coverage/compare/v4.1.0..v4.1.1
+[4.1.0]: https://github.com/dvdoug/behat-code-coverage/compare/v4.0.1..v4.1.0
+[4.0.1]: https://github.com/dvdoug/behat-code-coverage/compare/v4.0.0..v4.0.1
+[4.0.0]: https://github.com/dvdoug/behat-code-coverage/compare/v3.4.1..v4.0.0
