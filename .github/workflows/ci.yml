@@ -18,13 +18,10 @@ jobs:
           - "8.3"
           - "8.2"
           - "8.1"
-          - "8.0"
-          - "7.4"
 
         php-code-coverage-version:
           - "^11.0"
-          - "^10.0"
-          - "^9.2.16"
+          - "^10.1"
 
         symfony-version:
           - "^7.0"
@@ -44,21 +41,7 @@ jobs:
         exclude:
           - php-version: "8.1"
             symfony-version: "^7.0"
-          - php-version: "8.0"
-            symfony-version: "^7.0"
-          - php-version: "7.4"
-            symfony-version: "^7.0"
-          - php-version: "7.4"
-            symfony-version: "^6.0"
-          - php-version: "8.0"
-            php-code-coverage-version: "^10.0"
-          - php-version: "7.4"
-            php-code-coverage-version: "^10.0"
           - php-version: "8.1"
-            php-code-coverage-version: "^11.0"
-          - php-version: "8.0"
-            php-code-coverage-version: "^11.0"
-          - php-version: "7.4"
             php-code-coverage-version: "^11.0"
 
     steps:

@@ -21,13 +21,14 @@
         </testsuite>
     </testsuites>
 
+    <source>
+        <include>
+            <directory>src</directory>
+        </include>
+    </source>
+
   <!-- pathCoverage must be set false here for CI or PCOV fails. It is enabled via CLI for Xdebug -->
   <coverage pathCoverage="false" cacheDirectory="build/phpunit-cache/coverage">
-
-    <include>
-      <directory>src</directory>
-    </include>
-
     <report>
       <html outputDirectory="build/coverage"/>
       <text outputFile="php://stdout" showUncoveredFiles="true"/>
