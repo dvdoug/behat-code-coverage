@@ -7,7 +7,6 @@ declare(strict_types=1);
 namespace DVDoug\Behat\CodeCoverage\Service;
 
 use Composer\InstalledVersions;
-use Composer\Semver\VersionParser;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Report\Clover;
 use SebastianBergmann\CodeCoverage\Report\Cobertura;
@@ -54,65 +53,44 @@ class ReportService
                     $report->process($coverage, $config['target'], $config['name']);
                     break;
                 case 'html':
-                    if (InstalledVersions::satisfies(new VersionParser(), 'phpunit/php-code-coverage', '^9.0')) {
-                        $report = new HtmlFacade(
-                            $config['lowUpperBound'],
-                            $config['highLowerBound'],
-                            sprintf(
-                                ' and <a href="https://behat.cc">Behat Code Coverage %s</a>',
-                                InstalledVersions::getPrettyVersion('dvdoug/behat-code-coverage')
-                            )
-                        );
+                    $thresholds = Thresholds::from(
+                        $config['lowUpperBound'],
+                        $config['highLowerBound'],
+                    );
+                    $colors = Colors::from(
+                        $config['colors']['successLow'],
+                        $config['colors']['successMedium'],
+                        $config['colors']['successHigh'],
+                        $config['colors']['warning'],
+                        $config['colors']['danger'],
+                    );
+                    if ($config['customCSSFile']) {
+                        $customCss = CustomCssFile::from($config['customCSSFile']);
                     } else {
-                        $thresholds = Thresholds::from(
-                            $config['lowUpperBound'],
-                            $config['highLowerBound'],
-                        );
-                        $colors = Colors::from(
-                            $config['colors']['successLow'],
-                            $config['colors']['successMedium'],
-                            $config['colors']['successHigh'],
-                            $config['colors']['warning'],
-                            $config['colors']['danger'],
-                        );
-                        if ($config['customCSSFile']) {
-                            $customCss = CustomCssFile::from($config['customCSSFile']);
-                        } else {
-                            $customCss = CustomCssFile::default();
-                        }
-                        $report = new HtmlFacade(
-                            sprintf(
-                                ' and <a href="https://behat.cc">Behat Code Coverage %s</a>',
-                                InstalledVersions::getPrettyVersion('dvdoug/behat-code-coverage')
-                            ),
-                            $colors,
-                            $thresholds,
-                            $customCss
-                        );
+                        $customCss = CustomCssFile::default();
                     }
+                    $report = new HtmlFacade(
+                        sprintf(
+                            ' and <a href="https://behat.cc">Behat Code Coverage %s</a>',
+                            InstalledVersions::getPrettyVersion('dvdoug/behat-code-coverage')
+                        ),
+                        $colors,
+                        $thresholds,
+                        $customCss
+                    );
                     $report->process($coverage, $config['target']);
                     break;
                 case 'text':
-                    if (InstalledVersions::satisfies(new VersionParser(), 'phpunit/php-code-coverage', '^9.0')) {
-                        $report = new Text(
-                            $config['lowUpperBound'],
-                            $config['highLowerBound'],
-                            $config['showUncoveredFiles'],
-                            $config['showOnlySummary']
-                        );
-                        echo $report->process($coverage, $config['showColors']);
-                    } else {
-                        $thresholds = Thresholds::from(
-                            $config['lowUpperBound'],
-                            $config['highLowerBound'],
-                        );
-                        $report = new Text(
-                            $thresholds,
-                            $config['showUncoveredFiles'],
-                            $config['showOnlySummary']
-                        );
-                        echo $report->process($coverage, $config['showColors']);
-                    }
+                    $thresholds = Thresholds::from(
+                        $config['lowUpperBound'],
+                        $config['highLowerBound'],
+                    );
+                    $report = new Text(
+                        $thresholds,
+                        $config['showUncoveredFiles'],
+                        $config['showOnlySummary']
+                    );
+                    echo $report->process($coverage, $config['showColors']);
                     break;
                 case 'xml':
                     $report = new XmlFacade('');
