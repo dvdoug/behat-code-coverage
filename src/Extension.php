@@ -34,6 +34,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 use function sprintf;
 use function sys_get_temp_dir;
+use function realpath;
 
 class Extension implements ExtensionInterface
 {
@@ -233,7 +234,7 @@ class Extension implements ExtensionInterface
         }
 
         foreach ($filterConfig['exclude']['files'] as $fileToExclude) {
-            unset($files[$fileToExclude]);
+            unset($files[realpath($fileToExclude)]);
         }
 
         foreach ($files as $file) {
