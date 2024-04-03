@@ -16,8 +16,6 @@ use Composer\Semver\VersionParser;
 use DVDoug\Behat\CodeCoverage\Subscriber\EventSubscriber;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Driver\Selector;
-use SebastianBergmann\CodeCoverage\Driver\Xdebug2NotEnabledException;
-use SebastianBergmann\CodeCoverage\Driver\Xdebug3NotEnabledException;
 use SebastianBergmann\CodeCoverage\Driver\XdebugNotAvailableException;
 use SebastianBergmann\CodeCoverage\Driver\XdebugNotEnabledException;
 use SebastianBergmann\CodeCoverage\Filter;
@@ -202,7 +200,7 @@ class Extension implements ExtensionInterface
             $filterDefinition = $container->getDefinition(Filter::class);
             $codeCoverageDefinition->setFactory([new Reference(self::class), 'initCodeCoverage']);
             $codeCoverageDefinition->setArguments([$filterDefinition, $filterConfig, $branchPathConfig, $cacheDir, $output]);
-        } catch (NoCodeCoverageDriverAvailableException|Xdebug2NotEnabledException|Xdebug3NotEnabledException|XdebugNotEnabledException|XdebugNotAvailableException $e) {
+        } catch (NoCodeCoverageDriverAvailableException|XdebugNotEnabledException|XdebugNotAvailableException $e) {
             $output->writeln("<comment>No code coverage driver is available. {$e->getMessage()}</comment>");
             $canCollectCodeCoverage = false;
         }
@@ -263,14 +261,6 @@ class Extension implements ExtensionInterface
             $codeCoverage->includeUncoveredFiles();
         } else {
             $codeCoverage->excludeUncoveredFiles();
-        }
-
-        if (InstalledVersions::satisfies(new VersionParser(), 'phpunit/php-code-coverage', '^9.0')) {
-            if ($filterConfig['processUncoveredFiles']) {
-                $codeCoverage->processUncoveredFiles();
-            } else {
-                $codeCoverage->doNotProcessUncoveredFiles();
-            }
         }
 
         return $codeCoverage;

@@ -64,7 +64,6 @@ By default uncovered files are **included** but not **processed**.
             DVDoug\Behat\CodeCoverage\Extension:
                 filter:
                     includeUncoveredFiles: true # defaults to true
-                    processUncoveredFiles: false # defaults to false
 
 * *Included* means that the file is incorporated into the reporting, showing up as 0% covered. This allows you to see
   files that you haven't written any tests for yet. If you choose not to include uncovered files, then only files that
@@ -77,9 +76,6 @@ By default uncovered files are **included** but not **processed**.
   covered files are. However, not all files can be safely loaded in this way, for instance ``include()``\ing a script
   may have runtime side-effects. Because Behat Code Coverage cannot know the structure of your codebase and which files
   are safe to ``include()`` and which are not, by default uncovered file processing is disabled for safety reasons.
-
-  .. note::
-    The ``processUncoveredFiles`` setting has been removed in php-code-coverage v10, configuring it here is deprecated
 
 Reports
 -------
