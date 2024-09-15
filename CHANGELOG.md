@@ -2,6 +2,10 @@
 
 ## [Unreleased] - 2024-xx-xx
 
+## [5.3.2.1] - 2024-09-15
+### Fixed
+- Better handling of PCOV and Xdebug running side by side
+
 ## [5.3.2] - 2023-12-09
 ### Added
 - Support for Symfony 7
@@ -107,8 +111,9 @@
  - Support for Symfony components older than `<3.4`
  - Support for HHVM
 
-[Unreleased]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.2..master
+[Unreleased]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.2.1..master
 
+[5.3.2.1]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.2..v5.3.2.1
 [5.3.2]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.1..v5.3.2
 [5.3.1]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.0..v5.3.1
 [5.3.0]: https://github.com/dvdoug/behat-code-coverage/compare/v5.2.2..v5.3.0
