@@ -192,7 +192,7 @@ class Extension implements ExtensionInterface
 
         $canCollectCodeCoverage = true;
         try {
-            $this->initCodeCoverage(new Filter(), $filterConfig, null, $cacheDir, $output);
+            $this->initCodeCoverage(new Filter(), $filterConfig, $branchPathConfig, $cacheDir, $output);
 
             $codeCoverageDefinition = $container->getDefinition(CodeCoverage::class);
             $filterDefinition = $container->getDefinition(Filter::class);
