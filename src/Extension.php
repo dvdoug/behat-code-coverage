@@ -23,6 +23,7 @@ use SebastianBergmann\FileIterator\Facade as FileIteratorFacade;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
@@ -185,6 +186,10 @@ class Extension implements ExtensionInterface
 
         /** @var OutputInterface $output */
         $output = $container->get(CliExtension::OUTPUT_ID);
+
+        if ($output instanceof ConsoleOutputInterface) {
+            $output = $output->getErrorOutput();
+        }
 
         $filterConfig = $container->getParameter('behat.code_coverage.config.filter');
         $branchPathConfig = $container->getParameter('behat.code_coverage.config.branchAndPathCoverage');
