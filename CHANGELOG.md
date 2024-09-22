@@ -2,6 +2,10 @@
 
 ## [Unreleased] - 2024-xx-xx
 
+## [5.3.5] - 2024-09-22
+### Changed
+- Use `stderr` instead of `stdout` for warnings
+
 ## [5.3.4] - 2024-04-03
 ### Fixed
 - Better handling of relative paths
@@ -122,8 +126,9 @@
  - Support for Symfony components older than `<3.4`
  - Support for HHVM
 
-[Unreleased]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.4..master
+[Unreleased]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.5..master
 
+[5.3.5]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.4..v5.3.5
 [5.3.4]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.3..v5.3.4
 [5.3.3]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.2.1..v5.3.3
 [5.3.2.1]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.2..v5.3.2.1
