@@ -24,7 +24,7 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.49.0",
-        "phpunit/phpunit": "^10.5.8||^11.4.3",
+        "phpunit/phpunit": "^10.5.12||^11.4.3",
         "symfony/filesystem": "^5.0||^6.0||^7.0"
     },
     "suggest": {
