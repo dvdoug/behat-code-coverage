@@ -25,9 +25,9 @@ jobs:
           - "^10.1.16"
 
         symfony-version:
-          - "^7.0"
-          - "^6.0"
-          - "^5.0"
+          - "^7.0.3"
+          - "^6.3.12"
+          - "^5.4.35"
 
         dependencies:
           - "highest"
@@ -41,7 +41,7 @@ jobs:
 
         exclude:
           - php-version: "8.1"
-            symfony-version: "^7.0"
+            symfony-version: "^7.0.3"
           - php-version: "8.1"
             php-code-coverage-version: "^11.0"
 

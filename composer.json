@@ -17,15 +17,15 @@
         "behat/behat": "^3.15",
         "composer/semver": "^3.0",
         "phpunit/php-code-coverage": "^10.1||^11.0",
-        "symfony/config": "^5.1.4||^6.0||^7.0",
-        "symfony/console": "^5.3.7||^6.0.9||^7.0",
-        "symfony/dependency-injection": "^5.1.4||^6.0||^7.0",
-        "symfony/event-dispatcher": "^5.0||^6.0||^7.0"
+        "symfony/config": "^5.4.35||^6.3.12||^7.0.3",
+        "symfony/console": "^5.4.35||^6.3.12||^7.0.3",
+        "symfony/dependency-injection": "^5.3.35||^6.3.12||^7.0.3",
+        "symfony/event-dispatcher": "^5.4.35||^6.3.12||^7.0.3"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.49.0",
         "phpunit/phpunit": "^10.5.12||^11.4.3",
-        "symfony/filesystem": "^5.0||^6.0||^7.0"
+        "symfony/filesystem": "^5.4.35||^6.3.12||^7.0.3"
     },
     "suggest": {
         "ext-xdebug": "Xdebug allows you to collect line, branch and path coverage",
