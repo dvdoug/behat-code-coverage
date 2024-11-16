@@ -2,6 +2,10 @@
 
 ## [Unreleased] - 2024-xx-xx
 
+## [5.3.6] - 2024-11-16
+### Fixed
+- Don't show any warning messages about missing coverage driver when `--no-coverage` CLI option is used
+
 ## [5.3.5] - 2024-09-22
 ### Changed
 - Use `stderr` instead of `stdout` for warnings
@@ -126,8 +130,9 @@
  - Support for Symfony components older than `<3.4`
  - Support for HHVM
 
-[Unreleased]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.5..master
+[Unreleased]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.6..master
 
+[5.3.6]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.5..v5.3.6
 [5.3.5]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.4..v5.3.5
 [5.3.4]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.3..v5.3.4
 [5.3.3]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.2.1..v5.3.3

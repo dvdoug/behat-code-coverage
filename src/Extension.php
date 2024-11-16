@@ -195,20 +195,22 @@ class Extension implements ExtensionInterface
         $branchPathConfig = $container->getParameter('behat.code_coverage.config.branchAndPathCoverage');
         $cacheDir = $container->getParameter('behat.code_coverage.config.cache');
 
-        $canCollectCodeCoverage = true;
-        try {
-            $this->initCodeCoverage(new Filter(), $filterConfig, $branchPathConfig, $cacheDir, $output);
+        $canCollectCodeCoverage = !$input->hasParameterOption('--no-coverage');
+        if ($canCollectCodeCoverage) {
+            try {
+                $this->initCodeCoverage(new Filter(), $filterConfig, $branchPathConfig, $cacheDir, $output);
 
-            $codeCoverageDefinition = $container->getDefinition(CodeCoverage::class);
-            $filterDefinition = $container->getDefinition(Filter::class);
-            $codeCoverageDefinition->setFactory([new Reference(self::class), 'initCodeCoverage']);
-            $codeCoverageDefinition->setArguments([$filterDefinition, $filterConfig, $branchPathConfig, $cacheDir, $output]);
-        } catch (NoCodeCoverageDriverAvailableException|XdebugNotEnabledException|XdebugNotAvailableException $e) {
-            $output->writeln("<comment>No code coverage driver is available. {$e->getMessage()}</comment>");
-            $canCollectCodeCoverage = false;
+                $codeCoverageDefinition = $container->getDefinition(CodeCoverage::class);
+                $filterDefinition = $container->getDefinition(Filter::class);
+                $codeCoverageDefinition->setFactory([new Reference(self::class), 'initCodeCoverage']);
+                $codeCoverageDefinition->setArguments([$filterDefinition, $filterConfig, $branchPathConfig, $cacheDir, $output]);
+            } catch (NoCodeCoverageDriverAvailableException|XdebugNotEnabledException|XdebugNotAvailableException $e) {
+                $output->writeln("<comment>{$e->getMessage()}</comment>");
+                $canCollectCodeCoverage = false;
+            }
         }
 
-        if (!$canCollectCodeCoverage || $input->hasParameterOption('--no-coverage')) {
+        if (!$canCollectCodeCoverage) {
             $container->getDefinition(EventSubscriber::class)->setArgument('$coverage', null);
         }
     }
