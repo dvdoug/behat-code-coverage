@@ -41,17 +41,6 @@ support for multiple versions of the coverage library to ease the upgrade path, 
 significantly incompatible with older ones or where a compelling new feature exists the minimum supported version may be
 raised. Fixes for any subsequently discovered bugs will be backported as appropriate.
 
-+---------------------+--------+-------------------+----------------+--------------------------+
-| Behat Code Coverage | Behat  | php-code-coverage | PHPUnit        | Notes                    |
-+=====================+========+===================+================+==========================+
-| 5.3                 | 3.10+  | 9.2+, 10, 11      | 9.5.5+, 10, 11 |                          |
-+---------------------+--------+-------------------+----------------+--------------------------+
-| 5.2                 | 3.5+   | 9.2+              | 9.4+           | Cobertura format support |
-+---------------------+--------+-------------------+----------------+--------------------------+
-| 5.1                 | 3.5+   | 9.1+              | 9.3.4+         | Caching between runs     |
-+---------------------+--------+-------------------+----------------+--------------------------+
-| 5.0                 | 3.5+   | 6, 7, 8, 9        | 7, 8, 9        |                          |
-+---------------------+--------+-------------------+----------------+--------------------------+
 
 .. _Composer: https://getcomposer.org
 .. _GitHub: https://github.com/dvdoug/behat-code-coverage

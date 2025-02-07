@@ -1,6 +1,10 @@
 # Changelog
 
-## [Unreleased] - 2024-xx-xx
+## [Unreleased] - 2025-xx-xx
+
+## [5.3.7] - 2025-02-07
+### Added
+- Compatibility with `phpunit/php-code-coverage` v12
 
 ## [5.3.6] - 2024-11-16
 ### Fixed
@@ -130,8 +134,9 @@
  - Support for Symfony components older than `<3.4`
  - Support for HHVM
 
-[Unreleased]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.6..master
+[Unreleased]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.7..master
 
+[5.3.7]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.6..v5.3.7
 [5.3.6]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.5..v5.3.6
 [5.3.5]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.4..v5.3.5
 [5.3.4]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.3..v5.3.4
