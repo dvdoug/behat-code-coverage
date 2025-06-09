@@ -22,6 +22,8 @@ default:
           target: build/coverage-behat/crap4j.xml
         html:
           target: build/coverage-behat
+        openclover:
+          target: build/coverage-behat/openclover.xml
         php:
           target: build/coverage-behat/coverage.cov
         text:

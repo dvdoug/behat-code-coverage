@@ -1,6 +1,6 @@
 behat-code-coverage
 ===================
-[![Build Status](https://github.com/dvdoug/behat-code-coverage/workflows/CI/badge.svg?branch=master)](https://github.com/dvdoug/behat-code-coverage/actions?query=workflow%3ACI+branch%3Amaster)
+[![Build Status](https://github.com/dvdoug/behat-code-coverage/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/dvdoug/behat-code-coverage/actions/workflows/ci.yml)
 [![Download count](https://img.shields.io/packagist/dt/dvdoug/behat-code-coverage.svg)](https://packagist.org/packages/dvdoug/behat-code-coverage)
 [![Current version](https://img.shields.io/packagist/v/dvdoug/behat-code-coverage.svg)](https://packagist.org/packages/dvdoug/behat-code-coverage)
 [![Documentation](https://readthedocs.org/projects/behat-code-coverage/badge/?version=latest)](https://www.behat.cc)

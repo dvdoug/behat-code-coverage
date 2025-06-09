@@ -70,6 +70,32 @@ class ReportServiceTest extends TestCase
         $filesystem->remove($reportFilename);
     }
 
+    public function testCanGenerateOpenCloverReport(): void
+    {
+        $filesystem = new Filesystem();
+        $reportFilename = sys_get_temp_dir() . '/openclover.xml';
+        $filesystem->remove($reportFilename);
+
+        $driver = $this->createMock(Driver::class);
+        $coverage = new CodeCoverage($driver, new Filter());
+
+        $reportService = new ReportService(
+            [
+                'openclover' => [
+                    'target' => $reportFilename,
+                    'name' => 'SomeName',
+                ],
+            ]
+        );
+
+        $reportService->generateReport($coverage);
+        $report = file_get_contents($reportFilename);
+
+        self::assertNotEmpty($report);
+
+        $filesystem->remove($reportFilename);
+    }
+
     public function testCanGenerateCrap4jReport(): void
     {
         $filesystem = new Filesystem();

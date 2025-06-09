@@ -2,6 +2,10 @@
 
 ## [Unreleased] - 2025-xx-xx
 
+## [5.4.0] - 2025-06-09
+### Added
+- Added `openclover` report option
+
 ## [5.3.7] - 2025-02-07
 ### Added
 - Compatibility with `phpunit/php-code-coverage` v12
@@ -134,8 +138,9 @@
  - Support for Symfony components older than `<3.4`
  - Support for HHVM
 
-[Unreleased]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.7..master
+[Unreleased]: https://github.com/dvdoug/behat-code-coverage/compare/v5.4.0..master
 
+[5.4.0]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.7..v5.4.0
 [5.3.7]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.6..v5.3.7
 [5.3.6]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.5..v5.3.6
 [5.3.5]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.4..v5.3.5

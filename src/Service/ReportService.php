@@ -14,6 +14,7 @@ use SebastianBergmann\CodeCoverage\Report\Crap4j;
 use SebastianBergmann\CodeCoverage\Report\Html\Colors;
 use SebastianBergmann\CodeCoverage\Report\Html\CustomCssFile;
 use SebastianBergmann\CodeCoverage\Report\Html\Facade as HtmlFacade;
+use SebastianBergmann\CodeCoverage\Report\OpenClover;
 use SebastianBergmann\CodeCoverage\Report\PHP;
 use SebastianBergmann\CodeCoverage\Report\Text;
 use SebastianBergmann\CodeCoverage\Report\Thresholds;
@@ -43,6 +44,10 @@ class ReportService
                 case 'php':
                     $report = new PHP();
                     $report->process($coverage, $config['target']);
+                    break;
+                case 'openclover':
+                    $report = new OpenClover();
+                    $report->process($coverage, $config['target'], $config['name']);
                     break;
                 case 'clover':
                     $report = new Clover();

@@ -144,10 +144,10 @@ basis. It is configured by setting the ``html`` key. The default values are outl
   .. note::
     The ``colors`` and ``customCSSFile`` settings are only available from php-code-coverage v10
 
-Clover
+(Open)Clover
 ^^^^^^^^^
 Originating from the Java world, Clover-format reports are a standard way of exchanging coverage data
-between tools. It is configured by setting the ``clover`` key. The default values are outlined below:
+between tools. It is configured by setting the ``openclover`` or ``clover`` key. The default values are outlined below:
 
 .. code:: yaml
 
@@ -155,6 +155,9 @@ between tools. It is configured by setting the ``clover`` key. The default value
         extensions:
             DVDoug\Behat\CodeCoverage\Extension:
                 reports:
+                    openclover:
+                        target: <file>  # no default value, you must specify
+                        name: ''
                     clover:
                         target: <file>  # no default value, you must specify
                         name: ''
@@ -162,6 +165,7 @@ between tools. It is configured by setting the ``clover`` key. The default value
 * The mandatory ``target`` key specifies the destination filename to use for the report. The reports are in XML format,
   an ``.xml`` file extension is suggested.
 * Optionally, you can configure the name of your project via the ``name`` key.
+
 
 Cobertura
 ^^^^^^^^^

@@ -17,13 +17,9 @@ jobs:
         php-version:
           - "8.4"
           - "8.3"
-          - "8.2"
-          - "8.1"
 
         php-code-coverage-version:
-          - "^12.0"
-          - "^11.0"
-          - "^10.1.16"
+          - "^12.3"
 
         symfony-version:
           - "^7.0.3"
@@ -39,16 +35,6 @@ jobs:
           - "none"
           - "xdebug"
           - "pcov"
-
-        exclude:
-          - php-version: "8.1"
-            symfony-version: "^7.0.3"
-          - php-version: "8.1"
-            php-code-coverage-version: "^11.0"
-          - php-version: "8.2"
-            php-code-coverage-version: "^12.0"
-          - php-version: "8.1"
-            php-code-coverage-version: "^12.0"
 
     steps:
     - uses: actions/checkout@v4
@@ -144,7 +130,7 @@ jobs:
         else
           php -dmemory_limit=-1 vendor/phpunit/phpunit/phpunit --coverage-clover=build/coverage-phpunit/clover.xml;
         fi;
-        if [ "${{ matrix.php-version }}" = "8.2" ] && [ "${{ matrix.driver }}" != "none" ]; then
+        if [ "${{ matrix.php-version }}" = "8.3" ] && [ "${{ matrix.driver }}" != "none" ]; then
           composer global require scrutinizer/ocular;
           ~/.composer/vendor/bin/ocular code-coverage:upload --format=php-clover build/coverage-phpunit/clover.xml;
         fi;
@@ -152,7 +138,7 @@ jobs:
     - name: Behat
       run: |
         php -dmemory_limit=-1 vendor/behat/behat/bin/behat --strict;
-        if [ "${{ matrix.php-version }}" = "8.2" ] && [ "${{ matrix.driver }}" != "none" ]; then
+        if [ "${{ matrix.php-version }}" = "8.3" ] && [ "${{ matrix.driver }}" != "none" ]; then
           composer global require scrutinizer/ocular;
           ~/.composer/vendor/bin/ocular code-coverage:upload --format=php-clover build/coverage-behat/clover.xml;
         fi;
