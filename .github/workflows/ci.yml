@@ -22,9 +22,9 @@ jobs:
           - "^12.3"
 
         symfony-version:
-          - "^7.0.3"
-          - "^6.3.12"
-          - "^5.4.35"
+          - "^7.3"
+          - "^6.4.24"
+          - "^5.4.45"
 
         dependencies:
           - "highest"
@@ -92,7 +92,7 @@ jobs:
       run: composer require --no-update "phpunit/php-code-coverage:${{ matrix.php-code-coverage-version }}"
 
     - name: Remove PHP-CS-Fixer if not called
-      if: matrix.php-version != '8.1' || matrix.symfony-version != '^6.0' || matrix.dependencies != 'highest'
+      if: matrix.php-version != '8.3' || matrix.symfony-version != '^7.3' || matrix.dependencies != 'highest'
       run: composer remove --dev --no-update "friendsofphp/php-cs-fixer";
 
     - name: Install dependencies (low)
@@ -136,5 +136,5 @@ jobs:
         php -dmemory_limit=-1 vendor/behat/behat/bin/behat --strict;
 
     - name: Check code style
-      if: matrix.php-version == '8.1' && matrix.symfony-version == '^6.0' && matrix.dependencies == 'highest'
+      if: matrix.php-version == '8.3' && matrix.symfony-version == '^7.3' && matrix.dependencies == 'highest'
       run: vendor/bin/php-cs-fixer fix --verbose --dry-run --diff --allow-risky=yes
