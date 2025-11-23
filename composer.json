@@ -14,7 +14,7 @@
     "require": {
         "php": "^8.3",
         "composer-runtime-api": "^2.0",
-        "behat/behat": "^3.15",
+        "behat/behat": "^3.27",
         "composer/semver": "^3.0",
         "phpunit/php-code-coverage": "^12.3",
         "symfony/config": "^5.4.45||^6.4.24||^7.3",

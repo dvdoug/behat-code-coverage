@@ -6,7 +6,8 @@ To do anything useful, once installed, you should configure Behat Code Coverage 
 Each of the settings described below has a direct equivalent in PHPUnit, if your codebase uses both testing frameworks
 you may wish to ensure the settings are aligned between the two tools.
 
-Settings are configured in your project's ``behat.yml`` or ``behat.yml.dist``.
+Settings are configured in your project's ``behat.php.dist`` or ``behat.php`` files if using the new PHP config
+or ``behat.yml`` or ``behat.yml.dist`` if you are using the old-style YAML config.
 
 Driver
 ------
@@ -20,6 +21,36 @@ this is an optional configuration setting, but practically speaking most project
 only on their own source files rather than e.g. test files or vendor files.
 
 For directories, list them by **key**. Optionally, you can specify a prefix or suffix:
+
+.. code:: php
+
+    use Behat\Config\Config;
+    use Behat\Config\Extension;
+    use Behat\Config\Profile;
+    use Behat\Config\Suite;
+    use DVDoug\Behat\CodeCoverage\Extension as CodeCoverageExtension;
+
+    return (new Config())
+        ->withProfile((new Profile('default'))
+            ->withExtension(new Extension(CodeCoverageExtension::class, [
+                'filter' => [
+                    'include' => [
+                        'directories' => [
+                            'src' => [
+                                'suffix' => 'Controller.php',
+                            ],
+                            'src/Repository' => [
+                                'prefix' => 'API',
+                            ],
+                        ],
+                    ],
+                    'exclude' => [
+                        'directories' => [
+                            'tests/data' => null, // null config means no prefix or suffix i.e. all files
+                        ],
+                    ],
+                ],
+            ]));
 
 .. code:: yaml
 
@@ -39,6 +70,33 @@ For directories, list them by **key**. Optionally, you can specify a prefix or s
 
 For files, list them by **name**:
 
+.. code:: php
+
+    use Behat\Config\Config;
+    use Behat\Config\Extension;
+    use Behat\Config\Profile;
+    use Behat\Config\Suite;
+    use DVDoug\Behat\CodeCoverage\Extension as CodeCoverageExtension;
+
+    return (new Config())
+        ->withProfile((new Profile('default'))
+            ->withExtension(new Extension(CodeCoverageExtension::class, [
+                'filter' => [
+                    'include' => [
+                        'files' => [
+                            'bootstrap.php',
+                            'index.php',
+                        ],
+                    ],
+                    'exclude' => [
+                        'files' => [
+                            'src/ExcludeMe.php',
+                            'src/ExcludeMeToo.php',
+                        ],
+                    ],
+                ],
+            ])));
+
 .. code:: yaml
 
     default:
@@ -57,6 +115,20 @@ For files, list them by **name**:
 Filters have two additional settings, to control how files that have not been covered should be handled in the report.
 By default uncovered files are **included** but not **processed**.
 
+.. code:: php
+
+    use Behat\Config\Config;
+    use Behat\Config\Extension;
+    use Behat\Config\Profile;
+    use Behat\Config\Suite;
+    use DVDoug\Behat\CodeCoverage\Extension as CodeCoverageExtension;
+
+    return (new Config())
+        ->withProfile((new Profile('default'))
+            ->withExtension(new Extension(CodeCoverageExtension::class, [
+                'includeUncoveredFiles' => true // defaults to true
+            ])));
+
 .. code:: yaml
 
     default:
@@ -71,11 +143,7 @@ By default uncovered files are **included** but not **processed**.
 
 * Uncovered files, by definition, will not been loaded into the PHP runtime environment during the execution of the test
   suite. This means that they have not been analysed by the coverage driver for detection of things like executable vs
-  non-executable lines, dead code detection or calculation of branches and paths. By opting uncovered files into
-  *processing*, the files will be loaded via an ``include()`` call and passed through the driver in exactly the same way as
-  covered files are. However, not all files can be safely loaded in this way, for instance ``include()``\ing a script
-  may have runtime side-effects. Because Behat Code Coverage cannot know the structure of your codebase and which files
-  are safe to ``include()`` and which are not, by default uncovered file processing is disabled for safety reasons.
+  non-executable lines, dead code detection or calculation of branches and paths.
 
 Reports
 -------
@@ -86,6 +154,28 @@ Text
 ^^^^
 The text report is the easiest way to get started, it simply outputs the report results to the screen after each test
 run. It is configured by setting the ``text`` key. The default values are outlined below:
+
+.. code:: php
+
+    use Behat\Config\Config;
+    use Behat\Config\Extension;
+    use Behat\Config\Profile;
+    use Behat\Config\Suite;
+    use DVDoug\Behat\CodeCoverage\Extension as CodeCoverageExtension;
+
+    return (new Config())
+        ->withProfile((new Profile('default'))
+            ->withExtension(new Extension(CodeCoverageExtension::class, [
+                'reports' => [
+                    'text' => [
+                        'showColors' => false,
+                        'showOnlySummary' => false,
+                        'showUncoveredFiles' => false,
+                        'lowUpperBound' => 50,
+                        'highLowerBound' => 90,
+                    ],
+                ],
+            ])));
 
 .. code:: yaml
 
@@ -116,6 +206,34 @@ HTML
 The HTML report is the most common format of report. As well as a summary report for the project providing high-level
 data, it also includes a detailed overview of each file showing the coverage on a function by function, line by line
 basis. It is configured by setting the ``html`` key. The default values are outlined below:
+
+.. code:: php
+
+    use Behat\Config\Config;
+    use Behat\Config\Extension;
+    use Behat\Config\Profile;
+    use Behat\Config\Suite;
+    use DVDoug\Behat\CodeCoverage\Extension as CodeCoverageExtension;
+
+    return (new Config())
+        ->withProfile((new Profile('default'))
+            ->withExtension(new Extension(CodeCoverageExtension::class, [
+                'reports' => [
+                    'html' => [
+                        'target' => '<directory>',  // no default value, you must specify
+                        'lowUpperBound' => 50,
+                        'highLowerBound' => 90,
+                        'colors' => [
+                            'successLow => '#dff0d8',
+                            'successMedium => '#c3e3b5',
+                            'successHigh => '#99cb84',
+                            'warning => '#fcf8e3',
+                            'danger => '#f2dede',
+                        ],
+                        'customCSSFile' => null,  // defaults to null, i.e. no custom CSS file
+                    ],
+                ],
+            ])));
 
 .. code:: yaml
 
@@ -149,6 +267,29 @@ basis. It is configured by setting the ``html`` key. The default values are outl
 Originating from the Java world, Clover-format reports are a standard way of exchanging coverage data
 between tools. It is configured by setting the ``openclover`` or ``clover`` key. The default values are outlined below:
 
+.. code:: php
+
+    use Behat\Config\Config;
+    use Behat\Config\Extension;
+    use Behat\Config\Profile;
+    use Behat\Config\Suite;
+    use DVDoug\Behat\CodeCoverage\Extension as CodeCoverageExtension;
+
+    return (new Config())
+        ->withProfile((new Profile('default'))
+            ->withExtension(new Extension(CodeCoverageExtension::class, [
+                'reports' => [
+                    'openclover' => [
+                        'target' => '<file>',  // no default value, you must specify
+                        'name' => '',
+                    ],
+                    'clover' => [
+                        'target' => '<file>',  // no default value, you must specify
+                        'name' => '',
+                    ],
+                ],
+            ])));
+
 .. code:: yaml
 
     default:
@@ -173,6 +314,25 @@ Also originating from the Java world, Cobertura-format reports are becoming a st
 between tools. It is configured by setting the
 ``cobertura`` key. The default values are outlined below:
 
+.. code:: php
+
+    use Behat\Config\Config;
+    use Behat\Config\Extension;
+    use Behat\Config\Profile;
+    use Behat\Config\Suite;
+    use DVDoug\Behat\CodeCoverage\Extension as CodeCoverageExtension;
+
+    return (new Config())
+        ->withProfile((new Profile('default'))
+            ->withExtension(new Extension(CodeCoverageExtension::class, [
+                'reports' => [
+                    'cobertura' => [
+                        'target' => '<file>',  // no default value, you must specify
+                        'name' => '',
+                    ],
+                ],
+            ])));
+
 .. code:: yaml
 
     default:
@@ -191,6 +351,25 @@ Crap4j
 ^^^^^^
 An older, discontinued tool from the Java world. You can generate Crap4j-compatible reports by setting the ``crap4j``
 key. The default values are outlined below:
+
+.. code:: php
+
+    use Behat\Config\Config;
+    use Behat\Config\Extension;
+    use Behat\Config\Profile;
+    use Behat\Config\Suite;
+    use DVDoug\Behat\CodeCoverage\Extension as CodeCoverageExtension;
+
+    return (new Config())
+        ->withProfile((new Profile('default'))
+            ->withExtension(new Extension(CodeCoverageExtension::class, [
+                'reports' => [
+                    'crap4j' => [
+                        'target' => '<file>',  // no default value, you must specify
+                        'name' => '',
+                    ],
+                ],
+            ])));
 
 .. code:: yaml
 
@@ -212,6 +391,24 @@ A PHP or ".cov" report is a raw serialisation of internal php-code-coverage stat
 preserved. They can be manipulated by the `phpcov`_ tool, for instance to combine reports from multiple testing tools.
 You can generate PHP ".cov" reports by setting the ``php`` key.
 
+.. code:: php
+
+    use Behat\Config\Config;
+    use Behat\Config\Extension;
+    use Behat\Config\Profile;
+    use Behat\Config\Suite;
+    use DVDoug\Behat\CodeCoverage\Extension as CodeCoverageExtension;
+
+    return (new Config())
+        ->withProfile((new Profile('default'))
+            ->withExtension(new Extension(CodeCoverageExtension::class, [
+                'reports' => [
+                    'php' => [
+                        'target' => '<file>',  // no default value, you must specify
+                    ],
+                ],
+            ])));
+
 .. code:: yaml
 
     default:
@@ -227,6 +424,24 @@ You can generate PHP ".cov" reports by setting the ``php`` key.
 PHPUnit XML
 ^^^^^^^^^^^
 You can generate PHPUnit XML reports by setting the ``xml`` key.
+
+.. code:: php
+
+    use Behat\Config\Config;
+    use Behat\Config\Extension;
+    use Behat\Config\Profile;
+    use Behat\Config\Suite;
+    use DVDoug\Behat\CodeCoverage\Extension as CodeCoverageExtension;
+
+    return (new Config())
+        ->withProfile((new Profile('default'))
+            ->withExtension(new Extension(CodeCoverageExtension::class, [
+                'reports' => [
+                    'xml' => [
+                        'target' => '<directory>',  // no default value, you must specify
+                    ],
+                ],
+            ])));
 
 .. code:: yaml
 
@@ -246,6 +461,20 @@ Branch and path coverage
 When using Xdebug as a coverage driver, it has the ability to generate branch and path coverage data as well as the
 traditional line-based data. More information on this topic is available at `https://doug.codes/php-code-coverage`_.
 
+.. code:: php
+
+    use Behat\Config\Config;
+    use Behat\Config\Extension;
+    use Behat\Config\Profile;
+    use Behat\Config\Suite;
+    use DVDoug\Behat\CodeCoverage\Extension as CodeCoverageExtension;
+
+    return (new Config())
+        ->withProfile((new Profile('default'))
+            ->withExtension(new Extension(CodeCoverageExtension::class, [
+                'branchAndPathCoverage' => true,
+            ])));
+
 .. code:: yaml
 
     default:
@@ -261,6 +490,20 @@ Caching
 -------
 Since analysing source code files to generate coverage reports is computationally expensive, Behat Code Coverage
 makes use of a cache to ameliorate this.
+
+.. code:: php
+
+    use Behat\Config\Config;
+    use Behat\Config\Extension;
+    use Behat\Config\Profile;
+    use Behat\Config\Suite;
+    use DVDoug\Behat\CodeCoverage\Extension as CodeCoverageExtension;
+
+    return (new Config())
+        ->withProfile((new Profile('default'))
+            ->withExtension(new Extension(CodeCoverageExtension::class, [
+                'cache' => '<directory>',
+            ])));
 
 .. code:: yaml
 
