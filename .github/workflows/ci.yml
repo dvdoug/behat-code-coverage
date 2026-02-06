@@ -20,6 +20,7 @@ jobs:
           - "8.3"
 
         php-code-coverage-version:
+          - "^13.0"
           - "^12.3"
 
         symfony-version:
@@ -36,6 +37,10 @@ jobs:
           - "none"
           - "xdebug"
           - "pcov"
+
+        exclude:
+          - php-version: "8.3"
+            php-code-coverage-version: "^13.0"
 
     steps:
     - uses: actions/checkout@v4

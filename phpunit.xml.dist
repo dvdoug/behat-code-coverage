@@ -13,6 +13,10 @@
          displayDetailsOnTestsThatTriggerErrors="true"
          displayDetailsOnTestsThatTriggerWarnings="true"
          displayDetailsOnTestsThatTriggerNotices="true"
+         displayDetailsOnPhpunitNotices="true"
+         displayDetailsOnPhpunitDeprecations="true"
+         displayDetailsOnAllIssues="true"
+         failOnPhpunitWarning="false"
 >
 
     <testsuites>

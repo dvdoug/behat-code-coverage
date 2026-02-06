@@ -12,6 +12,7 @@ use Behat\Testwork\ServiceContainer\ExtensionManager;
 use DVDoug\Behat\CodeCoverage\Extension;
 use DVDoug\Behat\CodeCoverage\Service\ReportService;
 use DVDoug\Behat\CodeCoverage\Subscriber\EventSubscriber;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
@@ -76,8 +77,8 @@ class ExtensionTest extends TestCase
             $this->markTestSkipped('Requires code coverage enabled');
         }
 
-        $input = $this->createMock(InputInterface::class);
-        $output = $this->createMock(OutputInterface::class);
+        $input = $this->createStub(InputInterface::class);
+        $output = $this->createStub(OutputInterface::class);
 
         $container = new ContainerBuilder();
 
@@ -132,8 +133,8 @@ class ExtensionTest extends TestCase
             $this->markTestSkipped('Requires code coverage enabled');
         }
 
-        $input = $this->createMock(InputInterface::class);
-        $output = $this->createMock(OutputInterface::class);
+        $input = $this->createStub(InputInterface::class);
+        $output = $this->createStub(OutputInterface::class);
 
         $container = new ContainerBuilder();
 
@@ -180,9 +181,9 @@ class ExtensionTest extends TestCase
 
     public function testContainerBuildsWithCoverageSkipped(): void
     {
-        $input = $this->createMock(InputInterface::class);
+        $input = $this->createStub(InputInterface::class);
         $input->method('hasParameterOption')->with($this->equalTo('--no-coverage'))->willReturn(true);
-        $output = $this->createMock(OutputInterface::class);
+        $output = $this->createStub(OutputInterface::class);
 
         $container = new ContainerBuilder();
 
@@ -231,12 +232,13 @@ class ExtensionTest extends TestCase
         self::assertNull($container->getDefinition(EventSubscriber::class)->getArgument(1));
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testContainerBuildsWithCoverageUnavailable(): void
     {
         $driverClassReflection = new ReflectionClass(Driver::class);
 
-        $input = $this->createMock(InputInterface::class);
-        $output = $this->createMock(OutputInterface::class);
+        $input = $this->createStub(InputInterface::class);
+        $output = $this->createStub(OutputInterface::class);
 
         $container = new ContainerBuilder();
 

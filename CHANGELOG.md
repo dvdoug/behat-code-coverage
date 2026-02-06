@@ -1,6 +1,10 @@
 # Changelog
 
-## [Unreleased] - 2025-xx-xx
+## [Unreleased] - 2026-xx-xx
+
+## [5.4.1] - 2026-02-07
+### Added
+- Compatibility with `phpunit/php-code-coverage` v13
 
 ## [5.4.0] - 2025-06-09
 ### Added

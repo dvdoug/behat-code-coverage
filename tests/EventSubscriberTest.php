@@ -38,7 +38,7 @@ class EventSubscriberTest extends TestCase
 
     public function testBeforeScenarioWithNoCoverage(): void
     {
-        $event = $this->createMock(ScenarioTested::class);
+        $event = $this->createStub(ScenarioTested::class);
 
         $subscriber = new EventSubscriber(new ReportService([]), null);
         $subscriber->beforeScenario($event);
@@ -48,7 +48,7 @@ class EventSubscriberTest extends TestCase
 
     public function testAfterScenarioWithNoCoverage(): void
     {
-        $event = $this->createMock(ScenarioTested::class);
+        $event = $this->createStub(ScenarioTested::class);
 
         $subscriber = new EventSubscriber(new ReportService([]), null);
         $subscriber->afterScenario($event);
@@ -58,7 +58,7 @@ class EventSubscriberTest extends TestCase
 
     public function testAfterExerciseWithNoCoverage(): void
     {
-        $event = $this->createMock(ExerciseCompleted::class);
+        $event = $this->createStub(ExerciseCompleted::class);
 
         $subscriber = new EventSubscriber(new ReportService([]), null);
         $subscriber->afterExercise($event);
@@ -68,13 +68,13 @@ class EventSubscriberTest extends TestCase
 
     public function testScenarioWithCoverage(): void
     {
-        $scenario = $this->createMock(ScenarioNode::class);
+        $scenario = $this->createStub(ScenarioNode::class);
         $scenario->method('getLine')->willReturn(123);
 
-        $feature = $this->createMock(FeatureNode::class);
+        $feature = $this->createStub(FeatureNode::class);
         $feature->method('getFile')->willReturn('/tmp/file');
 
-        $event = $this->createMock(ScenarioTested::class);
+        $event = $this->createStub(ScenarioTested::class);
         $event->method('getScenario')->willReturn($scenario);
         $event->method('getFeature')->willReturn($feature);
 
@@ -97,9 +97,9 @@ class EventSubscriberTest extends TestCase
 
     public function testAfterExerciseWithCoverage(): void
     {
-        $event = $this->createMock(ExerciseCompleted::class);
+        $event = $this->createStub(ExerciseCompleted::class);
 
-        $driver = $this->createMock(Driver::class);
+        $driver = $this->createStub(Driver::class);
 
         $codeCoverage = new CodeCoverage($driver, new Filter());
 

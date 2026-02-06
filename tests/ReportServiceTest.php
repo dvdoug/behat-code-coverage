@@ -22,7 +22,7 @@ class ReportServiceTest extends TestCase
 {
     public function testCanGenerateTextReport(): void
     {
-        $driver = $this->createMock(Driver::class);
+        $driver = $this->createStub(Driver::class);
         $coverage = new CodeCoverage($driver, new Filter());
 
         $reportService = new ReportService(
@@ -50,7 +50,7 @@ class ReportServiceTest extends TestCase
         $reportFilename = sys_get_temp_dir() . '/clover.xml';
         $filesystem->remove($reportFilename);
 
-        $driver = $this->createMock(Driver::class);
+        $driver = $this->createStub(Driver::class);
         $coverage = new CodeCoverage($driver, new Filter());
 
         $reportService = new ReportService(
@@ -76,7 +76,7 @@ class ReportServiceTest extends TestCase
         $reportFilename = sys_get_temp_dir() . '/openclover.xml';
         $filesystem->remove($reportFilename);
 
-        $driver = $this->createMock(Driver::class);
+        $driver = $this->createStub(Driver::class);
         $coverage = new CodeCoverage($driver, new Filter());
 
         $reportService = new ReportService(
@@ -102,7 +102,7 @@ class ReportServiceTest extends TestCase
         $reportFilename = sys_get_temp_dir() . '/crap4j.xml';
         $filesystem->remove($reportFilename);
 
-        $driver = $this->createMock(Driver::class);
+        $driver = $this->createStub(Driver::class);
         $coverage = new CodeCoverage($driver, new Filter());
 
         $reportService = new ReportService(
@@ -128,7 +128,7 @@ class ReportServiceTest extends TestCase
         $reportFilename = sys_get_temp_dir() . '/report.php';
         $filesystem->remove($reportFilename);
 
-        $driver = $this->createMock(Driver::class);
+        $driver = $this->createStub(Driver::class);
         $coverage = new CodeCoverage($driver, new Filter());
 
         $reportService = new ReportService(
@@ -153,7 +153,7 @@ class ReportServiceTest extends TestCase
         $reportDirectory = sys_get_temp_dir() . '/report-html';
         $filesystem->remove($reportDirectory);
 
-        $driver = $this->createMock(Driver::class);
+        $driver = $this->createStub(Driver::class);
         $coverage = new CodeCoverage($driver, new Filter());
 
         $reportService = new ReportService(
@@ -186,7 +186,7 @@ class ReportServiceTest extends TestCase
         $reportDirectory = sys_get_temp_dir() . '/report-xml';
         $filesystem->remove($reportDirectory);
 
-        $driver = $this->createMock(Driver::class);
+        $driver = $this->createStub(Driver::class);
         $coverage = new CodeCoverage($driver, new Filter());
 
         $reportService = new ReportService(
@@ -209,7 +209,7 @@ class ReportServiceTest extends TestCase
         $reportFilename = sys_get_temp_dir() . '/cobertura.xml';
         $filesystem->remove($reportFilename);
 
-        $driver = $this->createMock(Driver::class);
+        $driver = $this->createStub(Driver::class);
         $coverage = new CodeCoverage($driver, new Filter());
 
         $reportService = new ReportService(
@@ -236,7 +236,7 @@ class ReportServiceTest extends TestCase
         $filesystem->remove($cloverReportFilename);
         $filesystem->remove($crap4jReportFilename);
 
-        $driver = $this->createMock(Driver::class);
+        $driver = $this->createStub(Driver::class);
         $coverage = new CodeCoverage($driver, new Filter());
 
         $reportService = new ReportService(
