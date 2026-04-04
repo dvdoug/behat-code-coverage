@@ -2,6 +2,14 @@
 
 ## [Unreleased] - 2026-xx-xx
 
+## [5.4.2] - 2026-04-04
+### Added
+- Compatibility with `phpunit/php-code-coverage` v14
+### Changed
+- Renamed "PHP" reports to "Serialized" reports to align with new upstream terminology. The old config keys are still
+  supported for backwards compatibility
+- Changed default colours in the HTML report to match new defaults from upstream
+
 ## [5.4.1] - 2026-02-07
 ### Added
 - Compatibility with `phpunit/php-code-coverage` v13
@@ -142,8 +150,10 @@
  - Support for Symfony components older than `<3.4`
  - Support for HHVM
 
-[Unreleased]: https://github.com/dvdoug/behat-code-coverage/compare/v5.4.0..master
+[Unreleased]: https://github.com/dvdoug/behat-code-coverage/compare/v5.4.2..master
 
+[5.4.2]: https://github.com/dvdoug/behat-code-coverage/compare/v5.4.1..v5.4.2
+[5.4.1]: https://github.com/dvdoug/behat-code-coverage/compare/v5.4.0..v5.4.1
 [5.4.0]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.7..v5.4.0
 [5.3.7]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.6..v5.3.7
 [5.3.6]: https://github.com/dvdoug/behat-code-coverage/compare/v5.3.5..v5.3.6

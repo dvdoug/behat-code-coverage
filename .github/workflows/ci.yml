@@ -20,6 +20,7 @@ jobs:
           - "8.3"
 
         php-code-coverage-version:
+          - "^14.0"
           - "^13.0"
           - "^12.3"
 
@@ -39,6 +40,8 @@ jobs:
           - "pcov"
 
         exclude:
+          - php-version: "8.3"
+            php-code-coverage-version: "^14.0"
           - php-version: "8.3"
             php-code-coverage-version: "^13.0"
 
@@ -139,7 +142,7 @@ jobs:
 
     - name: Behat
       run: |
-        php -dmemory_limit=-1 vendor/behat/behat/bin/behat --strict;
+        php -dmemory_limit=-1 vendor/behat/behat/bin/behat --strict --xdebug;
 
     - name: Check code style
       if: matrix.php-version == '8.3' && matrix.symfony-version == '^7.3' && matrix.dependencies == 'highest'

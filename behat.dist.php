@@ -34,7 +34,7 @@ return (new Config())
                 'openclover' => [
                     'target' => 'build/coverage-behat/openclover.xml',
                 ],
-                'php' => [
+                'serialized' => [
                     'target' => 'build/coverage-behat/coverage.cov',
                 ],
                 'text' => [

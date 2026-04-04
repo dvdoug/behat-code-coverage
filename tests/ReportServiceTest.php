@@ -110,6 +110,7 @@ class ReportServiceTest extends TestCase
                 'crap4j' => [
                     'target' => $reportFilename,
                     'name' => 'SomeName',
+                    'threshold' => 30,
                 ],
             ]
         );
@@ -135,6 +136,7 @@ class ReportServiceTest extends TestCase
             [
                 'php' => [
                     'target' => $reportFilename,
+                    'includeGitInformation' => false,
                 ],
             ]
         );
@@ -163,11 +165,24 @@ class ReportServiceTest extends TestCase
                     'lowUpperBound' => 50,
                     'highLowerBound' => 90,
                     'colors' => [
-                        'successLow' => '#dff0d8',
-                        'successMedium' => '#c3e3b5',
-                        'successHigh' => '#99cb84',
-                        'warning' => '#fcf8e3',
-                        'danger' => '#f2dede',
+                        'successLow' => '#d6e6f2',
+                        'successLowDark' => '#1e3550',
+                        'successMedium' => '#b3d1e8',
+                        'successMediumDark' => '#2d4f6e',
+                        'successHigh' => '#8cb4d5',
+                        'successHighDark' => '#2a4a6b',
+                        'successBar' => '#1a73b4',
+                        'successBarDark' => '#1560a0',
+                        'warning' => '#fdf0d5',
+                        'warningDark' => '#3d3010',
+                        'warningBar' => '#e5a100',
+                        'warningBarDark' => '#b88a00',
+                        'danger' => '#fad4c0',
+                        'dangerDark' => '#4a2a10',
+                        'dangerBar' => '#d45500',
+                        'dangerBarDark' => '#b54400',
+                        'breadcrumbs' => 'var(--bs-gray-200)',
+                        'breadcrumbsDark' => 'var(--bs-gray-800)',
                     ],
                     'customCSSFile' => null,
                 ],
@@ -248,6 +263,7 @@ class ReportServiceTest extends TestCase
                 'crap4j' => [
                     'target' => $crap4jReportFilename,
                     'name' => 'SomeName',
+                    'threshold' => 30,
                 ],
             ]
         );
