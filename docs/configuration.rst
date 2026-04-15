@@ -126,7 +126,9 @@ By default uncovered files are **included** but not **processed**.
     return (new Config())
         ->withProfile((new Profile('default'))
             ->withExtension(new Extension(CodeCoverageExtension::class, [
-                'includeUncoveredFiles' => true // defaults to true
+                'filter' => [
+                    'includeUncoveredFiles' => true // defaults to true
+                ]
             ])));
 
 .. code:: yaml
@@ -190,6 +192,7 @@ run. It is configured by setting the ``text`` key. The default values are outlin
                         showUncoveredFiles: false
                         lowUpperBound: 50
                         highLowerBound: 90
+                        target: ~ # defaults to null, i.e. only output to screen
 
 * If ``showColors`` is ``true``, the results will be output in a colour-coded format, red for low coverage, amber/yellow
   for a medium amount of coverage and green for high coverage. If desired, the thresholds for each colour can be
@@ -225,11 +228,24 @@ basis. It is configured by setting the ``html`` key. The default values are outl
                         'lowUpperBound' => 50,
                         'highLowerBound' => 90,
                         'colors' => [
-                            'successLow => '#dff0d8',
-                            'successMedium => '#c3e3b5',
-                            'successHigh => '#99cb84',
-                            'warning => '#fcf8e3',
-                            'danger => '#f2dede',
+                            'successLow' => '#d6e6f2',
+                            'successLowDark' => '#1e3550',
+                            'successMedium' => '#b3d1e8',
+                            'successMediumDark' => '#2d4f6e',
+                            'successHigh' => '#8cb4d5',
+                            'successHighDark' => '#2a4a6b',
+                            'successBar' => '#1a73b4',
+                            'successBarDark' => '#1560a0',
+                            'warning' => '#fdf0d5',
+                            'warningDark' => '#3d3010',
+                            'warningBar' => '#e5a100',
+                            'warningBarDark' => '#b88a00',
+                            'danger' => '#fad4c0',
+                            'dangerDark' => '#4a2a10',
+                            'dangerBar' => '#d45500',
+                            'dangerBarDark' => '#b54400',
+                            'breadcrumbs' => 'var(--bs-gray-200)',
+                            'breadcrumbsDark' => 'var(--bs-gray-800)',
                         ],
                         'customCSSFile' => null,  // defaults to null, i.e. no custom CSS file
                     ],
@@ -247,24 +263,24 @@ basis. It is configured by setting the ``html`` key. The default values are outl
                         lowUpperBound: 50
                         highLowerBound: 90
                         colors:
-                            successLow: #d6e6f2'
-                            successLowDark: #1e3550'
-                            successMedium: #b3d1e8'
-                            successMediumDark: #2d4f6e'
-                            successHigh: #8cb4d5'
-                            successHighDark: #2a4a6b'
-                            successBar: #1a73b4'
-                            successBarDark: #1560a0'
-                            warning: #fdf0d5'
-                            warningDark: #3d3010'
-                            warningBar: #e5a100'
-                            warningBarDark: #b88a00'
-                            danger: #fad4c0'
-                            dangerDark: #4a2a10'
-                            dangerBar: #d45500'
-                            dangerBarDark: #b54400'
-                            breadcrumbs: var(--bs-gray-200)'
-                            breadcrumbsDark: var(--bs-gray-800)'
+                            successLow: '#d6e6f2'
+                            successLowDark: '#1e3550'
+                            successMedium: '#b3d1e8'
+                            successMediumDark: '#2d4f6e'
+                            successHigh: '#8cb4d5'
+                            successHighDark: '#2a4a6b'
+                            successBar: '#1a73b4'
+                            successBarDark: '#1560a0'
+                            warning: '#fdf0d5'
+                            warningDark: '#3d3010'
+                            warningBar: '#e5a100'
+                            warningBarDark: '#b88a00'
+                            danger: '#fad4c0'
+                            dangerDark: '#4a2a10'
+                            dangerBar: '#d45500'
+                            dangerBarDark: '#b54400'
+                            breadcrumbs: 'var(--bs-gray-200)'
+                            breadcrumbsDark: 'var(--bs-gray-800)'
                         customCSSFile: ~ # defaults to null, i.e. no custom CSS file
 
 * The mandatory ``target`` key specifies the target directory to place the report files.
@@ -395,6 +411,7 @@ key. The default values are outlined below:
                     crap4j:
                         target: <file>  # no default value, you must specify
                         name: ''
+                        threshold: 30
 
 * The mandatory ``target`` key specifies the destination filename to use for the report. The reports are in XML format,
   an ``.xml`` file extension is suggested.
@@ -420,6 +437,7 @@ You can generate ".cov" reports by setting the ``serialized`` key.
                 'reports' => [
                     'serialized' => [
                         'target' => '<file>',  // no default value, you must specify
+                        'includeGitInformation' => false,
                     ],
                 ],
             ])));
@@ -430,8 +448,9 @@ You can generate ".cov" reports by setting the ``serialized`` key.
         extensions:
             DVDoug\Behat\CodeCoverage\Extension:
                 reports:
-                    php:
+                    serialized:
                         target: <file>  # no default value, you must specify
+                        includeGitInformation: false
 
 * The mandatory ``target`` key specifies the destination filename to use for the report. The reports are actually PHP,
   but a ``.cov`` file extension is customary.
