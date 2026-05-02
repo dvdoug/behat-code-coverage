@@ -293,7 +293,7 @@ basis. It is configured by setting the ``html`` key. The default values are outl
     The ``colors`` and ``customCSSFile`` settings are only available from php-code-coverage v10
 
 (Open)Clover
-^^^^^^^^^
+^^^^^^^^^^^^
 Originating from the Java world, Clover-format reports are a standard way of exchanging coverage data
 between tools. It is configured by setting the ``openclover`` or ``clover`` key. The default values are outlined below:
 
