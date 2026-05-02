@@ -189,7 +189,7 @@ class Extension implements ExtensionInterface
                                 ->scalarNode('highLowerBound')->defaultValue(90)->end()
                                 ->booleanNode('showOnlySummary')->defaultValue(false)->end()
                                 ->booleanNode('showUncoveredFiles')->defaultValue(false)->end()
-                                ->booleanNode('target')->defaultNull()->end()
+                                ->scalarNode('target')->defaultNull()->end()
                             ->end()
                         ->end()
                         ->arrayNode('xml')
