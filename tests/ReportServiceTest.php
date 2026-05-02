@@ -28,6 +28,7 @@ class ReportServiceTest extends TestCase
         $reportService = new ReportService(
             [
                 'text' => [
+                    'target' => null,
                     'lowUpperBound' => 50,
                     'highLowerBound' => 90,
                     'showColors' => true,
