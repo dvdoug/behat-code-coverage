@@ -19,6 +19,7 @@ use SebastianBergmann\CodeCoverage\Driver\XdebugNotEnabledException;
 use SebastianBergmann\CodeCoverage\Filter;
 use SebastianBergmann\CodeCoverage\NoCodeCoverageDriverAvailableException;
 use SebastianBergmann\CodeCoverage\NoCodeCoverageDriverWithPathCoverageSupportAvailableException;
+use SebastianBergmann\CodeCoverage\NoSupportedDriverAvailableException;
 use SebastianBergmann\FileIterator\Facade as FileIteratorFacade;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\FileLocator;
@@ -233,7 +234,7 @@ class Extension implements ExtensionInterface
                 $filterDefinition = $container->getDefinition(Filter::class);
                 $codeCoverageDefinition->setFactory([new Reference(self::class), 'initCodeCoverage']);
                 $codeCoverageDefinition->setArguments([$filterDefinition, $filterConfig, $branchPathConfig, $cacheDir, $output]);
-            } catch (NoCodeCoverageDriverAvailableException|XdebugNotEnabledException|XdebugNotAvailableException $e) {
+            } catch (NoSupportedDriverAvailableException|NoCodeCoverageDriverAvailableException|XdebugNotEnabledException|XdebugNotAvailableException $e) {
                 $output->writeln("<comment>{$e->getMessage()}</comment>");
                 $canCollectCodeCoverage = false;
             }
@@ -279,7 +280,7 @@ class Extension implements ExtensionInterface
         if ($branchPathConfig !== false) {
             try {
                 $driver = $selector->forLineAndPathCoverage($filter);
-            } catch (NoCodeCoverageDriverWithPathCoverageSupportAvailableException|XdebugNotAvailableException|XdebugNotEnabledException $e) {
+            } catch (NoSupportedDriverAvailableException|NoCodeCoverageDriverWithPathCoverageSupportAvailableException|XdebugNotAvailableException|XdebugNotEnabledException $e) {
                 // fallback driver is already set
                 if ($branchPathConfig === true) { // only warn if explicitly enabled
                     $output->writeln(sprintf('<info>%s does not support collecting branch and path data</info>', $driver->nameAndVersion()));

@@ -17,11 +17,13 @@ use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Driver\Driver;
+use SebastianBergmann\CodeCoverage\Driver\Granularity;
 use SebastianBergmann\CodeCoverage\Driver\Selector;
 use SebastianBergmann\CodeCoverage\Driver\Xdebug2NotEnabledException;
 use SebastianBergmann\CodeCoverage\Driver\Xdebug3NotEnabledException;
 use SebastianBergmann\CodeCoverage\Filter;
 use SebastianBergmann\CodeCoverage\NoCodeCoverageDriverAvailableException;
+use SebastianBergmann\CodeCoverage\NoSupportedDriverAvailableException;
 use Symfony\Component\Config\Definition\NodeInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -30,6 +32,7 @@ use Symfony\Component\DependencyInjection\Definition;
 
 use function dirname;
 use function sys_get_temp_dir;
+use function class_exists;
 
 class ExtensionTest extends TestCase
 {
@@ -73,7 +76,7 @@ class ExtensionTest extends TestCase
         try {
             $selector = new Selector();
             $selector->forLineCoverage(new Filter());
-        } catch (NoCodeCoverageDriverAvailableException|Xdebug2NotEnabledException|Xdebug3NotEnabledException $e) {
+        } catch (NoSupportedDriverAvailableException|NoCodeCoverageDriverAvailableException|Xdebug2NotEnabledException|Xdebug3NotEnabledException $e) {
             $this->markTestSkipped('Requires code coverage enabled');
         }
 
@@ -129,7 +132,7 @@ class ExtensionTest extends TestCase
         try {
             $selector = new Selector();
             $selector->forLineCoverage(new Filter());
-        } catch (NoCodeCoverageDriverAvailableException|Xdebug2NotEnabledException|Xdebug3NotEnabledException $e) {
+        } catch (NoSupportedDriverAvailableException|NoCodeCoverageDriverAvailableException|Xdebug2NotEnabledException|Xdebug3NotEnabledException $e) {
             $this->markTestSkipped('Requires code coverage enabled');
         }
 
@@ -279,7 +282,11 @@ class ExtensionTest extends TestCase
         );
 
         $extension = $this->createPartialMock(Extension::class, ['initCodeCoverage']);
-        $extension->method('initCodeCoverage')->willThrowException(new NoCodeCoverageDriverAvailableException());
+        if (class_exists(NoSupportedDriverAvailableException::class)) {
+            $extension->method('initCodeCoverage')->willThrowException(new NoSupportedDriverAvailableException(Granularity::Line));
+        } else {
+            $extension->method('initCodeCoverage')->willThrowException(new NoCodeCoverageDriverAvailableException());
+        }
 
         $extension->process($container);
 
