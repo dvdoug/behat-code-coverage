@@ -204,7 +204,7 @@ class Extension implements ExtensionInterface
         ->end();
     }
 
-    public function getConfigKey()
+    public function getConfigKey(): string
     {
         return 'code_coverage';
     }
