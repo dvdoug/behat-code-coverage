@@ -25,6 +25,7 @@ jobs:
           - "^12.3"
 
         symfony-version:
+          - "^8.0"
           - "^7.3"
           - "^6.4.24"
           - "^5.4.45"
@@ -44,6 +45,8 @@ jobs:
             php-code-coverage-version: "^14.0"
           - php-version: "8.3"
             php-code-coverage-version: "^13.0"
+          - php-version: "8.3"
+            symfony-version: "^8.0"
 
     steps:
     - uses: actions/checkout@v6
