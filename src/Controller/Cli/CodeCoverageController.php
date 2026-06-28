@@ -22,7 +22,8 @@ class CodeCoverageController implements Controller
     /**
      * @codeCoverageIgnore
      */
-    public function execute(InputInterface $input, OutputInterface $output): void
+    public function execute(InputInterface $input, OutputInterface $output): ?int
     {
+        return null;
     }
 }
