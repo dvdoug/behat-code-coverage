@@ -22,7 +22,7 @@ jobs:
         php-code-coverage-version:
           - "^14.0"
           - "^13.0"
-          - "^12.3"
+          - "^12.5"
 
         symfony-version:
           - "^8.0"
