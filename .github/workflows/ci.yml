@@ -21,7 +21,6 @@ jobs:
 
         php-code-coverage-version:
           - "^14.0"
-          - "^13.0"
           - "^12.5"
 
         symfony-version:
@@ -42,8 +41,6 @@ jobs:
         exclude:
           - php-version: "8.3"
             php-code-coverage-version: "^14.0"
-          - php-version: "8.3"
-            php-code-coverage-version: "^13.0"
           - php-version: "8.3"
             symfony-version: "^8.0"
 
