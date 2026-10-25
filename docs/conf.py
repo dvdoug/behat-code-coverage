@@ -94,6 +94,11 @@ llms_txt_description = (
 # serves it from /llms-full.txt when the build output contains it.
 llms_txt_full_build = True
 
+# The changelog page sets its llms.txt summary with an HTML meta description.
+# The Markdown builder has no representation for that node. The index still
+# reads the description from the HTML doctree.
+llms_txt_suppress_unknown_node_warnings = ["meta"]
+
 # Tell Jinja2 templates the build is running on Read the Docs
 if os.environ.get("READTHEDOCS", "") == "True":
     html_context = {"READTHEDOCS": True}

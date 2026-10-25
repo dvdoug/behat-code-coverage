@@ -1,6 +1,13 @@
 Installation
 ============
 
+.. meta::
+   :description: Install Behat Code Coverage with Composer and register it in behat.php.
+
+.. only:: agent
+
+    Configure Behat Code Coverage in ``behat.php``. The classes under ``src/`` are not a public PHP API: do not construct ``Extension`` or call the other classes.
+
 The recommended way to install Behat Code Coverage is to use `Composer`_. From the command line simply execute the following to add
 ``dvdoug/behat-code-coverage`` to the ``require-dev`` section of your project's ``composer.json`` file. Composer will
 automatically take care of downloading the source and configuring an autoloader:
