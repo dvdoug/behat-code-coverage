@@ -11,26 +11,38 @@ automatically take care of downloading the source and configuring an autoloader:
 
 The code is also available to download from `GitHub`_
 
-After installation, in your project's ``behat.yml`` or ``behat.yml.dist``, add ``DVDoug\Behat\CodeCoverage\Extension``
-into the ``extensions`` key under ``default`` to enable it.
+After installation, register ``DVDoug\Behat\CodeCoverage\Extension`` on the ``default`` profile in your project's
+``behat.php`` or ``behat.dist.php``.
 
 The below example represents a typical configuration you may wish to use as a starting point. Each option is more fully
 explained in the next section.
 
-.. code:: yaml
+.. code:: php
 
-    default:
-        extensions:
-            DVDoug\Behat\CodeCoverage\Extension:
-                filter:
-                    include:
-                        directories:
-                            'src': ~
-                reports:
-                    html:
-                        target: build/coverage-behat
-                    text:
-                        showColors: true
+    use Behat\Config\Config;
+    use Behat\Config\Extension;
+    use Behat\Config\Profile;
+    use DVDoug\Behat\CodeCoverage\Extension as CodeCoverageExtension;
+
+    return (new Config())
+        ->withProfile((new Profile('default'))
+            ->withExtension(new Extension(CodeCoverageExtension::class, [
+                'filter' => [
+                    'include' => [
+                        'directories' => [
+                            'src' => null, // no prefix or suffix, i.e. all files
+                        ],
+                    ],
+                ],
+                'reports' => [
+                    'html' => [
+                        'target' => 'build/coverage-behat',
+                    ],
+                    'text' => [
+                        'showColors' => true,
+                    ],
+                ],
+            ])));
 
 Compatibility
 -------------

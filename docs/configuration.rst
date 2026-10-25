@@ -6,8 +6,7 @@ To do anything useful, once installed, you should configure Behat Code Coverage 
 Each of the settings described below has a direct equivalent in PHPUnit, if your codebase uses both testing frameworks
 you may wish to ensure the settings are aligned between the two tools.
 
-Settings are configured in your project's ``behat.php.dist`` or ``behat.php`` files if using the new PHP config
-or ``behat.yml`` or ``behat.yml.dist`` if you are using the old-style YAML config.
+Settings are configured in your project's ``behat.php`` or ``behat.dist.php``.
 
 Driver
 ------
@@ -52,22 +51,6 @@ For directories, list them by **key**. Optionally, you can specify a prefix or s
                 ],
             ]));
 
-.. code:: yaml
-
-    default:
-        extensions:
-            DVDoug\Behat\CodeCoverage\Extension:
-                filter:
-                    include:
-                        directories:
-                            'src':
-                                suffix: 'Controller.php'
-                            'src/Repository':
-                                prefix: 'API'
-                    exclude:
-                        directories:
-                            'tests/data': ~
-
 For files, list them by **name**:
 
 .. code:: php
@@ -97,21 +80,6 @@ For files, list them by **name**:
                 ],
             ])));
 
-.. code:: yaml
-
-    default:
-        extensions:
-            DVDoug\Behat\CodeCoverage\Extension:
-                filter:
-                    include:
-                        files:
-                            - 'bootstrap.php'
-                            - 'index.php'
-                    exclude:
-                        files:
-                            - 'src/ExcludeMe.php'
-                            - 'src/ExcludeMeToo.php'
-
 Filters have two additional settings, to control how files that have not been covered should be handled in the report.
 By default uncovered files are **included** but not **processed**.
 
@@ -130,14 +98,6 @@ By default uncovered files are **included** but not **processed**.
                     'includeUncoveredFiles' => true // defaults to true
                 ]
             ])));
-
-.. code:: yaml
-
-    default:
-        extensions:
-            DVDoug\Behat\CodeCoverage\Extension:
-                filter:
-                    includeUncoveredFiles: true # defaults to true
 
 * *Included* means that the file is incorporated into the reporting, showing up as 0% covered. This allows you to see
   files that you haven't written any tests for yet. If you choose not to include uncovered files, then only files that
@@ -179,20 +139,6 @@ run. It is configured by setting the ``text`` key. The default values are outlin
                     ],
                 ],
             ])));
-
-.. code:: yaml
-
-    default:
-        extensions:
-            DVDoug\Behat\CodeCoverage\Extension:
-                reports:
-                    text:
-                        showColors: false
-                        showOnlySummary: false
-                        showUncoveredFiles: false
-                        lowUpperBound: 50
-                        highLowerBound: 90
-                        target: ~ # defaults to null, i.e. only output to screen
 
 * If ``showColors`` is ``true``, the results will be output in a colour-coded format, red for low coverage, amber/yellow
   for a medium amount of coverage and green for high coverage. If desired, the thresholds for each colour can be
@@ -252,37 +198,6 @@ basis. It is configured by setting the ``html`` key. The default values are outl
                 ],
             ])));
 
-.. code:: yaml
-
-    default:
-        extensions:
-            DVDoug\Behat\CodeCoverage\Extension:
-                reports:
-                    html:
-                        target: <directory>  # no default value, you must specify
-                        lowUpperBound: 50
-                        highLowerBound: 90
-                        colors:
-                            successLow: '#d6e6f2'
-                            successLowDark: '#1e3550'
-                            successMedium: '#b3d1e8'
-                            successMediumDark: '#2d4f6e'
-                            successHigh: '#8cb4d5'
-                            successHighDark: '#2a4a6b'
-                            successBar: '#1a73b4'
-                            successBarDark: '#1560a0'
-                            warning: '#fdf0d5'
-                            warningDark: '#3d3010'
-                            warningBar: '#e5a100'
-                            warningBarDark: '#b88a00'
-                            danger: '#fad4c0'
-                            dangerDark: '#4a2a10'
-                            dangerBar: '#d45500'
-                            dangerBarDark: '#b54400'
-                            breadcrumbs: 'var(--bs-gray-200)'
-                            breadcrumbsDark: 'var(--bs-gray-800)'
-                        customCSSFile: ~ # defaults to null, i.e. no custom CSS file
-
 * The mandatory ``target`` key specifies the target directory to place the report files.
 * The HTML report is heavily colour-coded format using red for low coverage, amber/yellow for a medium amount of
   coverage and green for high coverage. If desired, the thresholds for each colour can be configured via
@@ -320,19 +235,6 @@ between tools. It is configured by setting the ``openclover`` or ``clover`` key.
                 ],
             ])));
 
-.. code:: yaml
-
-    default:
-        extensions:
-            DVDoug\Behat\CodeCoverage\Extension:
-                reports:
-                    openclover:
-                        target: <file>  # no default value, you must specify
-                        name: ''
-                    clover:
-                        target: <file>  # no default value, you must specify
-                        name: ''
-
 * The mandatory ``target`` key specifies the destination filename to use for the report. The reports are in XML format,
   an ``.xml`` file extension is suggested.
 * Optionally, you can configure the name of your project via the ``name`` key.
@@ -363,16 +265,6 @@ between tools. It is configured by setting the
                 ],
             ])));
 
-.. code:: yaml
-
-    default:
-        extensions:
-            DVDoug\Behat\CodeCoverage\Extension:
-                reports:
-                    cobertura:
-                        target: <file>  # no default value, you must specify
-                        name: ''
-
 * The mandatory ``target`` key specifies the destination filename to use for the report. The reports are in XML format,
   an ``.xml`` file extension is suggested.
 * Optionally, you can configure the name of your project via the ``name`` key.
@@ -401,17 +293,6 @@ key. The default values are outlined below:
                     ],
                 ],
             ])));
-
-.. code:: yaml
-
-    default:
-        extensions:
-            DVDoug\Behat\CodeCoverage\Extension:
-                reports:
-                    crap4j:
-                        target: <file>  # no default value, you must specify
-                        name: ''
-                        threshold: 30
 
 * The mandatory ``target`` key specifies the destination filename to use for the report. The reports are in XML format,
   an ``.xml`` file extension is suggested.
@@ -442,16 +323,6 @@ You can generate ".cov" reports by setting the ``serialized`` key.
                 ],
             ])));
 
-.. code:: yaml
-
-    default:
-        extensions:
-            DVDoug\Behat\CodeCoverage\Extension:
-                reports:
-                    serialized:
-                        target: <file>  # no default value, you must specify
-                        includeGitInformation: false
-
 * The mandatory ``target`` key specifies the destination filename to use for the report. The reports are actually PHP,
   but a ``.cov`` file extension is customary.
 
@@ -477,15 +348,6 @@ You can generate PHPUnit XML reports by setting the ``xml`` key.
                 ],
             ])));
 
-.. code:: yaml
-
-    default:
-        extensions:
-            DVDoug\Behat\CodeCoverage\Extension:
-                reports:
-                    xml:
-                        target: <directory>  # no default value, you must specify
-
 * The mandatory ``target`` key specifies the target directory to use for the report.
 
 .. _phpcov: https://github.com/sebastianbergmann/phpcov
@@ -509,13 +371,6 @@ traditional line-based data. More information on this topic is available at `htt
                 'branchAndPathCoverage' => true,
             ])));
 
-.. code:: yaml
-
-    default:
-        extensions:
-            DVDoug\Behat\CodeCoverage\Extension:
-                branchAndPathCoverage: true
-
 By default ``branchAndPathCoverage`` is true when running under Xdebug, false otherwise.
 
 .. _`https://doug.codes/php-code-coverage`: https://doug.codes/php-code-coverage
@@ -538,13 +393,6 @@ makes use of a cache to ameliorate this.
             ->withExtension(new Extension(CodeCoverageExtension::class, [
                 'cache' => '<directory>',
             ])));
-
-.. code:: yaml
-
-    default:
-        extensions:
-            DVDoug\Behat\CodeCoverage\Extension:
-                cache: <directory>
 
 The default ``cache`` directory is ``sys_get_temp_dir() . '/behat-code-coverage-cache'``. You may wish to relocate this
 this to be inside your project workspace.
