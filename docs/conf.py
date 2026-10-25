@@ -30,7 +30,7 @@ sys.path.insert(0, os.path.abspath('..'))
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['myst_parser']
+extensions = ['myst_parser', 'sphinx_llm.txt']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -80,6 +80,19 @@ todo_include_todos = False
 
 # Define the canonical URL if you are using a custom domain on Read the Docs
 html_baseurl = os.environ.get("READTHEDOCS_CANONICAL_URL", "")
+
+# Read the Docs serves /llms.txt from the domain root, while the generated
+# Markdown pages stay under the version path. Absolute links keep those
+# references working. Locally this is empty, so the links stay relative.
+markdown_http_base = html_baseurl
+
+llms_txt_description = (
+    "Behat Code Coverage is a Behat extension that generates code coverage "
+    "reports for a PHP application using the same php-code-coverage library as PHPUnit."
+)
+# The documentation set is small enough to publish in one file. Read the Docs
+# serves it from /llms-full.txt when the build output contains it.
+llms_txt_full_build = True
 
 # Tell Jinja2 templates the build is running on Read the Docs
 if os.environ.get("READTHEDOCS", "") == "True":
