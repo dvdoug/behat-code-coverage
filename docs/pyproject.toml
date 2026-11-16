@@ -3,7 +3,7 @@ name = "docs"
 version = "1.0.0"
 requires-python = ">=3.14"
 dependencies = [
-    "myst-parser~=5.0",
+    "myst-parser~=5.2",
     "sphinx-llm~=1.1",
     "sphinx-rtd-theme~=3.0",
 ]
