@@ -10,10 +10,12 @@ use DVDoug\Behat\CodeCoverage\Service\ReportService;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Driver\Driver;
+use SebastianBergmann\CodeCoverage\Driver\Granularity;
 use SebastianBergmann\CodeCoverage\Filter;
 use Symfony\Component\Filesystem\Filesystem;
 
 use function file_get_contents;
+use function method_exists;
 use function ob_get_clean;
 use function ob_start;
 use function sys_get_temp_dir;
@@ -131,6 +133,9 @@ class ReportServiceTest extends TestCase
         $filesystem->remove($reportFilename);
 
         $driver = $this->createStub(Driver::class);
+        if (method_exists(Driver::class, 'granularity')) {
+            $driver->method('granularity')->willReturn(Granularity::Line);
+        }
         $coverage = new CodeCoverage($driver, new Filter());
 
         $reportService = new ReportService(
